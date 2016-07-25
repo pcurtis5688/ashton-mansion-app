@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/add_appt_table"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:stretchColumns="*"
+    tools:context=".activity.AddAppointmentActivity">
+
+    <TableRow android:layout_width="fill_parent">
+
+        <TextView
+            android:id="@+id/id_appt_page_header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/add_appt_page_header" />
+    </TableRow>
+
+    <TableRow>
+
+        <DatePicker
+            android:id="@+id/appt_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:calendarViewShown="false" />
+
+        <TimePicker
+            android:id="@+id/appt_start_time"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
+    </TableRow>
+
+    <TableRow>
+
+        <TextView
+            android:id="@+id/label_appt_duration"
+            android:text="@string/appt_duration_label_str" />
+
+        <EditText
+            android:id="@+id/appt_duration"
+            android:layout_width="match_parent"
+            android:maxLength="3"
+            android:textAlignment="center" />
+    </TableRow>
+
+    <TableRow>
+
+        <TextView
+            android:id="@+id/label_appt_customer_code"
+            android:text="@string/appt_cust_code_label_str" />
+
+        <EditText
+            android:id="@+id/appt_customer_code"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="@string/appt_todo_hint" />
+    </TableRow>
+
+    <TableRow>
+
+        <TextView
+            android:id="@+id/label_alert_type"
+            android:text="@string/appt_alert_type_label_str" />
+
+        <Spinner
+            android:id="@+id/appt_alert_type_spinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:entries="@array/alert_types" />
+    </TableRow>
+
+    <TableRow>
+
+        <TextView
+            android:id="@+id/label_appt_item_code"
+            android:text="@string/appt_item_code_label_str" />
+
+        <EditText
+            android:id="@+id/appt_item_code"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="@string/appt_todo_hint" />
+    </TableRow>
+
+    <TableRow>
+
+        <TextView
+            android:id="@+id/label_appt_note"
+            android:text="@string/appt_note_label_str" />
+
+        <EditText
+            android:id="@+id/appt_note"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="@string/appt_note_label_str"
+            android:textAlignment="center" />
+    </TableRow>
+
+    <TableRow>
+
+        <TextView
+            android:id="@+id/label_appt_emp_1_assigned"
+            android:text="@string/appt_emp_1_label_str" />
+
+        <EditText
+            android:id="@+id/appt_emp_1_assigned"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/appt_todo_hint" />
+    </TableRow>
+
+    <TableRow>
+
+        <TextView
+            android:id="@+id/label_appt_emp_2_assigned"
+            android:text="@string/appt_emp_2_label_str" />
+
+        <EditText
+            android:id="@+id/appt_emp_2_assigned"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="@string/appt_todo_hint" />
+    </TableRow>
+
+    <TableRow>
+
+        <TextView
+            android:id="@+id/label_appt_status_confirm"
+            android:text="@string/appt_confirm_status_label_str" />
+
+        <Spinner
+            android:id="@+id/appt_confirm_status"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:entries="@array/appt_confirm_status_types" />
+    </TableRow>
+
+    <TableRow android:paddingTop="25dp">
+
+        <Button
+            android:id="@+id/cancel_add_appointment_btn"
+            android:layout_width="fill_parent"
+            android:onClick="cancelAddAppointment"
+            android:text="@string/cancel_btn_str" />
+
+        <Button
+            android:id="@+id/submit_add_appointment_btn"
+            android:layout_width="fill_parent"
+            android:onClick="finalizeAddAppointment"
+            android:text="@string/add_btn_str" />
+    </TableRow>
+</TableLayout>
