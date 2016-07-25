@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:stretchColumns="*"
+    tools:context="com.ashtonmansion.ashtonmansionapp.activity.AddEmployeeActivity">
+
+    <TableRow>
+
+        <TextView
+            android:id="@+id/id_add_employee_header"
+            android:text="@string/add_employee_header_str" />
+    </TableRow>
+
+    <TableRow>
+
+        <TextView
+            android:id="@+id/employee_name_promprt"
+            android:text="@string/add_employee_name_label_str" />
+
+        <EditText
+            android:id="@+id/add_employee_name"
+            android:hint="@string/add_employee_name_hint_str"
+            android:maxLength="48" />
+    </TableRow>
+
+    <TableRow>
+
+        <TextView
+            android:id="@+id/employee_nickname_prompt"
+            android:text="@string/add_employee_nickname_label_str" />
+
+        <EditText
+            android:id="@+id/add_employee_nickname"
+            android:hint="@string/add_employee_nickname_hint_str"
+            android:maxLength="26" />
+    </TableRow>
+
+    <TableRow>
+
+        <TextView
+            android:id="@+id/employee_role_prompt"
+            android:text="@string/add_employee_role_label_str" />
+
+        <Spinner
+            android:id="@+id/add_employee_role_spinner"
+            android:entries="@array/employee_roles_array" />
+    </TableRow>
+
+    <TableRow>
+
+        <TextView
+            android:id="@+id/employee_pin_prompt"
+            android:text="@string/add_employee_pin_label_str" />
+
+        <EditText
+            android:id="@+id/add_employee_pin"
+            android:hint=""
+            android:inputType="numberPassword"
+            android:maxLength="4" />
+    </TableRow>
+
+    <TableRow>
+
+        <TextView
+            android:id="@+id/employee_email_prompt"
+            android:text="@string/add_employee_email_label_str" />
+
+        <EditText
+            android:id="@+id/add_employee_email"
+            android:hint="@string/add_employee_email_hint_str"
+            android:inputType="textWebEmailAddress"
+            android:maxLength="4" />
+    </TableRow>
+
+    <TableRow>
+
+        <Button
+            android:id="@+id/cancel_add_employee_btn"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:onClick="cancelAddEmployee"
+            android:paddingBottom="@dimen/main_btn_vertical_margin"
+            android:paddingTop="@dimen/main_btn_vertical_margin"
+            android:text="@string/cancel_btn_str" />
+
+        <Button
+            android:id="@+id/submit_add_email_btn"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:onClick="finalizeAddEmployee"
+            android:paddingBottom="@dimen/main_btn_vertical_margin"
+            android:paddingTop="@dimen/main_btn_vertical_margin"
+            android:text="@string/employee_insert_btn_str" />
+    </TableRow>
+</TableLayout>

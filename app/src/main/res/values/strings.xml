@@ -1,0 +1,107 @@
+<resources>
+    <!-- GLOBAL APP RELATED STRINGS -->
+    <string name="app_name">Ashton And Mansion App</string>
+
+    <!-- MERCHANT RELATED STRINGS -->
+
+    <!-- APPOINTMENT RELATED STRINGS -->
+    <string name="appt_page">Appointments</string>
+    <string name="appointments_heading_str">Appointments</string>
+    <string name="add_appt_page_header">Add an Appointment</string>
+    <string name="add_appointment_button">Add an Appointment</string>
+
+    <string name="appt_datepicker_label_str">Appointment Date: </string>
+    <string name="appt_timepicker_label_str">Appointment Time: </string>
+    <string name="appt_duration_label_str">Appointment Duration: </string>
+    <string name="appt_alert_type_label_str">Alert Type: </string>
+    <string name="appt_cust_code_label_str">Customer Code: </string>
+    <string name="appt_item_code_label_str">Item Code: </string>
+    <string name="appt_note_label_str">Appointment Notes: </string>
+    <string name="appt_emp_1_label_str">Employee 1 Assigned: </string>
+    <string name="appt_emp_2_label_str">Employee 2 Assigned: </string>
+    <string name="appt_confirm_status_label_str">Initial Confirmation Status: </string>
+
+    <string name="alert_type_prompt">Please select an alert type</string>
+    <string-array name="alert_types">
+        <item>Text</item>
+        <item>Email</item>
+    </string-array>
+
+    <string name="appt_confirm_status_prompt">Current status: </string>
+    <string-array name="appt_confirm_status_types">
+        <item>Confirmed</item>
+        <item>Rescheduled</item>
+        <item>Etc</item>
+    </string-array>
+
+    <!--CUSTOMER ACTIVITY RELATED STRINGS-->
+    <string name="label_cust_page_btn">Customers</string>
+    <string name="customer_page_header_label_str">Customers</string>
+    <string name="add_customer_btn_string">Add Customer</string>
+    <!-- CUSTOMER ADD RELATED STRINGS -->
+    <string name="add_customer_header_str">Add Customer</string>
+    <string name="customer_first_name_prompt_str">First Name</string>
+    <string name="customer_last_name_prompt_str">Last Name</string>
+    <string name="customer_phone_prompt_str">Phone</string>
+    <string name="customer_email_prompt_str">Email</string>
+    <string name="customer_address_prompt_str">Address</string>
+    <string name="customer_address_1_prompt_str">Address 1</string>
+    <string name="customer_address_2_prompt_str">Address 2</string>
+    <string name="customer_address_3_prompt_str">Address 3</string>
+    <string name="customer_city_prompt_str">City</string>
+    <string name="customer_state_prompt_str">State</string>
+    <string name="customer_zip_prompt_str">Zip Code</string>
+    <string name="customer_insert_btn_str">Add Customer</string>
+
+    <!-- EMPLOYEE ACTIVITY RELATED STRINGS -->
+    <string name="employees_heading_str">Employees</string>
+    <string name="employee_page_btn_str">Employees</string>
+    <string name="add_employee_btn_str">Add Employee</string>
+    <string name="add_employee_header_str">Add Employee</string>
+    <string name="add_employee_name_label_str">Name</string>
+    <string name="add_employee_name_hint_str">Name</string>
+    <string name="add_employee_nickname_label_str">Nickname</string>
+    <string name="add_employee_nickname_hint_str">Nickname</string>
+    <string name="add_employee_role_label_str">Role</string>
+    <string name="add_employee_pin_label_str">Login PIN</string>
+    <string name="add_employee_pin_hint_str">PIN</string>
+    <string name="add_employee_email_label_str">Email</string>
+    <string name="add_employee_email_hint_str">Email</string>
+    <string name="employee_insert_btn_str">Add Employee</string>
+
+    <string-array name="employee_roles_array">
+        <item>admin</item>
+        <item>Employee</item>
+        <item>Manager</item>
+    </string-array>
+
+    <!-- INVENTORY ACTIVITY RELATED STRINGS -->
+    <string name="items_heading">Inventory Items</string>
+    <string name="inventory_page_heading_str">Inventory</string>
+    <string name="inventory_page_btn_str">Inventory</string>
+    <string name="add_inventory_item_btn_str">Add Item</string>
+    <string name="inventory_insert_btn_str">Add Item</string>
+    <string name="add_inventory_header_str">Add Item</string>
+
+    <!--SETTINGS STRINGS -->
+    <string name="settings_screen_header_str">Edit Settings"</string>
+    <string name="action_settings">Settings</string>
+    <string name="settings_btn_str">Edit Settings</string>
+    <string name="settings_max_appt_hours_label_str">Maximum Permissible Hours Alloted to Appointment? </string>
+    <string name="settings_advance_alert_days_label_str">Days in advance that alert is sent? </string>
+    <string name="settings_alert_time_of_day_label_str">Alert Time of Day? </string>
+    <string name="settings_weekday_alerts_only_label_str">Weekday Alerts Only </string>
+    <string name="settings_holiday_alerts_label_str">Avoid Holiday Alerts </string>
+    <string name="settings_default_appt_duration_label_str">Default appointment duration? </string>
+    <string name="save_settings_btn_str">Save Settings and Return</string>
+
+    <!-- UTILITY STRINGS AND ARRAYS -->
+    <string name="add_btn_str">Add</string>
+    <string name="cancel_btn_str">Cancel</string>
+
+    <string-array name="yes_no_string_array">
+        <item>Yes</item>
+        <item>No</item>
+    </string-array>
+
+</resources>

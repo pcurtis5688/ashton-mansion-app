@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:stretchColumns="*"
+    tools:context=".activity.MainActivity">
+
+    <TableRow>
+        <Button
+            android:id="@+id/show_appt_page_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/main_btn_vertical_margin"
+            android:paddingBottom="@dimen/main_btn_vertical_margin"
+            android:onClick="showApptPage"
+            android:text="@string/appt_page" />
+
+        <Button
+            android:id="@+id/show_inventory_page_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/main_btn_vertical_margin"
+            android:paddingBottom="@dimen/main_btn_vertical_margin"
+            android:onClick="showInventoryPage"
+            android:text="@string/inventory_page_btn_str" />
+    </TableRow>
+
+    <TableRow>
+
+        <Button
+            android:id="@+id/show_emp_page_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/main_btn_vertical_margin"
+            android:paddingBottom="@dimen/main_btn_vertical_margin"
+            android:onClick="showEmployeePage"
+            android:text="@string/employee_page_btn_str" />
+
+        <Button
+            android:id="@+id/show_cust_page_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/main_btn_vertical_margin"
+            android:paddingBottom="@dimen/main_btn_vertical_margin"
+            android:onClick="showCustPage"
+            android:text="@string/label_cust_page_btn" />
+    </TableRow>
+
+    <TableRow>
+
+        <Button
+            android:id="@+id/settings_btn"
+            android:layout_span="2"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/main_btn_vertical_margin"
+            android:paddingBottom="@dimen/main_btn_vertical_margin"
+            android:onClick="showSettingsPage"
+            android:text="@string/settings_btn_str" />
+    </TableRow>
+
+</TableLayout>
