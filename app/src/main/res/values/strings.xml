@@ -35,6 +35,8 @@
         <item>Etc</item>
     </string-array>
 
+    <string name="test_insertApptWS_btn_str">Test Insert Appt WS</string>
+
     <!--CUSTOMER ACTIVITY RELATED STRINGS-->
     <string name="label_cust_page_btn">Customers</string>
     <string name="customer_page_header_label_str">Customers</string>
@@ -80,9 +82,26 @@
     <string name="items_heading">Inventory Items</string>
     <string name="inventory_page_heading_str">Inventory</string>
     <string name="inventory_page_btn_str">Inventory</string>
+
+
     <string name="add_inventory_item_btn_str">Add Item</string>
     <string name="inventory_insert_btn_str">Add Item</string>
     <string name="add_inventory_header_str">Add Item</string>
+    <string name="add_item_name_label_str">Item Name:</string>
+    <string name="add_item_showInRegister_label_str">Show in Register</string>
+    <string name="add_item_nonRevenueItem_label_str">Non-revenue Item</string>
+    <string name="add_item_price_label_str">Item Name:</string>
+    <string name="add_item_prodCode_label_str">Item Name:</string>
+    <string name="add_item_sku_label_str">Item Name:</string>
+    <string name="add_item_taxes_label_str">Item Name:</string>
+    <string name="add_item_modifiers_label_str">Item Name:</string>
+    <string name="add_item_categories_label_str">Item Name:</string>
+    <string name="add_item_labels_label_str">Item Name:</string>
+    <string name="add_item_editTaxes_label_str">Item Name:</string>
+    <string name="add_item_editModifiers_label_str">Item Name:</string>
+    <string name="add_item_editCategories_label_str">Item Name:</string>
+    <string name="add_item_editLabels_label_str">Item Name:</string>
+
 
     <!--SETTINGS STRINGS -->
     <string name="settings_screen_header_str">Edit Settings"</string>

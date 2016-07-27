@@ -152,5 +152,10 @@
             android:layout_width="fill_parent"
             android:onClick="finalizeAddAppointment"
             android:text="@string/add_btn_str" />
+
+        <Button
+            android:id="@+id/test_insertApptWS_btn"
+            android:onClick="insertAppointmentWS"
+            android:text="@string/test_insertApptWS_btn_str" />
     </TableRow>
 </TableLayout>

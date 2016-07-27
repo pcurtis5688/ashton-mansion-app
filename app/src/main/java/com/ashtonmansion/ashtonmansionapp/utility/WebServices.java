@@ -17,7 +17,7 @@ import java.util.Date;
 public class WebServices extends AsyncTask<Void, Void, String> {
     private String SOAP_NAMESPACE = "urn:urn:microsoft-dynamics-schemas/codeunit/wsApptSched";
 
-    private String SOAP_URL = "http://localhost:7047/DynamicsNAV90/WS/CRONUS%20Canada%2C%20Inc./Codeunit/wsApptSched";
+    private String SOAP_URL = "http://10.0.2.2:7047/DynamicsNAV90/WS/CRONUS%20Canada%2C%20Inc./Codeunit/wsApptSched";
     private String SOAP_ACTION = "urn:microsoft-dynamics-schemas/codeunit/wsApptSched:CreateAppt";
     private String SOAP_METHOD = "CreateAppt";
 
@@ -103,9 +103,13 @@ public class WebServices extends AsyncTask<Void, Void, String> {
 
         try {
             androidHttpTransport.call(SOAP_ACTION, envelope);
+            Log.i("worked", new String("worked"));
         } catch (Exception e) {
             Log.i("WS Error-->", e.toString());
+            Log.i("hi", new String("error"));
         }
+
+
         return "string";
     }
 }

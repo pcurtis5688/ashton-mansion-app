@@ -68,10 +68,4 @@ public class MainActivity extends AppCompatActivity {
         Intent settingsPageIntent = new Intent(this, SettingsActivity.class);
         startActivity(settingsPageIntent);
     }
-
-    //Test method for web services
-    public void testInsertAppointment(View view){
-        WebServices wsTest = new WebServices();
-        wsTest.execute();
-    }
 }

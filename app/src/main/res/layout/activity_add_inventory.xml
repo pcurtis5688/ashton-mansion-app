@@ -20,6 +20,70 @@
 
     <TableRow>
 
+        <TextView
+            android:id="@+id/add_item_field_label"
+            android:text="@string/add_item_name_label_str" />
+    </TableRow>
+
+    <TableRow>
+
+        <TextView
+            android:id="@+id/add_item_showInRegister_label"
+            android:text="@string/add_item_showInRegister_label_str" />
+
+        <TextView
+            android:id="@+id/add_item_nonRevenueItem_label"
+            android:text="@string/add_item_nonRevenueItem_label_str" />
+    </TableRow>
+
+    <TableRow>
+
+        <TextView
+            android:id="@+id/add_item_price_label"
+            android:text="@string/add_item_price_label_str" />
+    </TableRow>
+
+    <TableRow>
+
+        <TextView
+            android:id="@+id/add_item_prodCode_label"
+            android:text="@string/add_item_prodCode_label_str" />
+
+        <EditText
+            android:id="@+id/add_item_prodCode"
+            android:hint="@string/add_item_prodCode_label_str" />
+
+        <TextView
+            android:id="@+id/add_item_sku_label"
+            android:text="@string/add_item_sku_label_str" />
+
+        <EditText
+            android:id="@+id/add_item_sku"
+            android:hint="@string/add_item_sku_label_str" />
+    </TableRow>
+
+    <TableRow>
+
+        <TextView
+            android:id="@+id/add_item_taxes_label"
+            android:text="@string/add_item_taxes_label_str" />
+
+        <TextView
+            android:id="@+id/add_item_current_taxes_view"
+            android:hint="figure this out" />
+    </TableRow>
+
+    <TableRow>
+
+        <TextView
+            android:id="@+id/add_item_modifiers_label"
+            android:text="@string/add_item_modifiers_label_str" />
+
+        <Button />
+    </TableRow>
+
+    <TableRow>
+
         <Button
             android:id="@+id/cancel_add_inventory_btn"
             android:layout_width="fill_parent"

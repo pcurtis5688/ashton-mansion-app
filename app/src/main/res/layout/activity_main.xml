@@ -62,9 +62,4 @@
             android:onClick="showSettingsPage"
             android:text="@string/settings_btn_str" />
     </TableRow>
-
-    <TableRow>
-        <Button
-            android:onClick="testInsertAppointment"/>
-    </TableRow>
 </TableLayout>

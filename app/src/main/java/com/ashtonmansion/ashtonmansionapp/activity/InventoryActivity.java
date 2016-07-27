@@ -106,6 +106,7 @@ public class InventoryActivity extends AppCompatActivity {
     private void populateItemTable() {
         //Item table vars
         TableLayout itemTable = (TableLayout) findViewById(R.id.inventory_table);
+        itemTable.removeAllViews();
         TableRow workingInventoryRow = new TableRow(this);
 
         TextView itemNameTextview = new TextView(this);

@@ -3,6 +3,7 @@ package com.ashtonmansion.ashtonmansionapp.activity;
 import android.app.ActionBar;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -16,6 +17,9 @@ import com.ashtonmansion.ashtonmansionapp.R;
 import com.ashtonmansion.ashtonmansionapp.dao.DatabaseHandler;
 import com.ashtonmansion.ashtonmansionapp.dbo.Appointment;
 import com.clover.sdk.v1.printer.ReceiptContract;
+
+import org.ksoap2.serialization.PropertyInfo;
+import org.ksoap2.serialization.SoapObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -154,4 +158,5 @@ public class AppointmentsActivity extends AppCompatActivity {
         appointmentsTable.addView(headerRow);
 
     }
+
 }
