@@ -152,17 +152,19 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String TABLE_SETTINGS = "Settings";
     private static final String SETTINGS_MAX_APPT_HOURS = "max_appt_hours";
     private static final String SETTINGS_ADVANCE_ALERT_DAYS = "advance_alert_days";
-    private static final String SETTINGS_ALERT_TIME_OF_DAY = "alert_time_of_day";
     private static final String SETTINGS_WEEKDAY_ALERTS_ONLY = "weekday_alerts_only";
     private static final String SETTINGS_AVOID_HOLIDAY_ALERTS = "avoid_holiday_alerts";
     private static final String SETTINGS_DEFAULT_APPT_DURATION = "default_appt_duration";
+    private static final String SETTINGS_ALERT_TIME_OF_DAY_HOUR = "alert_time_of_day_hour";
+    private static final String SETTINGS_ALERT_TIME_OF_DAY_MINUTE = "alert_time_of_day_minute";
 
     public void createSettingsTable() {
         SQLiteDatabase db = this.getWritableDatabase();
         String CREATE_SETTINGS_TABLE = "CREATE TABLE " + TABLE_SETTINGS
                 + "(" + SETTINGS_MAX_APPT_HOURS + TEXT_TYPE_COMMA
                 + SETTINGS_ADVANCE_ALERT_DAYS + TEXT_TYPE_COMMA
-                + SETTINGS_ALERT_TIME_OF_DAY + TEXT_TYPE_COMMA
+                + SETTINGS_ALERT_TIME_OF_DAY_HOUR + TEXT_TYPE_COMMA
+                + SETTINGS_ALERT_TIME_OF_DAY_MINUTE + TEXT_TYPE_COMMA
                 + SETTINGS_WEEKDAY_ALERTS_ONLY + TEXT_TYPE_COMMA
                 + SETTINGS_AVOID_HOLIDAY_ALERTS + TEXT_TYPE_COMMA
                 + SETTINGS_DEFAULT_APPT_DURATION + ")";
@@ -189,21 +191,25 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         Settings userSettings = new Settings();
 
         if (cursor.moveToFirst()) {
-            userSettings.set_max_appt_hours(Integer.parseInt(cursor.getString(0)));
-            userSettings.set_advance_alert_days(Integer.parseInt(cursor.getString(1)));
-            userSettings.set_alert_time_of_day(cursor.getString(2));
-            if (cursor.getString(3).equalsIgnoreCase("true")) {
+            userSettings.set_max_appt_hours(Integer.parseInt(cursor.getString(cursor.getColumnIndex("max_appt_hours"))));
+            userSettings.set_advance_alert_days(Integer.parseInt(cursor.getString(cursor.getColumnIndex("advance_alert_days"))));
+            userSettings.set_default_duration(Integer.parseInt(cursor.getString(cursor.getColumnIndex("default_appt_duration"))));
+
+            userSettings.set_alert_time_of_day_hour(Integer.parseInt(cursor.getString(cursor.getColumnIndex("alert_time_of_day_hour"))));
+            userSettings.set_alert_time_of_day_minute(Integer.parseInt(cursor.getString(cursor.getColumnIndex("alert_timeof_day_minute"))));
+
+            if (cursor.getString(cursor.getColumnIndex("weekday_alerts_only")).equalsIgnoreCase("true")) {
                 userSettings.set_alerts_weekdays_only(true);
             } else {
                 userSettings.set_alerts_weekdays_only(false);
             }
-            if (cursor.getString(4).equalsIgnoreCase("true")) {
+            if (cursor.getString(cursor.getColumnIndex("avoid_holiday_alerts")).equalsIgnoreCase("true")) {
                 userSettings.set_avoid_holiday_alerts(true);
             } else {
                 userSettings.set_avoid_holiday_alerts(false);
             }
+
             //TODO FIGURE OUT THIS EXCEPTION
-            //  userSettings.set_default_duration(Integer.parseInt(cursor.getString(5)));
         }
         return userSettings;
     }
@@ -215,9 +221,21 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put(SETTINGS_MAX_APPT_HOURS, settings.get_max_appt_hours());
         values.put(SETTINGS_ADVANCE_ALERT_DAYS, settings.get_advance_alert_days());
-        values.put(SETTINGS_ALERT_TIME_OF_DAY, settings.get_alert_time_of_day());
-        values.put(SETTINGS_WEEKDAY_ALERTS_ONLY, settings.is_alerts_weekdays_only());
-        values.put(SETTINGS_AVOID_HOLIDAY_ALERTS, settings.is_avoid_holiday_alerts());
+        values.put(SETTINGS_DEFAULT_APPT_DURATION, settings.get_default_duration());
+
+        if (settings.is_alerts_weekdays_only()) {
+            values.put(SETTINGS_WEEKDAY_ALERTS_ONLY, "true");
+        } else {
+            values.put(SETTINGS_WEEKDAY_ALERTS_ONLY, "false");
+        }
+        if (settings.is_avoid_holiday_alerts()) {
+            values.put(SETTINGS_AVOID_HOLIDAY_ALERTS, "true");
+        } else {
+            values.put(SETTINGS_AVOID_HOLIDAY_ALERTS, "false");
+        }
+
+        values.put(SETTINGS_ALERT_TIME_OF_DAY_HOUR, settings.get_alert_time_of_day_hour());
+        values.put(SETTINGS_ALERT_TIME_OF_DAY_MINUTE, settings.get_alert_time_of_day_minute());
 
         db.insert(TABLE_SETTINGS, null, values);
         db.close();

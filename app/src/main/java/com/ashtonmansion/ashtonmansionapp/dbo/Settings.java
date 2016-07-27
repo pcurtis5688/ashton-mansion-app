@@ -10,24 +10,31 @@ public class Settings {
     private int _id;
     private int _max_appt_hours;
     private int _advance_alert_days;
-    private String _alert_time_of_day;
+    private int _default_duration;
+
     private boolean _alerts_weekdays_only;
     private boolean _avoid_holiday_alerts;
-    private int _default_duration;
+
+    private int _alert_time_of_day_hour;
+    private int _alert_time_of_day_minute;
+
 
     public Settings() {
         //Empty constructor
     }
 
     //Constructor without ID
-    public Settings(int _max_appt_hours, int _advance_alert_days, String _alert_time_of_day,
-                    boolean _alerts_weekdays_only, boolean _avoid_holiday_alerts, int _default_duration) {
+    public Settings(int _max_appt_hours, int _advance_alert_days, int _default_duration,
+                    boolean _alerts_weekdays_only, boolean _avoid_holiday_alerts, int _alert_time_of_day_hour, int _alert_time_of_day_minute) {
         this._max_appt_hours = _max_appt_hours;
         this._advance_alert_days = _advance_alert_days;
-        this._alert_time_of_day = _alert_time_of_day;
+        this._default_duration = _default_duration;
+
         this._alerts_weekdays_only = _alerts_weekdays_only;
         this._avoid_holiday_alerts = _avoid_holiday_alerts;
-        this._default_duration = _default_duration;
+
+        this._alert_time_of_day_hour = _alert_time_of_day_hour;
+        this._alert_time_of_day_minute = _alert_time_of_day_minute;
     }
 
     public int get_max_appt_hours() {
@@ -46,13 +53,30 @@ public class Settings {
         this._advance_alert_days = _advance_alert_days;
     }
 
-    public String get_alert_time_of_day() {
-        return _alert_time_of_day;
+    public int get_default_duration() {
+        return _default_duration;
     }
 
-    public void set_alert_time_of_day(String _alert_time_of_day) {
-        this._alert_time_of_day = _alert_time_of_day;
+    public void set_default_duration(int _default_duration) {
+        this._default_duration = _default_duration;
     }
+
+    public int get_alert_time_of_day_hour() {
+        return _alert_time_of_day_hour;
+    }
+
+    public void set_alert_time_of_day_hour(int _alert_time_of_day_hour) {
+        this._alert_time_of_day_hour = _alert_time_of_day_hour;
+    }
+
+    public int get_alert_time_of_day_minute() {
+        return _alert_time_of_day_hour;
+    }
+
+    public void set_alert_time_of_day_minute(int _alert_time_of_day_minute) {
+        this._alert_time_of_day_minute = _alert_time_of_day_minute;
+    }
+
 
     public boolean is_alerts_weekdays_only() {
         return _alerts_weekdays_only;
@@ -70,13 +94,6 @@ public class Settings {
         this._avoid_holiday_alerts = _avoid_holiday_alerts;
     }
 
-    public int get_default_duration() {
-        return _default_duration;
-    }
-
-    public void set_default_duration(int _default_duration) {
-        this._default_duration = _default_duration;
-    }
 
     public int get_id() {
         return _id;

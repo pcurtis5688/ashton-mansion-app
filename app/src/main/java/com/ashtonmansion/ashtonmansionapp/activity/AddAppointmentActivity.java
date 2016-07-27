@@ -90,6 +90,7 @@ public class AddAppointmentActivity extends AppCompatActivity {
             SoapObject request = new SoapObject(SOAP_NAMESPACE, SOAP_METHOD);
 
             String testString = "test";
+            String wsSuccess = "fail";
 
             @Override
             protected String doInBackground(Void... params) {
@@ -157,13 +158,12 @@ public class AddAppointmentActivity extends AppCompatActivity {
                     androidHttpTransport.call(SOAP_ACTION, envelope);
 
                     Log.i("worked", new String("worked"));
-                    return "success";
+                    wsSuccess = "success";
                 } catch (Exception e) {
                     Log.i("WS Error-->", e.toString());
                     Log.i("hi", new String("error"));
                 }
-
-                return "success";
+                return wsSuccess;
             }
 
         }.execute();
