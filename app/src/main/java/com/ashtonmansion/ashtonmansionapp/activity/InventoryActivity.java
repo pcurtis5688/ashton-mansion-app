@@ -18,12 +18,20 @@ import com.clover.sdk.v3.inventory.Item;
 import java.util.List;
 
 public class InventoryActivity extends AppCompatActivity {
-
+    // Private account vars
     private Account mAcct;
     private InventoryConnector mInvConn;
     private List<Item> itemList;
+    //Inventory view vars
+    private TableLayout itemTable;
+    private TableRow itemHeaderRow;
+    private TableRow newItemRow;
+    private TextView itemNameTextview;
+    private TextView itemModifierTextview;
+    private TextView itemProductCodeTextview;
+    private TextView itemSkuTextview;
+    private TextView itemPriceTextview;
 
-    //Method to add new inventory
     public void displayAddInventory(View view) {
         Intent addInventoryItemIntent = new Intent(this, AddInventoryActivity.class);
         startActivity(addInventoryItemIntent);
@@ -33,6 +41,8 @@ public class InventoryActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inventory);
+
+        itemTable = (TableLayout) findViewById(R.id.item_table);
     }
 
     @Override
@@ -104,39 +114,49 @@ public class InventoryActivity extends AppCompatActivity {
     }
 
     private void populateItemTable() {
-        //Item table vars
-        TableLayout itemTable = (TableLayout) findViewById(R.id.inventory_table);
+        //Clear the item table
         itemTable.removeAllViews();
-        TableRow workingInventoryRow = new TableRow(this);
-
-        TextView itemNameTextview = new TextView(this);
-        TextView itemModifierTextview = new TextView(this);
-        TextView itemProductCodeTextview = new TextView(this);
-        TextView itemSkuTextview = new TextView(this);
-        TextView itemPriceTextview = new TextView(this);
+        //Create item header row
+        createItemTableHeaderRow();
+        //TODO THIS
 
         for (Item item : itemList) {
+            //Create new row to add to the table
+            newItemRow = new TableRow(this);
+            //Create new views to populate data
+            itemNameTextview = new TextView(this);
+            itemModifierTextview = new TextView(this);
+            itemProductCodeTextview = new TextView(this);
+            itemSkuTextview = new TextView(this);
+            itemPriceTextview = new TextView(this);
+            //Set the new data for the new row
             itemNameTextview.setText(item.getName());
             itemModifierTextview.setText(item.getModifierGroups().toString());
             itemProductCodeTextview.setText(item.getCode());
             itemSkuTextview.setText(item.getSku());
             itemPriceTextview.setText(item.getPrice().toString());
-            workingInventoryRow.addView(itemNameTextview);
-            workingInventoryRow.addView(itemModifierTextview);
-            workingInventoryRow.addView(itemProductCodeTextview);
-            workingInventoryRow.addView(itemSkuTextview);
-            workingInventoryRow.addView(itemPriceTextview);
-            itemTable.addView(workingInventoryRow);
+            //Add the new data to the new row
+            newItemRow.addView(itemNameTextview);
+            newItemRow.addView(itemModifierTextview);
+            newItemRow.addView(itemProductCodeTextview);
+            newItemRow.addView(itemSkuTextview);
+            newItemRow.addView(itemPriceTextview);
+            //Add the new row to the table
+            itemTable.addView(newItemRow);
         }
     }
 
     private void populateItemDetail() {
-        Item testItem = itemList.get(0);
+        //Todo decide on this implementation
+         /* Item testItem = itemList.get(0);
         TextView itemDetailNameTv = (TextView) findViewById(R.id.item_detail_name);
         itemDetailNameTv.setText(testItem.getName());
 
-
         String testData = "Testing data: " + testItem.getName();
-        itemDetailNameTv.setText(testData);
+        itemDetailNameTv.setText(testData);*/
+    }
+
+    private void createItemTableHeaderRow() {
+        //TODO THIS
     }
 }

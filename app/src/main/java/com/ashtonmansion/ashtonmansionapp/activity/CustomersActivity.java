@@ -28,6 +28,13 @@ public class CustomersActivity extends AppCompatActivity {
     private Account mAcct;
     private CustomerConnector mCustConn;
     private List<Customer> customerList;
+    //Activity view vars
+    private TableLayout customerTable;
+    private TableRow customerTableHeaderRow;
+    private TableRow newCustomerRow;
+    private TextView custLastnameTextview;
+    private TextView custFirstnameTextview;
+    private TextView custPhoneTextview;
 
     //Method to add a new customer
     public void displayAddCustomer(View view) {
@@ -39,6 +46,8 @@ public class CustomersActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_customers);
+
+        customerTable = (TableLayout) findViewById(R.id.customer_table);
     }
 
     @Override
@@ -111,28 +120,33 @@ public class CustomersActivity extends AppCompatActivity {
     }
 
     private void populateCustomerTable() {
-        //Customer table vars
-        TableLayout customerTable = (TableLayout) findViewById(R.id.customer_table);
+        //Clear the table data
         customerTable.removeAllViews();
-        //Row Vars
-        TableRow workingCustomerRow = new TableRow(this);
-        //Line Items
-        TextView custLastnameTextview = new TextView(this);
-        TextView custFirstnameTextview = new TextView(this);
-        TextView custPhoneTextview = new TextView(this);
+        //Create the header row for the employee table
+        //TODO ABOVE
+        createCustomerTableHeaderRow();
 
         for (Customer customer : customerList) {
-            workingCustomerRow.removeAllViews();
-            workingCustomerRow = new TableRow(this);
-
+            //Create new row to be added to the table
+            newCustomerRow = new TableRow(this);
+            //Create the new views for the new row
+            custLastnameTextview = new TextView(this);
+            custFirstnameTextview = new TextView(this);
+            custPhoneTextview = new TextView(this);
+            //Set the new data for the new row
             custLastnameTextview.setText(customer.getLastName());
             custFirstnameTextview.setText(customer.getFirstName());
             custPhoneTextview.setText(customer.getPhoneNumbers().toString());
-            workingCustomerRow.addView(custLastnameTextview);
-            workingCustomerRow.addView(custFirstnameTextview);
-            workingCustomerRow.addView(custPhoneTextview);
-            customerTable.addView(workingCustomerRow);
-            customerTable.setStretchAllColumns(true);
+            //Add the new data to the new row
+            newCustomerRow.addView(custLastnameTextview);
+            newCustomerRow.addView(custFirstnameTextview);
+            newCustomerRow.addView(custPhoneTextview);
+            //Add the new row to the table
+            customerTable.addView(newCustomerRow);
         }
+    }
+
+    private void createCustomerTableHeaderRow() {
+        //TODO THIS
     }
 }

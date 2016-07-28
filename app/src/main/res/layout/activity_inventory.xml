@@ -35,7 +35,7 @@
     <TableRow>
 
         <TableLayout
-            android:id="@+id/inventory_table"
+            android:id="@+id/item_table"
             android:layout_width="fill_parent"
             android:stretchColumns="*" />
     </TableRow>

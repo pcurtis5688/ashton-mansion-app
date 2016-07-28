@@ -29,6 +29,14 @@ public class EmployeesActivity extends AppCompatActivity {
     private Account mAcct;
     private EmployeeConnector mEmpConn;
     private List<Employee> employeeList;
+    //Local View Vars
+    private TableLayout employeeTable;
+    TableRow workingEmployeeRow;
+    TextView empIdTextview;
+    TextView empNameTextview;
+    TextView empNicknameTextView;
+    TextView empEmailTextview;
+    TextView empRoleTextview;
 
     //Method to open the add employee activity/screen
     public void displayAddEmployee(View view) {
@@ -40,6 +48,8 @@ public class EmployeesActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_employees);
+
+        employeeTable = (TableLayout) findViewById(R.id.employee_table);
     }
 
     @Override
@@ -113,30 +123,39 @@ public class EmployeesActivity extends AppCompatActivity {
 
 
     private void populateEmployeeTable() {
-        //Employee table vars
-        TableLayout employeeTable = (TableLayout) findViewById(R.id.employee_table);
+        //Clear the employee table if has content
         employeeTable.removeAllViews();
-        TableRow workingEmployeeRow = new TableRow(this);
-
-        TextView empIdTextview = new TextView(this);
-        TextView empNameTextview = new TextView(this);
-        TextView empNicknameTextView = new TextView(this);
-        TextView empEmailTextview = new TextView(this);
-        TextView empRoleTextview = new TextView(this);
+        //create the header row for the employee table
+        //TODO this
+        createEmployeeTableHeaderRow();
 
         for (Employee currentEmp : employeeList) {
+            //Create new row to add to table
+            workingEmployeeRow = new TableRow(this);
+            //Create new views to populate data
+            empIdTextview = new TextView(this);
+            empNameTextview = new TextView(this);
+            empNicknameTextView = new TextView(this);
+            empEmailTextview = new TextView(this);
+            empRoleTextview = new TextView(this);
+            //Set the new data for the new row
             empIdTextview.setText(currentEmp.getId());
+            empNameTextview.setText(currentEmp.getName());
             empNicknameTextView.setText(currentEmp.getNickname());
             empEmailTextview.setText(currentEmp.getEmail());
             empRoleTextview.setText(currentEmp.getRole().name());
+            //Add the new data to the new row
             workingEmployeeRow.addView(empIdTextview);
             workingEmployeeRow.addView(empNameTextview);
             workingEmployeeRow.addView(empNicknameTextView);
             workingEmployeeRow.addView(empEmailTextview);
             workingEmployeeRow.addView(empRoleTextview);
+            //Add the new row to the table
             employeeTable.addView(workingEmployeeRow);
         }
-        //TODO FINISH THE TABLE IMPLEMENTATIONS
+    }
 
+    private void createEmployeeTableHeaderRow() {
+        //Todo this
     }
 }

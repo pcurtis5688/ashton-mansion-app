@@ -28,7 +28,8 @@ public class AppointmentsActivity extends AppCompatActivity {
     private DatabaseHandler dbHandler = new DatabaseHandler(this);
     private List<Appointment> appointmentList = new ArrayList<Appointment>();
     private TableLayout appointmentsTable;
-    private TableRow newTableRow;
+    private TableRow headerRow;
+    private TableRow newApptRow;
     private TextView idTv;
     private TextView dateTv;
     private TextView timeTv;
@@ -55,18 +56,31 @@ public class AppointmentsActivity extends AppCompatActivity {
 
         //Retrieve Appointment List
         appointmentList = dbHandler.getAllAppointments();
-        //Attach Appointments Table and formatting
+
+        refreshAppointmentTable();
+
+
+    }
+
+
+    //OPEN THE ADD APPOINTMENT ACTIVITY
+    public void displayAddAppointment(View view) {
+        Intent addActivityIntent = new Intent(this, AddAppointmentActivity.class);
+        startActivity(addActivityIntent);
+    }
+
+
+    private void refreshAppointmentTable() {
+        //Clear the appointment table
         appointmentsTable.removeAllViews();
-
-        //createAppointmentTableHeaderRow();
+        //Create the table header row and add to table
         createAppointmentTableHeaderRow();
-
         //Iterate and create rows
         for (Appointment appt : appointmentList) {
             //todo newTableRow.setLayoutParams();
-            //Clear all TextViews and TableRow for new appointment
-            newTableRow = new TableRow(this);
-
+            //Create new appointment row to be added to table
+            newApptRow = new TableRow(this);
+            //Create new data fields to be added to row
             idTv = new TextView(this);
             dateTv = new TextView(this);
             timeTv = new TextView(this);
@@ -78,8 +92,7 @@ public class AppointmentsActivity extends AppCompatActivity {
             emp1Tv = new TextView(this);
             emp2Tv = new TextView(this);
             confirmStatusTv = new TextView(this);
-
-            //For each appointment, set the proper text view text and add to table
+            //Set data for each new row
             idTv.setText(String.valueOf(appt.get_id()));
             dateTv.setText(appt.get_date());
             timeTv.setText(appt.get_start_time());
@@ -92,33 +105,26 @@ public class AppointmentsActivity extends AppCompatActivity {
             emp2Tv.setText(String.valueOf(appt.get_employee_code_2()));
             confirmStatusTv.setText(appt.get_confirm_status());
             //Add all text views to the new row
-            //TODO DEBUG THIS
-            newTableRow.addView(idTv);
-            newTableRow.addView(dateTv);
-            newTableRow.addView(timeTv);
-            newTableRow.addView(durationTv);
-            newTableRow.addView(customerCodeTv);
-            newTableRow.addView(alertTypeTv);
-            newTableRow.addView(itemCodeTv);
-            newTableRow.addView(noteTv);
-            newTableRow.addView(emp1Tv);
-            newTableRow.addView(emp2Tv);
-            newTableRow.addView(confirmStatusTv);
-
-            appointmentsTable.addView(newTableRow);
+            newApptRow.addView(idTv);
+            newApptRow.addView(dateTv);
+            newApptRow.addView(timeTv);
+            newApptRow.addView(durationTv);
+            newApptRow.addView(customerCodeTv);
+            newApptRow.addView(alertTypeTv);
+            newApptRow.addView(itemCodeTv);
+            newApptRow.addView(noteTv);
+            newApptRow.addView(emp1Tv);
+            newApptRow.addView(emp2Tv);
+            newApptRow.addView(confirmStatusTv);
+            //Add the new row to the table
+            appointmentsTable.addView(newApptRow);
         }
     }
 
 
-    //OPEN THE ADD APPOINTMENT ACTIVITY
-    public void displayAddAppointment(View view) {
-        Intent addActivityIntent = new Intent(this, AddAppointmentActivity.class);
-        startActivity(addActivityIntent);
-    }
-
     //CREATE APPOINTMENT TABLE HEADER ROW METHOD
     public void createAppointmentTableHeaderRow() {
-        TableRow headerRow = new TableRow(this);
+        headerRow = new TableRow(this);
 
         idTv = new TextView(this);
         idTv.setText("ID");
@@ -156,7 +162,5 @@ public class AppointmentsActivity extends AppCompatActivity {
         headerRow.addView(confirmStatusTv);
 
         appointmentsTable.addView(headerRow);
-
     }
-
 }
