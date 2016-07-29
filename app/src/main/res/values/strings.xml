@@ -78,6 +78,8 @@
         <item>Manager</item>
     </string-array>
 
+    <string name="clear_employee_table_btn_str">Clear Employee Table(test)</string>
+
     <!-- INVENTORY ACTIVITY RELATED STRINGS -->
     <string name="items_heading">Inventory Items</string>
     <string name="inventory_page_heading_str">Inventory</string>

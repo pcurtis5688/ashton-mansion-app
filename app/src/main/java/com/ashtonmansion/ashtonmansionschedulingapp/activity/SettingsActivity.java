@@ -1,6 +1,5 @@
-package com.ashtonmansion.ashtonmansionapp.activity;
+package com.ashtonmansion.ashtonmansionschedulingapp.activity;
 
-import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -8,11 +7,10 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TimePicker;
 
-import com.ashtonmansion.ashtonmansionapp.R;
-import com.ashtonmansion.ashtonmansionapp.dao.DatabaseHandler;
-import com.ashtonmansion.ashtonmansionapp.dbo.Settings;
+import com.ashtonmansion.ashtonmansionschedulingapp.R;
+import com.ashtonmansion.ashtonmansionschedulingapp.dao.SettingsDAO;
+import com.ashtonmansion.ashtonmansionschedulingapp.dbo.Settings;
 
-import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,14 +36,14 @@ public class SettingsActivity extends AppCompatActivity {
     private TimePicker alertTimePicker;
     //DATABASE VARS
     private Settings settingsFromDb;
-    private DatabaseHandler dbHandler;
+    private SettingsDAO settingsDAO;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
 
-        dbHandler = new DatabaseHandler(this);
+        settingsDAO = new SettingsDAO(this);
 
         populateWeekdayAlertsOnlyDropdown();
         populateAvoidHolidayAlertsDropdown();
@@ -55,9 +53,9 @@ public class SettingsActivity extends AppCompatActivity {
 
         // If settings already exist in db, get them and use them
         // to populate the settings page, else create the table
-        if (dbHandler.hasSettings()) {
+        if (settingsDAO.hasSettings()) {
             //TODO THIS IS WHERE I STOPPED OFF DEBUGGING TIME OF DAY AND COLUMN INDEX CHANGES, CONTINUE
-            settingsFromDb = dbHandler.getSettings();
+            settingsFromDb = settingsDAO.getSettings();
             populateExistingSettings();
         } //TODO IS ELSE EVEN NEEDED ANYMORE?
     }
@@ -173,7 +171,7 @@ public class SettingsActivity extends AppCompatActivity {
         // settings.set_alert_time_of_day_minute(alertTimePicker.getMinute());
         //TODO api does not supoprt these, fix
 
-        dbHandler.saveSettings(settings);
+        settingsDAO.saveSettings(settings);
         finish();
     }
 }

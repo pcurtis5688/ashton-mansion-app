@@ -1,4 +1,4 @@
-package com.ashtonmansion.ashtonmansionapp.activity;
+package com.ashtonmansion.ashtonmansionschedulingapp.activity;
 
 import android.accounts.Account;
 import android.content.Intent;
@@ -6,13 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
-import com.ashtonmansion.ashtonmansionapp.R;
-import com.ashtonmansion.ashtonmansionapp.activity.AppointmentsActivity;
-import com.ashtonmansion.ashtonmansionapp.activity.CustomersActivity;
-import com.ashtonmansion.ashtonmansionapp.activity.EmployeesActivity;
-import com.ashtonmansion.ashtonmansionapp.activity.InventoryActivity;
-import com.ashtonmansion.ashtonmansionapp.activity.SettingsActivity;
-import com.ashtonmansion.ashtonmansionapp.utility.WebServices;
+import com.ashtonmansion.ashtonmansionschedulingapp.R;
 import com.clover.sdk.util.CloverAccount;
 
 public class MainActivity extends AppCompatActivity {

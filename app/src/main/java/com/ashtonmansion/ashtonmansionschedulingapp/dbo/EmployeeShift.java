@@ -1,4 +1,4 @@
-package com.ashtonmansion.ashtonmansionapp.dbo;
+package com.ashtonmansion.ashtonmansionschedulingapp.dbo;
 
 import java.util.Date;
 

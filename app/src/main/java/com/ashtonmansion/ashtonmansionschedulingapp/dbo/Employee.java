@@ -1,4 +1,4 @@
-package com.ashtonmansion.ashtonmansionapp.dbo;
+package com.ashtonmansion.ashtonmansionschedulingapp.dbo;
 
 /**
  * Created by paul on 7/19/2016.
@@ -9,29 +9,29 @@ public class Employee {
     private String _name;
     private String _nickname;
     private String _role;
-    private int _loginPIN;
+    private String _loginPIN;
     private String _email;
 
-    public Employee(){
+    public Employee() {
         //EMPTYCONSTRUCTOR TO ALLOW FOR DATABASE WORK
     }
 
     //Constructor WITH ID param
-    public Employee(int _id, String _name, String _nickname, String _role, int _loginPIN, String _email){
+    public Employee(int _id, String _name, String _nickname, String _role, String _loginPIN, String _email) {
         this._id = _id;
         this._name = _name;
         this._nickname = _nickname;
         this._role = _role;
-        this. _loginPIN = _loginPIN;
+        this._loginPIN = _loginPIN;
         this._email = _email;
     }
 
     //CONSTRUCTOR WITHOUT ID PARAM
-    public Employee(String _name, String _nickname, String _role, int _loginPIN, String _email){
+    public Employee(String _name, String _nickname, String _role, String _loginPIN, String _email) {
         this._name = _name;
         this._nickname = _nickname;
         this._role = _role;
-        this. _loginPIN = _loginPIN;
+        this._loginPIN = _loginPIN;
         this._email = _email;
     }
 
@@ -67,11 +67,11 @@ public class Employee {
         this._role = _role;
     }
 
-    public int get_loginPIN() {
+    public String get_loginPIN() {
         return _loginPIN;
     }
 
-    public void set_loginPIN(int _loginPIN) {
+    public void set_loginPIN(String _loginPIN) {
         this._loginPIN = _loginPIN;
     }
 

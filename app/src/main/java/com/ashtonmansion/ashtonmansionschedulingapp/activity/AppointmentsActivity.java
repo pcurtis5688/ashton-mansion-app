@@ -1,31 +1,22 @@
-package com.ashtonmansion.ashtonmansionapp.activity;
+package com.ashtonmansion.ashtonmansionschedulingapp.activity;
 
-import android.app.ActionBar;
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
-import com.ashtonmansion.ashtonmansionapp.R;
-import com.ashtonmansion.ashtonmansionapp.dao.DatabaseHandler;
-import com.ashtonmansion.ashtonmansionapp.dbo.Appointment;
-import com.clover.sdk.v1.printer.ReceiptContract;
-
-import org.ksoap2.serialization.PropertyInfo;
-import org.ksoap2.serialization.SoapObject;
+import com.ashtonmansion.ashtonmansionschedulingapp.R;
+import com.ashtonmansion.ashtonmansionschedulingapp.dao.AppointmentDAO;
+import com.ashtonmansion.ashtonmansionschedulingapp.dbo.Appointment;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class AppointmentsActivity extends AppCompatActivity {
-    private DatabaseHandler dbHandler = new DatabaseHandler(this);
+    private AppointmentDAO apptDAO;
     private List<Appointment> appointmentList = new ArrayList<Appointment>();
     private TableLayout appointmentsTable;
     private TableRow headerRow;
@@ -46,7 +37,8 @@ public class AppointmentsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_appointments);
-
+        apptDAO = new AppointmentDAO(this);
+        apptDAO.createAppointmentTable();
         appointmentsTable = (TableLayout) findViewById(R.id.appointments_table);
     }
 
@@ -55,11 +47,9 @@ public class AppointmentsActivity extends AppCompatActivity {
         super.onResume();
 
         //Retrieve Appointment List
-        appointmentList = dbHandler.getAllAppointments();
+        appointmentList = apptDAO.getAllAppointments();
 
         refreshAppointmentTable();
-
-
     }
 
 

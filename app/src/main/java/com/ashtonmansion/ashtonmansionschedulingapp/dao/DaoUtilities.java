@@ -1,9 +1,4 @@
-package com.ashtonmansion.ashtonmansionapp.dao;
-
-import android.accounts.Account;
-import android.content.Context;
-
-import com.clover.sdk.util.CloverAccount;
+package com.ashtonmansion.ashtonmansionschedulingapp.dao;
 
 /**
  * Created by paul on 7/23/2016.

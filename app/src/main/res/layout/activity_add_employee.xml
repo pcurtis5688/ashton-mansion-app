@@ -8,7 +8,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:stretchColumns="*"
-    tools:context="com.ashtonmansion.ashtonmansionapp.activity.AddEmployeeActivity">
+    tools:context=".activity.AddEmployeeActivity">
 
     <TableRow>
 
@@ -80,7 +80,6 @@
             android:id="@+id/add_employee_email"
             android:hint="@string/add_employee_email_hint_str"
             android:inputType="textWebEmailAddress"
-            android:maxLength="4"
             android:textAlignment="center"/>
     </TableRow>
 
@@ -100,7 +99,7 @@
             android:id="@+id/submit_add_email_btn"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:onClick="finalizeAddEmployee"
+            android:onClick="submitNewEmployee"
             android:paddingBottom="@dimen/main_btn_vertical_margin"
             android:paddingTop="@dimen/main_btn_vertical_margin"
             android:text="@string/employee_insert_btn_str" />

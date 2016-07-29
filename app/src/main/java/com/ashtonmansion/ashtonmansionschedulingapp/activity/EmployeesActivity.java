@@ -1,9 +1,9 @@
-package com.ashtonmansion.ashtonmansionapp.activity;
+package com.ashtonmansion.ashtonmansionschedulingapp.activity;
 
 import android.accounts.Account;
+import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
-import android.os.RemoteException;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -11,17 +11,12 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
-import com.ashtonmansion.ashtonmansionapp.R;
+import com.ashtonmansion.ashtonmansionschedulingapp.R;
+import com.ashtonmansion.ashtonmansionschedulingapp.dao.EmployeeDAO;
 import com.clover.sdk.util.CloverAccount;
-import com.clover.sdk.v1.BindingException;
-import com.clover.sdk.v1.ClientException;
-import com.clover.sdk.v1.ResultStatus;
-import com.clover.sdk.v1.ServiceException;
-import com.clover.sdk.v1.printer.ReceiptContract;
 import com.clover.sdk.v3.employees.Employee;
 import com.clover.sdk.v3.employees.EmployeeConnector;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class EmployeesActivity extends AppCompatActivity {
@@ -29,14 +24,8 @@ public class EmployeesActivity extends AppCompatActivity {
     private Account mAcct;
     private EmployeeConnector mEmpConn;
     private List<Employee> employeeList;
-    //Local View Vars
-    private TableLayout employeeTable;
-    TableRow workingEmployeeRow;
-    TextView empIdTextview;
-    TextView empNameTextview;
-    TextView empNicknameTextView;
-    TextView empEmailTextview;
-    TextView empRoleTextview;
+    private EmployeeDAO employeeDAO;
+    private Context context = this;
 
     //Method to open the add employee activity/screen
     public void displayAddEmployee(View view) {
@@ -49,7 +38,7 @@ public class EmployeesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_employees);
 
-        employeeTable = (TableLayout) findViewById(R.id.employee_table);
+        employeeDAO = new EmployeeDAO(this);
     }
 
     @Override
@@ -124,7 +113,15 @@ public class EmployeesActivity extends AppCompatActivity {
 
     private void populateEmployeeTable() {
         //Clear the employee table if has content
+        TableLayout employeeTable = (TableLayout) findViewById(R.id.employee_table);
         employeeTable.removeAllViews();
+
+        TableRow workingEmployeeRow;
+        TextView empIdTextview;
+        TextView empNameTextview;
+        TextView empNicknameTextView;
+        TextView empEmailTextview;
+        TextView empRoleTextview;
         //create the header row for the employee table
         //TODO this
         createEmployeeTableHeaderRow();

@@ -1,4 +1,4 @@
-package com.ashtonmansion.ashtonmansionapp.dbo;
+package com.ashtonmansion.ashtonmansionschedulingapp.dbo;
 
 /**
  * Created by paul on 7/18/2016.

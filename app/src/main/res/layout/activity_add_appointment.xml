@@ -150,12 +150,12 @@
         <Button
             android:id="@+id/submit_add_appointment_btn"
             android:layout_width="fill_parent"
-            android:onClick="finalizeAddAppointment"
+            android:onClick="submitAddAppointment"
             android:text="@string/add_btn_str" />
 
         <Button
             android:id="@+id/test_insertApptWS_btn"
-            android:onClick="insertAppointmentWS"
+            android:onClick="callInsertAppointmentWSCall"
             android:text="@string/test_insertApptWS_btn_str" />
     </TableRow>
 </TableLayout>

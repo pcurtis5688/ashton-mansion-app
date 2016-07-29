@@ -8,7 +8,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:stretchColumns="*"
-    tools:context="com.ashtonmansion.ashtonmansionapp.activity.CustomersActivity">
+    tools:context=".activity.CustomersActivity">
 
     <TableRow
         android:layout_width="fill_parent"
@@ -36,7 +36,10 @@
 
     <TableRow>
 
-        <TableLayout android:id="@+id/customer_table" />
+        <TableLayout
+            android:id="@+id/customer_table"
+            android:layout_width="match_parent"
+            android:stretchColumns="*" />
     </TableRow>
 
 </TableLayout>

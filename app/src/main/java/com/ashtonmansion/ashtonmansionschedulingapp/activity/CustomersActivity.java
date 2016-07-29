@@ -1,9 +1,8 @@
-package com.ashtonmansion.ashtonmansionapp.activity;
+package com.ashtonmansion.ashtonmansionschedulingapp.activity;
 
 import android.accounts.Account;
 import android.content.Intent;
 import android.os.AsyncTask;
-import android.os.RemoteException;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -11,15 +10,10 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
-import com.ashtonmansion.ashtonmansionapp.R;
+import com.ashtonmansion.ashtonmansionschedulingapp.R;
 import com.clover.sdk.util.CloverAccount;
-import com.clover.sdk.v1.BindingException;
-import com.clover.sdk.v1.ClientException;
-import com.clover.sdk.v1.ServiceException;
 import com.clover.sdk.v1.customer.Customer;
 import com.clover.sdk.v1.customer.CustomerConnector;
-import com.clover.sdk.v1.printer.ReceiptContract;
-import com.clover.sdk.v3.employees.PermissionSetRole;
 
 import java.util.List;
 

@@ -8,7 +8,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:stretchColumns="*"
-    tools:context="com.ashtonmansion.ashtonmansionapp.activity.EmployeesActivity">
+    tools:context=".activity.EmployeesActivity">
 
     <TableRow>
 
@@ -36,5 +36,4 @@
             android:layout_width="match_parent"
             android:stretchColumns="*" />
     </TableRow>
-
 </TableLayout>

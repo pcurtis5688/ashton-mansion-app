@@ -1,9 +1,9 @@
-package com.ashtonmansion.ashtonmansionapp.activity;
+package com.ashtonmansion.ashtonmansionschedulingapp.activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-import com.ashtonmansion.ashtonmansionapp.R;
+import com.ashtonmansion.ashtonmansionschedulingapp.R;
 
 public class AppointmentDetailActivity extends AppCompatActivity {
 
