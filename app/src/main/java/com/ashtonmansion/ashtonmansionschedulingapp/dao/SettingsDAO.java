@@ -80,7 +80,7 @@ public class SettingsDAO extends SQLiteOpenHelper {
             userSettings.set_default_duration(Integer.parseInt(cursor.getString(cursor.getColumnIndex("default_appt_duration"))));
 
             userSettings.set_alert_time_of_day_hour(Integer.parseInt(cursor.getString(cursor.getColumnIndex("alert_time_of_day_hour"))));
-            userSettings.set_alert_time_of_day_minute(Integer.parseInt(cursor.getString(cursor.getColumnIndex("alert_timeof_day_minute"))));
+            userSettings.set_alert_time_of_day_minute(Integer.parseInt(cursor.getString(cursor.getColumnIndex("alert_time_of_day_minute"))));
 
             if (cursor.getString(cursor.getColumnIndex("weekday_alerts_only")).equalsIgnoreCase("true")) {
                 userSettings.set_alerts_weekdays_only(true);

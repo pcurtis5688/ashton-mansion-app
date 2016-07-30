@@ -37,6 +37,19 @@
     <TableRow>
 
         <TextView
+            android:id="@+id/label_appt_item_code"
+            android:text="@string/appt_item_code_label_str" />
+
+        <EditText
+            android:id="@+id/appt_item_code"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="@string/appt_todo_hint" />
+    </TableRow>
+
+    <TableRow>
+
+        <TextView
             android:id="@+id/label_appt_duration"
             android:text="@string/appt_duration_label_str" />
 
@@ -73,18 +86,6 @@
             android:entries="@array/alert_types" />
     </TableRow>
 
-    <TableRow>
-
-        <TextView
-            android:id="@+id/label_appt_item_code"
-            android:text="@string/appt_item_code_label_str" />
-
-        <EditText
-            android:id="@+id/appt_item_code"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:hint="@string/appt_todo_hint" />
-    </TableRow>
 
     <TableRow>
 

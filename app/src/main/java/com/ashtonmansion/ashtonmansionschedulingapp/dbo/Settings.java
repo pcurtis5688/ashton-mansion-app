@@ -68,7 +68,7 @@ public class Settings {
     }
 
     public int get_alert_time_of_day_minute() {
-        return _alert_time_of_day_hour;
+        return _alert_time_of_day_minute;
     }
 
     public void set_alert_time_of_day_minute(int _alert_time_of_day_minute) {

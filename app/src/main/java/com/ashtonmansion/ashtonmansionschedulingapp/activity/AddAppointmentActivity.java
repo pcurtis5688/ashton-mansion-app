@@ -44,8 +44,6 @@ public class AddAppointmentActivity extends AppCompatActivity {
     private static final String SOAP_ACTION = "urn:microsoft-dynamics-schemas/codeunit/wsApptSched:CreateAppt";
 
     // working classes below
-
-
     private class insertAppointmentWSCall extends AsyncTask<Void, Void, Void> {
         ProgressDialog progressDialog = new ProgressDialog(AddAppointmentActivity.this);
 
@@ -155,8 +153,31 @@ public class AddAppointmentActivity extends AppCompatActivity {
     }
 
     public void callInsertAppointmentWSCall(View view) {
-
         new insertAppointmentWSCall().execute();
+    }
+
+    public void submitAddAppointment(View view) {
+        apptDAO = new AppointmentDAO(this);
+        appointment = new Appointment();
+        appointment.set_date("fixthis");
+        appointment.set_start_time("fixthis");
+        appointment.set_duration(Integer.parseInt(durationText.getText().toString()));
+        appointment.set_customer_code(customerCodeText.getText().toString());
+        appointment.set_alert_type(alertTypeSpinner.getSelectedItem().toString());
+        appointment.set_item_code(itemCodeText.getText().toString());
+        appointment.set_note(apptNoteText.getText().toString());
+        appointment.set_employee_code_1(Integer.parseInt(emp1Text.getText().toString()));
+        appointment.set_employee_code_2(Integer.parseInt(emp2Text.getText().toString()));
+        appointment.set_confirm_status(apptConfirmStatusSpinner.getSelectedItem().toString());
+        apptDAO.addAppointment(appointment);
+
+        //todo uncomment when ready to debug
+        //new insertAppointmentWSCall().execute();
+    }
+
+    //Method to return when cancel button is pressed
+    public void cancelAddAppointment(View view) {
+        finish();
     }
 
     @Override
@@ -176,31 +197,4 @@ public class AddAppointmentActivity extends AppCompatActivity {
         apptConfirmStatusSpinner = (Spinner) findViewById(R.id.appt_confirm_status);
         emp2Text = (EditText) findViewById(R.id.appt_emp_2_assigned);
     }
-
-
-    public void submitAddAppointment(View view) {
-        //TODO test
-        apptDAO = new AppointmentDAO(this);
-        appointment = new Appointment();
-        appointment.set_date("fixthis");
-        appointment.set_start_time("fixthis");
-        appointment.set_duration(Integer.parseInt(durationText.getText().toString()));
-        appointment.set_customer_code(customerCodeText.getText().toString());
-        appointment.set_alert_type(alertTypeSpinner.getSelectedItem().toString());
-        appointment.set_item_code(itemCodeText.getText().toString());
-        appointment.set_note(apptNoteText.getText().toString());
-        appointment.set_employee_code_1(Integer.parseInt(emp1Text.getText().toString()));
-        appointment.set_employee_code_2(Integer.parseInt(emp2Text.getText().toString()));
-        appointment.set_confirm_status(apptConfirmStatusSpinner.getSelectedItem().toString());
-        apptDAO.addAppointment(appointment);
-
-        //      new insertAppointmentWSCall().execute();
-    }
-
-    //Method to return when cancel button is pressed
-    public void cancelAddAppointment(View view) {
-        finish();
-    }
-
-
 }

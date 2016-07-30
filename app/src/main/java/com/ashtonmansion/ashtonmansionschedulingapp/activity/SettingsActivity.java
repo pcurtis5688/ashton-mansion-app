@@ -120,30 +120,6 @@ public class SettingsActivity extends AppCompatActivity {
         defaultDurationSpinner.setAdapter(defaultDurationAdapter);
     }
 
-    private void populateExistingSettings() {
-        maxDurationSpinner.setSelection(maxApptHoursAdapter.getPosition("" + settingsFromDb.get_max_appt_hours()));
-        advanceAlertDaysSpinner.setSelection(advanceAlertDaysAdapter.getPosition("" + settingsFromDb.get_advance_alert_days()));
-        defaultDurationSpinner.setSelection(defaultDurationAdapter.getPosition("" + settingsFromDb.get_default_duration()));
-
-        alertWeekdaysOnlySpinner = (Spinner) findViewById(R.id.alert_weekday_only_spinner);
-        if (settingsFromDb.is_alerts_weekdays_only()) {
-            alertWeekdaysOnlySpinner.setSelection(0);
-        } else {
-            alertWeekdaysOnlySpinner.setSelection(1);
-        }
-
-        avoidHolidayAlertsSpinner = (Spinner) findViewById(R.id.avoid_holiday_alerts_setting_spinner);
-        if (settingsFromDb.is_avoid_holiday_alerts()) {
-            avoidHolidayAlertsSpinner.setSelection(0);
-        } else {
-            avoidHolidayAlertsSpinner.setSelection(1);
-        }
-
-        // TODO API NOT HIGH ENOUGH FOR THIS.
-        // alertTimePicker.setHour(settingsFromDb.get_alert_time_of_day_hour());
-        //   alertTimePicker.setHour(settingsFromDb.get_alert_time_of_day_minute());
-
-    }
 
 
     //PUBLIC METHODS CALLED FROM UI
@@ -167,11 +143,37 @@ public class SettingsActivity extends AppCompatActivity {
         }
 
         alertTimePicker = (TimePicker) findViewById(R.id.alert_time_of_day_setting_timepicker);
-        // settings.set_alert_time_of_day_hour(alertTimePicker.getHour());
-        // settings.set_alert_time_of_day_minute(alertTimePicker.getMinute());
-        //TODO api does not supoprt these, fix
+        alertTimePicker.clearFocus();
+        settings.set_alert_time_of_day_hour(alertTimePicker.getCurrentHour());
+        settings.set_alert_time_of_day_minute(alertTimePicker.getCurrentMinute());
 
         settingsDAO.saveSettings(settings);
         finish();
+    }
+
+    private void populateExistingSettings() {
+        maxDurationSpinner.setSelection(maxApptHoursAdapter.getPosition("" + settingsFromDb.get_max_appt_hours()));
+        advanceAlertDaysSpinner.setSelection(advanceAlertDaysAdapter.getPosition("" + settingsFromDb.get_advance_alert_days()));
+        defaultDurationSpinner.setSelection(defaultDurationAdapter.getPosition("" + settingsFromDb.get_default_duration()));
+
+        alertWeekdaysOnlySpinner = (Spinner) findViewById(R.id.alert_weekday_only_spinner);
+        if (settingsFromDb.is_alerts_weekdays_only()) {
+            alertWeekdaysOnlySpinner.setSelection(0);
+        } else {
+            alertWeekdaysOnlySpinner.setSelection(1);
+        }
+
+        avoidHolidayAlertsSpinner = (Spinner) findViewById(R.id.avoid_holiday_alerts_setting_spinner);
+        if (settingsFromDb.is_avoid_holiday_alerts()) {
+            avoidHolidayAlertsSpinner.setSelection(0);
+        } else {
+            avoidHolidayAlertsSpinner.setSelection(1);
+        }
+
+        alertTimePicker = (TimePicker) findViewById(R.id.alert_time_of_day_setting_timepicker);
+        // TODO API NOT HIGH ENOUGH FOR THIS.
+
+        alertTimePicker.setCurrentHour(settingsFromDb.get_alert_time_of_day_hour());
+        alertTimePicker.setCurrentMinute(settingsFromDb.get_alert_time_of_day_minute());
     }
 }
