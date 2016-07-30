@@ -1,4 +1,4 @@
-package com.ashtonmansion.ashtonmansionschedulingapp.activity;
+package com.ashtonmansion.ashtonmansionschedulingapp.activity.employee;
 
 import android.accounts.Account;
 import android.content.Context;
@@ -12,6 +12,7 @@ import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.ashtonmansion.ashtonmansionschedulingapp.R;
+import com.ashtonmansion.ashtonmansionschedulingapp.activity.employee.AddEmployeeActivity;
 import com.ashtonmansion.ashtonmansionschedulingapp.dao.EmployeeDAO;
 import com.clover.sdk.util.CloverAccount;
 import com.clover.sdk.v3.employees.Employee;

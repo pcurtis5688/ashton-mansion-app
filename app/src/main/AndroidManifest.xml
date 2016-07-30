@@ -19,7 +19,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.AppointmentsActivity"
+            android:name=".activity.appointment.AppointmentsActivity"
             android:parentActivityName=".activity.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -30,30 +30,31 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.AddAppointmentActivity"
-            android:parentActivityName=".activity.AppointmentsActivity" />
+            android:name=".activity.appointment.AddAppointmentActivity"
+            android:parentActivityName=".activity.appointment.AppointmentsActivity" />
         <activity
             android:name=".activity.SettingsActivity"
             android:parentActivityName=".activity.MainActivity" />
         <activity
-            android:name=".activity.CustomersActivity"
+            android:name=".activity.customer.CustomersActivity"
             android:parentActivityName=".activity.MainActivity" />
         <activity
-            android:name=".activity.InventoryActivity"
+            android:name=".activity.item.InventoryActivity"
             android:parentActivityName=".activity.MainActivity" />
         <activity
-            android:name=".activity.EmployeesActivity"
+            android:name=".activity.employee.EmployeesActivity"
             android:parentActivityName=".activity.MainActivity" />
         <activity
-            android:name=".activity.AddEmployeeActivity"
-            android:parentActivityName=".activity.EmployeesActivity" />
+            android:name=".activity.employee.AddEmployeeActivity"
+            android:parentActivityName=".activity.employee.EmployeesActivity" />
         <activity
-            android:name=".activity.AddCustomerActivity"
-            android:parentActivityName=".activity.CustomersActivity" />
+            android:name=".activity.customer.AddCustomerActivity"
+            android:parentActivityName=".activity.customer.CustomersActivity" />
         <activity
-            android:name=".activity.AddInventoryActivity"
+            android:name=".activity.item.AddInventoryActivity"
             android:parentActivityName=".activity.MainActivity" />
-        <activity android:name=".activity.AppointmentDetailActivity"></activity>
+        <activity android:name=".activity.appointment.AppointmentDetailActivity" />
+        <activity android:name=".activity.SandboxActivity"></activity>
     </application>
 
 </manifest>

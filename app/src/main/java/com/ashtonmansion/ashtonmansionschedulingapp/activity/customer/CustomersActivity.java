@@ -1,4 +1,4 @@
-package com.ashtonmansion.ashtonmansionschedulingapp.activity;
+package com.ashtonmansion.ashtonmansionschedulingapp.activity.customer;
 
 import android.accounts.Account;
 import android.content.Intent;
@@ -11,6 +11,7 @@ import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.ashtonmansion.ashtonmansionschedulingapp.R;
+import com.ashtonmansion.ashtonmansionschedulingapp.activity.customer.AddCustomerActivity;
 import com.clover.sdk.util.CloverAccount;
 import com.clover.sdk.v1.customer.Customer;
 import com.clover.sdk.v1.customer.CustomerConnector;

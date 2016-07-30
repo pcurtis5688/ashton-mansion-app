@@ -1,4 +1,4 @@
-package com.ashtonmansion.ashtonmansionschedulingapp.activity;
+package com.ashtonmansion.ashtonmansionschedulingapp.activity.appointment;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,6 +9,7 @@ import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.ashtonmansion.ashtonmansionschedulingapp.R;
+import com.ashtonmansion.ashtonmansionschedulingapp.activity.appointment.AddAppointmentActivity;
 import com.ashtonmansion.ashtonmansionschedulingapp.dao.AppointmentDAO;
 import com.ashtonmansion.ashtonmansionschedulingapp.dbo.Appointment;
 

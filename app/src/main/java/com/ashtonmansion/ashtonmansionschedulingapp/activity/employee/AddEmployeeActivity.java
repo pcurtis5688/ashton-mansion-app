@@ -1,4 +1,4 @@
-package com.ashtonmansion.ashtonmansionschedulingapp.activity;
+package com.ashtonmansion.ashtonmansionschedulingapp.activity.employee;
 
 import android.accounts.Account;
 import android.os.AsyncTask;

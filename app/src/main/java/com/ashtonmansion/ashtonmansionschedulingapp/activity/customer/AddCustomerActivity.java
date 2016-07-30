@@ -1,4 +1,4 @@
-package com.ashtonmansion.ashtonmansionschedulingapp.activity;
+package com.ashtonmansion.ashtonmansionschedulingapp.activity.customer;
 
 import android.accounts.Account;
 import android.os.AsyncTask;
@@ -90,6 +90,7 @@ public class AddCustomerActivity extends AppCompatActivity {
             protected Void doInBackground(Void... params) {
                 getMerchantAcct();
                 connectCustomerConn();
+
                 try {
                     customerConnector.createCustomer(newCustomer.getFirstName(), newCustomer.getLastName(), newCustomer.getMarketingAllowed());
                     //TODO GET CUST ID AND SET THE OTHER FIELDS

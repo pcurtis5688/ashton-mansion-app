@@ -7,6 +7,10 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.ashtonmansion.ashtonmansionschedulingapp.R;
+import com.ashtonmansion.ashtonmansionschedulingapp.activity.appointment.AppointmentsActivity;
+import com.ashtonmansion.ashtonmansionschedulingapp.activity.customer.CustomersActivity;
+import com.ashtonmansion.ashtonmansionschedulingapp.activity.employee.EmployeesActivity;
+import com.ashtonmansion.ashtonmansionschedulingapp.activity.item.InventoryActivity;
 import com.clover.sdk.util.CloverAccount;
 
 public class MainActivity extends AppCompatActivity {

@@ -1,4 +1,4 @@
-package com.ashtonmansion.ashtonmansionschedulingapp.activity;
+package com.ashtonmansion.ashtonmansionschedulingapp.activity.item;
 
 import android.accounts.Account;
 import android.content.Intent;
@@ -11,6 +11,7 @@ import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.ashtonmansion.ashtonmansionschedulingapp.R;
+import com.ashtonmansion.ashtonmansionschedulingapp.activity.item.AddInventoryActivity;
 import com.clover.sdk.util.CloverAccount;
 import com.clover.sdk.v3.inventory.InventoryConnector;
 import com.clover.sdk.v3.inventory.Item;
