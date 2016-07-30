@@ -16,7 +16,9 @@
             android:id="@+id/id_add_customer_header"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/add_customer_header_str" />
+            android:layout_span="2"
+            android:text="@string/add_customer_header_str"
+            android:textAlignment="center" />
     </TableRow>
 
     <TableRow>
@@ -28,7 +30,7 @@
             android:text="@string/customer_first_name_prompt_str" />
 
         <EditText
-            android:id="@+id/add_customer_first_name"
+            android:id="@+id/customer_first_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:hint="@string/customer_first_name_prompt_str"
@@ -44,11 +46,25 @@
             android:text="@string/customer_last_name_prompt_str" />
 
         <EditText
-            android:id="@+id/add_customer_last_name"
+            android:id="@+id/customer_last_name"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:hint="@string/customer_last_name_prompt_str"
             android:maxLength="30" />
+    </TableRow>
+
+    <TableRow>
+
+        <TextView
+            android:id="@+id/customer_marketing_allowed_prompt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/customer_marketing_allowed_prompt_str" />
+
+        <CheckBox
+            android:id="@+id/customer_marketing_allowed_chkbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
     </TableRow>
 
     <TableRow>
@@ -60,11 +76,12 @@
             android:text="@string/customer_phone_prompt_str" />
 
         <EditText
-            android:id="@+id/add_customer_phone"
+            android:id="@+id/customer_phone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:hint="@string/customer_phone_prompt_str"
-            android:inputType="phone" />
+            android:inputType="phone"
+            android:maxLength="10" />
     </TableRow>
 
     <TableRow>
@@ -76,7 +93,7 @@
             android:text="@string/customer_email_prompt_str" />
 
         <EditText
-            android:id="@+id/add_customer_email"
+            android:id="@+id/customer_email"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:hint="@string/customer_email_prompt_str"
@@ -92,7 +109,7 @@
             android:text="@string/customer_address_prompt_str" />
 
         <EditText
-            android:id="@+id/add_customer_address_1"
+            android:id="@+id/customer_address_1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:hint="@string/customer_address_1_prompt_str" />
@@ -103,7 +120,7 @@
         android:gravity="end">
 
         <EditText
-            android:id="@+id/add_customer_address_2"
+            android:id="@+id/customer_address_2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:hint="@string/customer_address_2_prompt_str" />
@@ -112,7 +129,7 @@
     <TableRow android:gravity="end">
 
         <EditText
-            android:id="@+id/add_customer_address_3"
+            android:id="@+id/customer_address_3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:hint="@string/customer_address_3_prompt_str" />
@@ -127,13 +144,15 @@
             android:text="@string/customer_city_prompt_str" />
 
         <EditText
-            android:id="@+id/add_customer_city"
+            android:id="@+id/customer_city"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:hint="@string/customer_city_prompt_str" />
     </TableRow>
 
-    <TableRow>
+    <TableRow
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingTop="@dimen/activity_vertical_margin">
 
         <TextView
             android:id="@+id/customer_state_prompt"
@@ -141,10 +160,11 @@
             android:layout_height="wrap_content"
             android:text="@string/customer_state_prompt_str" />
 
-        <EditText
-            android:id="@+id/add_customer_state"
+        <Spinner
+            android:id="@+id/customer_state_spinner"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:entries="@array/state_array"
             android:hint="@string/customer_state_prompt_str" />
     </TableRow>
 
@@ -157,7 +177,7 @@
             android:text="@string/customer_zip_prompt_str" />
 
         <EditText
-            android:id="@+id/add_customer_zip"
+            android:id="@+id/customer_zip"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:hint="@string/customer_zip_prompt_str"
@@ -177,7 +197,7 @@
             android:id="@+id/submit_add_customer_btn"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:onClick="finalizeAddCustomer"
+            android:onClick="submitAddCustomer"
             android:text="@string/customer_insert_btn_str" />
     </TableRow>
 </TableLayout>

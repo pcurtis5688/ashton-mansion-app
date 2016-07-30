@@ -46,7 +46,7 @@ public class CustomersActivity extends AppCompatActivity {
 
     @Override
     protected void onPause() {
-        disconnectCustomers();
+        disconnectCustomerConn();
         super.onPause();
     }
 
@@ -66,19 +66,19 @@ public class CustomersActivity extends AppCompatActivity {
         }
 
         //Get Customers
-        connectCustomers();
+        connectCustomerConn();
         getCustomerList();
     }
 
-    private void connectCustomers() {
-        disconnectCustomers();
+    private void connectCustomerConn() {
+        disconnectCustomerConn();
         if (mAcct != null) {
             mCustConn = new CustomerConnector(this, mAcct, null);
             mCustConn.connect();
         }
     }
 
-    private void disconnectCustomers() {
+    private void disconnectCustomerConn() {
         if (mCustConn != null) {
             mCustConn.disconnect();
             mCustConn = null;
@@ -109,6 +109,7 @@ public class CustomersActivity extends AppCompatActivity {
 
             protected void onPostExecute(Customer customer) {
                 populateCustomerTable();
+                disconnectCustomerConn();
             }
         }.execute();
     }
