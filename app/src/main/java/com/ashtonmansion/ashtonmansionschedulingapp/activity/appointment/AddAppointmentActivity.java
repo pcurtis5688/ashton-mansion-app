@@ -16,6 +16,7 @@ import com.ashtonmansion.ashtonmansionschedulingapp.dao.AppointmentDAO;
 import com.ashtonmansion.ashtonmansionschedulingapp.dbo.Appointment;
 import com.ashtonmansion.ashtonmansionschedulingapp.utility.WebServices;
 
+import org.ksoap2.SoapEnvelope;
 import org.ksoap2.serialization.PropertyInfo;
 import org.ksoap2.serialization.SoapObject;
 import org.ksoap2.serialization.SoapSerializationEnvelope;
@@ -23,6 +24,7 @@ import org.ksoap2.transport.HttpTransportSE;
 import org.xmlpull.v1.XmlPullParserException;
 
 import java.io.IOException;
+import java.net.URL;
 
 public class AddAppointmentActivity extends AppCompatActivity {
     private DatePicker datePicker;
@@ -38,10 +40,6 @@ public class AddAppointmentActivity extends AppCompatActivity {
     private AppointmentDAO apptDAO;
     private Appointment appointment;
 
-    private static final String SOAP_NAMESPACE = "urn:microsoft-dynamics-schemas/codeunit/";
-    private static final String SOAP_METHOD = "CreateAppt";
-    private static final String SOAP_URL = "http://10.0.3.2:7047/DynamicsNAV90/WS/CRONUS%20Canada%252C%20Inc./Codeunit/wsApptSched";
-    private static final String SOAP_ACTION = "urn:microsoft-dynamics-schemas/codeunit/wsApptSched:CreateAppt";
 
     // working classes below
     private class insertAppointmentWSCall extends AsyncTask<Void, Void, Void> {
@@ -58,87 +56,45 @@ public class AddAppointmentActivity extends AppCompatActivity {
 
         @Override
         protected Void doInBackground(Void... params) {
-            SoapObject request = new SoapObject(SOAP_NAMESPACE, SOAP_METHOD);
-            String testString = "test";
 
-            PropertyInfo pi1 = new PropertyInfo();
-            //  pi1.name = "pID";
-            pi1.setName("pID");
-            pi1.setValue(testString);
-            pi1.type = String.class;
-            request.addProperty(pi1);
 
-            PropertyInfo pi2 = new PropertyInfo();
-            pi2.setName("pDate");
-            pi2.setValue(testString);
-            pi2.type = String.class;
-            request.addProperty(pi2);
-
-            PropertyInfo pi3 = new PropertyInfo();
-            pi3.setName("pTime");
-            pi3.setValue(testString);
-            pi3.setType(String.class);
-            request.addProperty(pi3);
-
-            PropertyInfo pi4 = new PropertyInfo();
-            pi4.setName("pCustCode");
-            pi4.setValue(testString);
-            pi4.setType(String.class);
-
-            request.addProperty(pi4);
-
-            PropertyInfo pi5 = new PropertyInfo();
-            pi5.setName("pDuration");
-            pi5.setValue("1.5");
-            pi5.setType(String.class);
-
-            request.addProperty(pi5);
-
-            PropertyInfo pi6 = new PropertyInfo();
-            pi6.setName("pAlerttype");
-            pi6.setValue("email");
-            pi6.setType(String.class);
-            request.addProperty(pi6);
-
-            PropertyInfo pi7 = new PropertyInfo();
-            pi7.setName("pItemCode");
-            pi7.setValue(testString);
-            pi7.setType(String.class);
-            request.addProperty(pi7);
-
-            PropertyInfo pi8 = new PropertyInfo();
-            pi8.setName("pNotes");
-            pi8.setValue(testString);
-            pi8.setType(String.class);
-            request.addProperty(pi8);
-
-            PropertyInfo pi9 = new PropertyInfo();
-            pi9.setName("pEmpl1");
-            pi9.setValue(testString);
-            pi9.setType(String.class);
-            request.addProperty(pi9);
-
-            PropertyInfo pi10 = new PropertyInfo();
-            pi10.setName("pEmpl2");
-            pi10.setValue(testString);
-            pi10.setType(String.class);
-            request.addProperty(pi10);
-
-            PropertyInfo pi11 = new PropertyInfo();
-            pi11.setName("pConfStatus");
-            pi11.setValue("Confirmed");
-            pi11.setType(String.class);
-            request.addProperty(pi11);
-
-            SoapSerializationEnvelope envelope = WebServices.getSoapEnvelope(request);
-            HttpTransportSE androidHttpTransport = WebServices.getHttpTransportSE(SOAP_URL);
+            final String SOAP_NAMESPACE = "urn:microsoft-dynamics-schemas/codeunit/wsApptSched";
+            final String SOAP_METHOD = "CreateAppt";
+            final String SOAP_URL = "http://10.0.3.2:7047/DynamicsNAV90/WS/CRONUS Canada%2C Inc./Codeunit/wsApptSched";
+            final String SOAP_ACTION = "urn:microsoft-dynamics-schemas/codeunit/wsApptSched:CreateAppt";
 
             try {
-                String responsedump = androidHttpTransport.responseDump;
-                androidHttpTransport.call(SOAP_ACTION, envelope);
-                SoapObject response = (SoapObject) envelope.bodyIn;
-                Log.i("Response: ", responsedump);
-            } catch (XmlPullParserException | IOException e) {
+                SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
+                envelope.implicitTypes = true;
+                envelope.setAddAdornments(false);
+                envelope.dotNet = true;
+                envelope.encodingStyle = SoapSerializationEnvelope.XSD;
+                SoapObject request = new SoapObject(SOAP_NAMESPACE, SOAP_METHOD);
+
+                String testString = "test";
+
+                request.addProperty("pID", testString);
+                request.addProperty("pDate", testString);
+                request.addProperty("pTime", testString);
+                request.addProperty("pCustCode", testString);
+                request.addProperty("pDuration", testString);
+                request.addProperty("pAlerttype", testString);
+                request.addProperty("pItemCode", testString);
+                request.addProperty("pNotes", testString);
+                request.addProperty("pEmpl1", testString);
+                request.addProperty("pEmpl2", testString);
+                request.addProperty("pConfStatus", testString);
+
+                envelope.setOutputSoapObject(request);
+
+                HttpTransportSE ht = new HttpTransportSE(SOAP_URL);
+                ht.debug = true;
+
+                ht.call(SOAP_ACTION, envelope);
+                Log.i("Request dump: ", ht.requestDump);
+                Log.i("HTTP RESPONSE: ", ht.responseDump);
+            } catch (Exception e) {
+                Log.i("Call error: ", e.toString());
                 e.printStackTrace();
             }
             return null;

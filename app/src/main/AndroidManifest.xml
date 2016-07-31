@@ -54,7 +54,8 @@
             android:name=".activity.item.AddInventoryActivity"
             android:parentActivityName=".activity.MainActivity" />
         <activity android:name=".activity.appointment.AppointmentDetailActivity" />
-        <activity android:name=".activity.SandboxActivity"></activity>
+        <activity android:name=".activity.SandboxActivity" />
+        <activity android:name=".activity.customer.EditCustomerActivity"></activity>
     </application>
 
 </manifest>

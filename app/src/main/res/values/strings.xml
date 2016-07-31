@@ -56,6 +56,11 @@
     <string name="customer_zip_prompt_str">Zip Code</string>
     <string name="customer_insert_btn_str">Add Customer</string>
     <string name="customer_marketing_allowed_prompt_str">Marketing Allowed</string>
+    <!-- CUSTOMER edit RELATED STRINGS -->
+    <string name="edit_customer_header_str">Edit Customer</string>
+    <string name="save_edit_customer_btn_str">Save Edits</string>
+
+
     <!-- EMPLOYEE ACTIVITY RELATED STRINGS -->
     <string name="employees_heading_str">Employees</string>
     <string name="employee_page_btn_str">Employees</string>
