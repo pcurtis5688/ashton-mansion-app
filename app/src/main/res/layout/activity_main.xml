@@ -62,4 +62,16 @@
             android:onClick="showSettingsPage"
             android:text="@string/settings_btn_str" />
     </TableRow>
+
+    <TableRow>
+
+        <Button
+            android:id="@+id/sandbox_btn"
+            android:layout_span="2"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/main_btn_vertical_margin"
+            android:paddingBottom="@dimen/main_btn_vertical_margin"
+            android:onClick="showSandboxPage"
+            android:text="@string/sandbox_btn_str" />
+    </TableRow>
 </TableLayout>

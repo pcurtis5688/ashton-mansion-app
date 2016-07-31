@@ -184,4 +184,6 @@
         <item>Wyoming</item>
     </string-array>
 
+    <!-- SANDBOX STRINGS -->
+    <string name="sandbox_btn_str">Sandbox!</string>
 </resources>

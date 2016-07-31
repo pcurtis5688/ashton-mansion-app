@@ -66,4 +66,10 @@ public class MainActivity extends AppCompatActivity {
         Intent settingsPageIntent = new Intent(this, SettingsActivity.class);
         startActivity(settingsPageIntent);
     }
+
+    //Method to enter the sandbox
+    public void showSandboxPage(View view){
+        Intent sandboxPageIntent = new Intent(this, SandboxActivity.class);
+        startActivity(sandboxPageIntent);
+    }
 }
