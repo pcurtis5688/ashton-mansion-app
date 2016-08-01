@@ -17,4 +17,9 @@
             android:onClick="callTestSOAPWS"
             android:text="@string/test_insertApptWS_btn_str" />
     </TableRow>
+
+    <TableRow>
+
+        <TextView android:id="@+id/country_isd" />
+    </TableRow>
 </TableLayout>

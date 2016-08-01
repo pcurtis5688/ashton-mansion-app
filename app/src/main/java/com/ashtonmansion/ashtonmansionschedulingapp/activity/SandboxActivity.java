@@ -6,7 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
+import android.widget.TextView;
 
 import com.ashtonmansion.ashtonmansionschedulingapp.R;
 import com.ashtonmansion.ashtonmansionschedulingapp.utility.CallSoap;
@@ -17,15 +17,17 @@ import org.ksoap2.serialization.SoapObject;
 import org.ksoap2.serialization.SoapSerializationEnvelope;
 import org.ksoap2.transport.HttpTransportSE;
 
-import java.util.List;
-
 public class SandboxActivity extends AppCompatActivity {
-
+    private TextView countryIsdTV;
+    private String testSoapAgainstOnlineStr;
+    private String testSoapAgainstMineStr;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sandbox);
+
+        countryIsdTV = (TextView) findViewById(R.id.country_isd);
 
     }
 
@@ -48,70 +50,12 @@ public class SandboxActivity extends AppCompatActivity {
 
         @Override
         protected Void doInBackground(Void... params) {
-            String testSoapAgainstOnline = CallSoap.GetISD("India");
-            String testStringForMine = "testString";
+            CallSoap soapHandler = new CallSoap();
+            testSoapAgainstOnlineStr = soapHandler.GetISD("India");
 
-            String SOAP_URL = "http://laptop-53b1c7v6:7047/DynamicsNAV90/WS/CRONUS%20Canada%2C%20Inc./Codeunit/wsApptSched";
-            String SOAP_NAMESPACE = "urn:microsoft-dynamics-schemas/codeunit/wsApptSched";
-            String SOAP_METHOD = "CreateAppt";
-            String SOAP_ACTION = "urn:microsoft-dynamics-schemas/codeunit/wsApptSched:CreateAppt";
 
-            SoapObject request = new SoapObject(SOAP_NAMESPACE, SOAP_METHOD);
+            testSoapAgainstMineStr = soapHandler.soapHello("companyName");
 
-            PropertyInfo pi1 = new PropertyInfo();
-            pi1.setName("pID");
-            pi1.setValue(testStringForMine);
-            request.addProperty(pi1);
-
-            PropertyInfo pi2 = new PropertyInfo();
-            pi2.setName("pDate");
-            pi2.setValue(testStringForMine);
-            request.addProperty(pi2);
-
-            PropertyInfo pi3 = new PropertyInfo();
-            pi3.setName("pTime");
-            pi3.setValue(testStringForMine);
-            request.addProperty(pi3);
-
-            PropertyInfo pi4 = new PropertyInfo();
-            pi4.setName("pCustCode");
-            pi4.setValue(testStringForMine);
-            request.addProperty(pi4);
-
-            PropertyInfo pi5 = new PropertyInfo();
-            pi5.setName("pDuration");
-            pi5.setValue(testStringForMine);
-            request.addProperty(pi5);
-
-            PropertyInfo pi6 = new PropertyInfo();
-            pi6.setName("palerttype");
-            pi6.setValue(testStringForMine);
-            request.addProperty(pi6);
-
-            PropertyInfo pi7 = new PropertyInfo();
-            pi7.setName("pItemCode");
-            pi7.setValue(testStringForMine);
-            request.addProperty(pi7);
-
-            PropertyInfo pi8 = new PropertyInfo();
-            pi8.setName("pNotes");
-            pi8.setValue(testStringForMine);
-            request.addProperty(pi8);
-
-            PropertyInfo pi9 = new PropertyInfo();
-            pi9.setName("pEmpl1");
-            pi9.setValue(testStringForMine);
-            request.addProperty(pi9);
-
-            PropertyInfo pi10 = new PropertyInfo();
-            pi10.setName("pEmpl2");
-            pi10.setValue(testStringForMine);
-            request.addProperty(pi10);
-
-            PropertyInfo pi11 = new PropertyInfo();
-            pi11.setName("pConfStatus");
-            pi11.setValue(testStringForMine);
-            request.addProperty(pi11);
 
             return null;
         }
@@ -121,6 +65,7 @@ public class SandboxActivity extends AppCompatActivity {
             super.onPostExecute(result);
             //Close the progress bar
             progressDialog.dismiss();
+            countryIsdTV.setText("Country ISD: " + testSoapAgainstOnlineStr);
         }
     }
 
@@ -145,41 +90,13 @@ public class SandboxActivity extends AppCompatActivity {
         String response = null;
 
         try {
-            HttpTransportSE httpTransportSE = new HttpTransportSE(url);
-
-
-//            request.addProperty("pID", testString);
-//            request.addProperty("pDate", testString);
-//            request.addProperty("pTime", testString);
-//            request.addProperty("pCustCode", testString);
-//            request.addProperty("pDuration", testString);
-//            request.addProperty("pAlerttype", testString);
-//            request.addProperty("pItemCode", testString);
-//            request.addProperty("pNotes", testString);
-//            request.addProperty("pEmpl1", testString);
-//            request.addProperty("pEmpl2", testString);
-//            request.addProperty("pConfStatus", testString);
-            //////////////////////
-//            String custID = "323111";
-//            PropertyInfo custProp = new PropertyInfo();
-//            custProp.setName("No");
-//            custProp.setValue(custID);
-//            custProp.setType(String.class);
-//            request.addProperty(custProp);
-
-
             HttpTransportSE transport = new HttpTransportSE(url);
 
             transport.call(soap_action, envelope);
-//            NtlmTransport ntlm = new NtlmTransport();
-//            ntlm.setCredentials(url, "USER", "PW", "DOMAIN","EMPTY??");
-//            ntlm.call(soap_action, envelope); // Receive Error here!
-//            SoapObject result = (SoapObject) envelope.getResponse();
             Log.i("Response string", envelope.getResponse().toString());
         } catch (Exception e) {
             e.printStackTrace();
             Log.i("E string", e.toString());
         }
     }
-
 }

@@ -1,14 +1,17 @@
 package com.ashtonmansion.ashtonmansionschedulingapp.activity.customer;
 
 import android.accounts.Account;
+import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.ashtonmansion.ashtonmansionschedulingapp.R;
 import com.ashtonmansion.ashtonmansionschedulingapp.activity.customer.AddCustomerActivity;
@@ -124,7 +127,14 @@ public class CustomersActivity extends AppCompatActivity {
 
         for (Customer customer : customerList) {
             //Create new row to be added to the table
+            final String customerId = customer.getId();
             newCustomerRow = new TableRow(this);
+            newCustomerRow.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    clickedThisID(customerId);
+                }
+            });
             //Create the new views for the new row
             custLastnameTextview = new TextView(this);
             custFirstnameTextview = new TextView(this);
@@ -144,5 +154,14 @@ public class CustomersActivity extends AppCompatActivity {
 
     private void createCustomerTableHeaderRow() {
         //TODO THIS
+    }
+
+    public void clickedThisID(String id) {
+        Context context = getApplicationContext();
+        CharSequence text = "Hello customer " + id + "!!";
+        int duration = Toast.LENGTH_SHORT;
+
+        Toast toast = Toast.makeText(context, text, duration);
+        toast.show();
     }
 }
