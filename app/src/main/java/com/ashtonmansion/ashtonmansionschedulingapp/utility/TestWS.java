@@ -2,32 +2,39 @@ package com.ashtonmansion.ashtonmansionschedulingapp.utility;
 
 import android.util.Log;
 
-import com.ashtonmansion.ashtonmansionschedulingapp.dbo.Appointment;
-import com.clover.sdk.v3.apps.App;
-
 import org.ksoap2.SoapEnvelope;
 import org.ksoap2.serialization.PropertyInfo;
 import org.ksoap2.serialization.SoapObject;
 import org.ksoap2.serialization.SoapSerializationEnvelope;
 import org.ksoap2.transport.HttpTransportSE;
-import org.ksoap2.transport.ServiceConnectionSE;
 
 import java.net.Authenticator;
-import java.util.List;
+import java.net.URL;
+
+import javax.xml.namespace.QName;
 
 /**
  * Created by paul on 7/31/2016.
  */
-public class CallSoap {
+public class TestWS {
+    private static final String TEST_WEB_SERVICE_URL = "http://10.0.3.2:7047/DynamicsNAV90/WS/CRONUS%20Canada%2C%20Inc./Codeunit/TestService";
 
-    public String soapHello(String helloIn) {
+    public static String sayHiToSoap(String helloIn) {
+        WSAuthenticator myAuthenticator = new WSAuthenticator();
+        myAuthenticator.getPasswordAuthentication();
+        Authenticator.setDefault(myAuthenticator);
 
-        WebServices services = new WebServices();
-        return services.connectToNtlm("why hello");
+        String soapResponse = null;
+
+        String namespace = "urn:microsoft-dynamics-schemas/codeunit/TestService";
+        String soap_action = "urn:microsoft-dynamics-schemas/page/salesorder:Read";
+        String method_name = "Read";
+
+        return soapResponse;
     }
 
     public static String GetISD(String countryname) {
-        String SOAP_URL = "http://www.webservicex.net/country.asmx";
+        String WEB_SERVICE_URL = "http://www.webservicex.net/country.asmx";
         String SOAP_ACTION = "http://www.webserviceX.NET/GetISD";
         String SOAP_METHOD = "GetISD";
         String SOAP_NAMESPACE = "http://www.webserviceX.NET";
@@ -46,7 +53,7 @@ public class CallSoap {
         String response = null;
 
         try {
-            HttpTransportSE httpTransportSE = new HttpTransportSE(SOAP_URL);
+            HttpTransportSE httpTransportSE = new HttpTransportSE(WEB_SERVICE_URL);
             httpTransportSE.debug = true;
 
             Log.e("REQUEST=", "" + request);
@@ -62,6 +69,7 @@ public class CallSoap {
         }
         return response;
     }
+
 
     public static String InsertAppt(String companyName) {
         String testStringForMine = "testString";

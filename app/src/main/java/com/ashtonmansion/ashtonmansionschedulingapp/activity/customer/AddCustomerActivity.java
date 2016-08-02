@@ -11,11 +11,9 @@ import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.ProgressBar;
 import android.widget.Spinner;
 
 import com.ashtonmansion.ashtonmansionschedulingapp.R;
-import com.ashtonmansion.ashtonmansionschedulingapp.dao.CustomerDAO;
 import com.clover.sdk.util.CloverAccount;
 import com.clover.sdk.v1.BindingException;
 import com.clover.sdk.v1.ClientException;
@@ -25,6 +23,8 @@ import com.clover.sdk.v3.customers.Address;
 import com.clover.sdk.v3.customers.Customer;
 import com.clover.sdk.v3.customers.EmailAddress;
 import com.clover.sdk.v3.customers.PhoneNumber;
+
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,35 +48,44 @@ public class AddCustomerActivity extends AppCompatActivity {
     private EditText customerCity;
     private Spinner customerStateSpinner;
     private EditText customerZip;
+    private PhoneNumber newCustomerPhoneNumber = new PhoneNumber();
+    private Address newCustomerAddress = new Address();
+    private EmailAddress newCustomerEmailAddress = new EmailAddress();
+    private List<PhoneNumber> phoneNumberList;
+    private List<EmailAddress> emailAddressList;
+    private List<Address> addressList;
+
 
     //Submit customer for creation
     public void submitAddCustomer(View view) {
-        newCustomer = new Customer();
+        //Classes only necessary if submit is done
+        emailAddressList = new ArrayList<EmailAddress>();
+        phoneNumberList = new ArrayList<PhoneNumber>();
+        addressList = new ArrayList<>();
         //FIRST AND LAST
-        newCustomer.setFirstName(customerFirst.getText().toString());
+        newCustomer = new Customer().setFirstName(customerFirst.getText().toString());
         newCustomer.setLastName(customerLast.getText().toString());
         newCustomer.setMarketingAllowed(customerMarketingAllowedChkbox.isChecked());
+
         //NEW CUSTOMER PHONE NUMBER
-        PhoneNumber newCustomerPhoneNumber = new PhoneNumber();
         newCustomerPhoneNumber.setPhoneNumber(customerPhone.getText().toString());
-        List<PhoneNumber> phoneNumberList = new ArrayList<PhoneNumber>();
         phoneNumberList.add(newCustomerPhoneNumber);
         newCustomer.setPhoneNumbers(phoneNumberList);
+
         //NEW CUSTOMER EMAIL
-        EmailAddress newCustomerEmailAddress = new EmailAddress();
         newCustomerEmailAddress.setEmailAddress(customerEmail.getText().toString());
-        List<EmailAddress> emailAddressList = new ArrayList<EmailAddress>();
+        emailAddressList = new ArrayList<>();
         emailAddressList.add(newCustomerEmailAddress);
         newCustomer.setEmailAddresses(emailAddressList);
+
         //NEW CUSTOMER ADDRESS
-        Address newCustomerAddress = new Address();
         newCustomerAddress.setAddress1(customerAddress1.getText().toString());
         newCustomerAddress.setAddress2(customerAddress2.getText().toString());
         newCustomerAddress.setAddress3(customerAddress3.getText().toString());
         newCustomerAddress.setCity(customerCity.getText().toString());
         newCustomerAddress.setState(customerStateSpinner.getSelectedItem().toString());
         newCustomerAddress.setZip(customerZip.getText().toString());
-        List<Address> addressList = new ArrayList<>();
+        addressList = new ArrayList<>();
         addressList.add(newCustomerAddress);
         newCustomer.setAddresses(addressList);
 
@@ -100,6 +109,16 @@ public class AddCustomerActivity extends AppCompatActivity {
                 connectCustomerConn();
 
                 try {
+                    for (Address currentAddress : addressList) {
+                        customerConnector.addAddress(newCustomer.getId(), currentAddress.getAddress1(), currentAddress.getAddress2(), currentAddress.getAddress3(), currentAddress.getCity(), currentAddress.getState(), currentAddress.getZip());
+                    }
+                    for (PhoneNumber phoneNumber : phoneNumberList) {
+                        customerConnector.addPhoneNumber(newCustomer.getId(), phoneNumber.getPhoneNumber());
+                    }
+                    for (EmailAddress emailAddress : emailAddressList) {
+                        customerConnector.addEmailAddress(newCustomer.getId(), emailAddress.getEmailAddress());
+                    }
+
                     customerConnector.createCustomer(newCustomer.getFirstName(), newCustomer.getLastName(), newCustomer.getMarketingAllowed());
                     //TODO GET CUST ID AND SET THE OTHER FIELDS
 

@@ -21,7 +21,8 @@ import com.clover.sdk.v3.apps.App;
 /**
  * Created by paul on 7/26/2016.
  */
-public class WebServices {
+public class WebServiceUtilities {
+
     public static SoapSerializationEnvelope getSoapEnvelope(SoapObject request) {
         SoapSerializationEnvelope soapSerializationEnvelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
         soapSerializationEnvelope.dotNet = true;
@@ -30,7 +31,6 @@ public class WebServices {
         soapSerializationEnvelope.setOutputSoapObject(request);
 
         return soapSerializationEnvelope;
-
     }
 
     public static HttpTransportSE getHttpTransportSE(String SOAP_URL) {
@@ -40,26 +40,24 @@ public class WebServices {
         return ht;
     }
 
-    public String connectToNtlm(String helloIn) {
-        String helloBack = "";
-        try {
-            String baseURL = "http://10.0.3.2:7047/DynamicsNAV/WS/";
-            URL systemServiceURL = new URL(baseURL + "Codeunit/TestService");
-            QName systemServiceQName = new QName("urn:microsoft-dynamics-schemas/nav/system/", "Codeunit/TestService");
-
-
-            WSAuthenticator myAuthenticator = new WSAuthenticator();
-
-            myAuthenticator.getPasswordAuthentication();
-
-
-            AppointmentWS apptWs = new AppointmentWS(systemServiceURL, systemServiceQName);
-            AppointmentWSPort apptWsApptServicePort = apptWs.getApptServicePort();
-
-
-        } catch (Exception e) {
-            Log.i("Exception: ", e.toString());
-        }
-        return helloBack;
-    }
+//    public String connectToNtlm(String helloIn) {
+//        String helloBack = "";
+//        try {
+//            String baseURL = "http://10.0.3.2:7047/DynamicsNAV/WS/";
+//            URL systemServiceURL = new URL(baseURL + "Codeunit/TestService");
+//            QName systemServiceQName = new QName("urn:microsoft-dynamics-schemas/nav/system/", "Codeunit/TestService");
+//
+//
+//            WSAuthenticator myAuthenticator = new WSAuthenticator();
+//            myAuthenticator.getPasswordAuthentication();
+//
+//
+//            AppointmentWS apptWs = new AppointmentWS(systemServiceURL, systemServiceQName);
+//
+//
+//        } catch (Exception e) {
+//            Log.i("Exception: ", e.toString());
+//        }
+//        return helloBack;
+//    }
 }

@@ -9,17 +9,8 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.ashtonmansion.ashtonmansionschedulingapp.R;
-import com.ashtonmansion.ashtonmansionschedulingapp.dbo.Appointment;
-import com.ashtonmansion.ashtonmansionschedulingapp.utility.CallSoap;
-import com.ashtonmansion.ashtonmansionschedulingapp.utility.WebServices;
+import com.ashtonmansion.ashtonmansionschedulingapp.utility.TestWS;
 
-import org.ksoap2.SoapEnvelope;
-import org.ksoap2.serialization.PropertyInfo;
-import org.ksoap2.serialization.SoapObject;
-import org.ksoap2.serialization.SoapSerializationEnvelope;
-import org.ksoap2.transport.HttpTransportSE;
-
-import java.util.List;
 
 public class SandboxActivity extends AppCompatActivity {
     private TextView countryIsdTV;
@@ -54,13 +45,13 @@ public class SandboxActivity extends AppCompatActivity {
 
         @Override
         protected Void doInBackground(Void... params) {
-            CallSoap soapHandler = new CallSoap();
-            testSoapAgainstOnlineStr = soapHandler.GetISD("India");
+            TestWS testService = new TestWS();
 
-            CallSoap callSoap = new CallSoap();
+            testSoapAgainstOnlineStr = testService.GetISD("India");
+            Log.i("ISD is: ", testSoapAgainstMineStr);
 
-            String testSoapAgainstMineList = callSoap.soapHello("hello");
-
+            testSoapAgainstMineStr = testService.sayHiToSoap("hello");
+            Log.i("Soap says: ", testSoapAgainstMineStr);
 
             return null;
         }
@@ -75,33 +66,4 @@ public class SandboxActivity extends AppCompatActivity {
     }
 
 
-    public void WithNTLM() {
-        String namespace = "urn:microsoft-dynamics-schemas/page/salesorder";
-        String url = "http://10.0.3.2:7047/DynamicsNAV90/WS/CRONUS Canada%2C Inc./Page/SalesOrder";
-        String soap_action = "urn:microsoft-dynamics-schemas/page/salesorder:Read";
-        String method_name = "Read";
-
-        SoapObject request = new SoapObject(namespace, method_name);
-
-        PropertyInfo custProp = new PropertyInfo();
-        custProp.setName("CountryName");
-        custProp.setValue("India");
-        custProp.setType(String.class);
-        request.addProperty(custProp);
-
-        SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
-        envelope.dotNet = true;
-        envelope.setOutputSoapObject(request);
-        String response = null;
-
-        try {
-            HttpTransportSE transport = new HttpTransportSE(url);
-
-            transport.call(soap_action, envelope);
-            Log.i("Response string", envelope.getResponse().toString());
-        } catch (Exception e) {
-            e.printStackTrace();
-            Log.i("E string", e.toString());
-        }
-    }
 }
