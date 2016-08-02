@@ -1,6 +1,8 @@
 package com.ashtonmansion.ashtonmansionschedulingapp.activity.customer;
 
 import android.accounts.Account;
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.os.AsyncTask;
 import android.os.RemoteException;
 import android.support.v7.app.AppCompatActivity;
@@ -9,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 
 import com.ashtonmansion.ashtonmansionschedulingapp.R;
@@ -27,6 +30,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AddCustomerActivity extends AppCompatActivity {
+    //ACTIVITY VARS
+    private Context context;
     //SERVICE VARS
     private Account mAcct;
     private CustomerConnector customerConnector;
@@ -79,11 +84,14 @@ public class AddCustomerActivity extends AppCompatActivity {
     }
 
     private void insertCustomer() {
+
         new AsyncTask<Void, Void, Void>() {
+            ProgressDialog progress = new ProgressDialog(context);
+
             @Override
             protected void onPreExecute() {
                 super.onPreExecute();
-                //TODO PROGRESS PBAR
+                progress.show();
             }
 
             @Override
@@ -94,6 +102,7 @@ public class AddCustomerActivity extends AppCompatActivity {
                 try {
                     customerConnector.createCustomer(newCustomer.getFirstName(), newCustomer.getLastName(), newCustomer.getMarketingAllowed());
                     //TODO GET CUST ID AND SET THE OTHER FIELDS
+
                 } catch (RemoteException | ServiceException | ClientException | BindingException e) {
                     Log.i("Customer Creation Error", e.toString());
                 }
@@ -103,7 +112,7 @@ public class AddCustomerActivity extends AppCompatActivity {
             @Override
             protected void onPostExecute(Void result) {
                 super.onPostExecute(result);
-                //TODO PROGRESS PBAR
+                progress.dismiss();
                 finish();
             }
         }.execute();
@@ -144,7 +153,7 @@ public class AddCustomerActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_customer);
-
+        context = this;
         customerFirst = (EditText) findViewById(R.id.customer_first_name);
         customerLast = (EditText) findViewById(R.id.customer_last_name);
         customerMarketingAllowedChkbox = (CheckBox) findViewById(R.id.customer_marketing_allowed_chkbox);

@@ -9,13 +9,17 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.ashtonmansion.ashtonmansionschedulingapp.R;
+import com.ashtonmansion.ashtonmansionschedulingapp.dbo.Appointment;
 import com.ashtonmansion.ashtonmansionschedulingapp.utility.CallSoap;
+import com.ashtonmansion.ashtonmansionschedulingapp.utility.WebServices;
 
 import org.ksoap2.SoapEnvelope;
 import org.ksoap2.serialization.PropertyInfo;
 import org.ksoap2.serialization.SoapObject;
 import org.ksoap2.serialization.SoapSerializationEnvelope;
 import org.ksoap2.transport.HttpTransportSE;
+
+import java.util.List;
 
 public class SandboxActivity extends AppCompatActivity {
     private TextView countryIsdTV;
@@ -53,8 +57,9 @@ public class SandboxActivity extends AppCompatActivity {
             CallSoap soapHandler = new CallSoap();
             testSoapAgainstOnlineStr = soapHandler.GetISD("India");
 
+            CallSoap callSoap = new CallSoap();
 
-            testSoapAgainstMineStr = soapHandler.soapHello("companyName");
+            String testSoapAgainstMineList = callSoap.soapHello("hello");
 
 
             return null;

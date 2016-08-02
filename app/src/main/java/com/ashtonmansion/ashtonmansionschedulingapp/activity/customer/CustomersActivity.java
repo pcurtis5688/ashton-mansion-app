@@ -1,31 +1,33 @@
 package com.ashtonmansion.ashtonmansionschedulingapp.activity.customer;
 
 import android.accounts.Account;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import com.clover.sdk.v1.customer.Customer;
 
 import com.ashtonmansion.ashtonmansionschedulingapp.R;
-import com.ashtonmansion.ashtonmansionschedulingapp.activity.customer.AddCustomerActivity;
 import com.clover.sdk.util.CloverAccount;
-import com.clover.sdk.v1.customer.Customer;
 import com.clover.sdk.v1.customer.CustomerConnector;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CustomersActivity extends AppCompatActivity {
+    //Activity vars
+    private Context context;
     //STATIC LOCAL VARS
     private Account mAcct;
     private CustomerConnector mCustConn;
-    private List<Customer> customerList;
+    private List<Customer> customers;
     //Activity view vars
     private TableLayout customerTable;
     private TableRow customerTableHeaderRow;
@@ -44,7 +46,7 @@ public class CustomersActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_customers);
-
+        context = this;
         customerTable = (TableLayout) findViewById(R.id.customer_table);
     }
 
@@ -72,6 +74,7 @@ public class CustomersActivity extends AppCompatActivity {
         //Get Customers
         connectCustomerConn();
         getCustomerList();
+
     }
 
     private void connectCustomerConn() {
@@ -90,19 +93,21 @@ public class CustomersActivity extends AppCompatActivity {
     }
 
     private void getCustomerList() {
-        new AsyncTask<Void, Void, Customer>() {
+        new AsyncTask<Void, Void, Void>() {
+            ProgressDialog progressDialog = new ProgressDialog(context);
+
             @Override
             protected void onPreExecute() {
                 super.onPreExecute();
-                //progress bar?
+                progressDialog.setMessage("Loading Customers...");
+                progressDialog.show();
             }
 
             @Override
-            protected Customer doInBackground(Void... params) {
+            protected Void doInBackground(Void... params) {
                 try {
-                    List<Customer> customers = mCustConn.getCustomers();
-                    customerList = customers;
-                    return customers.get(0);
+                    customers = mCustConn.getCustomers();
+
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -110,10 +115,10 @@ public class CustomersActivity extends AppCompatActivity {
             }
 
             @Override
-
-            protected void onPostExecute(Customer customer) {
+            protected void onPostExecute(Void result) {
                 populateCustomerTable();
-                disconnectCustomerConn();
+                super.onPostExecute(result);
+                progressDialog.dismiss();
             }
         }.execute();
     }
@@ -125,14 +130,15 @@ public class CustomersActivity extends AppCompatActivity {
         //TODO ABOVE
         createCustomerTableHeaderRow();
 
-        for (Customer customer : customerList) {
+        for (final Customer customer : customers) {
             //Create new row to be added to the table
             final String customerId = customer.getId();
             newCustomerRow = new TableRow(this);
+            newCustomerRow.setPadding(0, 50, 0, 50);
             newCustomerRow.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    clickedThisID(customerId);
+                    clickedThisID(customer);
                 }
             });
             //Create the new views for the new row
@@ -156,12 +162,9 @@ public class CustomersActivity extends AppCompatActivity {
         //TODO THIS
     }
 
-    public void clickedThisID(String id) {
-        Context context = getApplicationContext();
-        CharSequence text = "Hello customer " + id + "!!";
-        int duration = Toast.LENGTH_SHORT;
-
-        Toast toast = Toast.makeText(context, text, duration);
-        toast.show();
+    public void clickedThisID(Customer customer) {
+        Intent editCustomerIntent = new Intent(this, EditCustomerActivity.class);
+        editCustomerIntent.putExtra("customer", customer);
+        startActivity(editCustomerIntent);
     }
 }

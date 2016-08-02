@@ -13,8 +13,8 @@ public class Appointment {
     private String _alert_type;
     private String _item_code;
     private String _note;
-    private int _employee_code_1;
-    private int _employee_code_2;
+    private String _employee_code_1;
+    private String _employee_code_2;
     private String _confirm_status;
 
     public Appointment() {
@@ -23,8 +23,8 @@ public class Appointment {
 
     //Constructor with ID param
     public Appointment(int id, String date, String start_time, int duration, String customer_code,
-                       String alert_type, String item_code, String note, int employee_code_1,
-                       int employee_code_2, String confirm_status) {
+                       String alert_type, String item_code, String note, String employee_code_1,
+                       String employee_code_2, String confirm_status) {
         this._id = id;
         this._date = date;
         this._start_time = start_time;
@@ -40,8 +40,8 @@ public class Appointment {
 
     //Constructor without ID param
     public Appointment(String date, String start_time, int duration, String customer_code,
-                       String alert_type, String item_code, String note, int employee_code_1,
-                       int employee_code_2, String confirm_status) {
+                       String alert_type, String item_code, String note, String employee_code_1,
+                       String employee_code_2, String confirm_status) {
         this._date = date;
         this._start_time = start_time;
         this._duration = duration;
@@ -118,19 +118,19 @@ public class Appointment {
         this._note = _note;
     }
 
-    public int get_employee_code_1() {
+    public String get_employee_code_1() {
         return _employee_code_1;
     }
 
-    public void set_employee_code_1(int _employee_code_1) {
+    public void set_employee_code_1(String _employee_code_1) {
         this._employee_code_1 = _employee_code_1;
     }
 
-    public int get_employee_code_2() {
+    public String get_employee_code_2() {
         return _employee_code_2;
     }
 
-    public void set_employee_code_2(int _employee_code_2) {
+    public void set_employee_code_2(String _employee_code_2) {
         this._employee_code_2 = _employee_code_2;
     }
 

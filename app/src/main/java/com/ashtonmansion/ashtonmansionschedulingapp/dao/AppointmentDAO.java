@@ -94,8 +94,8 @@ public class AppointmentDAO extends SQLiteOpenHelper {
                 appointment.set_alert_type(cursor.getString(5));
                 appointment.set_item_code(cursor.getString(6));
                 appointment.set_note(cursor.getString(7));
-                appointment.set_employee_code_1(Integer.parseInt(cursor.getString(8)));
-                appointment.set_employee_code_2(Integer.parseInt(cursor.getString(9)));
+                appointment.set_employee_code_1(cursor.getString(8));
+                appointment.set_employee_code_2(cursor.getString(9));
                 appointment.set_confirm_status(cursor.getString(10));
                 //UPON APPOINTMENT CREATION, ADD TO LIST
                 appointmentList.add(appointment);

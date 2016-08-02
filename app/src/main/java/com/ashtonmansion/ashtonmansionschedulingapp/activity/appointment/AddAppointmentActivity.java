@@ -122,8 +122,8 @@ public class AddAppointmentActivity extends AppCompatActivity {
         appointment.set_alert_type(alertTypeSpinner.getSelectedItem().toString());
         appointment.set_item_code(itemCodeText.getText().toString());
         appointment.set_note(apptNoteText.getText().toString());
-        appointment.set_employee_code_1(Integer.parseInt(emp1Text.getText().toString()));
-        appointment.set_employee_code_2(Integer.parseInt(emp2Text.getText().toString()));
+        appointment.set_employee_code_1(emp1Text.getText().toString());
+        appointment.set_employee_code_2(emp2Text.getText().toString());
         appointment.set_confirm_status(apptConfirmStatusSpinner.getSelectedItem().toString());
         apptDAO.addAppointment(appointment);
 
