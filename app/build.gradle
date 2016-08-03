@@ -12,7 +12,7 @@ android {
     compileSdkVersion 23
     buildToolsVersion "24.0.0"
     defaultConfig {
-        applicationId "com.ashtonmansion.ashtonmansionschedulingapp"
+        applicationId "com.ashtonmansion.ashtonmansioncloverapp"
         minSdkVersion 17
         targetSdkVersion 23
         versionCode 2
@@ -38,5 +38,4 @@ dependencies {
     compile 'com.android.support:design:23.4.0'
     compile files('libs/ksoap2-android-assembly-3.6.1-jar-with-dependencies.jar')
     compile files('libs/ntlmv2-lib-1.0.5.jar')
-    compile group: 'javax.xml.ws', name: 'jaxws-api', version: '2.2.6'
 }
