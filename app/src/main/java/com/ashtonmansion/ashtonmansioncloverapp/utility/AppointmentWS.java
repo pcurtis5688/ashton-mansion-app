@@ -43,76 +43,18 @@ public class AppointmentWS {
         SoapObject request = new SoapObject(SOAP_NAMESPACE, SOAP_METHOD);
         String response = null;
 
-        PropertyInfo piID = new PropertyInfo();
-        piID.setName("ID");
-        piID.setValue(appointment.get_id());
-        piID.setType(Integer.class);
-        request.addProperty(piID);
+        PropertyInfo piAppt = new PropertyInfo();
+        piAppt.setName("Appointment");
+        piAppt.setValue(appointment);
+        piAppt.setType(Appointment.class);
+        request.addProperty(piAppt);
 
-        PropertyInfo piDate = new PropertyInfo();
-        piDate.setName("Date");
-        piDate.setValue(appointment.get_date());
-        piDate.setType(String.class);
-        request.addProperty(piDate);
-
-        PropertyInfo piTime = new PropertyInfo();
-        piTime.setName("Time");
-        piTime.setValue(appointment.get_start_time());
-        piTime.setType(String.class);
-        request.addProperty(piTime);
-
-        PropertyInfo piCustomerCode = new PropertyInfo();
-        piCustomerCode.setName("Customer Code");
-        piCustomerCode.setValue(appointment.get_customer_code());
-        piCustomerCode.setType(String.class);
-        request.addProperty(piCustomerCode);
-
-        PropertyInfo piDuration = new PropertyInfo();
-        piDuration.setName("Duration");
-        piDuration.setValue(appointment.get_duration());
-        piDuration.setType(String.class);
-        request.addProperty(piDuration);
-
-        PropertyInfo piAlertType = new PropertyInfo();
-        piAlertType.setName("Duration");
-        piAlertType.setValue(appointment.get_alert_type());
-        piAlertType.setType(String.class);
-        request.addProperty(piAlertType);
-
-        PropertyInfo piItemCode = new PropertyInfo();
-        piItemCode.setName("Item Code");
-        piItemCode.setValue(appointment.get_item_code());
-        piItemCode.setType(String.class);
-        request.addProperty(piItemCode);
-
-        PropertyInfo piNotes = new PropertyInfo();
-        piNotes.setName("Notes");
-        piNotes.setValue(appointment.get_note());
-        piNotes.setType(String.class);
-        request.addProperty(piNotes);
-
-        PropertyInfo piEmployee1 = new PropertyInfo();
-        piEmployee1.setName("Employee 1");
-        piEmployee1.setValue(appointment.get_employee_code_1());
-        piEmployee1.setType(String.class);
-        request.addProperty(piEmployee1);
-
-        PropertyInfo piEmployee2 = new PropertyInfo();
-        piEmployee2.setName("Employee 1");
-        piEmployee2.setValue(appointment.get_employee_code_2());
-        piEmployee2.setType(String.class);
-        request.addProperty(piEmployee2);
-
-        PropertyInfo piConfirmStatus = new PropertyInfo();
-        piConfirmStatus.setName("Employee 1");
-        piConfirmStatus.setValue(appointment.get_confirm_status());
-        piConfirmStatus.setType(String.class);
-        request.addProperty(piConfirmStatus);
         ///Done setting props.
         //Make request
         SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
         envelope.dotNet = true;
         envelope.setOutputSoapObject(request);
+
         HttpTransportSE httpTransportSE = new HttpTransportSE(APPT_WS_URL);
         httpTransportSE.debug = true;
 

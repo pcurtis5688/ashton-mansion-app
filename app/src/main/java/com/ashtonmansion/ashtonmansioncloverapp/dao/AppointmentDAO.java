@@ -89,7 +89,7 @@ public class AppointmentDAO extends SQLiteOpenHelper {
                 appointment.set_id(Integer.parseInt(cursor.getString(0)));
                 appointment.set_date(cursor.getString(1));
                 appointment.set_start_time(cursor.getString(2));
-                appointment.set_duration(Integer.parseInt(cursor.getString(3)));
+                appointment.set_duration(cursor.getString(3));
                 appointment.set_customer_code(cursor.getString(4));
                 appointment.set_alert_type(cursor.getString(5));
                 appointment.set_item_code(cursor.getString(6));

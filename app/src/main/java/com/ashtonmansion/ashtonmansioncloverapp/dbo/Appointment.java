@@ -8,7 +8,7 @@ public class Appointment {
     private int _id;
     private String _date;
     private String _start_time;
-    private int _duration;
+    private String _duration;
     private String _customer_code;
     private String _alert_type;
     private String _item_code;
@@ -22,7 +22,7 @@ public class Appointment {
     }
 
     //Constructor with ID param
-    public Appointment(int id, String date, String start_time, int duration, String customer_code,
+    public Appointment(int id, String date, String start_time, String duration, String customer_code,
                        String alert_type, String item_code, String note, String employee_code_1,
                        String employee_code_2, String confirm_status) {
         this._id = id;
@@ -39,7 +39,7 @@ public class Appointment {
     }
 
     //Constructor without ID param
-    public Appointment(String date, String start_time, int duration, String customer_code,
+    public Appointment(String date, String start_time, String duration, String customer_code,
                        String alert_type, String item_code, String note, String employee_code_1,
                        String employee_code_2, String confirm_status) {
         this._date = date;
@@ -78,11 +78,11 @@ public class Appointment {
         this._start_time = _start_time;
     }
 
-    public int get_duration() {
+    public String get_duration() {
         return _duration;
     }
 
-    public void set_duration(int _duration) {
+    public void set_duration(String _duration) {
         this._duration = _duration;
     }
 

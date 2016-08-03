@@ -66,16 +66,12 @@ public class AddAppointmentActivity extends AppCompatActivity {
         }
     }
 
-    public void callInsertAppointmentWSCall(View view) {
-        new insertAppointmentWSCall().execute();
-    }
-
     public void submitAddAppointment(View view) {
         apptDAO = new AppointmentDAO(this);
         appointment = new Appointment();
         appointment.set_date("fixthis");
         appointment.set_start_time("fixthis");
-        appointment.set_duration(Integer.parseInt(durationText.getText().toString()));
+        appointment.set_duration(durationText.getText().toString());
         appointment.set_customer_code(customerCodeText.getText().toString());
         appointment.set_alert_type(alertTypeSpinner.getSelectedItem().toString());
         appointment.set_item_code(itemCodeText.getText().toString());
@@ -86,12 +82,9 @@ public class AddAppointmentActivity extends AppCompatActivity {
         apptDAO.addAppointment(appointment);
 
         //todo uncomment when ready to debug
-        //new insertAppointmentWSCall().execute();
-    }
-
-    //Method to return when cancel button is pressed
-    public void cancelAddAppointment(View view) {
-        finish();
+        AppointmentWS apptWS = new AppointmentWS();
+        String httpResponse = apptWS.createAppointment(appointment);
+        //if success, if fail
     }
 
     @Override
@@ -110,5 +103,10 @@ public class AddAppointmentActivity extends AppCompatActivity {
         emp2Text = (EditText) findViewById(R.id.appt_emp_2_assigned);
         apptConfirmStatusSpinner = (Spinner) findViewById(R.id.appt_confirm_status);
         emp2Text = (EditText) findViewById(R.id.appt_emp_2_assigned);
+    }
+
+    //Method to return when cancel button is pressed
+    public void cancelAddAppointment(View view) {
+        finish();
     }
 }
