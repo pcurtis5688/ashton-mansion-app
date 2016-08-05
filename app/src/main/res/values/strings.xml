@@ -85,6 +85,13 @@
 
     <string name="clear_employee_table_btn_str">Clear Employee Table(test)</string>
 
+    <string name="schedule_employee_btn_str">Employee Scheduling</string>
+    <string-array name="employee_for_scheduling_array">
+        <item>Employee_1</item>
+        <item>Employee_2</item>
+        <item>Employee_3</item>
+    </string-array>
+
     <!-- INVENTORY ACTIVITY RELATED STRINGS -->
     <string name="items_heading">Inventory Items</string>
     <string name="inventory_page_heading_str">Inventory</string>

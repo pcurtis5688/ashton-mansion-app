@@ -11,6 +11,8 @@ import com.ashtonmansion.ashtonmansioncloverapp.activity.appointment.Appointment
 import com.ashtonmansion.ashtonmansioncloverapp.activity.customer.CustomersActivity;
 import com.ashtonmansion.ashtonmansioncloverapp.activity.employee.EmployeesActivity;
 import com.ashtonmansion.ashtonmansioncloverapp.activity.item.InventoryActivity;
+import com.ashtonmansion.ashtonmansioncloverapp.activity.schedule.EmpScheduleActivity;
+import com.ashtonmansion.ashtonmansioncloverapp.dbo.Employee;
 import com.clover.sdk.util.CloverAccount;
 
 public class MainActivity extends AppCompatActivity {
@@ -59,6 +61,12 @@ public class MainActivity extends AppCompatActivity {
     public void showInventoryPage(View view) {
         Intent inventoryPageIntent = new Intent(this, InventoryActivity.class);
         startActivity(inventoryPageIntent);
+    }
+
+    //Method to View/Edit Inventory
+    public void showEmployeeSchedulePage(View view) {
+        Intent emplScheduleActivityIntent = new Intent(this, EmpScheduleActivity.class);
+        startActivity(emplScheduleActivityIntent);
     }
 
     //Method to View/Edit Settings
