@@ -4,7 +4,6 @@ import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -14,12 +13,8 @@ import android.widget.TimePicker;
 import com.ashtonmansion.ashtonmansioncloverapp.R;
 import com.ashtonmansion.ashtonmansioncloverapp.dao.AppointmentDAO;
 import com.ashtonmansion.ashtonmansioncloverapp.dbo.Appointment;
-import com.ashtonmansion.ashtonmansioncloverapp.utility.AppointmentWS;
-
-import org.ksoap2.SoapEnvelope;
-import org.ksoap2.serialization.SoapObject;
-import org.ksoap2.serialization.SoapSerializationEnvelope;
-import org.ksoap2.transport.HttpTransportSE;
+import com.ashtonmansion.ashtonmansioncloverapp.utility.jax_web_services.AppointmentWS;
+import com.ashtonmansion.ashtonmansioncloverapp.utility.jax_web_services.AppointmentWSPort;
 
 public class AddAppointmentActivity extends AppCompatActivity {
     private DatePicker datePicker;
@@ -34,12 +29,15 @@ public class AddAppointmentActivity extends AppCompatActivity {
     private Spinner apptConfirmStatusSpinner;
     private AppointmentDAO apptDAO;
     private Appointment appointment;
+    ///
+    // post execution vars
+    private boolean webServiceSuccess;
 
 
     // working classes below
-    private class insertAppointmentWSCall extends AsyncTask<Void, Void, Void> {
+    private class callApptCreateJaxWSInBackground extends AsyncTask<Void, Void, Void> {
         ProgressDialog progressDialog = new ProgressDialog(AddAppointmentActivity.this);
-
+        protected  boolean success = false;
         @Override
         protected void onPreExecute() {
             //Progress bar for insertion
@@ -51,10 +49,11 @@ public class AddAppointmentActivity extends AppCompatActivity {
 
         @Override
         protected Void doInBackground(Void... params) {
-
             AppointmentWS apptWebService = new AppointmentWS();
-            final String httpResponseStr = apptWebService.createAppointment(appointment);
-            //process response
+            AppointmentWSPort apptWebServicePort = apptWebService.getAppointmentWSPort();
+
+            success = apptWebServicePort.createAppointment(56, appointment.get_date(), appointment.get_start_time(), appointment.get_customer_code(), appointment.get_duration(), appointment.get_alert_type(), appointment.get_item_code(), appointment.get_note(), appointment.get_employee_code_1(), appointment.get_employee_code_2(), appointment.get_confirm_status());
+
             return null;
         }
 
@@ -62,6 +61,7 @@ public class AddAppointmentActivity extends AppCompatActivity {
         protected void onPostExecute(Void result) {
             super.onPostExecute(result);
             //Close the progress bar
+            webServiceSuccess = success;
             progressDialog.dismiss();
         }
     }
@@ -82,9 +82,14 @@ public class AddAppointmentActivity extends AppCompatActivity {
         apptDAO.addAppointment(appointment);
 
         //todo uncomment when ready to debug
-        AppointmentWS apptWS = new AppointmentWS();
-        String httpResponse = apptWS.createAppointment(appointment);
-        //if success, if fail
+
+        new callApptCreateJaxWSInBackground();
+
+        if (webServiceSuccess == true){
+            //todo
+        } else {
+            //todo
+        }
     }
 
     @Override
