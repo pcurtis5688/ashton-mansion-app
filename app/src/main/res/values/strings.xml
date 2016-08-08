@@ -201,4 +201,9 @@
     <string name="shift_template_popup_btn_str">Shift Templates</string>
     <string name="shift_exception_popup_btn_str">Shift Exceptions</string>
 
+    <!-- SHIFT TEMPLATE STRINGS -->
+    <string name="shift_template_management_header">Shift Template Management</string>
+    <string name="shift_template_add_code_hint_str">New Shift Code</string>
+    <string name="shift_template_add_name_hint_str">New Shift Name</string>
+    <string name="shift_template_add_btn_str">Add Shift Template</string>
 </resources>
