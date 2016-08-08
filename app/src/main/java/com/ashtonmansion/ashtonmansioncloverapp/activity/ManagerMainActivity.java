@@ -2,11 +2,14 @@ package com.ashtonmansion.ashtonmansioncloverapp.activity;
 
 import android.accounts.Account;
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 
 import com.ashtonmansion.ashtonmansioncloverapp.R;
+import com.ashtonmansion.ashtonmansioncloverapp.activity.shift.ManagerShiftActivity;
 import com.clover.sdk.util.CloverAccount;
 import com.clover.sdk.v3.employees.Employee;
 import com.clover.sdk.v3.employees.EmployeeConnector;
@@ -91,6 +94,12 @@ public class ManagerMainActivity extends AppCompatActivity {
             }
         }.execute();
     }
+
+    public void showManagerShiftPage(View view){
+        Intent managerShiftIntent = new Intent(this, ManagerShiftActivity.class);
+        startActivity(managerShiftIntent);
+    }
+
 
     public static void editEmployeeShiftActivity() {
         //TODO COMPLETE IMPLEMENTATION

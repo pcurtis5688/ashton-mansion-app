@@ -196,4 +196,9 @@
 
     <!-- MANAGEMENT STRINGS -->
     <string name="management_page_btn_str">Management</string>
+    <string name="shifts_popup_btn_str">Shifts</string>
+    <string name="shift_management_header_str">Shift Management</string>
+    <string name="shift_template_popup_btn_str">Shift Templates</string>
+    <string name="shift_exception_popup_btn_str">Shift Exceptions</string>
+
 </resources>

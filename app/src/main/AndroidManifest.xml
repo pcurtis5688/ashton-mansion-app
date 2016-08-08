@@ -59,6 +59,8 @@
         <activity android:name=".activity.customer.EditCustomerActivity" />
         <activity android:name=".activity.schedule.EmpScheduleActivity" />
         <activity android:name=".activity.ManagerMainActivity" />
+        <activity android:name=".activity.shift.ManagerShiftActivity" />
+        <activity android:name=".activity.shift.ManagerShiftTemplateActivity"></activity>
     </application>
 
 </manifest>

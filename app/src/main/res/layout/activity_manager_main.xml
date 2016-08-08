@@ -9,12 +9,13 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:stretchColumns="*"
     tools:context="com.ashtonmansion.ashtonmansioncloverapp.activity.ManagerMainActivity">
+
     <Button
         android:id="@+id/schedule_employee_btn"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         android:layout_span="2"
-        android:onClick="showEmployeeSchedulePage"
+        android:onClick="showManagerShiftPage"
         android:paddingBottom="@dimen/main_btn_vertical_margin"
         android:paddingTop="@dimen/main_btn_vertical_margin"
         android:text="@string/schedule_employee_btn_str" />
