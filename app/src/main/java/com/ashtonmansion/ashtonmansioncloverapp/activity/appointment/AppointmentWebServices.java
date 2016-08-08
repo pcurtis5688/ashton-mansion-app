@@ -3,9 +3,6 @@ package com.ashtonmansion.ashtonmansioncloverapp.activity.appointment;
 import android.util.Log;
 
 import com.ashtonmansion.ashtonmansioncloverapp.dbo.Appointment;
-import com.ashtonmansion.ashtonmansioncloverapp.utility.jax_web_services.AppointmentWS;
-import com.ashtonmansion.ashtonmansioncloverapp.utility.jax_web_services.AppointmentWSPort;
-
 import org.ksoap2.SoapEnvelope;
 import org.ksoap2.serialization.PropertyInfo;
 import org.ksoap2.serialization.SoapObject;
@@ -35,17 +32,17 @@ public class AppointmentWebServices {
         boolean creationSuccess = false;
 
         try {
-            final URL WEB_SERVICE_URL = new URL(baseURL + "Codeunit/AppointmentWS/");
-
-            QName systemServiceQName = new QName("urn:microsoft-dynamics-schemas/DynamicsNAV90/WS/", "AppointmentWS");
-
-            AppointmentWS appointmentWS = new AppointmentWS(WEB_SERVICE_URL, systemServiceQName);
-            AppointmentWSPort appointmentWSPort = new AppointmentWSPort() {
-                @Override
-                public boolean createAppointment(int iD, String date, String time, String customerCode, String duration, String alertType, String itemCode, String notes, String employee1, String employee2, String confirmationStatus) {
-                    return false;
-                }
-            };
+//            final URL WEB_SERVICE_URL = new URL(baseURL + "Codeunit/AppointmentWS/");
+//
+//            QName systemServiceQName = new QName("urn:microsoft-dynamics-schemas/DynamicsNAV90/WS/", "AppointmentWS");
+//
+//            AppointmentWS appointmentWS = new AppointmentWS(WEB_SERVICE_URL, systemServiceQName);
+//            AppointmentWSPort appointmentWSPort = new AppointmentWSPort() {
+//                @Override
+//                public boolean createAppointment(int iD, String date, String time, String customerCode, String duration, String alertType, String itemCode, String notes, String employee1, String employee2, String confirmationStatus) {
+//                    return false;
+//                }
+//            };
            // appointmentWSPort.createAppointment()
 
             SoapObject request = new SoapObject(COMPANY_WEB_SERVICE_URL, CREATE_APPT_SOAP_METHOD);

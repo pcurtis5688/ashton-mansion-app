@@ -2,6 +2,7 @@ package com.ashtonmansion.ashtonmansioncloverapp.activity.shift;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -13,15 +14,12 @@ import com.ashtonmansion.ashtonmansioncloverapp.dbo.ShiftTemplate;
 
 import java.util.List;
 
-public class ManagerShiftTemplateActivity extends AppCompatActivity {
+public class ShiftTemplateManagementActivity extends AppCompatActivity {
     //DATA VARS
     private List<ShiftTemplate> shiftTemplateList;
     private ShiftDAO shiftDAO;
     //UI FIELD ELEMENTS
     private TableLayout shiftTemplateTable;
-    private TableRow shiftTemplateHeaderRow;
-    private EditText newShiftCode;
-    private EditText newShiftName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +35,7 @@ public class ManagerShiftTemplateActivity extends AppCompatActivity {
 
     private void setUpTableAndHeader() {
         shiftTemplateTable = (TableLayout) findViewById(R.id.shift_template_table);
-        shiftTemplateHeaderRow = new TableRow(this);
+        TableRow shiftTemplateHeaderRow = new TableRow(this);
         TextView shiftTemplateCodeHeaderTV = new TextView(this);
         TextView shiftTemplateHeaderNameTV = new TextView(this);
         shiftTemplateCodeHeaderTV.setText("Shift Code");
@@ -51,6 +49,9 @@ public class ManagerShiftTemplateActivity extends AppCompatActivity {
 
     private void fetchShiftTemplates() {
         shiftDAO = new ShiftDAO(this);
+        //todo this and all similar creation methods need to be handled elsewhere in prog
+        shiftDAO.createShiftTemplateTable();
+
         shiftTemplateList = shiftDAO.getAllShiftTemplates();
     }
 
@@ -61,17 +62,16 @@ public class ManagerShiftTemplateActivity extends AppCompatActivity {
             TextView shiftTemplateNameTV = new TextView(this);
             shiftTemplateCodeTV.setText("" + shiftTemplate.getShiftCode());
             shiftTemplateNameTV.setText(shiftTemplate.getShiftName());
-            shiftTemplateNameTV.setAllCaps(true);
             shiftTemplateWorkingRow.addView(shiftTemplateCodeTV);
             shiftTemplateWorkingRow.addView(shiftTemplateNameTV);
             shiftTemplateTable.addView(shiftTemplateWorkingRow);
         }
     }
 
-    public void addShiftTemplateRecord() {
+    public void addShiftTemplateRecord(View view) {
         //TODO CONFIRMATION POPUP HERE
-        newShiftCode = (EditText) findViewById(R.id.shift_template_add_code);
-        newShiftName = (EditText) findViewById(R.id.shift_template_add_name);
+        EditText newShiftCode = (EditText) findViewById(R.id.shift_template_add_code);
+        EditText newShiftName = (EditText) findViewById(R.id.shift_template_add_name);
         int newShiftCodeInt = Integer.parseInt(newShiftCode.getText().toString());
         String newShiftNameString = newShiftName.getText().toString();
         //TODO DAOS IN ASYNC?
@@ -80,6 +80,7 @@ public class ManagerShiftTemplateActivity extends AppCompatActivity {
     }
 
     private void reloadShiftTemplatePage() {
+        shiftTemplateTable.removeAllViews();
         setUpTableAndHeader();
         fetchShiftTemplates();
         populateShiftTemplateTable();

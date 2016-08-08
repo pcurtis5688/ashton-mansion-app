@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.ashtonmansion.ashtonmansioncloverapp.R;
-import com.clover.sdk.util.CloverAccount;
+import com.ashtonmansion.ashtonmansioncloverapp.dbo.ShiftException;
 
 public class ManagerShiftActivity extends AppCompatActivity {
     private String managerID = "";
@@ -22,7 +22,12 @@ public class ManagerShiftActivity extends AppCompatActivity {
     }
 
     public void displayShiftTemplateActivity(View view) {
-        Intent shiftTemplateActivityIntent = new Intent(this, ManagerShiftTemplateActivity.class);
+        Intent shiftTemplateActivityIntent = new Intent(this, ShiftTemplateManagementActivity.class);
         startActivity(shiftTemplateActivityIntent);
+    }
+
+    public void displayShiftExceptionActivity(View view) {
+        Intent shiftExceptionActivityIntent = new Intent(this, ShiftExceptionManagementActivity.class);
+        startActivity(shiftExceptionActivityIntent);
     }
 }

@@ -206,4 +206,11 @@
     <string name="shift_template_add_code_hint_str">New Shift Code</string>
     <string name="shift_template_add_name_hint_str">New Shift Name</string>
     <string name="shift_template_add_btn_str">Add Shift Template</string>
+
+    <string name="shift_exception_management_header_tv_str">Shift Exception Management</string>
+    <string name="add_shift_exception_add_date_label">Exception Date</string>
+    <string name="add_shift_exception_add_time_label">Exception Time</string>
+    <string name="add_shift_exception_employee_label">Employee</string>
+    <string name="add_shift_exception_duration_label">Duration</string>
+    <string name="add_shift_exception_btn_str">Submit Exception</string>
 </resources>

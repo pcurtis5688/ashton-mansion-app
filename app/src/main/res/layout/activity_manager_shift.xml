@@ -48,6 +48,7 @@
             android:id="@+id/shift_exceptions_popup_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:onClick="displayShiftExceptionActivity"
             android:text="@string/shift_exception_popup_btn_str"
             android:textAlignment="center" />
     </TableRow>

@@ -80,4 +80,9 @@ public class MainActivity extends AppCompatActivity {
         Intent sandboxPageIntent = new Intent(this, SandboxActivity.class);
         startActivity(sandboxPageIntent);
     }
+    //Method to enter the sandbox
+    public void showManagementPage(View view){
+        Intent mainManagerIntent = new Intent(this, ManagerMainActivity.class);
+        startActivity(mainManagerIntent);
+    }
 }

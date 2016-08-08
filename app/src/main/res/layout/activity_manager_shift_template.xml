@@ -8,7 +8,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:stretchColumns="*"
-    tools:context="com.ashtonmansion.ashtonmansioncloverapp.activity.shift.ManagerShiftTemplateActivity">
+    tools:context=".activity.shift.ShiftTemplateManagementActivity">
 
     <TableRow>
 
@@ -17,6 +17,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_span="3"
+            android:layout_gravity="center_horizontal"
             android:text="@string/shift_template_management_header" />
     </TableRow>
 
@@ -41,7 +42,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:onClick="addShiftTemFplateRecord"
+            android:onClick="addShiftTemplateRecord"
             android:text="@string/shift_template_add_btn_str" />
     </TableRow>
 
