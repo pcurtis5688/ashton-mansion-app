@@ -1,4 +1,4 @@
-package com.ashtonmansion.ashtonmansioncloverapp.utility;
+package com.ashtonmansion.ashtonmansioncloverapp.webservices.generalws;
 
 import java.net.Authenticator;
 import java.net.PasswordAuthentication;

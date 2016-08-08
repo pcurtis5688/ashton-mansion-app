@@ -9,7 +9,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.ashtonmansion.ashtonmansioncloverapp.R;
-import com.ashtonmansion.ashtonmansioncloverapp.utility.TestWS;
+import com.ashtonmansion.ashtonmansioncloverapp.webservices.testws.TestWS;
 
 
 public class SandboxActivity extends AppCompatActivity {
@@ -38,9 +38,9 @@ public class SandboxActivity extends AppCompatActivity {
         protected void onPreExecute() {
             //Progress bar for insertion
             super.onPreExecute();
-
-            progressDialog.setMessage("Making call...");
-            progressDialog.show();
+//
+//            progressDialog.setMessage("Making call...");
+//            progressDialog.show();
         }
 
         @Override
@@ -48,10 +48,8 @@ public class SandboxActivity extends AppCompatActivity {
             TestWS testService = new TestWS();
 
             testSoapAgainstOnlineStr = testService.GetISD("India");
-            Log.i("ISD is: ", testSoapAgainstMineStr);
 
-            testSoapAgainstMineStr = testService.sayHiToSoap("hello");
-            Log.i("Soap says: ", testSoapAgainstMineStr);
+            testSoapAgainstMineStr = testService.GetHello("hello");
 
             return null;
         }
@@ -62,8 +60,8 @@ public class SandboxActivity extends AppCompatActivity {
             //Close the progress bar
             progressDialog.dismiss();
             countryIsdTV.setText("Country ISD: " + testSoapAgainstOnlineStr);
+            Log.i("ISD is: ", testSoapAgainstMineStr);
+            Log.i("Soap says: ", testSoapAgainstMineStr);
         }
     }
-
-
 }

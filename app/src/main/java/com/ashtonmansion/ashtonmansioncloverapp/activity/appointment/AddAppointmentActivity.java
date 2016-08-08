@@ -41,7 +41,7 @@ public class AddAppointmentActivity extends AppCompatActivity {
             //Progress bar for insertion
             super.onPreExecute();
 
-            progressDialog.setMessage("Inserting...");
+            progressDialog.setMessage("Creating ...");
             progressDialog.show();
         }
 
@@ -49,8 +49,8 @@ public class AddAppointmentActivity extends AppCompatActivity {
         protected Void doInBackground(Void... params) {
             // AppointmentWS apptWebService = new AppointmentWS();
             // AppointmentWSPort apptWebServicePort = apptWebService.getAppointmentWSPort();
-//TODO FINISH THIS METHOD
-// f  success = apptWebServicePort.createAppointment(56, appointment.get_date(), appointment.get_start_time(), appointment.get_customer_code(), appointment.get_duration(), appointment.get_alert_type(), appointment.get_item_code(), appointment.get_note(), appointment.get_employee_code_1(), appointment.get_employee_code_2(), appointment.get_confirm_status());
+            //TODO FINISH THIS METHOD
+            // f  success = apptWebServicePort.createAppointment(56, appointment.get_date(), appointment.get_start_time(), appointment.get_customer_code(), appointment.get_duration(), appointment.get_alert_type(), appointment.get_item_code(), appointment.get_note(), appointment.get_employee_code_1(), appointment.get_employee_code_2(), appointment.get_confirm_status());
 
             return null;
         }
