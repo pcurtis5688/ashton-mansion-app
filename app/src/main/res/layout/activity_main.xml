@@ -55,18 +55,6 @@
     <TableRow>
 
         <Button
-            android:id="@+id/schedule_employee_btn"
-            android:layout_height="wrap_content"
-            android:layout_span="2"
-            android:onClick="showEmployeeSchedulePage"
-            android:paddingBottom="@dimen/main_btn_vertical_margin"
-            android:paddingTop="@dimen/main_btn_vertical_margin"
-            android:text="@string/schedule_employee_btn_str" />
-    </TableRow>
-
-    <TableRow>
-
-        <Button
             android:id="@+id/settings_btn"
             android:layout_height="wrap_content"
             android:layout_span="2"
@@ -86,5 +74,17 @@
             android:paddingBottom="@dimen/main_btn_vertical_margin"
             android:paddingTop="@dimen/main_btn_vertical_margin"
             android:text="@string/sandbox_btn_str" />
+    </TableRow>
+
+    <TableRow>
+
+        <Button
+            android:id="@+id/management_btn"
+            android:layout_height="wrap_content"
+            android:layout_span="2"
+            android:onClick="showManagementPage"
+            android:paddingBottom="@dimen/main_btn_vertical_margin"
+            android:paddingTop="@dimen/main_btn_vertical_margin"
+            android:text="@string/management_page_btn_str" />
     </TableRow>
 </TableLayout>

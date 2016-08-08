@@ -193,4 +193,7 @@
 
     <!-- SANDBOX STRINGS -->
     <string name="sandbox_btn_str">Sandbox!</string>
+
+    <!-- MANAGEMENT STRINGS -->
+    <string name="management_page_btn_str">Management</string>
 </resources>

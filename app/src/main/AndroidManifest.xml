@@ -57,7 +57,8 @@
         <activity android:name=".activity.appointment.AppointmentDetailActivity" />
         <activity android:name=".activity.SandboxActivity" />
         <activity android:name=".activity.customer.EditCustomerActivity" />
-        <activity android:name=".activity.schedule.EmpScheduleActivity"></activity>
+        <activity android:name=".activity.schedule.EmpScheduleActivity" />
+        <activity android:name=".activity.ManagerMainActivity" />
     </application>
 
 </manifest>

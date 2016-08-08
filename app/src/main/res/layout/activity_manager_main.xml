@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:stretchColumns="*"
+    tools:context="com.ashtonmansion.ashtonmansioncloverapp.activity.ManagerMainActivity">
+    <Button
+        android:id="@+id/schedule_employee_btn"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_span="2"
+        android:onClick="showEmployeeSchedulePage"
+        android:paddingBottom="@dimen/main_btn_vertical_margin"
+        android:paddingTop="@dimen/main_btn_vertical_margin"
+        android:text="@string/schedule_employee_btn_str" />
+</TableLayout>
