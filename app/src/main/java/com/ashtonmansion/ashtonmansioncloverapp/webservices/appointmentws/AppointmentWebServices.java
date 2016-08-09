@@ -12,7 +12,6 @@ import org.ksoap2.serialization.SoapSerializationEnvelope;
 import org.ksoap2.transport.HttpTransportSE;
 
 import java.net.Authenticator;
-import java.net.PasswordAuthentication;
 
 import javax.xml.namespace.QName;
 

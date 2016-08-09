@@ -3,7 +3,6 @@ package com.ashtonmansion.ashtonmansioncloverapp.activity.shift;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -11,7 +10,6 @@ import android.widget.TextView;
 import com.ashtonmansion.ashtonmansioncloverapp.R;
 import com.ashtonmansion.ashtonmansioncloverapp.dao.ShiftDAO;
 import com.ashtonmansion.ashtonmansioncloverapp.dbo.ShiftException;
-import com.ashtonmansion.ashtonmansioncloverapp.dbo.ShiftTemplate;
 
 import java.util.List;
 

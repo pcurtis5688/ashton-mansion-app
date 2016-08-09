@@ -24,7 +24,7 @@
             android:parentActivityName=".activity.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.ashtonmansion.ashtonmansioncloverapp.activity.MainActivity" />
+                android:value=".activity.MainActivity" />
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -57,7 +57,6 @@
         <activity android:name=".activity.appointment.AppointmentDetailActivity" />
         <activity android:name=".activity.SandboxActivity" />
         <activity android:name=".activity.customer.EditCustomerActivity" />
-        <activity android:name=".activity.schedule.EmpScheduleActivity" />
         <activity android:name=".activity.ManagerMainActivity" />
         <activity android:name=".activity.shift.ManagerShiftActivity" />
         <activity android:name=".activity.shift.ShiftTemplateManagementActivity" />

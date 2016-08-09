@@ -36,11 +36,7 @@ public class SandboxActivity extends AppCompatActivity {
 
         @Override
         protected void onPreExecute() {
-            //Progress bar for insertion
             super.onPreExecute();
-//
-//            progressDialog.setMessage("Making call...");
-//            progressDialog.show();
         }
 
         @Override
@@ -48,9 +44,10 @@ public class SandboxActivity extends AppCompatActivity {
             TestWS testService = new TestWS();
 
             testSoapAgainstOnlineStr = testService.GetISD("India");
+            Log.i("Hello Return str: ", testSoapAgainstOnlineStr);
 
             testSoapAgainstMineStr = testService.GetHello("hello");
-
+            Log.i("Hello Return str: ", testSoapAgainstMineStr);
             return null;
         }
 

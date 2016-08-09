@@ -3,9 +3,9 @@ package com.ashtonmansion.ashtonmansioncloverapp.webservices.generalws;
 import org.ksoap2.SoapEnvelope;
 import org.ksoap2.serialization.SoapObject;
 import org.ksoap2.serialization.SoapSerializationEnvelope;
+import org.ksoap2.transport.HttpTransportSE;
 
-import java.net.Authenticator;
-import java.net.PasswordAuthentication;
+import java.net.Proxy;
 
 /**
  * Created by paul on 8/8/2016.
@@ -26,11 +26,13 @@ public class WebServiceUtilities {
         ServiceAuthenticator soapAuthenticator = new ServiceAuthenticator();
         return soapAuthenticator;
     }
-}
 
-
-class ServiceAuthenticator extends Authenticator {
-    public PasswordAuthentication getPasswordAuthentication() {
-        return (new PasswordAuthentication("laptop-53b1c7v6\\paul", new char[]{'W', 'm', 'o', '6', '7', '7', '6', '6', '7', '6', '7'}));
+    public static final HttpTransportSE getHttpTransportSE(String REQUEST_URL){
+        HttpTransportSE ht = new HttpTransportSE(Proxy.NO_PROXY,REQUEST_URL,60000);
+        ht.debug = true;
+        ht.setXmlVersionTag("<!--?xml version=\"1.0\" encoding= \"UTF-8\" ?-->");
+        return ht;
     }
 }
+
+

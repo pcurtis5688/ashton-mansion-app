@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.ashtonmansion.ashtonmansioncloverapp.R;
-import com.ashtonmansion.ashtonmansioncloverapp.dbo.ShiftException;
 
 public class ManagerShiftActivity extends AppCompatActivity {
     private String managerID = "";

@@ -1,4 +1,4 @@
-package com.ashtonmansion.ashtonmansionapp;
+package com.ashtonmansion.ashtonmansioncloverapp;
 
 import org.junit.Test;
 
