@@ -10,7 +10,9 @@ import org.ksoap2.serialization.PropertyInfo;
 import org.ksoap2.serialization.SoapObject;
 import org.ksoap2.serialization.SoapSerializationEnvelope;
 import org.ksoap2.transport.HttpTransportSE;
+import org.xmlpull.v1.XmlPullParserException;
 
+import java.io.IOException;
 import java.net.Authenticator;
 
 import javax.xml.namespace.QName;
@@ -85,103 +87,95 @@ public class AppointmentWebServices {
         Authenticator.setDefault(WebServiceUtilities.getSoapAuthenticator());
     }
 
-    public static String InsertAppt(String companyName) {
-        String testStringForMine = "testString";
+    public static boolean insertAppointment(Appointment appt){
+        final String wsdlUrl = "http://10.0.3.2:7047/DynamicsNAV90/WS/CRONUS Canada, Inc./Codeunit/AppointmentWS";
+        final String namespace = "urn:microsoft-dynamics-schemas/codeunit/AppointmentWS";
+        final String soap_action = "urn:microsoft-dynamics-schemas/codeunit/AppointmentWS:CreateAppointment";
+        final String method_name = "CreateAppointment";
+        boolean insertSuccess = false;
 
-        String SOAP_URL = "http://10.0.3.2:7047/DynamicsNAV90/WS/CRONUS%20Canada%2C%20Inc./services/Codeunit/";
-        String SOAP_NAMESPACE = "http://schemas.xmlsoap.org/soap/envelope/";
+        SoapObject request = new SoapObject(namespace, method_name);
 
-        String SOAP_ACTION = "urn:microsoft-dynamics-schemas/codeunit/wsAppt:CreateAppt";
+        SoapSerializationEnvelope envelope = WebServiceUtilities.getSoapSerializationEnvelope(request);
 
-        String SOAP_METHOD = "CreateAppt";
-        SoapObject request = new SoapObject(SOAP_NAMESPACE, SOAP_METHOD);
-
+        ///PARAMS
         PropertyInfo pi1 = new PropertyInfo();
         pi1.setName("pID");
-        pi1.setValue(testStringForMine);
+        pi1.setValue("10");
         pi1.setType(String.class);
         request.addProperty(pi1);
 
         PropertyInfo pi2 = new PropertyInfo();
         pi2.setName("pDate");
-        pi2.setValue(testStringForMine);
+        pi2.setValue(appt.get_date());
         pi2.setType(String.class);
         request.addProperty(pi2);
 
         PropertyInfo pi3 = new PropertyInfo();
         pi3.setName("pTime");
-        pi3.setValue(testStringForMine);
+        pi3.setValue(appt.get_start_time());
         pi3.setType(String.class);
         request.addProperty(pi3);
 
         PropertyInfo pi4 = new PropertyInfo();
         pi4.setName("pCustCode");
-        pi4.setValue(testStringForMine);
+        pi4.setValue(appt.get_customer_code());
         pi4.setType(String.class);
         request.addProperty(pi4);
 
         PropertyInfo pi5 = new PropertyInfo();
         pi5.setName("pDuration");
-        pi5.setValue(testStringForMine);
+        pi5.setValue(appt.get_duration());
         pi5.setType(String.class);
         request.addProperty(pi5);
 
         PropertyInfo pi6 = new PropertyInfo();
         pi6.setName("palerttype");
-        pi6.setValue(testStringForMine);
+        pi6.setValue(appt.get_alert_type());
         pi6.setType(String.class);
         request.addProperty(pi6);
 
         PropertyInfo pi7 = new PropertyInfo();
         pi7.setName("pItemCode");
-        pi7.setValue(testStringForMine);
+        pi7.setValue(appt.get_item_code());
         pi7.setType(String.class);
         request.addProperty(pi7);
 
         PropertyInfo pi8 = new PropertyInfo();
         pi8.setName("pNotes");
-        pi8.setValue(testStringForMine);
+        pi8.setValue(appt.get_note());
         pi8.setType(String.class);
         request.addProperty(pi8);
 
         PropertyInfo pi9 = new PropertyInfo();
         pi9.setName("pEmpl1");
-        pi9.setValue(testStringForMine);
+        pi9.setValue(appt.get_employee_code_1());
         pi9.setType(String.class);
         request.addProperty(pi9);
 
         PropertyInfo pi10 = new PropertyInfo();
         pi10.setName("pEmpl2");
-        pi10.setValue(testStringForMine);
+        pi10.setValue(appt.get_employee_code_2());
         pi10.setType(String.class);
         request.addProperty(pi10);
 
         PropertyInfo pi11 = new PropertyInfo();
         pi11.setName("pConfStatus");
-        pi11.setValue(testStringForMine);
+        pi11.setValue(appt.get_confirm_status());
         pi11.setType(String.class);
         request.addProperty(pi11);
 
-        SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
-        envelope.dotNet = true;
-        envelope.setOutputSoapObject(request);
-        String response = null;
 
+        HttpTransportSE transportSE = WebServiceUtilities.getHttpTransportSE(wsdlUrl);
         try {
-            HttpTransportSE httpTransportSE = new HttpTransportSE(SOAP_URL);
-            httpTransportSE.debug = true;
-
-            Log.e("REQUEST=", "" + request);
-            Log.e("SOAP ENVOLP=", "envolpe=" + envelope);
-
-            httpTransportSE.call(SOAP_ACTION, envelope);
-
-            response = httpTransportSE.requestDump;
-        } catch (Exception e) {
-            Log.i("Errorcalling hello-->", e.toString());
+            transportSE.call(soap_action, envelope);
+            insertSuccess = true;
+        } catch (IOException | XmlPullParserException e){
+            Log.e("IO or XML err: ", e.toString());
         }
-        return response;
-    }
 
+
+        return insertSuccess;
+    }
 }
 

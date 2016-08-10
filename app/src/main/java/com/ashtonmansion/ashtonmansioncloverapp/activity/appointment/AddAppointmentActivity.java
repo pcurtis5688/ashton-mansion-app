@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -13,6 +14,7 @@ import android.widget.TimePicker;
 import com.ashtonmansion.ashtonmansioncloverapp.R;
 import com.ashtonmansion.ashtonmansioncloverapp.dao.AppointmentDAO;
 import com.ashtonmansion.ashtonmansioncloverapp.dbo.Appointment;
+import com.ashtonmansion.ashtonmansioncloverapp.webservices.appointmentws.AppointmentWebServices;
 
 public class AddAppointmentActivity extends AppCompatActivity {
     private DatePicker datePicker;
@@ -34,24 +36,18 @@ public class AddAppointmentActivity extends AppCompatActivity {
     // working classes below
     private class callApptCreateJaxWSInBackground extends AsyncTask<Void, Void, Void> {
         ProgressDialog progressDialog = new ProgressDialog(AddAppointmentActivity.this);
-        protected boolean success = false;
 
         @Override
         protected void onPreExecute() {
             //Progress bar for insertion
             super.onPreExecute();
-
             progressDialog.setMessage("Creating ...");
             progressDialog.show();
         }
 
         @Override
         protected Void doInBackground(Void... params) {
-            // AppointmentWS apptWebService = new AppointmentWS();
-            // AppointmentWSPort apptWebServicePort = apptWebService.getAppointmentWSPort();
-            //TODO FINISH THIS METHOD
-            // f  success = apptWebServicePort.createAppointment(56, appointment.get_date(), appointment.get_start_time(), appointment.get_customer_code(), appointment.get_duration(), appointment.get_alert_type(), appointment.get_item_code(), appointment.get_note(), appointment.get_employee_code_1(), appointment.get_employee_code_2(), appointment.get_confirm_status());
-
+            webServiceSuccess = AppointmentWebServices.insertAppointment(appointment);
             return null;
         }
 
@@ -59,7 +55,6 @@ public class AddAppointmentActivity extends AppCompatActivity {
         protected void onPostExecute(Void result) {
             super.onPostExecute(result);
             //Close the progress bar
-            webServiceSuccess = success;
             progressDialog.dismiss();
         }
     }
@@ -84,9 +79,9 @@ public class AddAppointmentActivity extends AppCompatActivity {
         new callApptCreateJaxWSInBackground();
 
         if (webServiceSuccess == true) {
-
+            Log.i("Web Service: ", "SUCCESS");
         } else {
-            //todo
+            Log.i("Web Service: ", "FAILURE");
         }
     }
 

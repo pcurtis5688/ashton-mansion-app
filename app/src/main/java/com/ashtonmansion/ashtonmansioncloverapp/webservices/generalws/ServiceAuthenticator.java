@@ -8,6 +8,6 @@ import java.net.PasswordAuthentication;
  */
 public class ServiceAuthenticator extends Authenticator {
     public PasswordAuthentication getPasswordAuthentication() {
-        return (new PasswordAuthentication("laptop-53b1c7v6\\paul", new char[]{'W', 'm', 'o', '6', '7', '7', '6', '6', '7', '6', '7'}));
+        return (new PasswordAuthentication("paul", new char[]{'W', 'm', 'o', '6', '7', '7', '6', '6', '7', '6', '7'}));
     }
 }

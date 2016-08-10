@@ -119,30 +119,35 @@ public class InventoryActivity extends AppCompatActivity {
         //Create item header row
         createItemTableHeaderRow();
         //TODO THIS
-
-        for (Item item : itemList) {
-            //Create new row to add to the table
-            newItemRow = new TableRow(this);
-            //Create new views to populate data
-            itemNameTextview = new TextView(this);
-            itemModifierTextview = new TextView(this);
-            itemProductCodeTextview = new TextView(this);
-            itemSkuTextview = new TextView(this);
-            itemPriceTextview = new TextView(this);
-            //Set the new data for the new row
-            itemNameTextview.setText(item.getName());
-            itemModifierTextview.setText(item.getModifierGroups().toString());
-            itemProductCodeTextview.setText(item.getCode());
-            itemSkuTextview.setText(item.getSku());
-            itemPriceTextview.setText(item.getPrice().toString());
-            //Add the new data to the new row
-            newItemRow.addView(itemNameTextview);
-            newItemRow.addView(itemModifierTextview);
-            newItemRow.addView(itemProductCodeTextview);
-            newItemRow.addView(itemSkuTextview);
-            newItemRow.addView(itemPriceTextview);
-            //Add the new row to the table
-            itemTable.addView(newItemRow);
+        if (itemList.size() > 0 && itemList != null) {
+            for (Item item : itemList) {
+                //Create new row to add to the table
+                newItemRow = new TableRow(this);
+                //Create new views to populate data
+                itemNameTextview = new TextView(this);
+                itemModifierTextview = new TextView(this);
+                itemProductCodeTextview = new TextView(this);
+                itemSkuTextview = new TextView(this);
+                itemPriceTextview = new TextView(this);
+                //Set the new data for the new row
+                itemNameTextview.setText(item.getName());
+                itemModifierTextview.setText(item.getModifierGroups().toString());
+                itemProductCodeTextview.setText(item.getCode());
+                itemSkuTextview.setText(item.getSku());
+                itemPriceTextview.setText(item.getPrice().toString());
+                //Add the new data to the new row
+                newItemRow.addView(itemNameTextview);
+                newItemRow.addView(itemModifierTextview);
+                newItemRow.addView(itemProductCodeTextview);
+                newItemRow.addView(itemSkuTextview);
+                newItemRow.addView(itemPriceTextview);
+                //Add the new row to the table
+                itemTable.addView(newItemRow);
+            }
+        } else {
+            TextView noInvTV = new TextView(this);
+            noInvTV.setText("No inventory... Please Add.");
+            newItemRow.addView(noInvTV);
         }
     }
 

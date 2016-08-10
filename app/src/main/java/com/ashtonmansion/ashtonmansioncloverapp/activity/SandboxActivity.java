@@ -9,21 +9,23 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.ashtonmansion.ashtonmansioncloverapp.R;
+import com.ashtonmansion.ashtonmansioncloverapp.dbo.Appointment;
 import com.ashtonmansion.ashtonmansioncloverapp.webservices.testws.TestWS;
 
 
 public class SandboxActivity extends AppCompatActivity {
     private TextView countryIsdTV;
+    private TextView testSuccessTV;
     private String testSoapAgainstOnlineStr;
-    private String testSoapAgainstMineStr;
+    private boolean testSuccess;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sandbox);
-
+        testSuccess = false;
         countryIsdTV = (TextView) findViewById(R.id.country_isd);
-
+        testSuccessTV = (TextView) findViewById(R.id.return_hello_tv);
     }
 
 
@@ -43,11 +45,26 @@ public class SandboxActivity extends AppCompatActivity {
         protected Void doInBackground(Void... params) {
             TestWS testService = new TestWS();
 
-            testSoapAgainstOnlineStr = testService.GetISD("India");
-            Log.i("Hello Return str: ", testSoapAgainstOnlineStr);
+            Appointment bsappt = new Appointment();
+            bsappt.set_id(66);
+            bsappt.set_date("DATE");
+            bsappt.set_start_time("TIME");
+            bsappt.set_customer_code("custcode");
+            bsappt.set_duration("12");
+            bsappt.set_alert_type("email");
+            bsappt.set_item_code("itemcode");
+            bsappt.set_note("notesjava");
+            bsappt.set_employee_code_1("emp1");
+            bsappt.set_employee_code_2("emp2");
+            bsappt.set_confirm_status("confirmed");
 
-            testSoapAgainstMineStr = testService.GetHello("hello");
-            Log.i("Hello Return str: ", testSoapAgainstMineStr);
+            testSuccess = testService.testAddApptService2(bsappt);
+
+            if (testSuccess) {
+                Log.i("INSERT: ", "SUCCESS");
+            } else {
+                Log.i("INSERT:  ", "FAILURE");
+            }
             return null;
         }
 
@@ -56,9 +73,6 @@ public class SandboxActivity extends AppCompatActivity {
             super.onPostExecute(result);
             //Close the progress bar
             progressDialog.dismiss();
-            countryIsdTV.setText("Country ISD: " + testSoapAgainstOnlineStr);
-            Log.i("ISD is: ", testSoapAgainstMineStr);
-            Log.i("Soap says: ", testSoapAgainstMineStr);
         }
     }
 }
