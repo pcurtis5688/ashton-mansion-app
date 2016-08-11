@@ -1,6 +1,9 @@
 package com.ashtonmansion.ashtonmansioncloverapp.webservices.appointmentws;
 
+import android.app.ProgressDialog;
+import android.os.AsyncTask;
 import android.util.Log;
+import android.view.View;
 
 import com.ashtonmansion.ashtonmansioncloverapp.dbo.Appointment;
 import com.ashtonmansion.ashtonmansioncloverapp.webservices.generalws.WebServiceUtilities;
@@ -109,7 +112,7 @@ public class AppointmentWebServices {
         } catch (XmlPullParserException e2) {
             Log.e("XMLPull Excpt: ", "" + e2.getMessage());
             resultBool = false;
-        } catch (Exception e){
+        } catch (Exception e) {
             Log.e("Exception in: ", "" + e.getMessage());
             resultBool = false;
         }

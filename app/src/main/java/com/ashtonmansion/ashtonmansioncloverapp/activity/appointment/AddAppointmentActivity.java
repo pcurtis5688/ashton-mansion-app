@@ -32,8 +32,6 @@ public class AddAppointmentActivity extends AppCompatActivity {
     // POST EXECUTION VARS
     private boolean webServiceSuccess;
 
-
-    // working classes below
     private class callApptCreateJaxWSInBackground extends AsyncTask<Void, Void, Void> {
         ProgressDialog progressDialog = new ProgressDialog(AddAppointmentActivity.this);
 
@@ -73,10 +71,9 @@ public class AddAppointmentActivity extends AppCompatActivity {
         appointment.set_employee_code_2(emp2Text.getText().toString());
         appointment.set_confirm_status(apptConfirmStatusSpinner.getSelectedItem().toString());
         apptDAO.addAppointment(appointment);
-
-        //todo uncomment when ready to debug
-
-        new callApptCreateJaxWSInBackground();
+        ////////////////////LOCAL DB UPDATED, NOW CALL DYNAMICS WS
+        AppointmentWebServices apptWebService = new AppointmentWebServices();
+        webServiceSuccess = apptWebService.addAppointmentViaWS(appointment);
 
         if (webServiceSuccess == true) {
             Log.i("Web Service: ", "SUCCESS");

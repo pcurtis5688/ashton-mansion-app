@@ -10,12 +10,13 @@ import android.widget.TextView;
 
 import com.ashtonmansion.ashtonmansioncloverapp.R;
 import com.ashtonmansion.ashtonmansioncloverapp.dbo.Appointment;
+import com.ashtonmansion.ashtonmansioncloverapp.webservices.appointmentws.AppointmentWebServices;
 import com.ashtonmansion.ashtonmansioncloverapp.webservices.testws.TestWS;
 
 public class SandboxActivity extends AppCompatActivity {
     private TextView countryIsdTV;
     private TextView testSuccessTV;
-    private String insertApptResult;
+    private boolean insertApptResult;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,10 +41,10 @@ public class SandboxActivity extends AppCompatActivity {
 
         @Override
         protected Void doInBackground(Void... params) {
-            TestWS testService = new TestWS();
+            AppointmentWebServices apptWebService = new AppointmentWebServices();
 
             Appointment bsappt = new Appointment();
-            bsappt.set_id("66");
+            bsappt.set_id("8");
             bsappt.set_date("DATE");
             bsappt.set_start_time("TIME");
             bsappt.set_customer_code("custcode");
@@ -57,7 +58,7 @@ public class SandboxActivity extends AppCompatActivity {
 
             //  String result = testService.ntlmTest();
 
-            insertApptResult = testService.addAppointmentViaWS(bsappt);
+            insertApptResult = apptWebService.addAppointmentViaWS(bsappt);
             Log.i("Result inner:", "" + insertApptResult);
             return null;
         }

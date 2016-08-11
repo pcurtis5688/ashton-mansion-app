@@ -6,57 +6,18 @@ import com.ashtonmansion.ashtonmansioncloverapp.dbo.Appointment;
 import com.ashtonmansion.ashtonmansioncloverapp.webservices.generalws.WebServiceUtilities;
 import com.ashtonmansion.ashtonmansioncloverapp.webservices.generalws.external.NTLMTransport;
 
-import org.ksoap2.SoapEnvelope;
 import org.ksoap2.serialization.PropertyInfo;
 import org.ksoap2.serialization.SoapObject;
 import org.ksoap2.serialization.SoapSerializationEnvelope;
-import org.ksoap2.transport.HttpTransportSE;
 import org.xmlpull.v1.XmlPullParserException;
 
 import java.io.IOException;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.PasswordAuthentication;
-import java.net.URL;
-import java.net.Authenticator;
 
 /**
  * Created by paul on 7/31/2016.
  */
 public class TestWS {
-    //    private static final String BASE_URL = "http://10.0.3.2:7047/DynamicsNAV/WS/";
-    // private static final String APPOINTMENT_WS_URL = "http://10.0.3.2:7047/DynamicsNAV90/WS/CRONUS Canada, Inc./Codeunit/AppointmentWS";
-    ////////////////////////////////////////////////////////////
-    ////////////////////////////////////////////////////////////
-    ////////////////////////////////////////////////////////////
-    private static final String TEST_WS_NAMESPACE = "urn:microsoft-dynamics-schemas/codeunit/TestWebService";
-    private static final String TEST_WS_SOAP_ACTION = "urn:microsoft-dynamics-schemas/codeunit/TestWebService:returnHello";
-    private static final String TEST_WEB_SERVICE_URL = "http://10.0.3.2:7047/DynamicsNAV90/WS/CRONUS%20Canada,%20Inc./Codeunit/TestWebService";
-    private static final String RETURN_HELLO_METHOD = "returnHello";
-
-    public String ntlmTest() {
-        String great;
-        try {
-            SoapObject request = new SoapObject(TEST_WS_NAMESPACE, RETURN_HELLO_METHOD);
-            //todo use my generalized utillities
-            SoapSerializationEnvelope envelope = WebServiceUtilities.getSoapSerializationEnvelope(request);
-
-            NTLMTransport transport = new NTLMTransport();
-            transport.setCredentials(TEST_WEB_SERVICE_URL, "paul", "Wmo67766767", "laptop-53b1c7v6", "");
-            transport.call(TEST_WS_SOAP_ACTION, envelope);
-            SoapObject result = (SoapObject) envelope.getResponse();
-            great = result.getInnerText().toString();
-            Log.i("result: ", result.toString());
-        } catch (Exception e) {
-            e.printStackTrace();
-            great = e.toString();
-            System.out.println(great);
-        }
-
-        return great;
-    }
-
-    ///////////////////
+    /////////////////// WORKING //////////////////////////////
     private static final String APPT_WS_NAMESPACE = "urn:microsoft-dynamics-schemas/codeunit/AppointmentWebService";
     private static final String APPT_WS_SOAP_ACTION = "urn:microsoft-dynamics-schemas/codeunit/AppointmentWebService:returnHello";
     private static final String APPT_WEB_SERVICE_URL = "http://10.0.3.2:7047/DynamicsNAV90/WS/CRONUS%20Canada,%20Inc./Codeunit/AppointmentWebService";
@@ -144,48 +105,41 @@ public class TestWS {
             Log.e("IO Err: ", "" + "" + e1.getMessage());
         } catch (XmlPullParserException e2) {
             Log.e("XMLPull Excpt: ", "" + e2.getMessage());
-        } catch (Exception e){
+        } catch (Exception e) {
             Log.e("Exception in: ", "" + e.getMessage());
         }
 
         return response;
     }
 
-    public static String GetISD(String countryname) {
-        String WEB_SERVICE_URL = "http://www.webservicex.net/country.asmx";
-        String SOAP_ACTION = "http://www.webserviceX.NET/GetISD";
-        String SOAP_METHOD = "GetISD";
-        String SOAP_NAMESPACE = "http://www.webserviceX.NET";
-
-        SoapObject request = new SoapObject(SOAP_NAMESPACE, SOAP_METHOD);
-
-        PropertyInfo custProp = new PropertyInfo();
-        custProp.setName("CountryName");
-        custProp.setValue(countryname);
-        custProp.setType(String.class);
-        request.addProperty(custProp);
-
-        SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
-        envelope.dotNet = true;
-        envelope.setOutputSoapObject(request);
-        String response = "";
-
-        try {
-            HttpTransportSE httpTransportSE = new HttpTransportSE(WEB_SERVICE_URL);
-            httpTransportSE.debug = true;
-
-            Log.e("REQUEST: ", request.toString());
-            Log.e("ENVELOPE: ", envelope.toString());
-
-
-            httpTransportSE.call(SOAP_ACTION, envelope);
-
-            response = httpTransportSE.responseDump;
-
-        } catch (Exception e) {
-            Log.i("Call exception: ", e.toString());
-        }
-        return response;
-    }
-
+    // private static final String BASE_URL = "http://10.0.3.2:7047/DynamicsNAV/WS/";
+    // private static final String APPOINTMENT_WS_URL = "http://10.0.3.2:7047/DynamicsNAV90/WS/CRONUS Canada, Inc./Codeunit/AppointmentWS";
+    ////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////
+    //    private static final String TEST_WS_NAMESPACE = "urn:microsoft-dynamics-schemas/codeunit/TestWebService";
+    //    private static final String TEST_WS_SOAP_ACTION = "urn:microsoft-dynamics-schemas/codeunit/TestWebService:returnHello";
+    //    private static final String TEST_WEB_SERVICE_URL = "http://10.0.3.2:7047/DynamicsNAV90/WS/CRONUS%20Canada,%20Inc./Codeunit/TestWebService";
+    //    private static final String RETURN_HELLO_METHOD = "returnHello";
+    //
+    //    public String ntlmTest() {
+    //        String great;
+    //        try {
+    //            SoapObject request = new SoapObject(TEST_WS_NAMESPACE, RETURN_HELLO_METHOD);
+    //            SoapSerializationEnvelope envelope = WebServiceUtilities.getSoapSerializationEnvelope(request);
+    //
+    //            NTLMTransport transport = new NTLMTransport();
+    //            transport.setCredentials(TEST_WEB_SERVICE_URL, "paul", "Wmo67766767", "laptop-53b1c7v6", "");
+    //            transport.call(TEST_WS_SOAP_ACTION, envelope);
+    //            SoapObject result = (SoapObject) envelope.getResponse();
+    //            great = result.getInnerText().toString();
+    //            Log.i("result: ", result.toString());
+    //        } catch (Exception e) {
+    //            e.printStackTrace();
+    //            great = e.toString();
+    //            System.out.println(great);
+    //        }
+    //
+    //        return great;
+    //    }
 }
