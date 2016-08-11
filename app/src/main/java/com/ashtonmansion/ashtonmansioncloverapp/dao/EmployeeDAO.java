@@ -49,8 +49,12 @@ public class EmployeeDAO extends SQLiteOpenHelper {
         //TODO IMPLEMENT THIS METHOD LATER
     }
 
+    public void insertEmployeeIntoNAV(Employee employee, Context context) {
 
-    public void addEmployee(Employee employee, Context context) {
+
+    }
+
+    public void addLocalEmployeeRecord(Employee employee, Context context) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         createEmployeeTable();
