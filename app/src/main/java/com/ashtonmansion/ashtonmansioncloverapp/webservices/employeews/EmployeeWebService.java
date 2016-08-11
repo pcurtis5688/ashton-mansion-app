@@ -5,6 +5,7 @@ import android.util.Log;
 import com.ashtonmansion.ashtonmansioncloverapp.dbo.Appointment;
 import com.ashtonmansion.ashtonmansioncloverapp.webservices.generalws.WebServiceUtilities;
 import com.ashtonmansion.ashtonmansioncloverapp.webservices.generalws.external.NTLMTransport;
+import com.clover.sdk.v3.employees.Employee;
 
 import org.ksoap2.serialization.PropertyInfo;
 import org.ksoap2.serialization.SoapObject;
@@ -19,20 +20,20 @@ import java.io.IOException;
 public class EmployeeWebService {
     // STATIC SERVICE VARS ///////////////////////
     private static final String EMPL_WS_NAMESPACE = "urn:microsoft-dynamics-schemas/codeunit/EmployeeWebService";
+    private static final String CREATE_EMPL_METHOD = "CreateEmployee";
     private static final String EMPL_WS_SOAP_ACTION = "urn:microsoft-dynamics-schemas/codeunit/EmployeeWebService:CreateEmployee";
     private static final String EMPL_WEB_SERVICE_URL = "http://10.0.3.2:7047/DynamicsNAV90/WS/CRONUS%20Canada,%20Inc./Codeunit/EmployeeWebService";
-    private static final String CREATE_EMPL_METHOD = "CreateEmployee";
 
-    public boolean createEmployeeServiceCall(Appointment appt) {
+    public boolean createEmployeeServiceCall(Employee employee) {
         boolean resultBool = true;
         try {
             SoapObject request = new SoapObject(EMPL_WS_NAMESPACE, CREATE_EMPL_METHOD);
             SoapSerializationEnvelope envelope = WebServiceUtilities.getSoapSerializationEnvelope(request);
-            /////////////
+
             ///PARAMS////
             PropertyInfo pi1 = new PropertyInfo();
             pi1.setName("iD");
-            pi1.setValue(appt.get_id());
+            pi1.setValue(employee.getId());
             pi1.setType(String.class);
             request.addProperty(pi1);
 

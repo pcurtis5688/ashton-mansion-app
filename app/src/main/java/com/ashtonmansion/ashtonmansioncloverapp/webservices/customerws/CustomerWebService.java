@@ -5,6 +5,7 @@ import android.util.Log;
 import com.ashtonmansion.ashtonmansioncloverapp.dbo.Appointment;
 import com.ashtonmansion.ashtonmansioncloverapp.webservices.generalws.WebServiceUtilities;
 import com.ashtonmansion.ashtonmansioncloverapp.webservices.generalws.external.NTLMTransport;
+import com.clover.sdk.v3.customers.Customer;
 
 import org.ksoap2.serialization.PropertyInfo;
 import org.ksoap2.serialization.SoapObject;
@@ -20,11 +21,11 @@ public class CustomerWebService {
     // STATIC SERVICE VARS
     ///////////////////////
     private static final String CUST_WS_NAMESPACE = "urn:microsoft-dynamics-schemas/codeunit/CustomerWebService";
-    private static final String CUST_WS_SOAP_ACTION = "urn:microsoft-dynamics-schemas/codeunit/CustomerWebService:AddCustomer";
+    private static final String CREATE_CUST_METHOD = "InsertCustomer";
+    private static final String CUST_WS_SOAP_ACTION = "urn:microsoft-dynamics-schemas/codeunit/CustomerWebService:InsertCustomer";
     private static final String CUST_WEB_SERVICE_URL = "http://10.0.3.2:7047/DynamicsNAV90/WS/CRONUS%20Canada,%20Inc./Codeunit/CustomerWebService";
-    private static final String CREATE_CUST_METHOD = "AddCustomer";
 
-    public boolean addCustomerWSCall(Appointment appt) {
+    public boolean addCustomerWSCall(Customer customer) {
         boolean resultBool = true;
         try {
             SoapObject request = new SoapObject(CUST_WS_NAMESPACE, CREATE_CUST_METHOD);
@@ -33,7 +34,7 @@ public class CustomerWebService {
             ///PARAMS////
             PropertyInfo pi1 = new PropertyInfo();
             pi1.setName("iD");
-            pi1.setValue(appt.get_id());
+            pi1.setValue(customer.getId());
             pi1.setType(String.class);
             request.addProperty(pi1);
 
