@@ -14,6 +14,7 @@
 
         <TextView
             android:id="@+id/add_inventory_header"
+            android:layout_gravity="center_horizontal"
             android:onClick="displayAddInventory"
             android:text="@string/add_inventory_header_str" />
     </TableRow>
@@ -23,13 +24,21 @@
         <TextView
             android:id="@+id/add_item_field_label"
             android:text="@string/add_item_name_label_str" />
+
+        <EditText
+            android:id="@+id/add_item_name_field"
+            android:hint="@string/inventory_item_name_hint" />
     </TableRow>
 
     <TableRow>
 
+        <CheckBox android:id="@+id/show_in_register_chkbox" />
+
         <TextView
             android:id="@+id/add_item_showInRegister_label"
             android:text="@string/add_item_showInRegister_label_str" />
+
+        <CheckBox android:id="@+id/add_item_nonRevenue_chkbox" />
 
         <TextView
             android:id="@+id/add_item_nonRevenueItem_label"
@@ -41,6 +50,37 @@
         <TextView
             android:id="@+id/add_item_price_label"
             android:text="@string/add_item_price_label_str" />
+
+        <RadioGroup
+            android:id="@+id/price_radio_group"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="15dp">
+
+            <RadioButton
+                android:id="@+id/price_radio_fixed"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingRight="@dimen/activity_horizontal_margin"
+                android:text="@string/add_item_price_radio_fixed_str" />
+
+            <RadioButton
+                android:id="@+id/price_radio_variable"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingRight="@dimen/activity_horizontal_margin"
+                android:text="@string/add_item_price_radio_variable_str" />
+
+            <RadioButton
+                android:id="@+id/price_radio_perUnit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingRight="@dimen/activity_horizontal_margin"
+                android:text="@string/add_item_price_radio_perUnit_str" />
+        </RadioGroup>
+
+
     </TableRow>
 
     <TableRow>
@@ -68,9 +108,9 @@
             android:id="@+id/add_item_taxes_label"
             android:text="@string/add_item_taxes_label_str" />
 
-        <TextView
-            android:id="@+id/add_item_current_taxes_view"
-            android:hint="figure this out" />
+        <Button
+            android:id="@+id/add_item_editTaxes_btn"
+            android:text="@string/add_item_editTaxes_btn_str" />
     </TableRow>
 
     <TableRow>
@@ -79,9 +119,33 @@
             android:id="@+id/add_item_modifiers_label"
             android:text="@string/add_item_modifiers_label_str" />
 
-        <Button />
+        <Button
+            android:id="@+id/add_item_editModifiers_btn"
+            android:text="@string/add_item_editModifiers_btn_str" />
     </TableRow>
 
+    <TableRow>
+
+        <TextView
+            android:id="@+id/edit_add_item_categories_label"
+            android:text="@string/add_item_categories_label_str" />
+
+        <Button
+            android:id="@+id/add_item_editCategories_btn"
+            android:text="@string/add_item_editCategories_btn_str" />
+    </TableRow>
+
+    <TableRow>
+
+        <TextView
+            android:id="@+id/edit_labels_label"
+            android:text="@string/add_item_editLabels_btn_str" />
+
+        <Button
+            android:id="@+id/edit_add_item_labels_btn"
+            android:text="@string/add_item_editCategories_btn_str" />
+    </TableRow>
+    <!-- look at below -->
     <TableRow>
 
         <Button
