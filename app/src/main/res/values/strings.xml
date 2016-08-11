@@ -108,7 +108,6 @@
     <string name="add_item_price_radio_fixed_str">Fixed</string>
     <string name="add_item_price_radio_variable_str">Variable</string>
     <string name="add_item_price_radio_perUnit_str">Per Unit</string>
-    <string name="price_hint">\"$0.00\"</string>
     <string name="add_item_prodCode_label_str">Product Code:</string>
     <string name="add_item_sku_label_str">SKU:</string>
     <string name="add_item_taxes_label_str">Taxes:</string>
@@ -120,7 +119,7 @@
     <string name="add_item_editModifiers_btn_str">Edit Modifiers:</string>
     <string name="add_item_editCategories_btn_str">Edit Categories:</string>
     <string name="add_item_editLabels_btn_str">Edit Labels:</string>
-
+    <string name="add_item_price_hint">\"$0.00\"</string>
     <string name="inventory_item_name_hint">Item Name</string>
     <!--SETTINGS STRINGS -->
     <string name="settings_screen_header_str">Edit Settings"</string>

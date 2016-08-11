@@ -2,9 +2,12 @@
   <dictionary name="paul">
     <words>
       <w>appt</w>
+      <w>btns</w>
+      <w>chkbox</w>
       <w>codeunit</w>
       <w>empl</w>
       <w>excpt</w>
+      <w>nonrev</w>
     </words>
   </dictionary>
 </component>

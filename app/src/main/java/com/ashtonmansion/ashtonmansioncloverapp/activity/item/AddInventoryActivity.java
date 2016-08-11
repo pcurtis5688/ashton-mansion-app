@@ -1,6 +1,5 @@
 package com.ashtonmansion.ashtonmansioncloverapp.activity.item;
 
-import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -63,7 +62,6 @@ public class AddInventoryActivity extends AppCompatActivity {
     }
 
     //////////////////////////////////////////////////
-    //Method to return when cancel button is pressed
     public void cancelAddInventory(View view) {
         finish();
     }

@@ -1,287 +1,297 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:stretchColumns="*"
-    tools:context=".activity.item.AddInventoryActivity">
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        android:stretchColumns="*"
+        tools:context=".activity.item.AddInventoryActivity">
 
 
-    <TextView
-        android:id="@+id/add_inventory_header"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:text="@string/add_inventory_header_str" />
-
-    <LinearLayout
-        android:id="@+id/linear_group_item_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/add_inventory_header"
-        android:layout_centerHorizontal="true"
-        android:layout_centerInParent="true"
-        android:orientation="horizontal">
-
-        <TextView
-            android:id="@+id/add_item_field_label"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:id="@+id/linear_group_page_header"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/add_item_name_label_str" />
+            android:layout_centerHorizontal="true"
+            android:orientation="horizontal">
 
-        <EditText
-            android:id="@+id/add_item_name_field"
-            android:layout_width="wrap_content"
+            <TextView
+                android:id="@+id/add_inventory_header"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="@string/add_inventory_header_str" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linear_group_item_name"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/inventory_item_name_hint" />
-    </LinearLayout>
+            android:layout_below="@+id/linear_group_page_header"
+            android:orientation="horizontal">
 
-    <LinearLayout
-        android:id="@+id/linear_group_check_boxes_register_nonrev"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/linear_group_item_name"
-        android:layout_centerHorizontal="true"
-        android:layout_centerInParent="true"
-        android:orientation="horizontal">
-
-        <CheckBox
-            android:id="@+id/show_in_register_chkbox"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-        <TextView
-            android:id="@+id/add_item_showInRegister_label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/add_item_showInRegister_label_str" />
-
-        <CheckBox
-            android:id="@+id/add_item_nonRevenue_chkbox"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-        <TextView
-            android:id="@+id/add_item_nonRevenueItem_label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/add_item_nonRevenueItem_label_str" />
-    </LinearLayout>
-
-
-    <LinearLayout
-        android:id="@+id/linear_group_price_options"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/linear_group_check_boxes_register_nonrev"
-        android:layout_centerHorizontal="true"
-        android:layout_centerInParent="true"
-        android:orientation="horizontal">
-
-        <TextView
-            android:id="@+id/add_item_price_label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/add_item_price_label_str" />
-
-        <RadioGroup
-            android:id="@+id/price_radio_group"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="15dp">
-
-            <RadioButton
-                android:id="@+id/price_radio_fixed"
+            <TextView
+                android:id="@+id/add_item_field_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingEnd="@dimen/activity_horizontal_margin"
-                android:paddingStart="@dimen/activity_horizontal_margin"
-                android:text="@string/add_item_price_radio_fixed_str" />
+                android:text="@string/add_item_name_label_str" />
 
-            <RadioButton
-                android:id="@+id/price_radio_variable"
+            <EditText
+                android:id="@+id/add_item_name_field"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingEnd="@dimen/activity_horizontal_margin"
-                android:paddingStart="@dimen/activity_horizontal_margin"
-                android:text="@string/add_item_price_radio_variable_str" />
+                android:hint="@string/inventory_item_name_hint" />
+        </LinearLayout>
 
-            <RadioButton
-                android:id="@+id/price_radio_perUnit"
+        <LinearLayout
+            android:id="@+id/linear_group_check_boxes_register_nonrev"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/linear_group_item_name"
+            android:layout_centerHorizontal="true"
+            android:layout_centerInParent="true"
+            android:orientation="horizontal">
+
+            <CheckBox
+                android:id="@+id/show_in_register_chkbox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/add_item_showInRegister_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingEnd="@dimen/activity_horizontal_margin"
-                android:paddingStart="@dimen/activity_horizontal_margin"
-                android:text="@string/add_item_price_radio_perUnit_str" />
-        </RadioGroup>
+                android:text="@string/add_item_showInRegister_label_str" />
 
-        <EditText
-            android:id="@+id/add_item_price_field"
+            <CheckBox
+                android:id="@+id/add_item_nonRevenue_chkbox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/add_item_nonRevenueItem_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/add_item_nonRevenueItem_label_str" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/linear_group_price_options"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:hint="@string/add_item_price_hint" />
+            android:layout_below="@+id/linear_group_check_boxes_register_nonrev"
+            android:layout_centerHorizontal="true"
+            android:layout_centerInParent="true"
+            android:orientation="horizontal">
 
-    </LinearLayout>
+            <TextView
+                android:id="@+id/add_item_price_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/add_item_price_label_str" />
 
-    <LinearLayout
-        android:id="@+id/linear_group_prodCode_sku"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/linear_group_price_options"
-        android:layout_centerHorizontal="true"
-        android:layout_centerInParent="true"
-        android:orientation="horizontal">
+            <RadioGroup
+                android:id="@+id/price_radio_group"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="15dp">
 
-        <TextView
-            android:id="@+id/add_item_prodCode_label"
+                <RadioButton
+                    android:id="@+id/price_radio_fixed"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingEnd="@dimen/activity_horizontal_margin"
+                    android:paddingStart="@dimen/activity_horizontal_margin"
+                    android:text="@string/add_item_price_radio_fixed_str" />
+
+                <RadioButton
+                    android:id="@+id/price_radio_variable"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingEnd="@dimen/activity_horizontal_margin"
+                    android:paddingStart="@dimen/activity_horizontal_margin"
+                    android:text="@string/add_item_price_radio_variable_str" />
+
+                <RadioButton
+                    android:id="@+id/price_radio_perUnit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingEnd="@dimen/activity_horizontal_margin"
+                    android:paddingStart="@dimen/activity_horizontal_margin"
+                    android:text="@string/add_item_price_radio_perUnit_str" />
+            </RadioGroup>
+
+            <EditText
+                android:id="@+id/add_item_price_field"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:hint="@string/add_item_price_hint" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linear_group_prodCode_sku"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/add_item_prodCode_label_str" />
+            android:layout_below="@+id/linear_group_price_options"
+            android:layout_centerHorizontal="true"
+            android:layout_centerInParent="true"
+            android:orientation="horizontal">
 
-        <EditText
-            android:id="@+id/add_item_prodCode"
+            <TextView
+                android:id="@+id/add_item_prodCode_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/add_item_prodCode_label_str" />
+
+            <EditText
+                android:id="@+id/add_item_prodCode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="@string/add_item_prodCode_label_str" />
+
+            <TextView
+                android:id="@+id/add_item_sku_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/add_item_sku_label_str" />
+
+            <EditText
+                android:id="@+id/add_item_sku"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="@string/add_item_sku_label_str" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linear_group_taxes_line"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="@string/add_item_prodCode_label_str" />
+            android:layout_below="@+id/linear_group_prodCode_sku"
+            android:layout_centerHorizontal="true"
+            android:layout_centerInParent="true"
+            android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/add_item_sku_label"
+            <TextView
+                android:id="@+id/add_item_taxes_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/add_item_taxes_label_str" />
+
+            <Button
+                android:id="@+id/add_item_editTaxes_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/add_item_editTaxes_btn_str" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/linear_group_modifiers_line"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/add_item_sku_label_str" />
+            android:layout_below="@+id/linear_group_taxes_line"
+            android:layout_centerHorizontal="true"
+            android:layout_centerInParent="true"
+            android:orientation="horizontal">
 
-        <EditText
-            android:id="@+id/add_item_sku"
+            <TextView
+                android:id="@+id/add_item_modifiers_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/add_item_modifiers_label_str" />
+
+            <Button
+                android:id="@+id/add_item_editModifiers_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/add_item_editModifiers_btn_str" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/linear_group_categories_line"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="@string/add_item_sku_label_str" />
-    </LinearLayout>
+            android:layout_below="@+id/linear_group_modifiers_line"
+            android:layout_centerHorizontal="true"
+            android:layout_centerInParent="true"
+            android:orientation="horizontal">
 
-    <LinearLayout
-        android:id="@+id/linear_group_taxes_line"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/linear_group_prodCode_sku"
-        android:layout_centerHorizontal="true"
-        android:layout_centerInParent="true"
-        android:orientation="horizontal">
+            <TextView
+                android:id="@+id/edit_add_item_categories_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/add_item_categories_label_str" />
 
-        <TextView
-            android:id="@+id/add_item_taxes_label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/add_item_taxes_label_str" />
-
-        <Button
-            android:id="@+id/add_item_editTaxes_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/add_item_editTaxes_btn_str" />
-    </LinearLayout>
+            <Button
+                android:id="@+id/add_item_editCategories_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/add_item_editCategories_btn_str" />
+        </LinearLayout>
 
 
-    <LinearLayout
-        android:id="@+id/linear_group_modifiers_line"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/linear_group_taxes_line"
-        android:layout_centerHorizontal="true"
-        android:layout_centerInParent="true"
-        android:orientation="horizontal">
+        <LinearLayout
+            android:id="@+id/linear_group_labels_line"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/linear_group_categories_line"
+            android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/add_item_modifiers_label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/add_item_modifiers_label_str" />
+            <TextView
+                android:id="@+id/edit_labels_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/add_item_editLabels_btn_str" />
 
-        <Button
-            android:id="@+id/add_item_editModifiers_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/add_item_editModifiers_btn_str" />
-    </LinearLayout>
+            <Button
+                android:id="@+id/edit_add_item_labels_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/add_item_editCategories_btn_str" />
+        </LinearLayout>
 
+        <LinearLayout
+            android:id="@+id/linear_group_cxl_and_submit_btns"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/linear_group_labels_line"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:orientation="horizontal">
 
-    <LinearLayout
-        android:id="@+id/linear_group_categories_line"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/linear_group_modifiers_line"
-        android:layout_centerHorizontal="true"
-        android:layout_centerInParent="true"
-        android:orientation="horizontal">
+            <Button
+                android:id="@+id/add_inventory_cancel_btn"
+                style="?android:attr/buttonBarButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:onClick="cancelAddInventory"
+                android:paddingBottom="@dimen/main_btn_vertical_margin"
+                android:paddingTop="@dimen/main_btn_vertical_margin"
+                android:text="@string/add_inventory_cancel_btn_str" />
 
-        <TextView
-            android:id="@+id/edit_add_item_categories_label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/add_item_categories_label_str" />
-
-        <Button
-            android:id="@+id/add_item_editCategories_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/add_item_editCategories_btn_str" />
-    </LinearLayout>
-
-
-    <LinearLayout
-        android:id="@+id/linear_group_labels_line"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/linear_group_categories_line"
-        android:layout_centerHorizontal="true"
-        android:layout_centerInParent="true"
-        android:orientation="horizontal">
-
-        <TextView
-            android:id="@+id/edit_labels_label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/add_item_editLabels_btn_str" />
-
-        <Button
-            android:id="@+id/edit_add_item_labels_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/add_item_editCategories_btn_str" />
-    </LinearLayout>
-
-
-    <LinearLayout
-        android:id="@+id/linear_group_cxl_and_submit_btns"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/linear_group_labels_line"
-        android:layout_centerHorizontal="true"
-        android:layout_centerInParent="true"
-        android:orientation="horizontal">
-
-        <Button
-            android:id="@+id/add_inventory_cancel_btn"
-            style="?android:attr/buttonBarButtonStyle"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:onClick="cancelAddInventory"
-            android:paddingBottom="@dimen/main_btn_vertical_margin"
-            android:paddingTop="@dimen/main_btn_vertical_margin"
-            android:text="@string/add_inventory_cancel_btn_str" />
-
-        <Button
-            android:id="@+id/add_inventory_save_btn"
-            style="?android:attr/buttonBarButtonStyle"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:onClick="insertItemIntoClover"
-            android:paddingBottom="@dimen/main_btn_vertical_margin"
-            android:paddingTop="@dimen/main_btn_vertical_margin"
-            android:text="@string/add_inventory_save_btn_str" />
-    </LinearLayout>
-</RelativeLayout>
+            <Button
+                android:id="@+id/add_inventory_save_btn"
+                style="?android:attr/buttonBarButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:onClick="insertItemIntoClover"
+                android:paddingBottom="@dimen/main_btn_vertical_margin"
+                android:paddingTop="@dimen/main_btn_vertical_margin"
+                android:text="@string/add_inventory_save_btn_str" />
+        </LinearLayout>
+    </RelativeLayout>
+</ScrollView>
