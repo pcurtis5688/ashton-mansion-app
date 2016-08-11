@@ -12,18 +12,15 @@ import com.ashtonmansion.ashtonmansioncloverapp.R;
 import com.ashtonmansion.ashtonmansioncloverapp.dbo.Appointment;
 import com.ashtonmansion.ashtonmansioncloverapp.webservices.testws.TestWS;
 
-
 public class SandboxActivity extends AppCompatActivity {
     private TextView countryIsdTV;
     private TextView testSuccessTV;
-    private String testSoapAgainstOnlineStr;
-    private boolean testSuccess;
+    private String insertApptResult;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sandbox);
-        testSuccess = false;
         countryIsdTV = (TextView) findViewById(R.id.country_isd);
         testSuccessTV = (TextView) findViewById(R.id.return_hello_tv);
     }
@@ -46,7 +43,7 @@ public class SandboxActivity extends AppCompatActivity {
             TestWS testService = new TestWS();
 
             Appointment bsappt = new Appointment();
-            bsappt.set_id(66);
+            bsappt.set_id("66");
             bsappt.set_date("DATE");
             bsappt.set_start_time("TIME");
             bsappt.set_customer_code("custcode");
@@ -58,13 +55,10 @@ public class SandboxActivity extends AppCompatActivity {
             bsappt.set_employee_code_2("emp2");
             bsappt.set_confirm_status("confirmed");
 
-            testSuccess = testService.testAddApptService2(bsappt);
+            //  String result = testService.ntlmTest();
 
-            if (testSuccess) {
-                Log.i("INSERT: ", "SUCCESS");
-            } else {
-                Log.i("INSERT:  ", "FAILURE");
-            }
+            insertApptResult = testService.addAppointmentViaWS(bsappt);
+            Log.i("Result inner:", "" + insertApptResult);
             return null;
         }
 

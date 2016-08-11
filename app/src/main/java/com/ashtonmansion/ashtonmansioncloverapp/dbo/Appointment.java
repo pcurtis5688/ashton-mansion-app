@@ -5,7 +5,7 @@ package com.ashtonmansion.ashtonmansioncloverapp.dbo;
  */
 public class Appointment {
     //Private vars
-    private int _id;
+    private String _id;
     private String _date;
     private String _start_time;
     private String _duration;
@@ -22,10 +22,10 @@ public class Appointment {
     }
 
     //Constructor with ID param
-    public Appointment(int id, String date, String start_time, String duration, String customer_code,
+    public Appointment(String _id, String date, String start_time, String duration, String customer_code,
                        String alert_type, String item_code, String note, String employee_code_1,
                        String employee_code_2, String confirm_status) {
-        this._id = id;
+        this._id = _id;
         this._date = date;
         this._start_time = start_time;
         this._duration = duration;
@@ -54,11 +54,11 @@ public class Appointment {
         this._confirm_status = confirm_status;
     }
 
-    public int get_id() {
+    public String get_id() {
         return _id;
     }
 
-    public void set_id(int _id) {
+    public void set_id(String _id) {
         this._id = _id;
     }
 

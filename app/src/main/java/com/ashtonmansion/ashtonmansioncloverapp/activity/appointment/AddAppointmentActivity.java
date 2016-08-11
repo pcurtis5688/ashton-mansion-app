@@ -47,7 +47,7 @@ public class AddAppointmentActivity extends AppCompatActivity {
 
         @Override
         protected Void doInBackground(Void... params) {
-            webServiceSuccess = AppointmentWebServices.insertAppointment(appointment);
+          //  webServiceSuccess = AppointmentWebServices.insertAppointment(appointment);
             return null;
         }
 
