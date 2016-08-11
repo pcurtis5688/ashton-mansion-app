@@ -15,7 +15,6 @@
         <TextView
             android:id="@+id/add_inventory_header"
             android:layout_gravity="center_horizontal"
-            android:onClick="displayAddInventory"
             android:text="@string/add_inventory_header_str" />
     </TableRow>
 
@@ -145,25 +144,25 @@
             android:id="@+id/edit_add_item_labels_btn"
             android:text="@string/add_item_editCategories_btn_str" />
     </TableRow>
-    <!-- look at below -->
+
     <TableRow>
 
         <Button
-            android:id="@+id/cancel_add_inventory_btn"
+            android:id="@+id/add_inventory_cancel_btn"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:onClick="cancelAddInventory"
             android:paddingBottom="@dimen/main_btn_vertical_margin"
             android:paddingTop="@dimen/main_btn_vertical_margin"
-            android:text="@string/cancel_btn_str" />
+            android:text="@string/add_inventory_cancel_btn_str" />
 
         <Button
-            android:id="@+id/add_inventory_finalize_btn"
+            android:id="@+id/add_inventory_save_btn"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:onClick="finalizeAddInventory"
+            android:onClick="insertItemIntoClover"
             android:paddingBottom="@dimen/main_btn_vertical_margin"
             android:paddingTop="@dimen/main_btn_vertical_margin"
-            android:text="@string/inventory_insert_btn_str" />
+            android:text="@string/add_inventory_save_btn_str" />
     </TableRow>
 </TableLayout>

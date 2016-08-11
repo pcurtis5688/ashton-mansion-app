@@ -99,7 +99,7 @@
 
 
     <string name="add_inventory_item_btn_str">Add Item</string>
-    <string name="inventory_insert_btn_str">Add Item</string>
+    <string name="add_inventory_save_btn_str">Save Item</string>
     <string name="add_inventory_header_str">Add Item</string>
     <string name="add_item_name_label_str">Item Name:</string>
     <string name="add_item_showInRegister_label_str">Show in Register</string>
@@ -136,7 +136,11 @@
 
     <!-- UTILITY STRINGS AND ARRAYS -->
     <string name="add_btn_str">Add</string>
-    <string name="cancel_btn_str">Cancel</string>
+    <string name="add_inventory_cancel_btn_str">Cancel</string>
+    <string name="add_employee_cancel_btn_str">Cancel</string>
+    <string name="add_customer_cancel_btn_str">Cancel</string>
+    <string name="edit_customer_cancel_btn_str">Cancel</string>
+
 
     <string-array name="yes_no_string_array">
         <item>Yes</item>

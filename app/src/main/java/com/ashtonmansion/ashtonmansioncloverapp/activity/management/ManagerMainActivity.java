@@ -1,4 +1,4 @@
-package com.ashtonmansion.ashtonmansioncloverapp.activity;
+package com.ashtonmansion.ashtonmansioncloverapp.activity.management;
 
 import android.accounts.Account;
 import android.content.Context;

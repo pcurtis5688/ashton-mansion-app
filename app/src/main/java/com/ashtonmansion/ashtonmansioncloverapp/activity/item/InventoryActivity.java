@@ -119,10 +119,10 @@ public class InventoryActivity extends AppCompatActivity {
         //Create item header row
         createItemTableHeaderRow();
         //TODO THIS
-        if (itemList.size() > 0 && itemList != null) {
+        //Create new row to add to the table
+        newItemRow = new TableRow(this);
+        if (itemList != null && itemList.size() > 0) {
             for (Item item : itemList) {
-                //Create new row to add to the table
-                newItemRow = new TableRow(this);
                 //Create new views to populate data
                 itemNameTextview = new TextView(this);
                 itemModifierTextview = new TextView(this);

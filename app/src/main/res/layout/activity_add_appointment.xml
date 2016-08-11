@@ -146,7 +146,7 @@
             android:id="@+id/cancel_add_appointment_btn"
             android:layout_width="fill_parent"
             android:onClick="cancelAddAppointment"
-            android:text="@string/cancel_btn_str" />
+            android:text="@string/add_inventory_cancel_btn_str" />
 
         <Button
             android:id="@+id/submit_add_appointment_btn"

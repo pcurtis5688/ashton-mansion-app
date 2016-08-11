@@ -49,10 +49,34 @@ public class EmployeeDAO extends SQLiteOpenHelper {
         //TODO IMPLEMENT THIS METHOD LATER
     }
 
-    public void insertEmployeeIntoNAV(Employee employee, Context context) {
+    public boolean insertEmployeeIntoNAV(Employee employee, Context context) {
+        final boolean emplNavInsertSuccessful = false;
 
+        //TODO FINISH IMPLEMENTATION HERE
+
+        return emplNavInsertSuccessful;
+    }
+
+    public void submitEmployeeToCLOVER(Employee employee, Context context) {
+        //TODO FINISH IMPLEMENTATION HERE
+        Account merAcct = CloverAccount.getAccount(context);
+        EmployeeConnector empConn = new EmployeeConnector(context, merAcct, null);
+        com.clover.sdk.v3.employees.Employee cloverEmployee = new com.clover.sdk.v3.employees.Employee();
+        cloverEmployee.setName(employee.get_name());
+        cloverEmployee.setNickname(employee.get_nickname());
+        // TODO THIS: cloverEmployee.setRole();
+        cloverEmployee.setPin(employee.get_loginPIN());
+        cloverEmployee.setEmail(employee.get_email());
+        try {
+            empConn.createEmployee(cloverEmployee);
+        } catch (RemoteException | ClientException | ServiceException | BindingException e) {
+            Log.i("Clover Exception: ", e.toString());
+        }
+        //TODO CHECK HERE IF SUCCESS INSERT ALSO INSERT TO CLOVER?
+        //TODO also should I create common classes for these types of methods related to clover accounts
 
     }
+
 
     public void addLocalEmployeeRecord(Employee employee, Context context) {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -68,25 +92,7 @@ public class EmployeeDAO extends SQLiteOpenHelper {
 
         db.insert(TABLE_EMPLOYEE, null, values);
         db.close();
-
-
-        //TODO CHECK HERE IF SUCCESS INSERT ALSO INSERT TO CLOVER?
-        //TODO also should I create common classes for these types of methods related to clover accounts
-        Account merAcct = CloverAccount.getAccount(context);
-        EmployeeConnector empConn = new EmployeeConnector(context, merAcct, null);
-        com.clover.sdk.v3.employees.Employee cloverEmployee = new com.clover.sdk.v3.employees.Employee();
-        cloverEmployee.setName(employee.get_name());
-        cloverEmployee.setNickname(employee.get_nickname());
-        // TODO THIS: cloverEmployee.setRole();
-        cloverEmployee.setPin(employee.get_loginPIN());
-        cloverEmployee.setEmail(employee.get_email());
-        try {
-            empConn.createEmployee(cloverEmployee);
-        } catch (RemoteException | ClientException | ServiceException | BindingException e) {
-            Log.i("Clover Exception: ", e.toString());
-        }
     }
-
 
     private void createEmployeeTable() {
         SQLiteDatabase db = this.getWritableDatabase();

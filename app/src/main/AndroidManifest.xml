@@ -57,7 +57,7 @@
         <activity android:name=".activity.appointment.AppointmentDetailActivity" />
         <activity android:name=".activity.SandboxActivity" />
         <activity android:name=".activity.customer.EditCustomerActivity" />
-        <activity android:name=".activity.ManagerMainActivity" />
+        <activity android:name=".activity.management.ManagerMainActivity" />
         <activity android:name=".activity.shift.ManagerShiftActivity" />
         <activity android:name=".activity.shift.ShiftTemplateManagementActivity" />
         <activity android:name=".activity.shift.ShiftExceptionManagementActivity" />

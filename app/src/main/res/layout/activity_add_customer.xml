@@ -191,10 +191,10 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:onClick="cancelAddCustomer"
-            android:text="@string/cancel_btn_str" />
+            android:text="@string/add_customer_cancel_btn_str" />
 
         <Button
-            android:id="@+id/submit_add_customer_btn"
+            android:id="@+id/customer_insert_btn"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:onClick="submitAddCustomer"

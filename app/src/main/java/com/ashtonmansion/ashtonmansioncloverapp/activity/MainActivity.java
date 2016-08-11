@@ -11,6 +11,7 @@ import com.ashtonmansion.ashtonmansioncloverapp.activity.appointment.Appointment
 import com.ashtonmansion.ashtonmansioncloverapp.activity.customer.CustomersActivity;
 import com.ashtonmansion.ashtonmansioncloverapp.activity.employee.EmployeesActivity;
 import com.ashtonmansion.ashtonmansioncloverapp.activity.item.InventoryActivity;
+import com.ashtonmansion.ashtonmansioncloverapp.activity.management.ManagerMainActivity;
 import com.clover.sdk.util.CloverAccount;
 
 public class MainActivity extends AppCompatActivity {

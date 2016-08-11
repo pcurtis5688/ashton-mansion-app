@@ -94,7 +94,7 @@
             android:onClick="cancelAddEmployee"
             android:paddingBottom="@dimen/main_btn_vertical_margin"
             android:paddingTop="@dimen/main_btn_vertical_margin"
-            android:text="@string/cancel_btn_str"
+            android:text="@string/add_employee_cancel_btn_str"
             android:textAllCaps="false" />
 
         <Button
