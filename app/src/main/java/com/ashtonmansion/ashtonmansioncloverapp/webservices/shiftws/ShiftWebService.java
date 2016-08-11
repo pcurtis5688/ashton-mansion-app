@@ -1,4 +1,4 @@
-package com.ashtonmansion.ashtonmansioncloverapp.webservices.employeews;
+package com.ashtonmansion.ashtonmansioncloverapp.webservices.shiftws;
 
 import android.util.Log;
 
@@ -16,20 +16,21 @@ import java.io.IOException;
 /**
  * Created by paul on 8/11/2016.
  */
-public class EmployeeWebService {
+public class ShiftWebService {
     // STATIC SERVICE VARS ///////////////////////
-    private static final String EMPL_WS_NAMESPACE = "urn:microsoft-dynamics-schemas/codeunit/EmployeeWebService";
-    private static final String EMPL_WS_SOAP_ACTION = "urn:microsoft-dynamics-schemas/codeunit/EmployeeWebService:CreateEmployee";
-    private static final String EMPL_WEB_SERVICE_URL = "http://10.0.3.2:7047/DynamicsNAV90/WS/CRONUS%20Canada,%20Inc./Codeunit/EmployeeWebService";
-    private static final String CREATE_EMPL_METHOD = "CreateEmployee";
+    private static final String SHIFT_WS_NAMESPACE = "urn:microsoft-dynamics-schemas/codeunit/ShiftWebService";
+    private static final String CREATE_SHIFT_METHOD = "CreateShift";
+    private static final String SHIFT_WS_SOAP_ACTION = "urn:microsoft-dynamics-schemas/codeunit/ShiftWebService:CreateShift";
+    private static final String SHIFT_WEB_SERVICE_URL = "http://10.0.3.2:7047/DynamicsNAV90/WS/CRONUS%20Canada,%20Inc./Codeunit/ShiftWebService";
 
     public boolean createEmployeeServiceCall(Appointment appt) {
         boolean resultBool = true;
         try {
-            SoapObject request = new SoapObject(EMPL_WS_NAMESPACE, CREATE_EMPL_METHOD);
+            ///REQUEST OBJECTS///////
+            SoapObject request = new SoapObject(SHIFT_WS_NAMESPACE, CREATE_SHIFT_METHOD);
             SoapSerializationEnvelope envelope = WebServiceUtilities.getSoapSerializationEnvelope(request);
-            /////////////
-            ///PARAMS////
+
+            ///PARAMS////////////////
             PropertyInfo pi1 = new PropertyInfo();
             pi1.setName("iD");
             pi1.setValue(appt.get_id());
@@ -40,8 +41,8 @@ public class EmployeeWebService {
             //TODO HERE THE WEB SERVICE SENDS BACK IF SUCCESSFUL OR NOT, AND I EVALUATE
             //TODO ALSO SEE IF THERE ARE ANY NON-DEPRACATED CLASSES I CAN UTILIZE
             NTLMTransport transport = new NTLMTransport();
-            transport.setCredentials(EMPL_WEB_SERVICE_URL, "paul", "Wmo67766767", "laptop-53b1c7v6", "");
-            transport.call(EMPL_WS_SOAP_ACTION, envelope);
+            transport.setCredentials(SHIFT_WEB_SERVICE_URL, "paul", "Wmo67766767", "laptop-53b1c7v6", "");
+            transport.call(SHIFT_WS_SOAP_ACTION, envelope);
             String requestDump = transport.requestDump;
             Log.i("Result: ", "" + requestDump);
         } catch (IOException e1) {
@@ -57,4 +58,5 @@ public class EmployeeWebService {
 
         return resultBool;
     }
+    //TODO NEXT METHOD WOULD BE SHIFT EXCEPTION HANDLING
 }

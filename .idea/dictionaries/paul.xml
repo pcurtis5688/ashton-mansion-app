@@ -2,6 +2,8 @@
   <dictionary name="paul">
     <words>
       <w>appt</w>
+      <w>codeunit</w>
+      <w>excpt</w>
     </words>
   </dictionary>
 </component>
