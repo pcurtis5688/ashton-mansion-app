@@ -67,6 +67,7 @@ public class AddEmployeeActivity extends AppCompatActivity {
             protected void onPostExecute(Void result) {
                 super.onPostExecute(result);
                 //TODO PROGRESS PBAR
+                employeeConnector.disconnect();
                 finish();
             }
         }.execute();

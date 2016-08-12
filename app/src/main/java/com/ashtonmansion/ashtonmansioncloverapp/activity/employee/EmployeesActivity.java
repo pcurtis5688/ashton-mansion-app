@@ -110,7 +110,6 @@ public class EmployeesActivity extends AppCompatActivity {
         }.execute();
     }
 
-
     private void populateEmployeeTable() {
         //Clear the employee table if has content
         TableLayout employeeTable = (TableLayout) findViewById(R.id.employee_table);
@@ -126,29 +125,31 @@ public class EmployeesActivity extends AppCompatActivity {
         //TODO this
         createEmployeeTableHeaderRow();
 
-        for (Employee currentEmp : employeeList) {
-            //Create new row to add to table
-            workingEmployeeRow = new TableRow(this);
-            //Create new views to populate data
-            empIdTextview = new TextView(this);
-            empNameTextview = new TextView(this);
-            empNicknameTextView = new TextView(this);
-            empEmailTextview = new TextView(this);
-            empRoleTextview = new TextView(this);
-            //Set the new data for the new row
-            empIdTextview.setText(currentEmp.getId());
-            empNameTextview.setText(currentEmp.getName());
-            empNicknameTextView.setText(currentEmp.getNickname());
-            empEmailTextview.setText(currentEmp.getEmail());
-            empRoleTextview.setText(currentEmp.getRole().name());
-            //Add the new data to the new row
-            workingEmployeeRow.addView(empIdTextview);
-            workingEmployeeRow.addView(empNameTextview);
-            workingEmployeeRow.addView(empNicknameTextView);
-            workingEmployeeRow.addView(empEmailTextview);
-            workingEmployeeRow.addView(empRoleTextview);
-            //Add the new row to the table
-            employeeTable.addView(workingEmployeeRow);
+        if (employeeList != null) {
+            for (Employee currentEmp : employeeList) {
+                //Create new row to add to table
+                workingEmployeeRow = new TableRow(this);
+                //Create new views to populate data
+                empIdTextview = new TextView(this);
+                empNameTextview = new TextView(this);
+                empNicknameTextView = new TextView(this);
+                empEmailTextview = new TextView(this);
+                empRoleTextview = new TextView(this);
+                //Set the new data for the new row
+                empIdTextview.setText(currentEmp.getId());
+                empNameTextview.setText(currentEmp.getName());
+                empNicknameTextView.setText(currentEmp.getNickname());
+                empEmailTextview.setText(currentEmp.getEmail());
+                empRoleTextview.setText(currentEmp.getRole().name());
+                //Add the new data to the new row
+                workingEmployeeRow.addView(empIdTextview);
+                workingEmployeeRow.addView(empNameTextview);
+                workingEmployeeRow.addView(empNicknameTextView);
+                workingEmployeeRow.addView(empEmailTextview);
+                workingEmployeeRow.addView(empRoleTextview);
+                //Add the new row to the table
+                employeeTable.addView(workingEmployeeRow);
+            }
         }
     }
 

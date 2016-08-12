@@ -129,31 +129,33 @@ public class CustomersActivity extends AppCompatActivity {
         //TODO ABOVE
         createCustomerTableHeaderRow();
 
-        for (final Customer customer : customers) {
-            //Create new row to be added to the table
-            final String customerId = customer.getId();
-            newCustomerRow = new TableRow(this);
-            newCustomerRow.setPadding(0, 50, 0, 50);
-            newCustomerRow.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    clickedThisID(customer);
-                }
-            });
-            //Create the new views for the new row
-            custLastnameTextview = new TextView(this);
-            custFirstnameTextview = new TextView(this);
-            custPhoneTextview = new TextView(this);
-            //Set the new data for the new row
-            custLastnameTextview.setText(customer.getLastName());
-            custFirstnameTextview.setText(customer.getFirstName());
-            custPhoneTextview.setText(customer.getPhoneNumbers().toString());
-            //Add the new data to the new row
-            newCustomerRow.addView(custLastnameTextview);
-            newCustomerRow.addView(custFirstnameTextview);
-            newCustomerRow.addView(custPhoneTextview);
-            //Add the new row to the table
-            customerTable.addView(newCustomerRow);
+        if (customers != null && customers.size() != 0) {
+            for (final Customer customer : customers) {
+                //Create new row to be added to the table
+                final String customerId = customer.getId();
+                newCustomerRow = new TableRow(this);
+                newCustomerRow.setPadding(0, 50, 0, 50);
+                newCustomerRow.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        clickedThisID(customer);
+                    }
+                });
+                //Create the new views for the new row
+                custLastnameTextview = new TextView(this);
+                custFirstnameTextview = new TextView(this);
+                custPhoneTextview = new TextView(this);
+                //Set the new data for the new row
+                custLastnameTextview.setText(customer.getLastName());
+                custFirstnameTextview.setText(customer.getFirstName());
+                custPhoneTextview.setText(customer.getPhoneNumbers().toString());
+                //Add the new data to the new row
+                newCustomerRow.addView(custLastnameTextview);
+                newCustomerRow.addView(custFirstnameTextview);
+                newCustomerRow.addView(custPhoneTextview);
+                //Add the new row to the table
+                customerTable.addView(newCustomerRow);
+            }
         }
     }
 

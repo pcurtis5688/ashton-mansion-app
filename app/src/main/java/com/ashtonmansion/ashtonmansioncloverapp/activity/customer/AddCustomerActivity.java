@@ -28,7 +28,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AddCustomerActivity extends AppCompatActivity {
-    //ACTIVITY VARS
+    //INSTANCE VARS
     private Context context;
     //SERVICE VARS
     private Account mAcct;
