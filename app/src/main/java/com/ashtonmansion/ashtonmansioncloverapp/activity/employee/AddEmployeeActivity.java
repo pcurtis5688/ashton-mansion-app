@@ -10,6 +10,7 @@ import android.widget.Spinner;
 
 import com.ashtonmansion.ashtonmansioncloverapp.R;
 import com.ashtonmansion.ashtonmansioncloverapp.dao.EmployeeDAO;
+import com.clover.sdk.v3.employees.AccountRole;
 import com.clover.sdk.v3.employees.Employee;
 import com.clover.sdk.v3.employees.EmployeeConnector;
 
@@ -37,15 +38,23 @@ public class AddEmployeeActivity extends AppCompatActivity {
         newEmployee.setName(employeeName.getText().toString());
         newEmployee.setNickname(employeeNickname.getText().toString());
         String test = employeeRoleSpinner.getSelectedItem().toString();
-//        newEmployee.setRole();
+        //todo acct role
+        String selectedRole = employeeRoleSpinner.getSelectedItem().toString();
+        if (selectedRole.equalsIgnoreCase("employee")) {
+            newEmployee.setRole(AccountRole.EMPLOYEE);
+        } else if (selectedRole.equalsIgnoreCase("manager")) {
+            newEmployee.setRole(AccountRole.MANAGER);
+        } else if (selectedRole.equalsIgnoreCase("admin")) {
+            newEmployee.setRole(AccountRole.ADMIN);
+        }
         newEmployee.setPin(employeePIN.getText().toString());
         newEmployee.setEmail(employeeEmail.getText().toString());
 
+        // todo insertion flow work for ID after testing complete }
         EmployeeDAO employeeDAO = new EmployeeDAO(this);
-        String returnedCloverEmployeeID = (employeeDAO.createEmployeeInClover(newEmployee, this)).getId();
-        newEmployee.setId(returnedCloverEmployeeID);
+        employeeDAO.createEmployeeInClover(newEmployee, this);
+        newEmployee.setId("FIX");
         successfulDynamicsEmployeeInsertion = employeeDAO.insertEmployeeDynamics(newEmployee);
-        // todo insertion flow work after testing complete }
         newlyAssignedEmployeeID = employeeDAO.addLocalEmployeeRecord(newEmployee);
         if (newlyAssignedEmployeeID == -1) {
             Log.e("Local Return Code: ", Long.toString(newlyAssignedEmployeeID));
