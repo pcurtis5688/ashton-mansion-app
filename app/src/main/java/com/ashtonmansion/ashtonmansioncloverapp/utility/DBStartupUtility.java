@@ -9,6 +9,7 @@ import android.util.Log;
 import com.ashtonmansion.ashtonmansioncloverapp.dao.AppointmentDAO;
 import com.ashtonmansion.ashtonmansioncloverapp.dao.CustomerDAO;
 import com.ashtonmansion.ashtonmansioncloverapp.dao.EmployeeDAO;
+import com.ashtonmansion.ashtonmansioncloverapp.dao.InventoryDAO;
 
 /**
  * Created by paul on 8/13/2016.
@@ -29,7 +30,7 @@ public class DBStartupUtility extends SQLiteOpenHelper {
         String queryAppointmentTable = checkTable("Appointment");
         String queryEmployeeTable = checkTable("Employee");
         String queryCustomerTable = checkTable("Customer");
-        String queryInventoryTable = checkTable("Inventory");
+        String queryInventoryTable = checkTable("Inventory_Item");
         ///////
         Cursor cursor = db.rawQuery(queryAppointmentTable, null);
         if (cursor.moveToFirst()) {
@@ -64,10 +65,11 @@ public class DBStartupUtility extends SQLiteOpenHelper {
         cursor = db.rawQuery(queryInventoryTable, null);
         if (cursor.moveToFirst()) {
             hasInventoryTable = true;
-            Log.i("Table Located", "Inventory");
+            Log.i("Table Located", "Inventory_Item");
         } else {
-            Log.e("Needs Table, Creating: ", "Inventory");
-            //todo need a create customer table method.....;
+            Log.e("Needs Table, Creating: ", "Inventory_Item");
+            InventoryDAO inventoryDAO = new InventoryDAO(context);
+            inventoryDAO.createItemTableIfNotExists();
         }
         //////
     }

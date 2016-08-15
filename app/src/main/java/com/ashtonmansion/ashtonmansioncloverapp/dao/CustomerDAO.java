@@ -17,13 +17,13 @@ public class CustomerDAO extends SQLiteOpenHelper {
     private static final String TEXT_TYPE_COMMA = " TEXT,";
     //CUSTOMER TABLE TITLE AND COLUMNS
     private static final String TABLE_CUSTOMER = "Customer";
-    private static final String CUSTOMER_ID = "CUSTOMER_ID";
-    private static final String CUSTOMER_FIRST_NAME = "ID";
-    private static final String CUSTOMER_LAST_NAME = "ID";
-    private static final String CUSTOMER_MARKETING_ALLOWED = "ID";
-    private static final String CUSTOMER_PHONE_NUMBERS = "ID";
-    private static final String CUSTOMER_EMAIL_ADDRESSES = "ID";
-    private static final String CUSTOMER_ADDRESSES = "ID";
+    private static final String CUSTOMER_ID = "Customer_ID";
+    private static final String CUSTOMER_FIRST_NAME = "Customer_First_Name";
+    private static final String CUSTOMER_LAST_NAME = "Customer_Last_Name";
+    private static final String CUSTOMER_MARKETING_ALLOWED = "Customer_Marketing_Allowed";
+    private static final String CUSTOMER_PHONE_NUMBERS = "Customer_Phone_Numbers";
+    private static final String CUSTOMER_EMAIL_ADDRESSES = "Customer_Email_Addresses";
+    private static final String CUSTOMER_ADDRESSES = "Customer_Addresses";
 
     //CONSTRUCTOR
     public CustomerDAO(Context context) {
@@ -53,7 +53,7 @@ public class CustomerDAO extends SQLiteOpenHelper {
                 + CUSTOMER_MARKETING_ALLOWED + TEXT_TYPE_COMMA
                 + CUSTOMER_PHONE_NUMBERS + TEXT_TYPE_COMMA
                 + CUSTOMER_EMAIL_ADDRESSES + TEXT_TYPE_COMMA
-                + CUSTOMER_ADDRESSES + "')";
+                + CUSTOMER_ADDRESSES + ")";
         db.execSQL(CREATE_CUSTOMER_TABLE);
         db.close();
     }

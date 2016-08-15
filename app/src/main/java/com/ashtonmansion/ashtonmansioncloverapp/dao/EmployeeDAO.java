@@ -32,12 +32,12 @@ public class EmployeeDAO extends SQLiteOpenHelper {
     private static final String TEXT_TYPE_COMMA = " TEXT,";
     //LOCAL EMPLOYEE TABLE
     private static final String TABLE_EMPLOYEE = "Employee";
-    private static final String EMPLOYEE_ID = "ID";
-    private static final String EMPLOYEE_NAME = "Name";
-    private static final String EMPLOYEE_NICKNAME = "Nickname";
-    private static final String EMPLOYEE_ROLE = "Role";
-    private static final String EMPLOYEE_PIN = "Pin";
-    private static final String EMPLOYEE_EMAIL = "Email";
+    private static final String EMPLOYEE_ID = "Employee_ID";
+    private static final String EMPLOYEE_NAME = "Employee_Name";
+    private static final String EMPLOYEE_NICKNAME = "Employee_Nickname";
+    private static final String EMPLOYEE_ROLE = "Employee_Role";
+    private static final String EMPLOYEE_PIN = "Employee_Pin";
+    private static final String EMPLOYEE_EMAIL = "Employee_Email";
 
     //CONSTRUCTOR
     public EmployeeDAO(Context context) {
@@ -171,7 +171,7 @@ public class EmployeeDAO extends SQLiteOpenHelper {
                 + EMPLOYEE_NICKNAME + TEXT_TYPE_COMMA
                 + EMPLOYEE_ROLE + TEXT_TYPE_COMMA
                 + EMPLOYEE_PIN + TEXT_TYPE_COMMA
-                + EMPLOYEE_EMAIL + "')";
+                + EMPLOYEE_EMAIL + ")";
         db.execSQL(CREATE_EMPLOYEE_TABLE);
         db.close();
     }
