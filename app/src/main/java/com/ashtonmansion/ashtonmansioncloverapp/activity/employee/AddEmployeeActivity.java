@@ -30,6 +30,7 @@ public class AddEmployeeActivity extends AppCompatActivity {
         long newlyAssignedEmployeeID = -2;
         Employee cloverEmployeeReturned;
         boolean successfulDynamicsEmployeeInsertion = false;
+        Employee cloverReturnedEmployoee = new Employee();
 
         //CREATE V3 INSTANCE OF A CLOVER EMPLOYEE
         newEmployee = new Employee();
@@ -39,17 +40,19 @@ public class AddEmployeeActivity extends AppCompatActivity {
 //        newEmployee.setRole();
         newEmployee.setPin(employeePIN.getText().toString());
         newEmployee.setEmail(employeeEmail.getText().toString());
-        //CALL DAO OBJECT TO CREATE EMPLOYEE IN CLOVER AND IF
-        //SUCCESSFUL THEN CALL DYNAMICS INSERTION
+
         EmployeeDAO employeeDAO = new EmployeeDAO(this);
-        employeeDAO.createEmployeeInClover(newEmployee, this);
+        String returnedCloverEmployeeID = (employeeDAO.createEmployeeInClover(newEmployee, this)).getId();
+        newEmployee.setId(returnedCloverEmployeeID);
         successfulDynamicsEmployeeInsertion = employeeDAO.insertEmployeeDynamics(newEmployee);
         // todo insertion flow work after testing complete }
         newlyAssignedEmployeeID = employeeDAO.addLocalEmployeeRecord(newEmployee);
         if (newlyAssignedEmployeeID == -1) {
-            Log.e("Local Record failure: ", "true");
+            Log.e("Local Return Code: ", Long.toString(newlyAssignedEmployeeID));
+            //todo handle error case?
         } else if (newlyAssignedEmployeeID == -2) {
-            Log.e("local record insert", "not reached");
+            Log.e("Local Return Code: ", Long.toString(newlyAssignedEmployeeID));
+            //todo handle error case?
         } else {
             Log.i("New Employee ID: ", "" + newlyAssignedEmployeeID);
         }

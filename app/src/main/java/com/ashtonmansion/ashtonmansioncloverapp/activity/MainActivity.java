@@ -16,7 +16,6 @@ import com.ashtonmansion.ashtonmansioncloverapp.utility.DBStartupUtility;
 import com.clover.sdk.util.CloverAccount;
 
 public class MainActivity extends AppCompatActivity {
-
     private Account mAcct;
 
     @Override
@@ -32,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
-        //Retrieve Clover Account
+        //RETRIEVE CLOVER ACCT
         if (mAcct == null) {
             mAcct = CloverAccount.getAccount(this);
 

@@ -55,7 +55,9 @@ public class EmployeeDAO extends SQLiteOpenHelper {
         //TODO IMPLEMENT THIS METHOD LATER
     }
 
-    public void createEmployeeInClover(final Employee employee, final Context context) {
+    private Employee returnedEmployee;
+
+    public Employee createEmployeeInClover(final Employee employee, final Context context) {
         new AsyncTask<Void, Void, Void>() {
             @Override
             protected void onPreExecute() {
@@ -68,7 +70,7 @@ public class EmployeeDAO extends SQLiteOpenHelper {
                 EmployeeConnector empConn = new EmployeeConnector(context, merAcct, null);
 
                 try {
-                    empConn.createEmployee(employee);
+                    returnedEmployee = empConn.createEmployee(employee);
                 } catch (RemoteException e2) {
                     Log.e("Remote EXC: ", e2.getMessage());
                 } catch (ServiceException e3) {
@@ -79,6 +81,7 @@ public class EmployeeDAO extends SQLiteOpenHelper {
                     Log.e("BindingException EXC: ", e5.getMessage());
                 } finally {
                     empConn.disconnect();
+                    empConn = null;
                 }
                 return null;
             }
@@ -91,6 +94,7 @@ public class EmployeeDAO extends SQLiteOpenHelper {
             //TODO CHECK HERE IF SUCCESS INSERT ALSO INSERT TO CLOVER?
             //TODO also should I create common classes for these types of methods related to clover accounts
         }.execute();
+        return returnedEmployee;
     }
 
     private boolean createEmployeeWSSuccess;
