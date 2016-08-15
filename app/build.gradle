@@ -12,11 +12,11 @@ android {
     compileSdkVersion 23
     buildToolsVersion "24.0.0"
     defaultConfig {
-        applicationId "com.ashtonmansion.ashtonmansioncloverapp"
+        applicationId "com.ashtonmansion.ashtonmansionapp"
         minSdkVersion 17
         targetSdkVersion 23
-        versionCode 3
-        versionName "1.2"
+        versionCode 2
+        versionName "1.1"
         signingConfig signingConfigs.debug
     }
     buildTypes {

@@ -12,6 +12,7 @@ import com.ashtonmansion.ashtonmansioncloverapp.activity.customer.CustomersActiv
 import com.ashtonmansion.ashtonmansioncloverapp.activity.employee.EmployeesActivity;
 import com.ashtonmansion.ashtonmansioncloverapp.activity.item.InventoryActivity;
 import com.ashtonmansion.ashtonmansioncloverapp.activity.management.ManagerMainActivity;
+import com.ashtonmansion.ashtonmansioncloverapp.utility.DBStartupUtility;
 import com.clover.sdk.util.CloverAccount;
 
 public class MainActivity extends AppCompatActivity {
@@ -22,6 +23,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        DBStartupUtility dbStartupUtility = new DBStartupUtility(this);
+        dbStartupUtility.checkDatabase(this);
     }
 
     @Override

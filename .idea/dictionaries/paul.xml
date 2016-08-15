@@ -5,10 +5,12 @@
       <w>btns</w>
       <w>chkbox</w>
       <w>codeunit</w>
+      <w>createfail</w>
       <w>cust</w>
       <w>empl</w>
       <w>excpt</w>
       <w>nonrev</w>
+      <w>spawndao</w>
     </words>
   </dictionary>
 </component>

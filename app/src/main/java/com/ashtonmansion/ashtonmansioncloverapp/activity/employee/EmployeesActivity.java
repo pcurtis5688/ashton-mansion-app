@@ -65,6 +65,7 @@ public class EmployeesActivity extends AppCompatActivity {
         //Connect emp connector
         connectEmployees();
         getEmployeeList();
+        populateLocalEmplTableTesting();
     }
 
     private void connectEmployees() {
@@ -155,5 +156,40 @@ public class EmployeesActivity extends AppCompatActivity {
 
     private void createEmployeeTableHeaderRow() {
         //Todo this
+    }
+
+    private List<Employee> employees;
+
+    private void populateLocalEmplTableTesting() {
+        employees = new EmployeeDAO(this).getLocalEmployeeRecords();
+
+        TableLayout localTable = (TableLayout) findViewById(R.id.local_employee_table);
+
+        for (Employee employee : employees) {
+            TableRow empRow = new TableRow(this);
+
+            TextView empID = new TextView(this);
+            TextView empName = new TextView(this);
+            TextView empNickname = new TextView(this);
+            TextView empRole = new TextView(this);
+            TextView empPin = new TextView(this);
+            TextView empEmail = new TextView(this);
+
+            empID.setText(employee.getId());
+            empName.setText(employee.getName());
+            empNickname.setText(employee.getNickname());
+            empRole.setText(employee.getRole().toString());
+            empPin.setText(employee.getPin());
+            empEmail.setText(employee.getEmail());
+
+            empRow.addView(empID);
+            empRow.addView(empName);
+            empRow.addView(empNickname);
+            empRow.addView(empRole);
+            empRow.addView(empPin);
+            empRow.addView(empEmail);
+
+            localTable.addView(empRow);
+        }
     }
 }

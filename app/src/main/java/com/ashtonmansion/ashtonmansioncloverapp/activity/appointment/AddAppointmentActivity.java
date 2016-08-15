@@ -1,6 +1,5 @@
 package com.ashtonmansion.ashtonmansioncloverapp.activity.appointment;
 
-import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -17,6 +16,12 @@ import com.ashtonmansion.ashtonmansioncloverapp.dbo.Appointment;
 import com.ashtonmansion.ashtonmansioncloverapp.webservices.appointmentws.AppointmentWebServices;
 
 public class AddAppointmentActivity extends AppCompatActivity {
+    //todo below
+    ///////////SERVICE VARS
+    private AppointmentDAO apptDAO;
+    private Appointment appointment;
+    private boolean webServiceSuccess;
+    ///////////ACTIVITY FIELD VARS
     private DatePicker datePicker;
     private TimePicker timePicker;
     private EditText durationText;
@@ -27,35 +32,6 @@ public class AddAppointmentActivity extends AppCompatActivity {
     private EditText emp1Text;
     private EditText emp2Text;
     private Spinner apptConfirmStatusSpinner;
-    private AppointmentDAO apptDAO;
-    private Appointment appointment;
-    // POST EXECUTION VARS
-    private boolean webServiceSuccess;
-
-    private class callApptCreateJaxWSInBackground extends AsyncTask<Void, Void, Void> {
-        ProgressDialog progressDialog = new ProgressDialog(AddAppointmentActivity.this);
-
-        @Override
-        protected void onPreExecute() {
-            //Progress bar for insertion
-            super.onPreExecute();
-            progressDialog.setMessage("Creating ...");
-            progressDialog.show();
-        }
-
-        @Override
-        protected Void doInBackground(Void... params) {
-          //  webServiceSuccess = AppointmentWebServices.insertAppointment(appointment);
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void result) {
-            super.onPostExecute(result);
-            //Close the progress bar
-            progressDialog.dismiss();
-        }
-    }
 
     public void submitAddAppointment(View view) {
         apptDAO = new AppointmentDAO(this);
@@ -71,15 +47,46 @@ public class AddAppointmentActivity extends AppCompatActivity {
         appointment.set_employee_code_2(emp2Text.getText().toString());
         appointment.set_confirm_status(apptConfirmStatusSpinner.getSelectedItem().toString());
         apptDAO.addAppointment(appointment);
+        //todo ProgressDialog progressDialog = new ProgressDialog(SandboxActivity.this);
+        //todo while both dao and dynamics are being inserted
         ////////////////////LOCAL DB UPDATED, NOW CALL DYNAMICS WS
-        AppointmentWebServices apptWebService = new AppointmentWebServices();
-        webServiceSuccess = apptWebService.addAppointmentViaWS(appointment);
+        callApptWSInBackground();
 
+    }
+
+    private void callApptWSInBackground() {
+        new AsyncTask<Void, Void, Void>() {
+            @Override
+            protected void onPreExecute() {
+                super.onPreExecute();
+            }
+
+            @Override
+            protected Void doInBackground(Void... params) {
+                AppointmentWebServices apptWebService = new AppointmentWebServices();
+                webServiceSuccess = apptWebService.addAppointmentViaWS(appointment);
+                Log.i("Result inner:", "" + webServiceSuccess);
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(Void result) {
+                super.onPostExecute(result);
+                //todo progressDialog.dismiss()
+
+                closeOutActivity();
+            }
+        }.execute();
+    }
+
+    private void closeOutActivity() {
         if (webServiceSuccess == true) {
             Log.i("Web Service: ", "SUCCESS");
         } else {
             Log.i("Web Service: ", "FAILURE");
         }
+        apptDAO.close();
+        finish();
     }
 
     @Override
@@ -100,7 +107,6 @@ public class AddAppointmentActivity extends AppCompatActivity {
         emp2Text = (EditText) findViewById(R.id.appt_emp_2_assigned);
     }
 
-    //Method to return when cancel button is pressed
     public void cancelAddAppointment(View view) {
         finish();
     }

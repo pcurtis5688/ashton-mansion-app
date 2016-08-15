@@ -15,7 +15,15 @@ public class CustomerDAO extends SQLiteOpenHelper {
     private static final int DATABASE_VERSION = 1;
     private static final String DATABASE_NAME = "AshtonMansionDB";
     private static final String TEXT_TYPE_COMMA = " TEXT,";
-    //TODO BELOW
+    //CUSTOMER TABLE TITLE AND COLUMNS
+    private static final String TABLE_CUSTOMER = "Customer";
+    private static final String CUSTOMER_ID = "CUSTOMER_ID";
+    private static final String CUSTOMER_FIRST_NAME = "ID";
+    private static final String CUSTOMER_LAST_NAME = "ID";
+    private static final String CUSTOMER_MARKETING_ALLOWED = "ID";
+    private static final String CUSTOMER_PHONE_NUMBERS = "ID";
+    private static final String CUSTOMER_EMAIL_ADDRESSES = "ID";
+    private static final String CUSTOMER_ADDRESSES = "ID";
 
     //CONSTRUCTOR
     public CustomerDAO(Context context) {
@@ -25,18 +33,28 @@ public class CustomerDAO extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         //// TODO: 7/29/2016 figure out what to do here
-
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         //// TODO: 7/29/2016 figure out what to do here
-
     }
 
     public void addCustomer(Customer customer, Context context) {
 
     }
 
-
+    public void createCustomerTableIfNotExists() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String CREATE_CUSTOMER_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_CUSTOMER
+                + "(" + CUSTOMER_ID + " INTEGER PRIMARY KEY,"
+                + CUSTOMER_FIRST_NAME + TEXT_TYPE_COMMA
+                + CUSTOMER_LAST_NAME + TEXT_TYPE_COMMA
+                + CUSTOMER_MARKETING_ALLOWED + TEXT_TYPE_COMMA
+                + CUSTOMER_PHONE_NUMBERS + TEXT_TYPE_COMMA
+                + CUSTOMER_EMAIL_ADDRESSES + TEXT_TYPE_COMMA
+                + CUSTOMER_ADDRESSES + "')";
+        db.execSQL(CREATE_CUSTOMER_TABLE);
+        db.close();
+    }
 }

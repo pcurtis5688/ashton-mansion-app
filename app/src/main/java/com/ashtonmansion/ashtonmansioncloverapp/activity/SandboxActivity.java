@@ -11,7 +11,6 @@ import android.widget.TextView;
 import com.ashtonmansion.ashtonmansioncloverapp.R;
 import com.ashtonmansion.ashtonmansioncloverapp.dbo.Appointment;
 import com.ashtonmansion.ashtonmansioncloverapp.webservices.appointmentws.AppointmentWebServices;
-import com.ashtonmansion.ashtonmansioncloverapp.webservices.testws.TestWS;
 
 public class SandboxActivity extends AppCompatActivity {
     private TextView countryIsdTV;
@@ -44,7 +43,7 @@ public class SandboxActivity extends AppCompatActivity {
             AppointmentWebServices apptWebService = new AppointmentWebServices();
 
             Appointment bsappt = new Appointment();
-            bsappt.set_id("8");
+            bsappt.set_id("15");
             bsappt.set_date("DATE");
             bsappt.set_start_time("TIME");
             bsappt.set_customer_code("custcode");

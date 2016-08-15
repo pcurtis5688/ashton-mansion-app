@@ -8,7 +8,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:stretchColumns="*"
-    tools:context=".activity.employee.EmployeesActivity">
+    tools:context="com.ashtonmansion.ashtonmansioncloverapp.activity.employee.EmployeesActivity">
 
     <TableRow>
 
@@ -34,6 +34,16 @@
         <TableLayout
             android:id="@+id/employee_table"
             android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:stretchColumns="*" />
+    </TableRow>
+
+    <TableRow>
+
+        <TableLayout
+            android:id="@+id/local_employee_table"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:stretchColumns="*" />
     </TableRow>
 </TableLayout>

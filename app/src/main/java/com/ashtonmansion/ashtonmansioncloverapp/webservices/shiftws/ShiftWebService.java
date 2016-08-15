@@ -2,7 +2,6 @@ package com.ashtonmansion.ashtonmansioncloverapp.webservices.shiftws;
 
 import android.util.Log;
 
-import com.ashtonmansion.ashtonmansioncloverapp.dbo.Appointment;
 import com.ashtonmansion.ashtonmansioncloverapp.webservices.generalws.WebServiceUtilities;
 import com.ashtonmansion.ashtonmansioncloverapp.webservices.generalws.external.NTLMTransport;
 import com.clover.sdk.v3.employees.Shift;

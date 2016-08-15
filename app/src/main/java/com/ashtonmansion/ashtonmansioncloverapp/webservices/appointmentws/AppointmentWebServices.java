@@ -1,9 +1,6 @@
 package com.ashtonmansion.ashtonmansioncloverapp.webservices.appointmentws;
 
-import android.app.ProgressDialog;
-import android.os.AsyncTask;
 import android.util.Log;
-import android.view.View;
 
 import com.ashtonmansion.ashtonmansioncloverapp.dbo.Appointment;
 import com.ashtonmansion.ashtonmansioncloverapp.webservices.generalws.WebServiceUtilities;
@@ -34,9 +31,11 @@ public class AppointmentWebServices {
             SoapSerializationEnvelope envelope = WebServiceUtilities.getSoapSerializationEnvelope(request);
             /////////////
             ///PARAMS////
+            //TODO THINK IN MORE DETAIL IF WE NEED TO GENERATE ID OR IF SQL DOES
+            //TODO FOR NOW I AM HARDCODING IT
             PropertyInfo pi1 = new PropertyInfo();
             pi1.setName("iD");
-            pi1.setValue(appt.get_id());
+            pi1.setValue("89");
             pi1.setType(String.class);
             request.addProperty(pi1);
 
@@ -105,7 +104,7 @@ public class AppointmentWebServices {
             transport.call(APPT_WS_SOAP_ACTION, envelope);
             //TODO HERE THE WEB SERVICE SENDS BACK IF SUCCESSFUL OR NOT, AND I EVALUATE
             String requestDump = transport.requestDump;
-            Log.i("Result: ", "" + requestDump);
+            Log.i("Req: ", "" + requestDump);
         } catch (IOException e1) {
             Log.e("IO Err: ", "" + "" + e1.getMessage());
             resultBool = false;

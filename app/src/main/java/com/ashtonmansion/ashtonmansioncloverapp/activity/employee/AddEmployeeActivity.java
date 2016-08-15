@@ -1,8 +1,6 @@
 package com.ashtonmansion.ashtonmansioncloverapp.activity.employee;
 
 import android.accounts.Account;
-import android.os.AsyncTask;
-import android.os.RemoteException;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,92 +9,53 @@ import android.widget.EditText;
 import android.widget.Spinner;
 
 import com.ashtonmansion.ashtonmansioncloverapp.R;
-import com.clover.sdk.util.CloverAccount;
-import com.clover.sdk.v1.BindingException;
-import com.clover.sdk.v1.ClientException;
-import com.clover.sdk.v1.ServiceException;
+import com.ashtonmansion.ashtonmansioncloverapp.dao.EmployeeDAO;
 import com.clover.sdk.v3.employees.Employee;
 import com.clover.sdk.v3.employees.EmployeeConnector;
-
 
 public class AddEmployeeActivity extends AppCompatActivity {
     //SERVICE VARS
     private Account mAcct;
     private EmployeeConnector employeeConnector;
     private Employee newEmployee;
-    //PRIVATE FIELD VARS
+    //ACTIVITY FIELD VARS
     private EditText employeeName;
     private EditText employeeNickname;
     private Spinner employeeRoleSpinner;
     private EditText employeePIN;
     private EditText employeeEmail;
 
-    //Submit employee for creation
-    public void submitNewEmployee(View view) {
+    //SUBMIT EMPLOYEE TO BOTH CLOVER AND DYNAMICS FOR ADDITION
+    public void finalizeEmployeeCreation(View view) {
+        long newlyAssignedEmployeeID = -2;
+        Employee cloverEmployeeReturned;
+        boolean successfulDynamicsEmployeeInsertion = false;
+
+        //CREATE V3 INSTANCE OF A CLOVER EMPLOYEE
         newEmployee = new Employee();
         newEmployee.setName(employeeName.getText().toString());
         newEmployee.setNickname(employeeNickname.getText().toString());
-        //role!?!?!?
+        String test = employeeRoleSpinner.getSelectedItem().toString();
+//        newEmployee.setRole();
         newEmployee.setPin(employeePIN.getText().toString());
         newEmployee.setEmail(employeeEmail.getText().toString());
-
-        insertEmployee();
-    }
-
-    private void insertEmployee() {
-        new AsyncTask<Void, Void, Void>() {
-            @Override
-            protected void onPreExecute() {
-                super.onPreExecute();
-                //TODO PROGRESS PBAR
-            }
-
-            @Override
-            protected Void doInBackground(Void... params) {
-                getMerchantAcct();
-                connectEmployeeConn();
-                try {
-                    employeeConnector.createEmployee(newEmployee);
-                } catch (RemoteException | ServiceException | ClientException | BindingException e) {
-                    Log.i("Employee Creation Error", e.toString());
-                }
-                return null;
-            }
-
-            @Override
-            protected void onPostExecute(Void result) {
-                super.onPostExecute(result);
-                //TODO PROGRESS PBAR
-                employeeConnector.disconnect();
-                finish();
-            }
-        }.execute();
-    }
-
-    private void getMerchantAcct() {
-        if (mAcct == null) {
-            mAcct = CloverAccount.getAccount(this);
-            if (mAcct == null) {
-                //BREAK IF CLOVER ACCOUNT UNREACHABLE
-                finish();
-            }
+        //CALL DAO OBJECT TO CREATE EMPLOYEE IN CLOVER AND IF
+        //SUCCESSFUL THEN CALL DYNAMICS INSERTION
+        EmployeeDAO employeeDAO = new EmployeeDAO(this);
+        employeeDAO.createEmployeeInClover(newEmployee, this);
+        successfulDynamicsEmployeeInsertion = employeeDAO.insertEmployeeDynamics(newEmployee);
+        if (successfulDynamicsEmployeeInsertion) {
+            newlyAssignedEmployeeID = employeeDAO.addLocalEmployeeRecord(newEmployee);
         }
-    }
-
-
-    private void connectEmployeeConn() {
-        disconnectEmployeeConn();
-        if (mAcct != null) {
-            employeeConnector = new EmployeeConnector(this, mAcct, null);
-            employeeConnector.connect();
+        if (newlyAssignedEmployeeID == -1) {
+            Log.e("Local Record failure: ", "true");
+        } else if (newlyAssignedEmployeeID == -2) {
+            Log.e("local record insert", "not reached");
+        } else {
+            Log.i("New Employee ID: ", "" + newlyAssignedEmployeeID);
         }
-    }
-
-    private void disconnectEmployeeConn() {
-        if (employeeConnector != null) {
-            employeeConnector.disconnect();
-            employeeConnector = null;
-        }
+        Log.e("Dynamics Record fail: ", "" + successfulDynamicsEmployeeInsertion);
+        Log.e("CloverEmpCreatefail ", "" + (cloverEmployeeReturned = null));
     }
 
     //RETURN WHEN CANCEL BUTTON PRESSED
