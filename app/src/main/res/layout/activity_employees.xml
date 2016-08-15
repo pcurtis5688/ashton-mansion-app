@@ -43,7 +43,6 @@
         <TableLayout
             android:id="@+id/local_employee_table"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:stretchColumns="*" />
+            android:layout_height="wrap_content" />
     </TableRow>
 </TableLayout>

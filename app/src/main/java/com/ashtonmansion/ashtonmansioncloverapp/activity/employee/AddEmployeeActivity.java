@@ -44,9 +44,8 @@ public class AddEmployeeActivity extends AppCompatActivity {
         EmployeeDAO employeeDAO = new EmployeeDAO(this);
         employeeDAO.createEmployeeInClover(newEmployee, this);
         successfulDynamicsEmployeeInsertion = employeeDAO.insertEmployeeDynamics(newEmployee);
-        if (successfulDynamicsEmployeeInsertion) {
-            newlyAssignedEmployeeID = employeeDAO.addLocalEmployeeRecord(newEmployee);
-        }
+        // todo insertion flow work after testing complete }
+        newlyAssignedEmployeeID = employeeDAO.addLocalEmployeeRecord(newEmployee);
         if (newlyAssignedEmployeeID == -1) {
             Log.e("Local Record failure: ", "true");
         } else if (newlyAssignedEmployeeID == -2) {

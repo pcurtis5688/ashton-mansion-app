@@ -106,6 +106,7 @@ public class EmployeesActivity extends AppCompatActivity {
 
             @Override
             protected void onPostExecute(Employee employee) {
+
                 populateEmployeeTable();
             }
         }.execute();
@@ -165,6 +166,11 @@ public class EmployeesActivity extends AppCompatActivity {
 
         TableLayout localTable = (TableLayout) findViewById(R.id.local_employee_table);
 
+        TableRow headerRow = new TableRow(this);
+        TextView headerText = new TextView(this);
+        headerText.setText("TEST");
+        headerRow.addView(headerText);
+        localTable.addView(headerRow);
         for (Employee employee : employees) {
             TableRow empRow = new TableRow(this);
 
