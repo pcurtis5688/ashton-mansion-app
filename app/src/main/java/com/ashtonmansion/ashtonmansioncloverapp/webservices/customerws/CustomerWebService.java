@@ -24,7 +24,7 @@ public class CustomerWebService {
     private static final String CUST_WS_SOAP_ACTION = "urn:microsoft-dynamics-schemas/codeunit/CustomerWebService:InsertCustomer";
     private static final String CUST_WEB_SERVICE_URL = "http://10.0.3.2:7047/DynamicsNAV90/WS/CRONUS%20Canada,%20Inc./Codeunit/CustomerWebService";
 
-    public boolean addCustomerWSCall(Customer customer) {
+    public boolean createCustomerServiceCall(Customer customer) {
         boolean resultBool = true;
         try {
             SoapObject request = new SoapObject(CUST_WS_NAMESPACE, CREATE_CUST_METHOD);

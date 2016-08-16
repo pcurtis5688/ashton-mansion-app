@@ -1,19 +1,29 @@
 package com.ashtonmansion.ashtonmansioncloverapp.activity.employee;
 
 import android.accounts.Account;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.PopupWindow;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.ashtonmansion.ashtonmansioncloverapp.R;
+import com.ashtonmansion.ashtonmansioncloverapp.activity.customer.EditCustomerActivity;
 import com.ashtonmansion.ashtonmansioncloverapp.dao.EmployeeDAO;
 import com.clover.sdk.util.CloverAccount;
+import com.clover.sdk.v1.customer.Customer;
 import com.clover.sdk.v3.employees.Employee;
 import com.clover.sdk.v3.employees.EmployeeConnector;
 
@@ -172,7 +182,7 @@ public class EmployeesActivity extends AppCompatActivity {
         headerText.setText("TEST");
         headerRow.addView(headerText);
         localTable.addView(headerRow);
-        for (Employee employee : employees) {
+        for (final Employee employee : employees) {
             TableRow empRow = new TableRow(this);
 
             TextView empID = new TextView(this);
@@ -182,12 +192,21 @@ public class EmployeesActivity extends AppCompatActivity {
             TextView empPin = new TextView(this);
             TextView empEmail = new TextView(this);
 
+            Button deleteEmployeeButton = new Button(this);
+            deleteEmployeeButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    clickedEmployeeDelete(employee);
+                }
+            });
+
             empID.setText(employee.getId());
             empName.setText(employee.getName());
             empNickname.setText(employee.getNickname());
             empRole.setText(employee.getRole().toString());
             empPin.setText(employee.getPin());
             empEmail.setText(employee.getEmail());
+            deleteEmployeeButton.setText("DELETE");
 
             empRow.addView(empID);
             empRow.addView(empName);
@@ -195,8 +214,39 @@ public class EmployeesActivity extends AppCompatActivity {
             empRow.addView(empRole);
             empRow.addView(empPin);
             empRow.addView(empEmail);
+            empRow.addView(deleteEmployeeButton);
 
             localTable.addView(empRow);
         }
+    }
+
+
+    public void clickedEmployeeDelete(final Employee employee) {
+        //TODO COMPLETE THIS .
+        //Intent editCustomerIntent = new Intent(this, EditCustomerActivity.class);
+        //editCustomerIntent.putExtra("customer", customer);
+        //startActivity(editCustomerIntent);
+        new AlertDialog.Builder(this)
+                .setTitle("Delete Employee?")
+                .setMessage("Delete Employee " + employee.getName() + "?")
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        String confirmationToastString = "Employee " + employee.getName() + " Deleted!";
+                        deleteEmployee(employee);
+                        Toast.makeText(EmployeesActivity.this, confirmationToastString, Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .setNegativeButton(android.R.string.no, null).show();
+    }
+
+    private boolean deleteEmployee(Employee employee) {
+        boolean employeeSuccessfullyDeleted = false;
+
+        
+        /////LOCAL DELETION
+        EmployeeDAO employeeDAO = new EmployeeDAO(this);
+        //TODO delete methods
+        return employeeSuccessfullyDeleted;
     }
 }
