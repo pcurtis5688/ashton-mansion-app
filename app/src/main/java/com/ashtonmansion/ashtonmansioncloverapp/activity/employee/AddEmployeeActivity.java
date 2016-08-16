@@ -87,8 +87,9 @@ public class AddEmployeeActivity extends AppCompatActivity {
                 ///////////* CLOVER INSERTION *////////////////////////
                 Account merAcct = CloverAccount.getAccount(addEmployeeContext);
                 EmployeeConnector empConn = new EmployeeConnector(addEmployeeContext, merAcct, null);
+                Employee returnedEmployee = new Employee();
                 try {
-                    empConn.createEmployee(newEmployee);
+                    returnedEmployee = empConn.createEmployee(newEmployee);
                     cloverInsertionSuccess = true;
                 } catch (RemoteException | ServiceException | ClientException | BindingException e) {
                     Log.e("Clover Exception: ", e.getMessage());
@@ -97,6 +98,7 @@ public class AddEmployeeActivity extends AppCompatActivity {
                     Log.e("Generic Exception: ", e2.getMessage());
                     cloverInsertionSuccess = false;
                 } finally {
+                    Log.i("Returned Emp ID: ", returnedEmployee.getId());
                     empConn.disconnect();
                     Log.i("Clover InsertSuccess: ", "" + cloverInsertionSuccess);
                 }

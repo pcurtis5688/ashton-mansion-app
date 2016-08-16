@@ -6,8 +6,10 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.os.RemoteException;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,6 +25,9 @@ import com.ashtonmansion.ashtonmansioncloverapp.R;
 import com.ashtonmansion.ashtonmansioncloverapp.activity.customer.EditCustomerActivity;
 import com.ashtonmansion.ashtonmansioncloverapp.dao.EmployeeDAO;
 import com.clover.sdk.util.CloverAccount;
+import com.clover.sdk.v1.BindingException;
+import com.clover.sdk.v1.ClientException;
+import com.clover.sdk.v1.ServiceException;
 import com.clover.sdk.v1.customer.Customer;
 import com.clover.sdk.v3.employees.Employee;
 import com.clover.sdk.v3.employees.EmployeeConnector;
@@ -61,6 +66,14 @@ public class EmployeesActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
+        getMerchantAccount();
+        //Connect emp connector
+        connectEmployees();
+        getEmployeeList();
+        populateLocalEmplTableTesting();
+    }
+
+    private void getMerchantAccount() {
         //Retrieve the Clover merchant account
         if (mAcct == null) {
             mAcct = CloverAccount.getAccount(this);
@@ -71,11 +84,6 @@ public class EmployeesActivity extends AppCompatActivity {
                 return;
             }
         }
-
-        //Connect emp connector
-        connectEmployees();
-        getEmployeeList();
-        populateLocalEmplTableTesting();
     }
 
     private void connectEmployees() {
@@ -220,7 +228,6 @@ public class EmployeesActivity extends AppCompatActivity {
         }
     }
 
-
     public void clickedEmployeeDelete(final Employee employee) {
         //TODO COMPLETE THIS .
         //Intent editCustomerIntent = new Intent(this, EditCustomerActivity.class);
@@ -241,12 +248,34 @@ public class EmployeesActivity extends AppCompatActivity {
     }
 
     private boolean deleteEmployee(Employee employee) {
-        boolean employeeSuccessfullyDeleted = false;
+        boolean employeeSuccessfullyDeletedClover;
+        //  boolean employeeSuccessfullyDeletedDynamics = false;
+        boolean employeeSuccessfullyDeletedLocal = false;
 
-        
-        /////LOCAL DELETION
-        EmployeeDAO employeeDAO = new EmployeeDAO(this);
-        //TODO delete methods
-        return employeeSuccessfullyDeleted;
+        try {
+            mEmpConn.deleteEmployee(employee.getId());
+            employeeSuccessfullyDeletedClover = true;
+        } catch (ServiceException | BindingException | ClientException | RemoteException e) {
+            employeeSuccessfullyDeletedClover = false;
+            Log.e("Clover Exception: ", e.getMessage());
+        } catch (Exception e2) {
+            employeeSuccessfullyDeletedClover = false;
+            Log.e("Generic Exception: ", e2.getMessage());
+        }
+        /////IF DELETED SUCCESSFULLY IN CLOVER
+        if (employeeSuccessfullyDeletedClover) {
+            /////DYNAMICS DELETION
+            //TODO DYNAMICS DELETE METHOD
+
+            //if (employeeSuccessfullyDeletedDynamics) {
+            EmployeeDAO employeeDAO = new EmployeeDAO(this);
+            employeeSuccessfullyDeletedLocal = employeeDAO.deleteLocalEmployeeRecord(employee);
+            // } else {
+            //    Log.e("Dynamics Delete: ", "Failed: ");
+            //}
+        } else {
+            Log.e("Clover Delete: ", "Failed: ");
+        }
+        return employeeSuccessfullyDeletedLocal;
     }
 }

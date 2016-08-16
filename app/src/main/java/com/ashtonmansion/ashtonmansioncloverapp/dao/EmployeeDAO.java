@@ -39,25 +39,17 @@ public class EmployeeDAO extends SQLiteOpenHelper {
     private static final String EMPLOYEE_PIN = "Employee_Pin";
     private static final String EMPLOYEE_EMAIL = "Employee_Email";
 
-    public void insertEmployeeDynamics(final Employee employee) {
-        new AsyncTask<Void, Void, Void>() {
-            private boolean createEmployeeWSSuccess;
-
-            @Override
-            protected void onPreExecute() {
-                super.onPreExecute();
-            }
-
-            @Override
-            protected Void doInBackground(Void... params) {
-                return null;
-            }
-
-            @Override
-            protected void onPostExecute(Void result) {
-                super.onPostExecute(result);
-            }
-        }.execute();
+    public boolean deleteLocalEmployeeRecord(Employee employee) {
+        int rowsDeleted = 0;
+        SQLiteDatabase db = this.getWritableDatabase();
+        try {
+            rowsDeleted = db.delete(TABLE_EMPLOYEE, EMPLOYEE_ID + "=" + employee.getId(), null);
+        } catch (Exception e) {
+            Log.e("Generic Exception", " in delete local record: " + e.getMessage());
+        } finally {
+            db.close();
+        }
+        return (rowsDeleted > 0);
     }
 
     public long addLocalEmployeeRecord(Employee employee) {
@@ -76,34 +68,6 @@ public class EmployeeDAO extends SQLiteOpenHelper {
         db.close();
         return newEmployeeID;
     }
-
-    public List<Employee> getLocalEmployeeRecords() {
-        List<Employee> employeeList = new ArrayList<>();
-        String selectAllQuery = "SELECT * FROM " + TABLE_EMPLOYEE;
-
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery(selectAllQuery, null);
-
-        //POPULATE LOCAL EMPLOYEE LIST
-        if (cursor.moveToFirst()) {
-            do {
-                Employee employee = new Employee();
-                //TODO IDS ARE GOING TO BE INCONSISTENT
-                employee.setId(cursor.getString(0));
-                employee.setName(cursor.getString(1));
-                employee.setNickname(cursor.getString(2));
-                //TODO FIX ROLES HERE
-                employee.setRole(AccountRole.EMPLOYEE);
-                employee.setPin(cursor.getString(4));
-                employee.setEmail(cursor.getString(5));
-                //UPON EMPLOYEE CREATION, ADD TO LIST
-                employeeList.add(employee);
-            } while (cursor.moveToNext());
-        }
-        cursor.close();
-        return employeeList;
-    }
-
 
     /* BELOW METHODS ARE BASICALLY COMPLETE *///////////
     //CONSTRUCTOR
@@ -133,5 +97,32 @@ public class EmployeeDAO extends SQLiteOpenHelper {
                 + EMPLOYEE_EMAIL + ")";
         db.execSQL(CREATE_EMPLOYEE_TABLE);
         db.close();
+    }
+
+    public List<Employee> getLocalEmployeeRecords() {
+        List<Employee> employeeList = new ArrayList<>();
+        String selectAllQuery = "SELECT * FROM " + TABLE_EMPLOYEE;
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(selectAllQuery, null);
+
+        //POPULATE LOCAL EMPLOYEE LIST
+        if (cursor.moveToFirst()) {
+            do {
+                Employee employee = new Employee();
+                //TODO IDS ARE GOING TO BE INCONSISTENT
+                employee.setId(cursor.getString(0));
+                employee.setName(cursor.getString(1));
+                employee.setNickname(cursor.getString(2));
+                //TODO FIX ROLES HERE
+                employee.setRole(AccountRole.EMPLOYEE);
+                employee.setPin(cursor.getString(4));
+                employee.setEmail(cursor.getString(5));
+                //UPON EMPLOYEE CREATION, ADD TO LIST
+                employeeList.add(employee);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        return employeeList;
     }
 }
