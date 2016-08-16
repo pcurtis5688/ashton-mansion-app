@@ -43,7 +43,7 @@ public class EmployeeDAO extends SQLiteOpenHelper {
         int rowsDeleted = 0;
         SQLiteDatabase db = this.getWritableDatabase();
         try {
-            rowsDeleted = db.delete(TABLE_EMPLOYEE, EMPLOYEE_ID + "=" + employee.getId(), null);
+            rowsDeleted = db.delete(TABLE_EMPLOYEE, EMPLOYEE_ID + "= ?", new String[]{employee.getId()});
         } catch (Exception e) {
             Log.e("Generic Exception", " in delete local record: " + e.getMessage());
         } finally {
