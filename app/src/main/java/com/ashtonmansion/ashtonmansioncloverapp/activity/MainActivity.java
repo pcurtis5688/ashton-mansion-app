@@ -31,14 +31,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
-        //RETRIEVE CLOVER ACCT
-        if (mAcct == null) {
-            mAcct = CloverAccount.getAccount(this);
-
-            if (mAcct == null) {
-                return;
-            }
-        }
+        getMerchantAccount();
     }
 
     //Method to View/Edit Appointments
@@ -80,5 +73,15 @@ public class MainActivity extends AppCompatActivity {
     public void showManagementPage(View view){
         Intent mainManagerIntent = new Intent(this, ManagerMainActivity.class);
         startActivity(mainManagerIntent);
+    }
+
+    private void getMerchantAccount() {
+        if (mAcct == null) {
+            mAcct = CloverAccount.getAccount(this);
+
+            if (mAcct == null) {
+                return;
+            }
+        }
     }
 }
