@@ -1,10 +1,23 @@
 package com.ashtonmansion.ashtonmansioncloverapp.dao;
 
+import android.accounts.Account;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.os.AsyncTask;
+import android.os.RemoteException;
+import android.util.Log;
 
+import com.clover.sdk.util.CloverAccount;
+import com.clover.sdk.v1.BindingException;
+import com.clover.sdk.v1.ClientException;
+import com.clover.sdk.v1.ServiceException;
+import com.clover.sdk.v1.customer.CustomerConnector;
+import com.clover.sdk.v3.customers.Address;
 import com.clover.sdk.v3.customers.Customer;
+import com.clover.sdk.v3.customers.EmailAddress;
+import com.clover.sdk.v3.customers.PhoneNumber;
 
 
 /**
@@ -25,6 +38,8 @@ public class CustomerDAO extends SQLiteOpenHelper {
     private static final String CUSTOMER_EMAIL_ADDRESSES = "Customer_Email_Addresses";
     private static final String CUSTOMER_ADDRESSES = "Customer_Addresses";
 
+
+    /* BELOW METHODS ARE ALL BASICALLY COMPLETE */////////////
     //CONSTRUCTOR
     public CustomerDAO(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -38,10 +53,6 @@ public class CustomerDAO extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         //// TODO: 7/29/2016 figure out what to do here
-    }
-
-    public void addCustomer(Customer customer, Context context) {
-
     }
 
     public void createCustomerTableIfNotExists() {

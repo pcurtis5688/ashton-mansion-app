@@ -19,8 +19,8 @@ import java.io.IOException;
 public class EmployeeWebService {
     // STATIC SERVICE VARS ///////////////////////
     private static final String EMPL_WS_NAMESPACE = "urn:microsoft-dynamics-schemas/codeunit/EmployeeWebService";
-    private static final String CREATE_EMPL_METHOD = "CreateEmployee";
-    private static final String EMPL_WS_SOAP_ACTION = "urn:microsoft-dynamics-schemas/codeunit/EmployeeWebService:CreateEmployee";
+    private static final String CREATE_EMPL_METHOD = "EmployeeToNAV";
+    private static final String EMPL_WS_SOAP_ACTION = "urn:microsoft-dynamics-schemas/codeunit/EmployeeWebService:EmployeeToNAV";
     private static final String EMPL_WEB_SERVICE_URL = "http://10.0.3.2:7047/DynamicsNAV90/WS/CRONUS%20Canada,%20Inc./Codeunit/EmployeeWebService";
 
     public boolean createEmployeeServiceCall(Employee employee) {
@@ -31,10 +31,34 @@ public class EmployeeWebService {
 
             ///PARAMS////
             PropertyInfo pi1 = new PropertyInfo();
-            pi1.setName("iD");
+            pi1.setName("ID");
             pi1.setValue(employee.getId());
             pi1.setType(String.class);
             request.addProperty(pi1);
+
+            PropertyInfo pi2 = new PropertyInfo();
+            pi1.setName("Name");
+            pi1.setValue(employee.getName());
+            pi1.setType(String.class);
+            request.addProperty(pi2);
+
+            PropertyInfo pi3 = new PropertyInfo();
+            pi1.setName("Nickname");
+            pi1.setValue(employee.getNickname());
+            pi1.setType(String.class);
+            request.addProperty(pi3);
+
+            PropertyInfo pi4 = new PropertyInfo();
+            pi1.setName("Role");
+            pi1.setValue(employee.getRole());
+            pi1.setType(String.class);
+            request.addProperty(pi4);
+
+            PropertyInfo pi5 = new PropertyInfo();
+            pi1.setName("Email Address");
+            pi1.setValue(employee.getEmail());
+            pi1.setType(String.class);
+            request.addProperty(pi5);
 
             ////////////MAKE THE CALL/////////////
             //TODO HERE THE WEB SERVICE SENDS BACK IF SUCCESSFUL OR NOT, AND I EVALUATE

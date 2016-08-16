@@ -2,7 +2,6 @@ package com.ashtonmansion.ashtonmansioncloverapp.dbo;
 
 /**
  * Created by paul on 7/17/2016.
- // ItemDefaultApptDuration
  */
 public class ItemDefaultApptDuration {
     // Private Vars

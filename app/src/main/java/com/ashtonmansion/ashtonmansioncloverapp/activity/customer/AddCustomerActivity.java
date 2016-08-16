@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 
 import com.ashtonmansion.ashtonmansioncloverapp.R;
+import com.ashtonmansion.ashtonmansioncloverapp.dao.CustomerDAO;
 import com.clover.sdk.util.CloverAccount;
 import com.clover.sdk.v1.BindingException;
 import com.clover.sdk.v1.ClientException;
@@ -53,7 +54,6 @@ public class AddCustomerActivity extends AppCompatActivity {
     private List<EmailAddress> emailAddressList;
     private List<Address> addressList;
 
-
     //Submit customer for creation
     public void submitAddCustomer(View view) {
         //Classes only necessary if submit is done
@@ -87,11 +87,12 @@ public class AddCustomerActivity extends AppCompatActivity {
         addressList.add(newCustomerAddress);
         newCustomer.setAddresses(addressList);
 
-        insertCustomer();
+        /////CLOVER INSERTION/////////////////////////
+        insertCustomerInClover();
+
     }
 
-    private void insertCustomer() {
-
+    private void insertCustomerInClover() {
         new AsyncTask<Void, Void, Void>() {
             ProgressDialog progress = new ProgressDialog(context);
 
@@ -119,7 +120,6 @@ public class AddCustomerActivity extends AppCompatActivity {
 
                     customerConnector.createCustomer((newCustomer.getFirstName().toString()), (newCustomer.getLastName().toString()), (newCustomer.getMarketingAllowed()));
                     //TODO GET CUST ID AND SET THE OTHER FIELDS
-
                 } catch (RemoteException | ServiceException | ClientException | BindingException e) {
                     Log.i("Customer Creation Error", e.toString());
                 }
@@ -135,6 +135,38 @@ public class AddCustomerActivity extends AppCompatActivity {
         }.execute();
     }
 
+
+    //* ACTIVITY FLOW METHODS *//////////////////////
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_add_customer);
+        context = this;
+        customerFirst = (EditText) findViewById(R.id.customer_first_name);
+        customerLast = (EditText) findViewById(R.id.customer_last_name);
+        customerMarketingAllowedChkbox = (CheckBox) findViewById(R.id.customer_marketing_allowed_chkbox);
+        customerPhone = (EditText) findViewById(R.id.customer_phone);
+        customerEmail = (EditText) findViewById(R.id.customer_email);
+        customerAddress1 = (EditText) findViewById(R.id.customer_address_1);
+        customerAddress2 = (EditText) findViewById(R.id.customer_address_2);
+        customerAddress3 = (EditText) findViewById(R.id.customer_address_3);
+        customerCity = (EditText) findViewById(R.id.customer_city);
+        customerStateSpinner = (Spinner) findViewById(R.id.customer_state_spinner);
+        customerZip = (EditText) findViewById(R.id.customer_zip);
+    }
+
+    @Override
+    protected void onPause() {
+        disconnectCustomerConn();
+        super.onPause();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
+    /*THESE METHODS ARE COMPLETE*////////////////////
     private void getMerchantAcct() {
         if (mAcct == null) {
             mAcct = CloverAccount.getAccount(this);
@@ -163,35 +195,5 @@ public class AddCustomerActivity extends AppCompatActivity {
     //RETURN WHEN CANCEL BUTTON PRESSED
     public void cancelAddCustomer(View view) {
         finish();
-    }
-
-    //ACTIVITY FLOW METHODS
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_customer);
-        context = this;
-        customerFirst = (EditText) findViewById(R.id.customer_first_name);
-        customerLast = (EditText) findViewById(R.id.customer_last_name);
-        customerMarketingAllowedChkbox = (CheckBox) findViewById(R.id.customer_marketing_allowed_chkbox);
-        customerPhone = (EditText) findViewById(R.id.customer_phone);
-        customerEmail = (EditText) findViewById(R.id.customer_email);
-        customerAddress1 = (EditText) findViewById(R.id.customer_address_1);
-        customerAddress2 = (EditText) findViewById(R.id.customer_address_2);
-        customerAddress3 = (EditText) findViewById(R.id.customer_address_3);
-        customerCity = (EditText) findViewById(R.id.customer_city);
-        customerStateSpinner = (Spinner) findViewById(R.id.customer_state_spinner);
-        customerZip = (EditText) findViewById(R.id.customer_zip);
-    }
-
-    @Override
-    protected void onPause() {
-        disconnectCustomerConn();
-        super.onPause();
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
     }
 }

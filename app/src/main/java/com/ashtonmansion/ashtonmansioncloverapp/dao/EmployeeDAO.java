@@ -57,45 +57,7 @@ public class EmployeeDAO extends SQLiteOpenHelper {
 
     private Employee returnedEmployee;
 
-    public Employee createEmployeeInClover(final Employee employee, final Context context) {
-        new AsyncTask<Void, Void, Void>() {
-            @Override
-            protected void onPreExecute() {
-                super.onPreExecute();
-            }
 
-            @Override
-            protected Void doInBackground(Void... params) {
-                Account merAcct = CloverAccount.getAccount(context);
-                EmployeeConnector empConn = new EmployeeConnector(context, merAcct, null);
-
-                try {
-                    returnedEmployee = empConn.createEmployee(employee);
-                } catch (RemoteException e2) {
-                    Log.e("Remote EXC: ", e2.getMessage());
-                } catch (ServiceException e3) {
-                    Log.e("ServiceException EXC: ", e3.getMessage());
-                } catch (ClientException e4) {
-                    Log.e("ClientException EXC: ", e4.getMessage());
-                } catch (BindingException e5) {
-                    Log.e("BindingException EXC: ", e5.getMessage());
-                } finally {
-                    empConn.disconnect();
-                    empConn = null;
-                }
-                return null;
-            }
-
-            @Override
-            protected void onPostExecute(Void result) {
-                super.onPostExecute(result);
-            }
-
-            //TODO CHECK HERE IF SUCCESS INSERT ALSO INSERT TO CLOVER?
-            //TODO also should I create common classes for these types of methods related to clover accounts
-        }.execute();
-        return returnedEmployee;
-    }
 
     private boolean createEmployeeWSSuccess;
 

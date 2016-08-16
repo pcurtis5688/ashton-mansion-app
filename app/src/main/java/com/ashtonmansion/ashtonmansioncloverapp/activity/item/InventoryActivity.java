@@ -32,11 +32,6 @@ public class InventoryActivity extends AppCompatActivity {
     private TextView itemSkuTextview;
     private TextView itemPriceTextview;
 
-    public void displayAddInventory(View view) {
-        Intent addInventoryItemIntent = new Intent(this, AddInventoryActivity.class);
-        startActivity(addInventoryItemIntent);
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,45 +40,6 @@ public class InventoryActivity extends AppCompatActivity {
         itemTable = (TableLayout) findViewById(R.id.item_table);
     }
 
-    @Override
-    protected void onPause() {
-        disconnectInventory();
-        super.onPause();
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-        //Retrieve Clover Account
-        if (mAcct == null) {
-            mAcct = CloverAccount.getAccount(this);
-
-            if (mAcct == null) {
-                finish();
-                return;
-            }
-        }
-
-        //Connect the Merchant Inventory Connector
-        connectInventory();
-        getInventoryList();
-    }
-
-    private void connectInventory() {
-        disconnectInventory();
-        if (mAcct != null) {
-            mInvConn = new InventoryConnector(this, mAcct, null);
-            mInvConn.connect();
-        }
-    }
-
-    private void disconnectInventory() {
-        if (mInvConn != null) {
-            mInvConn.disconnect();
-            mInvConn = null;
-        }
-    }
 
     private void getInventoryList() {
         new AsyncTask<Void, Void, Item>() {
@@ -116,13 +72,12 @@ public class InventoryActivity extends AppCompatActivity {
     private void populateItemTable() {
         //Clear the item table
         itemTable.removeAllViews();
-        //Create item header row
+        // todo Create item header row
         createItemTableHeaderRow();
-        //TODO THIS
         //Create new row to add to the table
-        newItemRow = new TableRow(this);
         if (itemList != null && itemList.size() > 0) {
             for (Item item : itemList) {
+                TableRow newItemRow = new TableRow(this);
                 //Create new views to populate data
                 itemNameTextview = new TextView(this);
                 itemModifierTextview = new TextView(this);
@@ -163,5 +118,51 @@ public class InventoryActivity extends AppCompatActivity {
 
     private void createItemTableHeaderRow() {
         //TODO THIS
+    }
+
+    /*ITEMS BELOW ARE COMPLETE *///////////////////////
+    @Override
+    protected void onPause() {
+        disconnectInventory();
+        super.onPause();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        //Retrieve Clover Account
+        if (mAcct == null) {
+            mAcct = CloverAccount.getAccount(this);
+
+            if (mAcct == null) {
+                finish();
+                return;
+            }
+        }
+
+        //Connect the Merchant Inventory Connector
+        connectInventory();
+        getInventoryList();
+    }
+
+    private void connectInventory() {
+        disconnectInventory();
+        if (mAcct != null) {
+            mInvConn = new InventoryConnector(this, mAcct, null);
+            mInvConn.connect();
+        }
+    }
+
+    private void disconnectInventory() {
+        if (mInvConn != null) {
+            mInvConn.disconnect();
+            mInvConn = null;
+        }
+    }
+
+    public void displayAddInventory(View view) {
+        Intent addInventoryItemIntent = new Intent(this, AddInventoryActivity.class);
+        startActivity(addInventoryItemIntent);
     }
 }

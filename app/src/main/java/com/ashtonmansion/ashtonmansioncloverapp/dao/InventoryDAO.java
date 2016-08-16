@@ -23,6 +23,9 @@ public class InventoryDAO extends SQLiteOpenHelper {
     private static final String ITEM_PRODUCT_CODE = "Item_Product_Code";
     private static final String ITEM_SKU = "Item_SKU";
 
+    //TODO HERE
+
+    //////*BELOW ARE COMLETE, WRAPPED *//////////////////////////
     public void createItemTableIfNotExists() {
         SQLiteDatabase db = this.getWritableDatabase();
         String CREATE_ITEM_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_ITEM
