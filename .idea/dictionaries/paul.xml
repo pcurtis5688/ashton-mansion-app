@@ -11,6 +11,8 @@
       <w>cust</w>
       <w>empl</w>
       <w>excpt</w>
+      <w>firstname</w>
+      <w>lastname</w>
       <w>nonrev</w>
       <w>spawndao</w>
       <w>textview</w>
