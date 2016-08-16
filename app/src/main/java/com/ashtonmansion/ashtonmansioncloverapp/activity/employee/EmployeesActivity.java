@@ -100,7 +100,8 @@ public class EmployeesActivity extends AppCompatActivity {
                 super.onPostExecute(result);
                 progress.dismiss();
                 getEmployeeListAndPopulateTable();
-                populateLocalEmplTableTesting();
+                //todo below is for use with testing
+                //populateLocalEmplTableTesting();
             }
         }.execute();
     }
