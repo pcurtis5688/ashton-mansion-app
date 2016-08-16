@@ -17,11 +17,6 @@ import java.util.List;
 public class SettingsActivity extends AppCompatActivity {
     //PRIVATE SETTINGS VARS
     private Settings settings;
-    private int max_appt_hours;
-    private int advance_alert_days;
-    private boolean alerts_weekdays_only;
-    private boolean avoid_holiday_alerts;
-    private int default_duration;
     //DYNAMICALLY CREATED FIELDS
     private Spinner maxDurationSpinner;
     private Spinner advanceAlertDaysSpinner;
@@ -35,7 +30,7 @@ public class SettingsActivity extends AppCompatActivity {
     private ArrayAdapter<String> avoidHolidayAlertsAdapter;
     private TimePicker alertTimePicker;
     //DATABASE VARS
-    private Settings settingsFromDb;
+    private Settings settingsFromDB;
     private SettingsDAO settingsDAO;
 
     @Override
@@ -55,42 +50,42 @@ public class SettingsActivity extends AppCompatActivity {
         // to populate the settings page, else create the table
         if (settingsDAO.hasSettings()) {
             //TODO THIS IS WHERE I STOPPED OFF DEBUGGING TIME OF DAY AND COLUMN INDEX CHANGES, CONTINUE
-            settingsFromDb = settingsDAO.getSettings();
+            settingsFromDB = settingsDAO.getSettings();
             populateExistingSettings();
-        } //TODO IS ELSE EVEN NEEDED ANYMORE?
+        }
     }
 
     //PRIVATE INTERNAL METHODS
     private void populateWeekdayAlertsOnlyDropdown() {
         alertWeekdaysOnlySpinner = (Spinner) findViewById(R.id.alert_weekday_only_spinner);
 
-        List<String> alertsWeekdaysOnlyList = new ArrayList<String>();
+        List<String> alertsWeekdaysOnlyList = new ArrayList<>();
         alertsWeekdaysOnlyList.add("Yes");
         alertsWeekdaysOnlyList.add("No");
 
-        alertWeekdaysOnlyAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, alertsWeekdaysOnlyList);
+        alertWeekdaysOnlyAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, alertsWeekdaysOnlyList);
         alertWeekdaysOnlySpinner.setAdapter(alertWeekdaysOnlyAdapter);
     }
 
     private void populateAvoidHolidayAlertsDropdown() {
         avoidHolidayAlertsSpinner = (Spinner) findViewById(R.id.avoid_holiday_alerts_setting_spinner);
 
-        List<String> avoidHolidayAlertsList = new ArrayList<String>();
+        List<String> avoidHolidayAlertsList = new ArrayList<>();
         avoidHolidayAlertsList.add("Yes");
         avoidHolidayAlertsList.add("No");
 
-        avoidHolidayAlertsAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, avoidHolidayAlertsList);
+        avoidHolidayAlertsAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, avoidHolidayAlertsList);
         avoidHolidayAlertsSpinner.setAdapter(avoidHolidayAlertsAdapter);
     }
 
     private void populateMaxDurationSpinnerDropdown() {
         maxDurationSpinner = (Spinner) findViewById(R.id.max_appt_hours_setting_spinner);
 
-        List<String> maxDurationHoursList = new ArrayList<String>();
+        List<String> maxDurationHoursList = new ArrayList<>();
         for (int i = 1; i < 49; i++) {
             maxDurationHoursList.add("" + i);
         }
-        maxApptHoursAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, maxDurationHoursList);
+        maxApptHoursAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, maxDurationHoursList);
         maxApptHoursAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         maxDurationSpinner.setAdapter(maxApptHoursAdapter);
 
@@ -99,11 +94,11 @@ public class SettingsActivity extends AppCompatActivity {
     private void populateAdvanceAlertDaysSpinnerDropdown() {
         advanceAlertDaysSpinner = (Spinner) findViewById(R.id.advance_alert_days_setting_spinner);
 
-        List<String> advanceAlertDaysList = new ArrayList<String>();
+        List<String> advanceAlertDaysList = new ArrayList<>();
         for (int i = 1; i < 15; i++) {
             advanceAlertDaysList.add("" + i);
         }
-        advanceAlertDaysAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, advanceAlertDaysList);
+        advanceAlertDaysAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, advanceAlertDaysList);
         advanceAlertDaysAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         advanceAlertDaysSpinner.setAdapter(advanceAlertDaysAdapter);
     }
@@ -111,16 +106,14 @@ public class SettingsActivity extends AppCompatActivity {
     private void populateDefaultDurationSpinnerDropdown() {
         defaultDurationSpinner = (Spinner) findViewById(R.id.default_appt_duration_spinner);
 
-        List<String> defaultDurationList = new ArrayList<String>();
+        List<String> defaultDurationList = new ArrayList<>();
         for (int i = 1; i < 11; i++) {
             defaultDurationList.add("" + i);
         }
-        defaultDurationAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, defaultDurationList);
+        defaultDurationAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, defaultDurationList);
         defaultDurationAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         defaultDurationSpinner.setAdapter(defaultDurationAdapter);
     }
-
-
 
     //PUBLIC METHODS CALLED FROM UI
     public void saveSettingsAndReturn(View view) {
@@ -152,19 +145,19 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
     private void populateExistingSettings() {
-        maxDurationSpinner.setSelection(maxApptHoursAdapter.getPosition("" + settingsFromDb.get_max_appt_hours()));
-        advanceAlertDaysSpinner.setSelection(advanceAlertDaysAdapter.getPosition("" + settingsFromDb.get_advance_alert_days()));
-        defaultDurationSpinner.setSelection(defaultDurationAdapter.getPosition("" + settingsFromDb.get_default_duration()));
+        maxDurationSpinner.setSelection(maxApptHoursAdapter.getPosition("" + settingsFromDB.get_max_appt_hours()));
+        advanceAlertDaysSpinner.setSelection(advanceAlertDaysAdapter.getPosition("" + settingsFromDB.get_advance_alert_days()));
+        defaultDurationSpinner.setSelection(defaultDurationAdapter.getPosition("" + settingsFromDB.get_default_duration()));
 
         alertWeekdaysOnlySpinner = (Spinner) findViewById(R.id.alert_weekday_only_spinner);
-        if (settingsFromDb.is_alerts_weekdays_only()) {
+        if (settingsFromDB.is_alerts_weekdays_only()) {
             alertWeekdaysOnlySpinner.setSelection(0);
         } else {
             alertWeekdaysOnlySpinner.setSelection(1);
         }
 
         avoidHolidayAlertsSpinner = (Spinner) findViewById(R.id.avoid_holiday_alerts_setting_spinner);
-        if (settingsFromDb.is_avoid_holiday_alerts()) {
+        if (settingsFromDB.is_avoid_holiday_alerts()) {
             avoidHolidayAlertsSpinner.setSelection(0);
         } else {
             avoidHolidayAlertsSpinner.setSelection(1);
@@ -173,7 +166,7 @@ public class SettingsActivity extends AppCompatActivity {
         alertTimePicker = (TimePicker) findViewById(R.id.alert_time_of_day_setting_timepicker);
         // TODO API NOT HIGH ENOUGH FOR THIS.
 
-        alertTimePicker.setCurrentHour(settingsFromDb.get_alert_time_of_day_hour());
-        alertTimePicker.setCurrentMinute(settingsFromDb.get_alert_time_of_day_minute());
+        alertTimePicker.setCurrentHour(settingsFromDB.get_alert_time_of_day_hour());
+        alertTimePicker.setCurrentMinute(settingsFromDB.get_alert_time_of_day_minute());
     }
 }
