@@ -38,7 +38,7 @@ public class AddEmployeeActivity extends AppCompatActivity {
 
     //SUBMIT EMPLOYEE TO BOTH CLOVER AND DYNAMICS FOR ADDITION
     public void finalizeEmployeeCreation(View view) {
-        long newlyAssignedEmployeeID = -2;
+        long newlyAssignedEmployeeID = 0;
         Employee cloverEmployeeReturned = null;
 
         //* CREATE V3 INSTANCE OF A CLOVER EMPLOYEE & SET VARS *//////
@@ -62,17 +62,19 @@ public class AddEmployeeActivity extends AppCompatActivity {
 
         ///////////* DYNAMICS INSERTION *////////////////////////
         EmployeeDAO employeeDAO = new EmployeeDAO(this);
-        dynamicsAddSuccess = employeeDAO.insertEmployeeDynamics(newEmployee);
+        employeeDAO.insertEmployeeDynamics(newEmployee);
 
         ///////////* LOCAL INSERTION *////////////////////////
-        newlyAssignedEmployeeID = employeeDAO.addLocalEmployeeRecord(newEmployee);
+        try {
+            newlyAssignedEmployeeID = employeeDAO.addLocalEmployeeRecord(newEmployee);
+        } catch (Exception e) {
+            Log.e("Local Insert Err: ", e.getMessage());
+        }
 
         ///////////* OUTCOME HANDLING *////////////////////////
         //TODO CLEAN THIS WHOLE SECTION UP
         if (newlyAssignedEmployeeID == -1) {
-            Log.e("Local Return Code: ", Long.toString(newlyAssignedEmployeeID));
-        } else if (newlyAssignedEmployeeID == -2) {
-            Log.e("Local Return Code: ", Long.toString(newlyAssignedEmployeeID));
+            Log.e("Local Insert Err: ", Long.toString(newlyAssignedEmployeeID));
         } else {
             Log.i("New Employee ID: ", "" + newlyAssignedEmployeeID);
         }

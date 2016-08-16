@@ -37,28 +37,34 @@ public class EmployeeWebService {
             request.addProperty(pi1);
 
             PropertyInfo pi2 = new PropertyInfo();
-            pi1.setName("Name");
-            pi1.setValue(employee.getName());
-            pi1.setType(String.class);
+            pi2.setName("Name");
+            pi2.setValue(employee.getName());
+            pi2.setType(String.class);
             request.addProperty(pi2);
 
             PropertyInfo pi3 = new PropertyInfo();
-            pi1.setName("Nickname");
-            pi1.setValue(employee.getNickname());
-            pi1.setType(String.class);
+            pi3.setName("Nickname");
+            pi3.setValue(employee.getNickname());
+            pi3.setType(String.class);
             request.addProperty(pi3);
 
             PropertyInfo pi4 = new PropertyInfo();
-            pi1.setName("Role");
-            pi1.setValue(employee.getRole());
-            pi1.setType(String.class);
+            pi4.setName("Role");
+            pi4.setValue(employee.getRole());
+            pi4.setType(String.class);
             request.addProperty(pi4);
 
             PropertyInfo pi5 = new PropertyInfo();
-            pi1.setName("Email Address");
-            pi1.setValue(employee.getEmail());
-            pi1.setType(String.class);
+            pi5.setName("PIN");
+            pi5.setValue(employee.getRole());
+            pi5.setType(String.class);
             request.addProperty(pi5);
+
+            PropertyInfo pi6 = new PropertyInfo();
+            pi6.setName("Email Address");
+            pi6.setValue(employee.getEmail());
+            pi6.setType(String.class);
+            request.addProperty(pi6);
 
             ////////////MAKE THE CALL/////////////
             //TODO HERE THE WEB SERVICE SENDS BACK IF SUCCESSFUL OR NOT, AND I EVALUATE

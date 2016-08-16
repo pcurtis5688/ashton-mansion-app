@@ -39,30 +39,10 @@ public class EmployeeDAO extends SQLiteOpenHelper {
     private static final String EMPLOYEE_PIN = "Employee_Pin";
     private static final String EMPLOYEE_EMAIL = "Employee_Email";
 
-    //CONSTRUCTOR
-    public EmployeeDAO(Context context) {
-        super(context, DATABASE_NAME, null, DATABASE_VERSION);
-    }
-
-    @Override
-    public void onCreate(SQLiteDatabase db) {
-        //TODO FIGURE OUT WHAT I NEED HERE,
-
-    }
-
-    @Override
-    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        //TODO IMPLEMENT THIS METHOD LATER
-    }
-
-    private Employee returnedEmployee;
-
-
-
-    private boolean createEmployeeWSSuccess;
-
-    public boolean insertEmployeeDynamics(final Employee employee) {
+    public void insertEmployeeDynamics(final Employee employee) {
         new AsyncTask<Void, Void, Void>() {
+            private boolean createEmployeeWSSuccess;
+
             @Override
             protected void onPreExecute() {
                 super.onPreExecute();
@@ -72,17 +52,15 @@ public class EmployeeDAO extends SQLiteOpenHelper {
             protected Void doInBackground(Void... params) {
                 EmployeeWebService employeeWebService = new EmployeeWebService();
                 createEmployeeWSSuccess = employeeWebService.createEmployeeServiceCall(employee);
-                Log.i("Result WSDoInBG:", "" + createEmployeeWSSuccess);
                 return null;
             }
 
             @Override
             protected void onPostExecute(Void result) {
                 super.onPostExecute(result);
-                //todo progressDialog.dismiss()?
+                Log.e("EmpSuccess added n BG", "" + createEmployeeWSSuccess);
             }
         }.execute();
-        return createEmployeeWSSuccess;
     }
 
     public long addLocalEmployeeRecord(Employee employee) {
@@ -127,6 +105,24 @@ public class EmployeeDAO extends SQLiteOpenHelper {
         }
         cursor.close();
         return employeeList;
+    }
+
+
+    /* BELOW METHODS ARE BASICALLY COMPLETE *///////////
+    //CONSTRUCTOR
+    public EmployeeDAO(Context context) {
+        super(context, DATABASE_NAME, null, DATABASE_VERSION);
+    }
+
+    @Override
+    public void onCreate(SQLiteDatabase db) {
+        //TODO FIGURE OUT WHAT I NEED HERE,
+
+    }
+
+    @Override
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        //TODO IMPLEMENT THIS METHOD LATER
     }
 
     public void createEmployeeTableIfNotExists() {
