@@ -50,7 +50,7 @@ public class EmployeeWebService {
 
             PropertyInfo pi4 = new PropertyInfo();
             pi4.setName("Role");
-            pi4.setValue(employee.getRole());
+            pi4.setValue(employee.getRole().toString());
             pi4.setType(String.class);
             request.addProperty(pi4);
 

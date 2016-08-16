@@ -53,46 +53,24 @@ public class AddCustomerActivity extends AppCompatActivity {
     private List<PhoneNumber> phoneNumberList;
     private List<EmailAddress> emailAddressList;
     private List<Address> addressList;
+    /////RESULT FLAGS
+    private long newlyAssignedCustomerID;
+    private boolean cloverInsertSuccess;
+    private boolean createCustomerWSSuccess;
 
     //Submit customer for creation
     public void submitAddCustomer(View view) {
-        //Classes only necessary if submit is done
-        emailAddressList = new ArrayList<>();
-        phoneNumberList = new ArrayList<>();
-        addressList = new ArrayList<>();
-        //FIRST AND LAST
-        newCustomer = new Customer().setFirstName(customerFirst.getText().toString());
-        newCustomer.setLastName(customerLast.getText().toString());
-        newCustomer.setMarketingAllowed(customerMarketingAllowedChkbox.isChecked());
+        ///*CREATE CLOVER CUSTOMER INSTANCE AND SET DATA///
+        createNewCustomerAndSetData();
 
-        //NEW CUSTOMER PHONE NUMBER
-        newCustomerPhoneNumber.setPhoneNumber(customerPhone.getText().toString());
-        phoneNumberList.add(newCustomerPhoneNumber);
-        newCustomer.setPhoneNumbers(phoneNumberList);
+        /////CLOVER, DYNAMICS, AND LOCAL INSERTION/////////
+        doBackgroundCloverDynamicsAndLocalInsertions();
 
-        //NEW CUSTOMER EMAIL
-        newCustomerEmailAddress.setEmailAddress(customerEmail.getText().toString());
-        emailAddressList = new ArrayList<>();
-        emailAddressList.add(newCustomerEmailAddress);
-        newCustomer.setEmailAddresses(emailAddressList);
-
-        //NEW CUSTOMER ADDRESS
-        newCustomerAddress.setAddress1(customerAddress1.getText().toString());
-        newCustomerAddress.setAddress2(customerAddress2.getText().toString());
-        newCustomerAddress.setAddress3(customerAddress3.getText().toString());
-        newCustomerAddress.setCity(customerCity.getText().toString());
-        newCustomerAddress.setState(customerStateSpinner.getSelectedItem().toString());
-        newCustomerAddress.setZip(customerZip.getText().toString());
-        addressList = new ArrayList<>();
-        addressList.add(newCustomerAddress);
-        newCustomer.setAddresses(addressList);
-
-        /////CLOVER INSERTION/////////////////////////
-        insertCustomerInClover();
-
+        ///////////* OUTCOME HANDLING *////////////////////
+        ////////////TODO ANYTHING HERE?*//////////////////
     }
 
-    private void insertCustomerInClover() {
+    private void doBackgroundCloverDynamicsAndLocalInsertions() {
         new AsyncTask<Void, Void, Void>() {
             ProgressDialog progress = new ProgressDialog(context);
 
@@ -121,7 +99,7 @@ public class AddCustomerActivity extends AppCompatActivity {
                     customerConnector.createCustomer((newCustomer.getFirstName().toString()), (newCustomer.getLastName().toString()), (newCustomer.getMarketingAllowed()));
                     //TODO GET CUST ID AND SET THE OTHER FIELDS
                 } catch (RemoteException | ServiceException | ClientException | BindingException e) {
-                    Log.i("Customer Creation Error", e.toString());
+                    Log.i("Customer Creation Error", e.getMessage());
                 }
                 return null;
             }
@@ -135,6 +113,36 @@ public class AddCustomerActivity extends AppCompatActivity {
         }.execute();
     }
 
+    private void createNewCustomerAndSetData() {
+        emailAddressList = new ArrayList<>();
+        phoneNumberList = new ArrayList<>();
+        addressList = new ArrayList<>();
+        newCustomer = new Customer().setFirstName(customerFirst.getText().toString());
+        newCustomer.setLastName(customerLast.getText().toString());
+        newCustomer.setMarketingAllowed(customerMarketingAllowedChkbox.isChecked());
+
+        //NEW CUSTOMER PHONE NUMBER
+        newCustomerPhoneNumber.setPhoneNumber(customerPhone.getText().toString());
+        phoneNumberList.add(newCustomerPhoneNumber);
+        newCustomer.setPhoneNumbers(phoneNumberList);
+
+        //NEW CUSTOMER EMAIL
+        newCustomerEmailAddress.setEmailAddress(customerEmail.getText().toString());
+        emailAddressList = new ArrayList<>();
+        emailAddressList.add(newCustomerEmailAddress);
+        newCustomer.setEmailAddresses(emailAddressList);
+
+        //NEW CUSTOMER ADDRESS
+        newCustomerAddress.setAddress1(customerAddress1.getText().toString());
+        newCustomerAddress.setAddress2(customerAddress2.getText().toString());
+        newCustomerAddress.setAddress3(customerAddress3.getText().toString());
+        newCustomerAddress.setCity(customerCity.getText().toString());
+        newCustomerAddress.setState(customerStateSpinner.getSelectedItem().toString());
+        newCustomerAddress.setZip(customerZip.getText().toString());
+        addressList = new ArrayList<>();
+        addressList.add(newCustomerAddress);
+        newCustomer.setAddresses(addressList);
+    }
 
     //* ACTIVITY FLOW METHODS *//////////////////////
     @Override
