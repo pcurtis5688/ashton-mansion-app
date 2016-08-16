@@ -165,6 +165,7 @@ public class EmployeesActivity extends AppCompatActivity {
         employees = new EmployeeDAO(this).getLocalEmployeeRecords();
 
         TableLayout localTable = (TableLayout) findViewById(R.id.local_employee_table);
+        localTable.removeAllViews();
 
         TableRow headerRow = new TableRow(this);
         TextView headerText = new TextView(this);

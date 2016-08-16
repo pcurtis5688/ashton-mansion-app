@@ -48,6 +48,10 @@ public class EditCustomerActivity extends AppCompatActivity {
     private ArrayAdapter<String> customerStateEditSpinnerAdapter;
     private EditText customerZipEdit;
 
+    public void saveCustomerEdits(View view) {
+
+    }
+
     //ACTIVITY FLOW METHODS
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,6 +104,19 @@ public class EditCustomerActivity extends AppCompatActivity {
         progressDialog.dismiss();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    protected void onPause() {
+        // disconnectCustomerConn();
+        super.onPause();
+    }
+
+    //////* BELOW METHODS ARE BASICALLY COMPLETE *///////////
+
     private void handleAddressList() {
         addressList = editCustomer.getAddresses();
         if (addressList.size() == 0) {
@@ -149,17 +166,11 @@ public class EditCustomerActivity extends AppCompatActivity {
         }
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-    }
-
     private void connectCustomerConn() {
         disconnectCustomerConn();
         if (mAcct != null) {
             mCustConn = new CustomerConnector(this, mAcct, null);
             mCustConn.connect();
-
         }
     }
 
@@ -168,12 +179,6 @@ public class EditCustomerActivity extends AppCompatActivity {
             mCustConn.disconnect();
             mCustConn = null;
         }
-    }
-
-    @Override
-    protected void onPause() {
-        // disconnectCustomerConn();
-        super.onPause();
     }
 
     public void cancelEditCustomer(View view) {

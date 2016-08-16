@@ -73,7 +73,6 @@ public class CustomersActivity extends AppCompatActivity {
         //Get Customers
         connectCustomerConn();
         getCustomerList();
-
     }
 
     private void connectCustomerConn() {
@@ -106,7 +105,6 @@ public class CustomersActivity extends AppCompatActivity {
             protected Void doInBackground(Void... params) {
                 try {
                     customers = mCustConn.getCustomers();
-
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -132,7 +130,6 @@ public class CustomersActivity extends AppCompatActivity {
         if (customers != null && customers.size() != 0) {
             for (final Customer customer : customers) {
                 //Create new row to be added to the table
-                final String customerId = customer.getId();
                 newCustomerRow = new TableRow(this);
                 newCustomerRow.setPadding(0, 50, 0, 50);
                 newCustomerRow.setOnClickListener(new View.OnClickListener() {

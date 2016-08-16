@@ -37,21 +37,6 @@ public class ShiftDAO extends SQLiteOpenHelper {
     private static final String SHIFT_TEMPLATE_NAME = "shift_template_name";
 
 
-    public ShiftDAO(Context context) {
-        super(context, DATABASE_NAME, null, DATABASE_VERSION);
-    }
-
-    @Override
-    public void onCreate(SQLiteDatabase db) {
-        //TODO SHOULD THIS ALSO BE TESTED AND A TABLE CREATED
-
-    }
-
-    @Override
-    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        //TODO LATER ON DECIDE ON DB UPGRADE FEATURES
-    }
-
 
     //INSERT A SHIFT TEMPLATE RECORD INTO TABLE
     public void addShiftTemplate(int shiftTemplateCode, String shiftTemplateName) {
@@ -111,7 +96,7 @@ public class ShiftDAO extends SQLiteOpenHelper {
 
     //GET ALL SHIFT EXCEPTIONS
     public List<ShiftException> getAllShiftExceptions() {
-        List<ShiftException> shiftExceptions = new ArrayList<ShiftException>();
+        List<ShiftException> shiftExceptions = new ArrayList<>();
         String selectAllQuery = "SELECT * FROM " + TABLE_SHIFT_EXCEPTION;
 
         SQLiteDatabase db = this.getReadableDatabase();
@@ -135,4 +120,18 @@ public class ShiftDAO extends SQLiteOpenHelper {
         return shiftExceptions;
     }
 
+    //////////* BELOW METHODS SHOULD BE COMPLETE *//////////////
+    public ShiftDAO(Context context) {
+        super(context, DATABASE_NAME, null, DATABASE_VERSION);
+    }
+
+    @Override
+    public void onCreate(SQLiteDatabase db) {
+        //TODO SHOULD THIS ALSO BE TESTED AND A TABLE CREATED
+    }
+
+    @Override
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        //TODO LATER ON DECIDE ON DB UPGRADE FEATURES
+    }
 }

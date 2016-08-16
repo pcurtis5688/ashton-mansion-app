@@ -1,6 +1,7 @@
 package com.ashtonmansion.ashtonmansioncloverapp.activity.employee;
 
 import android.accounts.Account;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.RemoteException;
@@ -13,6 +14,7 @@ import android.widget.Spinner;
 
 import com.ashtonmansion.ashtonmansioncloverapp.R;
 import com.ashtonmansion.ashtonmansioncloverapp.dao.EmployeeDAO;
+import com.ashtonmansion.ashtonmansioncloverapp.webservices.employeews.EmployeeWebService;
 import com.clover.sdk.util.CloverAccount;
 import com.clover.sdk.v1.BindingException;
 import com.clover.sdk.v1.ClientException;
@@ -33,15 +35,26 @@ public class AddEmployeeActivity extends AppCompatActivity {
     private EditText employeePIN;
     private EditText employeeEmail;
     private Context addEmployeeContext;
-    //FLAGS
-    private boolean dynamicsAddSuccess;
+    //RESULT FLAGS
+    long newlyAssignedEmployeeID = 0;
+    private boolean cloverInsertionSuccess;
+    private boolean createEmployeeWSSuccess;
 
-    //SUBMIT EMPLOYEE TO BOTH CLOVER AND DYNAMICS FOR ADDITION
+    //SUBMIT EMPLOYEE TO CLOVER, DYNAMICS, AND LOCAL
     public void finalizeEmployeeCreation(View view) {
-        long newlyAssignedEmployeeID = 0;
-        Employee cloverEmployeeReturned = null;
+        addEmployeeContext = this;
 
-        //* CREATE V3 INSTANCE OF A CLOVER EMPLOYEE & SET VARS *//////
+        ///* CREATE V3 INSTANCE OF A CLOVER EMPLOYEE & SET VARS *///
+        createNewEmployeeAndSetData();
+
+        ///////////* CLOVER INSERTION *//////////////////////////
+        doBackgroundCloverAndDynamicsInsertionTask();
+
+        ///////////* OUTCOME HANDLING *//////////////////////////
+        /////*todo ANYTHING HERE?*///////
+    }
+
+    private void createNewEmployeeAndSetData() {
         newEmployee = new Employee();
         newEmployee.setId("FIX"); //todo that <--
         newEmployee.setName(employeeName.getText().toString());
@@ -56,58 +69,63 @@ public class AddEmployeeActivity extends AppCompatActivity {
         }
         newEmployee.setPin(employeePIN.getText().toString());
         newEmployee.setEmail(employeeEmail.getText().toString());
-
-        ///////////* CLOVER INSERTION *//////////////////////////
-        insertEmployeeInClover();
-
-        ///////////* DYNAMICS INSERTION *////////////////////////
-        EmployeeDAO employeeDAO = new EmployeeDAO(this);
-        employeeDAO.insertEmployeeDynamics(newEmployee);
-
-        ///////////* LOCAL INSERTION *////////////////////////
-        try {
-            newlyAssignedEmployeeID = employeeDAO.addLocalEmployeeRecord(newEmployee);
-        } catch (Exception e) {
-            Log.e("Local Insert Err: ", e.getMessage());
-        }
-
-        ///////////* OUTCOME HANDLING *////////////////////////
-        //TODO CLEAN THIS WHOLE SECTION UP
-        if (newlyAssignedEmployeeID == -1) {
-            Log.e("Local Insert Err: ", Long.toString(newlyAssignedEmployeeID));
-        } else {
-            Log.i("New Employee ID: ", "" + newlyAssignedEmployeeID);
-        }
-        Log.e("Dynamics Record fail: ", "" + dynamicsAddSuccess);
-        Log.e("CloverEmpCreatefail ", "" + (cloverEmployeeReturned == null));
     }
 
-    private void insertEmployeeInClover() {
+    //TODO BELOW, IN CLOVER INSERT, FIGURE OUT THEIR VALIDATION
+    private void doBackgroundCloverAndDynamicsInsertionTask() {
         new AsyncTask<Void, Void, Void>() {
+            ProgressDialog progress = new ProgressDialog(addEmployeeContext);
+
             @Override
             protected void onPreExecute() {
+                progress.show();
                 super.onPreExecute();
             }
 
             @Override
             protected Void doInBackground(Void... params) {
+                ///////////* CLOVER INSERTION *////////////////////////
                 Account merAcct = CloverAccount.getAccount(addEmployeeContext);
                 EmployeeConnector empConn = new EmployeeConnector(addEmployeeContext, merAcct, null);
-
                 try {
                     empConn.createEmployee(newEmployee);
+                    cloverInsertionSuccess = true;
                 } catch (RemoteException e2) {
                     Log.e("Remote EXC: ", e2.getMessage());
+                    cloverInsertionSuccess = false;
                 } catch (ServiceException e3) {
                     Log.e("ServiceException EXC: ", e3.getMessage());
+                    cloverInsertionSuccess = false;
                 } catch (ClientException e4) {
                     Log.e("ClientException EXC: ", e4.getMessage());
+                    cloverInsertionSuccess = false;
                 } catch (BindingException e5) {
                     Log.e("BindingException EXC: ", e5.getMessage());
+                    cloverInsertionSuccess = false;
                 } catch (Exception e6) {
                     Log.e("Generic Exception: ", e6.getMessage());
+                    cloverInsertionSuccess = false;
                 } finally {
                     empConn.disconnect();
+                    Log.i("Clover InsertSuccess: ", "" + cloverInsertionSuccess);
+                }
+
+                ///////////* DYNAMICS INSERTION *////////////////////////
+                EmployeeWebService employeeWebService = new EmployeeWebService();
+                createEmployeeWSSuccess = employeeWebService.createEmployeeServiceCall(newEmployee);
+                Log.e("EmpSuccess added n BG", "" + createEmployeeWSSuccess);
+
+                ///////////* LOCAL INSERTION *////////////////////////
+                try {
+                    EmployeeDAO employeeDAO = new EmployeeDAO(addEmployeeContext);
+                    newlyAssignedEmployeeID = employeeDAO.addLocalEmployeeRecord(newEmployee);
+                } catch (Exception e) {
+                    Log.e("Local Insert Err: ", e.getMessage());
+                }
+                if (newlyAssignedEmployeeID == -1) {
+                    Log.e("Local Insert Err: ", Long.toString(newlyAssignedEmployeeID));
+                } else {
+                    Log.i("New LOCAL Employee ID: ", "" + newlyAssignedEmployeeID);
                 }
                 return null;
             }
@@ -115,11 +133,15 @@ public class AddEmployeeActivity extends AppCompatActivity {
             @Override
             protected void onPostExecute(Void result) {
                 super.onPostExecute(result);
+                progress.dismiss();
+                finish();
             }
-
-            //TODO CHECK HERE IF SUCCESS INSERT ALSO INSERT TO CLOVER?
-            //TODO also should I create common classes for these types of methods related to clover accounts
         }.execute();
+    }
+
+    //////*BELOW METHODS BASICALLY COMPLETE *///////////////
+    public void cancelAddEmployee(View view) {
+        finish();
     }
 
     //ACTIVITY FLOW METHODS
@@ -133,8 +155,6 @@ public class AddEmployeeActivity extends AppCompatActivity {
         employeeRoleSpinner = (Spinner) findViewById(R.id.add_employee_role_spinner);
         employeePIN = (EditText) findViewById(R.id.add_employee_pin);
         employeeEmail = (EditText) findViewById(R.id.add_employee_email);
-
-        addEmployeeContext = this;
     }
 
     @Override
@@ -145,10 +165,5 @@ public class AddEmployeeActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-    }
-
-    //////*BELOW METHODS BASICALLY COMPLETE *///////////////
-    public void cancelAddEmployee(View view) {
-        finish();
     }
 }

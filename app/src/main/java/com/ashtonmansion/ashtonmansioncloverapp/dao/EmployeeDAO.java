@@ -50,15 +50,12 @@ public class EmployeeDAO extends SQLiteOpenHelper {
 
             @Override
             protected Void doInBackground(Void... params) {
-                EmployeeWebService employeeWebService = new EmployeeWebService();
-                createEmployeeWSSuccess = employeeWebService.createEmployeeServiceCall(employee);
                 return null;
             }
 
             @Override
             protected void onPostExecute(Void result) {
                 super.onPostExecute(result);
-                Log.e("EmpSuccess added n BG", "" + createEmployeeWSSuccess);
             }
         }.execute();
     }
@@ -70,7 +67,7 @@ public class EmployeeDAO extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put(EMPLOYEE_NAME, employee.getName());
         values.put(EMPLOYEE_NICKNAME, employee.getNickname());
-        //todo values.put(EMPLOYEE_ROLE, employee.get_role());
+        values.put(EMPLOYEE_ROLE, employee.getRole().toString());
         values.put(EMPLOYEE_PIN, employee.getPin());
         values.put(EMPLOYEE_EMAIL, employee.getEmail());
 
