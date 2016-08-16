@@ -15,6 +15,7 @@ import android.widget.Spinner;
 
 import com.ashtonmansion.ashtonmansioncloverapp.R;
 import com.ashtonmansion.ashtonmansioncloverapp.dao.CustomerDAO;
+import com.ashtonmansion.ashtonmansioncloverapp.webservices.customerws.CustomerWebService;
 import com.clover.sdk.util.CloverAccount;
 import com.clover.sdk.v1.BindingException;
 import com.clover.sdk.v1.ClientException;
@@ -24,13 +25,15 @@ import com.clover.sdk.v3.customers.Address;
 import com.clover.sdk.v3.customers.Customer;
 import com.clover.sdk.v3.customers.EmailAddress;
 import com.clover.sdk.v3.customers.PhoneNumber;
+import com.clover.sdk.v3.inventory.PriceType;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 public class AddCustomerActivity extends AppCompatActivity {
     //INSTANCE VARS
-    private Context context;
+    private Context addCustomerContext;
     //SERVICE VARS
     private Account mAcct;
     private CustomerConnector customerConnector;
@@ -72,7 +75,7 @@ public class AddCustomerActivity extends AppCompatActivity {
 
     private void doBackgroundCloverDynamicsAndLocalInsertions() {
         new AsyncTask<Void, Void, Void>() {
-            ProgressDialog progress = new ProgressDialog(context);
+            ProgressDialog progress = new ProgressDialog(addCustomerContext);
 
             @Override
             protected void onPreExecute() {
@@ -82,9 +85,9 @@ public class AddCustomerActivity extends AppCompatActivity {
 
             @Override
             protected Void doInBackground(Void... params) {
+                ///////////* CLOVER INSERTION *////////////////////////
                 getMerchantAcct();
                 connectCustomerConn();
-
                 try {
                     for (Address currentAddress : addressList) {
                         customerConnector.addAddress(newCustomer.getId(), currentAddress.getAddress1(), currentAddress.getAddress2(), currentAddress.getAddress3(), currentAddress.getCity(), currentAddress.getState(), currentAddress.getZip());
@@ -95,12 +98,48 @@ public class AddCustomerActivity extends AppCompatActivity {
                     for (EmailAddress emailAddress : emailAddressList) {
                         customerConnector.addEmailAddress(newCustomer.getId(), emailAddress.getEmailAddress());
                     }
-
                     customerConnector.createCustomer((newCustomer.getFirstName().toString()), (newCustomer.getLastName().toString()), (newCustomer.getMarketingAllowed()));
                     //TODO GET CUST ID AND SET THE OTHER FIELDS
+                    cloverInsertSuccess = true;
                 } catch (RemoteException | ServiceException | ClientException | BindingException e) {
-                    Log.i("Customer Creation Error", e.getMessage());
+                    cloverInsertSuccess = true;
+                    Log.e("Clover Exception: ", e.getMessage());
+                } catch (Exception e2) {
+                    cloverInsertSuccess = true;
+                    Log.e("Generic Exception: ", e2.getMessage());
+                } finally {
+                    customerConnector.disconnect();
+                    Log.i("Cust Clover Success: ", "" + cloverInsertSuccess);
                 }
+
+                //////ONLY CONTINUE IF CLOVER INSERT SUCCESSFUL//////
+                if (cloverInsertSuccess == true) {
+                    ///////////* DYNAMICS INSERTION *////////////////////////
+                    //TODO DYNAMICS AND LOCAL ADD
+                    CustomerWebService customerWebService = new CustomerWebService();
+                    createCustomerWSSuccess = customerWebService.createCustomerServiceCall(newCustomer);
+
+                    ////ONLY CONTINUE IF DYNAMICS INSERT SUCCESSFUL??////
+                    if (createCustomerWSSuccess == true) {
+                        ///////////* LOCAL INSERTION *////////////////////////
+                        try {
+                            CustomerDAO customerDAO = new CustomerDAO(addCustomerContext);
+                            newlyAssignedCustomerID = customerDAO.insertLocalCustomerRecord(newCustomer);
+                        } catch (Exception e) {
+                            Log.e("Generic Exception: ", "Local insertion customer: " + e.getMessage());
+                        }
+                        if (newlyAssignedCustomerID == -1) {
+                            Log.e("Exception in SQLite: ", "See Above");
+                        } else {
+                            Log.i("New LOCAL Customer ID: ", "" + newlyAssignedCustomerID);
+                        }
+                    } else {
+                        Log.e("Cust WS Call: ", "failed");
+                    }
+                } else {
+                    Log.e("Break;CloverFail: ", "See Exception above");
+                }
+
                 return null;
             }
 
@@ -113,6 +152,38 @@ public class AddCustomerActivity extends AppCompatActivity {
         }.execute();
     }
 
+
+    //* ACTIVITY FLOW METHODS *//////////////////////
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_add_customer);
+        addCustomerContext = this;
+        customerFirst = (EditText) findViewById(R.id.customer_first_name);
+        customerLast = (EditText) findViewById(R.id.customer_last_name);
+        customerMarketingAllowedChkbox = (CheckBox) findViewById(R.id.customer_marketing_allowed_chkbox);
+        customerPhone = (EditText) findViewById(R.id.customer_phone);
+        customerEmail = (EditText) findViewById(R.id.customer_email);
+        customerAddress1 = (EditText) findViewById(R.id.customer_address_1);
+        customerAddress2 = (EditText) findViewById(R.id.customer_address_2);
+        customerAddress3 = (EditText) findViewById(R.id.customer_address_3);
+        customerCity = (EditText) findViewById(R.id.customer_city);
+        customerStateSpinner = (Spinner) findViewById(R.id.customer_state_spinner);
+        customerZip = (EditText) findViewById(R.id.customer_zip);
+    }
+
+    @Override
+    protected void onPause() {
+        disconnectCustomerConn();
+        super.onPause();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
+    /*THESE METHODS ARE COMPLETE*////////////////////
     private void createNewCustomerAndSetData() {
         emailAddressList = new ArrayList<>();
         phoneNumberList = new ArrayList<>();
@@ -144,37 +215,6 @@ public class AddCustomerActivity extends AppCompatActivity {
         newCustomer.setAddresses(addressList);
     }
 
-    //* ACTIVITY FLOW METHODS *//////////////////////
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_customer);
-        context = this;
-        customerFirst = (EditText) findViewById(R.id.customer_first_name);
-        customerLast = (EditText) findViewById(R.id.customer_last_name);
-        customerMarketingAllowedChkbox = (CheckBox) findViewById(R.id.customer_marketing_allowed_chkbox);
-        customerPhone = (EditText) findViewById(R.id.customer_phone);
-        customerEmail = (EditText) findViewById(R.id.customer_email);
-        customerAddress1 = (EditText) findViewById(R.id.customer_address_1);
-        customerAddress2 = (EditText) findViewById(R.id.customer_address_2);
-        customerAddress3 = (EditText) findViewById(R.id.customer_address_3);
-        customerCity = (EditText) findViewById(R.id.customer_city);
-        customerStateSpinner = (Spinner) findViewById(R.id.customer_state_spinner);
-        customerZip = (EditText) findViewById(R.id.customer_zip);
-    }
-
-    @Override
-    protected void onPause() {
-        disconnectCustomerConn();
-        super.onPause();
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-    }
-
-    /*THESE METHODS ARE COMPLETE*////////////////////
     private void getMerchantAcct() {
         if (mAcct == null) {
             mAcct = CloverAccount.getAccount(this);
@@ -200,7 +240,6 @@ public class AddCustomerActivity extends AppCompatActivity {
         }
     }
 
-    //RETURN WHEN CANCEL BUTTON PRESSED
     public void cancelAddCustomer(View view) {
         finish();
     }
