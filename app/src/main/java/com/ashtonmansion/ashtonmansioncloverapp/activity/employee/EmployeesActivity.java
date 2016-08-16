@@ -2,6 +2,7 @@ package com.ashtonmansion.ashtonmansioncloverapp.activity.employee;
 
 import android.accounts.Account;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -40,7 +41,7 @@ public class EmployeesActivity extends AppCompatActivity {
     private EmployeeConnector mEmpConn;
     private List<Employee> employeeList;
     private EmployeeDAO employeeDAO;
-    private Context context = this;
+    private Context employeesActivityContext;
 
     //Method to open the add employee activity/screen
     public void displayAddEmployee(View view) {
@@ -54,6 +55,7 @@ public class EmployeesActivity extends AppCompatActivity {
         setContentView(R.layout.activity_employees);
 
         employeeDAO = new EmployeeDAO(this);
+        employeesActivityContext = this;
     }
 
     @Override
@@ -247,35 +249,61 @@ public class EmployeesActivity extends AppCompatActivity {
                 .setNegativeButton(android.R.string.no, null).show();
     }
 
-    private boolean deleteEmployee(Employee employee) {
-        boolean employeeSuccessfullyDeletedClover;
-        //  boolean employeeSuccessfullyDeletedDynamics = false;
-        boolean employeeSuccessfullyDeletedLocal = false;
+    private void deleteEmployee(final Employee employee) {
+        new AsyncTask<Void, Void, Void>() {
+            ProgressDialog progress = new ProgressDialog(employeesActivityContext);
 
-        try {
-            mEmpConn.deleteEmployee(employee.getId());
-            employeeSuccessfullyDeletedClover = true;
-        } catch (ServiceException | BindingException | ClientException | RemoteException e) {
-            employeeSuccessfullyDeletedClover = false;
-            Log.e("Clover Exception: ", e.getMessage());
-        } catch (Exception e2) {
-            employeeSuccessfullyDeletedClover = false;
-            Log.e("Generic Exception: ", e2.getMessage());
-        }
-        /////IF DELETED SUCCESSFULLY IN CLOVER
-        if (employeeSuccessfullyDeletedClover) {
-            /////DYNAMICS DELETION
-            //TODO DYNAMICS DELETE METHOD
+            @Override
+            protected void onPreExecute() {
+                super.onPreExecute();
+                progress.setMessage("Deleting...");
+                progress.show();
+            }
 
-            //if (employeeSuccessfullyDeletedDynamics) {
-            EmployeeDAO employeeDAO = new EmployeeDAO(this);
-            employeeSuccessfullyDeletedLocal = employeeDAO.deleteLocalEmployeeRecord(employee);
-            // } else {
-            //    Log.e("Dynamics Delete: ", "Failed: ");
-            //}
-        } else {
-            Log.e("Clover Delete: ", "Failed: ");
-        }
-        return employeeSuccessfullyDeletedLocal;
+            @Override
+            protected Void doInBackground(Void... params) {
+                boolean employeeSuccessfullyDeletedClover;
+                boolean employeeSuccessfullyDeletedDynamics = false;
+                boolean employeeSuccessfullyDeletedLocal = false;
+
+                try {
+                    mEmpConn.deleteEmployee(employee.getId());
+                    employeeSuccessfullyDeletedClover = true;
+                } catch (ServiceException | BindingException | ClientException | RemoteException e) {
+                    employeeSuccessfullyDeletedClover = false;
+                    Log.e("Clover Exception: ", e.getMessage());
+                } catch (Exception e2) {
+                    employeeSuccessfullyDeletedClover = false;
+                    Log.e("Generic Exception: ", e2.getMessage());
+                }
+                /////IF DELETED SUCCESSFULLY IN CLOVER
+                if (employeeSuccessfullyDeletedClover) {
+                    /////DYNAMICS DELETION
+                    //TODO DYNAMICS DELETE METHOD
+
+                    //if (employeeSuccessfullyDeletedDynamics) {
+                    employeeDAO = new EmployeeDAO(employeesActivityContext);
+                    employeeSuccessfullyDeletedLocal = employeeDAO.deleteLocalEmployeeRecord(employee);
+                    if (!employeeSuccessfullyDeletedLocal) {
+                        Log.e("Local deletion err: ", "See Above...");
+                    }
+                    // } else {
+                    //    Log.e("Dynamics Delete: ", "Failed: ");
+                    //}
+                } else {
+                    Log.e("Clover Delete: ", "Failed: ");
+                }
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(Void result) {
+                super.onPostExecute(result);
+                progress.dismiss();
+                populateEmployeeTable();
+                populateLocalEmplTableTesting();
+            }
+        }.execute();
+
     }
 }

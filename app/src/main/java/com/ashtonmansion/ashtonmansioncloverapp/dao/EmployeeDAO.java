@@ -57,6 +57,7 @@ public class EmployeeDAO extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
+        values.put(EMPLOYEE_ID, employee.getId());
         values.put(EMPLOYEE_NAME, employee.getName());
         values.put(EMPLOYEE_NICKNAME, employee.getNickname());
         values.put(EMPLOYEE_ROLE, employee.getRole().toString());
@@ -78,7 +79,6 @@ public class EmployeeDAO extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         //TODO FIGURE OUT WHAT I NEED HERE,
-
     }
 
     @Override
@@ -89,13 +89,19 @@ public class EmployeeDAO extends SQLiteOpenHelper {
     public void createEmployeeTableIfNotExists() {
         SQLiteDatabase db = this.getWritableDatabase();
         String CREATE_EMPLOYEE_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_EMPLOYEE
-                + "(" + EMPLOYEE_ID + " INTEGER PRIMARY KEY,"
+                + "(" + EMPLOYEE_ID + " TEXT PRIMARY KEY,"
                 + EMPLOYEE_NAME + TEXT_TYPE_COMMA
                 + EMPLOYEE_NICKNAME + TEXT_TYPE_COMMA
                 + EMPLOYEE_ROLE + TEXT_TYPE_COMMA
                 + EMPLOYEE_PIN + TEXT_TYPE_COMMA
                 + EMPLOYEE_EMAIL + ")";
         db.execSQL(CREATE_EMPLOYEE_TABLE);
+        db.close();
+    }
+
+    public void dropLocalEmployeeTableIfExists() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("DROP TABLE IF EXISTS '" + TABLE_EMPLOYEE + "'");
         db.close();
     }
 

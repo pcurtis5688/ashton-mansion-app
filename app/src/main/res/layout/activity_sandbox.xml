@@ -20,10 +20,9 @@
 
     <TableRow>
 
-        <TextView android:id="@+id/country_isd" />
-    </TableRow>
-    <TableRow>
-
-        <TextView android:id="@+id/return_hello_tv" />
+        <Button
+            android:id="@+id/drop_local_employee_tbl_btn"
+            android:onClick="dropLocalEmployeeTableAndReCreate"
+            android:text="Drop Local Emp Table And ReCreate" />
     </TableRow>
 </TableLayout>

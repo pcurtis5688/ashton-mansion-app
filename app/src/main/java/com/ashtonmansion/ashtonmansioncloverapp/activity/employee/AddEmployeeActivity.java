@@ -88,6 +88,7 @@ public class AddEmployeeActivity extends AppCompatActivity {
                 Account merAcct = CloverAccount.getAccount(addEmployeeContext);
                 EmployeeConnector empConn = new EmployeeConnector(addEmployeeContext, merAcct, null);
                 Employee returnedEmployee = new Employee();
+                String newEmployeeID = "";
                 try {
                     returnedEmployee = empConn.createEmployee(newEmployee);
                     cloverInsertionSuccess = true;
@@ -98,7 +99,8 @@ public class AddEmployeeActivity extends AppCompatActivity {
                     Log.e("Generic Exception: ", e2.getMessage());
                     cloverInsertionSuccess = false;
                 } finally {
-                    Log.i("Returned Emp ID: ", returnedEmployee.getId());
+                    newEmployeeID = returnedEmployee.getId();
+                    newEmployee.setId(newEmployeeID);
                     empConn.disconnect();
                     Log.i("Clover InsertSuccess: ", "" + cloverInsertionSuccess);
                 }
@@ -111,22 +113,22 @@ public class AddEmployeeActivity extends AppCompatActivity {
                     Log.e("EmpSuccess added n BG", "" + createEmployeeWSSuccess);
 
                     ////ONLY CONTINUE IF DYNAMICS INSERT SUCCESSFUL??////
-                    if (createEmployeeWSSuccess == true) {
-                        ///////////* LOCAL INSERTION *////////////////////////
-                        try {
-                            EmployeeDAO employeeDAO = new EmployeeDAO(addEmployeeContext);
-                            newlyAssignedEmployeeID = employeeDAO.addLocalEmployeeRecord(newEmployee);
-                        } catch (Exception e) {
-                            Log.e("Local Insert Err: ", e.getMessage());
-                        }
-                        if (newlyAssignedEmployeeID == -1) {
-                            Log.e("Local Insert Err: ", Long.toString(newlyAssignedEmployeeID));
-                        } else {
-                            Log.i("New LOCAL Employee ID: ", "" + newlyAssignedEmployeeID);
-                        }
-                    } else {
-                        Log.e("Break;Dynamics Fail: ", "See exception");
+                    //     if (createEmployeeWSSuccess == true) {
+                    ///////////* LOCAL INSERTION *////////////////////////
+                    try {
+                        EmployeeDAO employeeDAO = new EmployeeDAO(addEmployeeContext);
+                        newlyAssignedEmployeeID = employeeDAO.addLocalEmployeeRecord(newEmployee);
+                    } catch (Exception e) {
+                        Log.e("Local Insert Err: ", e.getMessage());
                     }
+                    if (newlyAssignedEmployeeID == -1) {
+                        Log.e("Local Insert Err: ", Long.toString(newlyAssignedEmployeeID));
+                    } else {
+                        Log.i("New LOCAL Employee ID: ", "" + newlyAssignedEmployeeID);
+                    }
+                    //   } else {
+                    //        Log.e("Break;Dynamics Fail: ", "See exception");
+                    //   }
                 } else {
                     Log.e("Break;CloverFail: ", "See exception");
                 }
