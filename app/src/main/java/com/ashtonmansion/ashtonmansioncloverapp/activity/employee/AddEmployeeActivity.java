@@ -39,6 +39,7 @@ public class AddEmployeeActivity extends AppCompatActivity {
     long newlyAssignedEmployeeID = 0;
     private boolean cloverInsertionSuccess;
     private boolean createEmployeeWSSuccess;
+    private boolean createEmployeeLocalSuccess;
 
     //SUBMIT EMPLOYEE TO CLOVER, DYNAMICS, AND LOCAL
     public void finalizeEmployeeCreation(View view) {
@@ -117,15 +118,11 @@ public class AddEmployeeActivity extends AppCompatActivity {
                     ///////////* LOCAL INSERTION *////////////////////////
                     try {
                         EmployeeDAO employeeDAO = new EmployeeDAO(addEmployeeContext);
-                        newlyAssignedEmployeeID = employeeDAO.addLocalEmployeeRecord(newEmployee);
+                        createEmployeeLocalSuccess = employeeDAO.addLocalEmployeeRecord(newEmployee);
                     } catch (Exception e) {
                         Log.e("Local Insert Err: ", e.getMessage());
                     }
-                    if (newlyAssignedEmployeeID == -1) {
-                        Log.e("Local Insert Err: ", Long.toString(newlyAssignedEmployeeID));
-                    } else {
-                        Log.i("New LOCAL Employee ID: ", "" + newlyAssignedEmployeeID);
-                    }
+                    Log.i("Local Emp Insert: ", "Success: " + createEmployeeLocalSuccess);
                     //   } else {
                     //        Log.e("Break;Dynamics Fail: ", "See exception");
                     //   }

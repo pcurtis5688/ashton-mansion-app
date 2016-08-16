@@ -80,6 +80,7 @@
     <string name="add_employee_email_label_str">Email</string>
     <string name="add_employee_email_hint_str">Email</string>
     <string name="employee_insert_btn_str">Add Employee</string>
+    <string name="employee_delete_btn_str">Delete Employee</string>
 
     <string-array name="employee_roles_array">
         <item>admin</item>

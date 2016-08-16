@@ -39,37 +39,6 @@ public class EmployeeDAO extends SQLiteOpenHelper {
     private static final String EMPLOYEE_PIN = "Employee_Pin";
     private static final String EMPLOYEE_EMAIL = "Employee_Email";
 
-    public boolean deleteLocalEmployeeRecord(Employee employee) {
-        int rowsDeleted = 0;
-        SQLiteDatabase db = this.getWritableDatabase();
-        try {
-            rowsDeleted = db.delete(TABLE_EMPLOYEE, EMPLOYEE_ID + "= ?", new String[]{employee.getId()});
-        } catch (Exception e) {
-            Log.e("Generic Exception", " in delete local record: " + e.getMessage());
-        } finally {
-            db.close();
-        }
-        return (rowsDeleted > 0);
-    }
-
-    public long addLocalEmployeeRecord(Employee employee) {
-        long newEmployeeID;
-        SQLiteDatabase db = this.getWritableDatabase();
-
-        ContentValues values = new ContentValues();
-        values.put(EMPLOYEE_ID, employee.getId());
-        values.put(EMPLOYEE_NAME, employee.getName());
-        values.put(EMPLOYEE_NICKNAME, employee.getNickname());
-        values.put(EMPLOYEE_ROLE, employee.getRole().toString());
-        values.put(EMPLOYEE_PIN, employee.getPin());
-        values.put(EMPLOYEE_EMAIL, employee.getEmail());
-
-        newEmployeeID = db.insert(TABLE_EMPLOYEE, null, values);
-        Log.i("LocalRecSuccess: ", "" + (newEmployeeID != -1));
-        db.close();
-        return newEmployeeID;
-    }
-
     /* BELOW METHODS ARE BASICALLY COMPLETE *///////////
     //CONSTRUCTOR
     public EmployeeDAO(Context context) {
@@ -130,5 +99,34 @@ public class EmployeeDAO extends SQLiteOpenHelper {
         }
         cursor.close();
         return employeeList;
+    }
+
+    public boolean addLocalEmployeeRecord(Employee employee) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(EMPLOYEE_ID, employee.getId());
+        values.put(EMPLOYEE_NAME, employee.getName());
+        values.put(EMPLOYEE_NICKNAME, employee.getNickname());
+        values.put(EMPLOYEE_ROLE, employee.getRole().toString());
+        values.put(EMPLOYEE_PIN, employee.getPin());
+        values.put(EMPLOYEE_EMAIL, employee.getEmail());
+
+        long newLocalEmployeeID = db.insert(TABLE_EMPLOYEE, null, values);
+        db.close();
+        return (newLocalEmployeeID != -1);
+    }
+
+    public boolean deleteLocalEmployeeRecord(Employee employee) {
+        int rowsDeleted = 0;
+        SQLiteDatabase db = this.getWritableDatabase();
+        try {
+            rowsDeleted = db.delete(TABLE_EMPLOYEE, EMPLOYEE_ID + "= ?", new String[]{employee.getId()});
+        } catch (Exception e) {
+            Log.e("Generic Exception", " in delete local record: " + e.getMessage());
+        } finally {
+            db.close();
+        }
+        return (rowsDeleted > 0);
     }
 }
