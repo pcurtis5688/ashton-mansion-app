@@ -11,25 +11,19 @@ import android.os.RemoteException;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.PopupWindow;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ashtonmansion.ashtonmansioncloverapp.R;
-import com.ashtonmansion.ashtonmansioncloverapp.activity.customer.EditCustomerActivity;
 import com.ashtonmansion.ashtonmansioncloverapp.dao.EmployeeDAO;
 import com.clover.sdk.util.CloverAccount;
 import com.clover.sdk.v1.BindingException;
 import com.clover.sdk.v1.ClientException;
 import com.clover.sdk.v1.ServiceException;
-import com.clover.sdk.v1.customer.Customer;
 import com.clover.sdk.v3.employees.Employee;
 import com.clover.sdk.v3.employees.EmployeeConnector;
 
@@ -219,14 +213,25 @@ public class EmployeesActivity extends AppCompatActivity {
                 empEmailTextview = new TextView(this);
                 empRoleTextview = new TextView(this);
 
+                //HANDLE EDIT CLICK LISTENERS
+                Button editCustomerButton = new Button(employeesActivityContext);
+                editCustomerButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        editThisEmployee(currentEmp);
+                    }
+                });               //TODO USE STRING RESOURCE
+                editCustomerButton.setText("Edit");
+                //HANDLE THE DELETE BUTTON
                 Button deleteEmployeeButton = new Button(this);
                 deleteEmployeeButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        clickedEmployeeDelete(currentEmp);
+                        deleteThisEmployee(currentEmp);
                     }
                 });
-                //Set the new data for the new row
+
+                //ADD DATA TO THE COMPONENTS
                 empIdTextview.setText(currentEmp.getId());
                 empNameTextview.setText(currentEmp.getName());
                 empNicknameTextView.setText(currentEmp.getNickname());
@@ -234,7 +239,8 @@ public class EmployeesActivity extends AppCompatActivity {
                 empRoleTextview.setText(currentEmp.getRole().name());
                 //TODO FIX THIS ACCESS STRINGS.XML
                 deleteEmployeeButton.setText("Delete Employee");
-                //Add the new data to the new row
+
+                //ADD COMPONENTS TO THE NEW ROW
                 workingEmployeeRow.addView(empIdTextview);
                 workingEmployeeRow.addView(empNameTextview);
                 workingEmployeeRow.addView(empNicknameTextView);
@@ -272,7 +278,7 @@ public class EmployeesActivity extends AppCompatActivity {
             deleteEmployeeLocalTblButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    clickedEmployeeDelete(employee);
+                    deleteThisEmployee(employee);
                 }
             });
 
@@ -296,7 +302,13 @@ public class EmployeesActivity extends AppCompatActivity {
         }
     }
 
-    public void clickedEmployeeDelete(final Employee employee) {
+    public void editThisEmployee(final Employee employee) {
+        Intent editEmployeeIntent = new Intent(this, EditEmployeeActivity.class);
+        editEmployeeIntent.putExtra("employee", employee);
+        startActivity(editEmployeeIntent);
+    }
+
+    public void deleteThisEmployee(final Employee employee) {
         new AlertDialog.Builder(this)
                 .setTitle("Delete Employee?")
                 .setMessage("Delete Employee " + employee.getName() + "?")

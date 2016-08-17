@@ -95,15 +95,15 @@ public class CustomersActivity extends AppCompatActivity {
                 custEmailTextView.setText(formattedEmailAddresses);
                 custAddressTextView.setText(formattedAddresses);
 
-                //TODO SAME WITH EMAIL AND ADDRESS
-
                 //HANDLE EDIT CLICK LISTENERS
-                newCustomerRow.setOnClickListener(new View.OnClickListener() {
+                Button editCustomerButton = new Button(customersActivityContext);
+                editCustomerButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         editThisCustomer(customer);
                     }
-                });
+                });               //TODO USE STRING RESOURCE
+                editCustomerButton.setText("Edit");
                 //HANDLE THE DELETE BUTTON
                 Button deleteCustomerButton = new Button(customersActivityContext);
                 deleteCustomerButton.setOnClickListener(new View.OnClickListener() {
@@ -112,13 +112,14 @@ public class CustomersActivity extends AppCompatActivity {
                         deleteThisCustomer(customer);
                     }
                 });                //TODO USE STRING RESOURCE
-                deleteCustomerButton.setText("Delete Customer");
+                deleteCustomerButton.setText("Delete");
 
                 //ADD COMPONENTS TO THE NEW ROW
                 newCustomerRow.addView(custNameTextView);
                 newCustomerRow.addView(custPhoneTextView);
                 newCustomerRow.addView(custEmailTextView);
                 newCustomerRow.addView(custAddressTextView);
+                newCustomerRow.addView(editCustomerButton);
                 newCustomerRow.addView(deleteCustomerButton);
                 //Add the new row to the table
                 customerTable.addView(newCustomerRow);
@@ -145,7 +146,7 @@ public class CustomersActivity extends AppCompatActivity {
         int numberPhoneNumbers = phoneNumberList.size();
         String phoneNumberString = "";
         if (numberPhoneNumbers == 0) {
-            phoneNumberString = "No Phone Numbers Listed";
+            phoneNumberString = "No Phone Numbers";
         } else if (numberPhoneNumbers == 1) {
             phoneNumberString = phoneNumberList.get(0).getPhoneNumber();
         } else {
@@ -162,7 +163,7 @@ public class CustomersActivity extends AppCompatActivity {
         int numberEmailAddresses = emailAddressList.size();
         String emailAddressString = "";
         if (numberEmailAddresses == 0) {
-            emailAddressString = "No Email Addresses Listed";
+            emailAddressString = "No Email Addresses";
         } else if (numberEmailAddresses == 1) {
             emailAddressString = emailAddressList.get(0).getEmailAddress();
         } else {
@@ -179,7 +180,7 @@ public class CustomersActivity extends AppCompatActivity {
         int numberAddresses = addressList.size();
         String addressString = "";
         if (numberAddresses == 0) {
-            addressString = "No Email Addresses Listed";
+            addressString = "No Addresses";
         } else if (numberAddresses == 1) {
             addressString = addressList.get(0).getAddress1() + " "
                     + addressList.get(0).getAddress2() + " "

@@ -151,7 +151,6 @@ public class AddCustomerActivity extends AppCompatActivity {
         }.execute();
     }
 
-
     //* ACTIVITY FLOW METHODS *//////////////////////
     @Override
     protected void onCreate(Bundle savedInstanceState) {
