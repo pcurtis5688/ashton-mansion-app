@@ -49,7 +49,7 @@ public class EditCustomerActivity extends AppCompatActivity {
     private EditText customerZipEdit;
 
     public void saveCustomerEdits(View view) {
-
+        //TODO THIS AS WELL AS OTHER ADJUSTMENTS TO THE EDIT ACTIVITES
     }
 
     //ACTIVITY FLOW METHODS
@@ -57,19 +57,9 @@ public class EditCustomerActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_customer);
-        ProgressDialog progressDialog = new ProgressDialog(this);
-        progressDialog.setMessage("Fetching Customer Data");
-        progressDialog.show();
 
-        //Retrieve the Clover merchant account
-        if (mAcct == null) {
-            mAcct = CloverAccount.getAccount(this);
-            //Break if Clover Account unreachable
-            if (mAcct == null) {
-                finish();
-                return;
-            }
-        }
+        getMerchantAccount();
+
         //GET THE CUSTOMER object FROM THE MAIN CUSTOMER ACTIVITY
         Bundle extras = getIntent().getExtras();
         editCustomer = (Customer) extras.get("customer");
@@ -101,21 +91,20 @@ public class EditCustomerActivity extends AppCompatActivity {
         handleAddressList();
         handlePhoneList();
         handleEmailList();
-        progressDialog.dismiss();
     }
+
+    //////* BELOW METHODS ARE BASICALLY COMPLETE *///////////
 
     @Override
     protected void onResume() {
         super.onResume();
+
     }
 
     @Override
     protected void onPause() {
-        // disconnectCustomerConn();
         super.onPause();
     }
-
-    //////* BELOW METHODS ARE BASICALLY COMPLETE *///////////
 
     private void handleAddressList() {
         addressList = editCustomer.getAddresses();
@@ -163,6 +152,17 @@ public class EditCustomerActivity extends AppCompatActivity {
                 emailText = emailText + ", " + emailAddressList.get(i);
             }
             customerEmailEdit.setHint(emailText);
+        }
+    }
+
+    private void getMerchantAccount() {
+        if (mAcct == null) {
+            mAcct = CloverAccount.getAccount(this);
+            //Break if Clover Account unreachable
+            if (mAcct == null) {
+                finish();
+                return;
+            }
         }
     }
 

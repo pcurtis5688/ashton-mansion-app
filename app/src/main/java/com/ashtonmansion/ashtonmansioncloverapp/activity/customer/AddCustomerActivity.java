@@ -139,7 +139,6 @@ public class AddCustomerActivity extends AppCompatActivity {
                 } else {
                     Log.e("Break;CloverFail: ", "See Exception above");
                 }
-
                 return null;
             }
 

@@ -15,9 +15,12 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import com.clover.sdk.v1.customer.Address;
 import com.clover.sdk.v1.customer.CustomerConnector;
 import com.clover.sdk.v1.customer.Customer;
 import com.clover.sdk.util.CloverAccount;
+import com.clover.sdk.v1.customer.EmailAddress;
+import com.clover.sdk.v1.customer.PhoneNumber;
 
 import java.util.List;
 
@@ -31,10 +34,6 @@ public class CustomersActivity extends AppCompatActivity {
     //TABLE VARIABLES
     private TableLayout customerTable;
     private TableRow customerTableHeaderRow;
-    private TableRow newCustomerRow;
-    private TextView custLastnameTextview;
-    private TextView custFirstnameTextview;
-    private TextView custPhoneTextview;
 
     private void getCustomerListAndPopulateTable() {
         new AsyncTask<Void, Void, Void>() {
@@ -77,46 +76,55 @@ public class CustomersActivity extends AppCompatActivity {
 
         if (customers != null && customers.size() != 0) {
             for (final Customer customer : customers) {
-                //Create new row to be added to the table
-                newCustomerRow = new TableRow(this);
-                newCustomerRow.setPadding(0, 50, 0, 50);
+                //CREATE THE NEW ROW AND VIEWS TO BE ADDED
+                TableRow newCustomerRow = new TableRow(this);
+                TextView custNameTextView = new TextView(this);
+                TextView custPhoneTextView = new TextView(this);
+                TextView custEmailTextView = new TextView(this);
+                TextView custAddressTextView = new TextView(this);
+
+                //HANDLE ANY FORMATTING
+                String fullName = getCustomerFullName(customer);
+                String formattedPhoneNumbers = getPhoneNumbersString(customer);
+                String formattedEmailAddresses = getEmailAddressString(customer);
+                String formattedAddresses = getAddressString(customer);
+
+                //ADD DATA TO THE COMPONENTS
+                custNameTextView.setText(fullName);
+                custPhoneTextView.setText(formattedPhoneNumbers);
+                custEmailTextView.setText(formattedEmailAddresses);
+                custAddressTextView.setText(formattedAddresses);
+
+                //TODO SAME WITH EMAIL AND ADDRESS
+
+                //HANDLE EDIT CLICK LISTENERS
                 newCustomerRow.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         editThisCustomer(customer);
                     }
                 });
-                //Create the new views for the new row
-                custLastnameTextview = new TextView(this);
-                custFirstnameTextview = new TextView(this);
-                custPhoneTextview = new TextView(this);
+                //HANDLE THE DELETE BUTTON
                 Button deleteCustomerButton = new Button(customersActivityContext);
                 deleteCustomerButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         deleteThisCustomer(customer);
                     }
-                });
-                //Set the new data for the new row
-                custLastnameTextview.setText(customer.getLastName());
-                custFirstnameTextview.setText(customer.getFirstName());
-                custPhoneTextview.setText(customer.getPhoneNumbers().toString());
+                });                //TODO USE STRING RESOURCE
                 deleteCustomerButton.setText("Delete Customer");
-                //Add the new data to the new row
-                newCustomerRow.addView(custLastnameTextview);
-                newCustomerRow.addView(custFirstnameTextview);
-                newCustomerRow.addView(custPhoneTextview);
+
+                //ADD COMPONENTS TO THE NEW ROW
+                newCustomerRow.addView(custNameTextView);
+                newCustomerRow.addView(custPhoneTextView);
+                newCustomerRow.addView(custEmailTextView);
+                newCustomerRow.addView(custAddressTextView);
                 newCustomerRow.addView(deleteCustomerButton);
                 //Add the new row to the table
                 customerTable.addView(newCustomerRow);
             }
         } else {
-            TableRow noCustomerDataRow = new TableRow(customersActivityContext);
-            TextView noCustomerDataTV = new TextView(customersActivityContext);
-            //todo string resource for below
-            noCustomerDataTV.setText("No Customer Data! Please Add");
-            noCustomerDataRow.addView(noCustomerDataTV);
-            customerTable.addView(noCustomerDataRow);
+            customerTable.addView(getNoCustomerTableRow());
         }
     }
 
@@ -126,6 +134,81 @@ public class CustomersActivity extends AppCompatActivity {
 
     private void deleteThisCustomer(Customer customer) {
         //TODO THIS
+    }
+
+    private String getCustomerFullName(Customer customer) {
+        return customer.getFirstName() + " " + customer.getLastName();
+    }
+
+    private String getPhoneNumbersString(Customer customer) {
+        List<PhoneNumber> phoneNumberList = customer.getPhoneNumbers();
+        int numberPhoneNumbers = phoneNumberList.size();
+        String phoneNumberString = "";
+        if (numberPhoneNumbers == 0) {
+            phoneNumberString = "No Phone Numbers Listed";
+        } else if (numberPhoneNumbers == 1) {
+            phoneNumberString = phoneNumberList.get(0).getPhoneNumber();
+        } else {
+            for (int i = 0; i < (numberPhoneNumbers - 1); i++) {
+                phoneNumberString = phoneNumberString + phoneNumberList.get(i) + ", ";
+            }
+            phoneNumberString = phoneNumberString + phoneNumberList.get(numberPhoneNumbers);
+        }
+        return phoneNumberString;
+    }
+
+    private String getEmailAddressString(Customer customer) {
+        List<EmailAddress> emailAddressList = customer.getEmailAddresses();
+        int numberEmailAddresses = emailAddressList.size();
+        String emailAddressString = "";
+        if (numberEmailAddresses == 0) {
+            emailAddressString = "No Email Addresses Listed";
+        } else if (numberEmailAddresses == 1) {
+            emailAddressString = emailAddressList.get(0).getEmailAddress();
+        } else {
+            for (int i = 0; i < (numberEmailAddresses - 1); i++) {
+                emailAddressString = emailAddressString + emailAddressList.get(i) + ", ";
+            }
+            emailAddressString = emailAddressString + emailAddressList.get(numberEmailAddresses);
+        }
+        return emailAddressString;
+    }
+
+    private String getAddressString(Customer customer) {
+        List<Address> addressList = customer.getAddresses();
+        int numberAddresses = addressList.size();
+        String addressString = "";
+        if (numberAddresses == 0) {
+            addressString = "No Email Addresses Listed";
+        } else if (numberAddresses == 1) {
+            addressString = addressList.get(0).getAddress1() + " "
+                    + addressList.get(0).getAddress2() + " "
+                    + addressList.get(0).getAddress3();
+        } else {
+            for (int i = 0; i < (numberAddresses - 1); i++) {
+                addressString = addressString + addressList.get(numberAddresses).getAddress1() + " "
+                        + addressList.get(numberAddresses).getAddress2() + " "
+                        + addressList.get(numberAddresses).getAddress3() + ", ";
+            }
+            addressString = addressString + addressList.get(numberAddresses).getAddress1() + " "
+                    + addressList.get(numberAddresses).getAddress2() + " "
+                    + addressList.get(numberAddresses).getAddress3();
+        }
+        return addressString;
+    }
+
+    private TableRow getNoCustomerTableRow() {
+        TableRow noCustomerDataRow = new TableRow(customersActivityContext);
+        TextView noCustomerDataTV = new TextView(customersActivityContext);
+        //todo string resource for below
+        noCustomerDataTV.setText("No Customer Data! Please Add");
+        noCustomerDataRow.addView(noCustomerDataTV);
+        return noCustomerDataRow;
+    }
+
+    public void displayAddCustomer(View view) {
+        Intent addCustomerIntent = new Intent(this, AddCustomerActivity.class);
+        startActivity(addCustomerIntent);
     }
 
     private void editThisCustomer(Customer customer) {
@@ -159,11 +242,6 @@ public class CustomersActivity extends AppCompatActivity {
             customerConnector.disconnect();
             customerConnector = null;
         }
-    }
-
-    public void displayAddCustomer(View view) {
-        Intent addCustomerIntent = new Intent(this, AddCustomerActivity.class);
-        startActivity(addCustomerIntent);
     }
 
     /////////////////ACTIVITY FLOW METHODS ///////////////////
