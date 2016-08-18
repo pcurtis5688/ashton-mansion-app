@@ -25,4 +25,11 @@
             android:onClick="dropLocalEmployeeTableAndReCreate"
             android:text="Drop Local Emp Table And ReCreate" />
     </TableRow>
+    <TableRow>
+
+        <Button
+            android:id="@+id/test_insertEmplWS_btn"
+            android:onClick="insertAnEmployeeViaWS"
+            android:text="Test Employee Web Service Insert" />
+    </TableRow>
 </TableLayout>

@@ -20,4 +20,8 @@ public class SandboxActivity extends AppCompatActivity {
         employeeDAO.dropLocalEmployeeTableIfExists();
         employeeDAO.createEmployeeTableIfNotExists();
     }
+
+    public void insertAnEmployeeViaWS(View view){
+        //TODO MAY NEED.
+    }
 }

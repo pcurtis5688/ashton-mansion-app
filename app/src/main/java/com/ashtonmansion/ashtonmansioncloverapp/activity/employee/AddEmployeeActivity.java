@@ -24,10 +24,6 @@ import com.clover.sdk.v3.employees.Employee;
 import com.clover.sdk.v3.employees.EmployeeConnector;
 
 public class AddEmployeeActivity extends AppCompatActivity {
-    //SERVICE VARS
-    private Account mAcct;
-    private EmployeeConnector employeeConnector;
-    private Employee newEmployee;
     //ACTIVITY FIELD VARS
     private EditText employeeName;
     private EditText employeeNickname;
@@ -35,29 +31,20 @@ public class AddEmployeeActivity extends AppCompatActivity {
     private EditText employeePIN;
     private EditText employeeEmail;
     private Context addEmployeeContext;
-    //RESULT FLAGS
-    long newlyAssignedEmployeeID = 0;
-    private boolean cloverInsertionSuccess;
-    private boolean createEmployeeWSSuccess;
-    private boolean createEmployeeLocalSuccess;
 
     //SUBMIT EMPLOYEE TO CLOVER, DYNAMICS, AND LOCAL
     public void finalizeEmployeeCreation(View view) {
         addEmployeeContext = this;
 
         ///* CREATE V3 INSTANCE OF A CLOVER EMPLOYEE & SET VARS *///
-        createNewEmployeeAndSetData();
+        Employee newEmployee = createNewEmployeeAndSetData();
 
         ///////////* CLOVER INSERTION *//////////////////////////
-        doBackgroundCloverDynamicsAndLocalInsertionTask();
-
-        ///////////* OUTCOME HANDLING *//////////////////////////
-        /////*todo ANYTHING HERE?*///////
+        doBackgroundCloverDynamicsAndLocalInsertionTask(newEmployee);
     }
 
-    private void createNewEmployeeAndSetData() {
-        newEmployee = new Employee();
-        newEmployee.setId("FIX"); //todo that <--
+    private Employee createNewEmployeeAndSetData() {
+        Employee newEmployee = new Employee();
         newEmployee.setName(employeeName.getText().toString());
         newEmployee.setNickname(employeeNickname.getText().toString());
         String selectedRole = employeeRoleSpinner.getSelectedItem().toString();
@@ -70,12 +57,17 @@ public class AddEmployeeActivity extends AppCompatActivity {
         }
         newEmployee.setPin(employeePIN.getText().toString());
         newEmployee.setEmail(employeeEmail.getText().toString());
+        return newEmployee;
     }
 
     //TODO BELOW, IN CLOVER INSERT, FIGURE OUT THEIR VALIDATION
-    private void doBackgroundCloverDynamicsAndLocalInsertionTask() {
+    private void doBackgroundCloverDynamicsAndLocalInsertionTask(final Employee newEmployee) {
         new AsyncTask<Void, Void, Void>() {
             ProgressDialog progress = new ProgressDialog(addEmployeeContext);
+            //RESULT FLAGS
+            private boolean cloverInsertionSuccess;
+            private boolean createEmployeeWSSuccess;
+            private boolean createEmployeeLocalSuccess;
 
             @Override
             protected void onPreExecute() {
@@ -106,28 +98,22 @@ public class AddEmployeeActivity extends AppCompatActivity {
                     Log.i("Clover InsertSuccess: ", "" + cloverInsertionSuccess);
                 }
 
+                ///////////* DYNAMICS INSERTION *////////////////////////
                 //////ONLY CONTINUE IF CLOVER INSERT SUCCESSFUL//////
                 if (cloverInsertionSuccess == true) {
-                    ///////////* DYNAMICS INSERTION *////////////////////////
                     EmployeeWebService employeeWebService = new EmployeeWebService();
                     createEmployeeWSSuccess = employeeWebService.createEmployeeServiceCall(newEmployee);
-                    Log.e("EmpSuccess added n BG", "" + createEmployeeWSSuccess);
 
-                    ////ONLY CONTINUE IF DYNAMICS INSERT SUCCESSFUL??////
-                    //     if (createEmployeeWSSuccess == true) {
                     ///////////* LOCAL INSERTION *////////////////////////
-                    try {
-                        EmployeeDAO employeeDAO = new EmployeeDAO(addEmployeeContext);
-                        createEmployeeLocalSuccess = employeeDAO.addLocalEmployeeRecord(newEmployee);
-                    } catch (Exception e) {
-                        Log.e("Local Insert Err: ", e.getMessage());
+                    ////ONLY CONTINUE IF DYNAMICS INSERT SUCCESSFUL??////
+                    if (createEmployeeWSSuccess == true || createEmployeeWSSuccess == false) {
+                        try {
+                            EmployeeDAO employeeDAO = new EmployeeDAO(addEmployeeContext);
+                            createEmployeeLocalSuccess = employeeDAO.addLocalEmployeeRecord(newEmployee);
+                        } catch (Exception e) {
+                            Log.e("Local Insert Err: ", e.getMessage());
+                        }
                     }
-                    Log.i("Local Emp Insert: ", "Success: " + createEmployeeLocalSuccess);
-                    //   } else {
-                    //        Log.e("Break;Dynamics Fail: ", "See exception");
-                    //   }
-                } else {
-                    Log.e("Break;CloverFail: ", "See exception");
                 }
                 return null;
             }
@@ -141,7 +127,6 @@ public class AddEmployeeActivity extends AppCompatActivity {
         }.execute();
     }
 
-    //////*BELOW METHODS BASICALLY COMPLETE *///////////////
     public void cancelAddEmployee(View view) {
         finish();
     }
