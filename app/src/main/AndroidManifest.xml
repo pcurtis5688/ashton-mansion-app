@@ -75,7 +75,9 @@
         <activity
             android:name=".activity.shift.ShiftExceptionManagementActivity"
             android:parentActivityName=".activity.shift.ManagerShiftActivity" />
-        <activity android:name=".activity.shift.ShiftsActivity"></activity>
+        <activity
+            android:name=".activity.shift.ShiftsActivity"
+            android:parentActivityName=".activity.shift.ManagerShiftActivity"></activity>
     </application>
 
 </manifest>
