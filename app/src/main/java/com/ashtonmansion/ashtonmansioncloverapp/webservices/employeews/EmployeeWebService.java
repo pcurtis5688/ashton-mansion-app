@@ -30,10 +30,11 @@ public class EmployeeWebService {
             SoapSerializationEnvelope envelope = WebServiceUtilities.getSoapSerializationEnvelope(request);
 
             String roleString = employee.getRole().toString();
+            String testID = employee.getId();
             ///PARAMS////
             PropertyInfo pi1 = new PropertyInfo();
             pi1.setName("ID");
-            pi1.setValue(employee.getId());
+            pi1.setValue(testID);
             pi1.setType(String.class);
             request.addProperty(pi1);
 
@@ -73,8 +74,6 @@ public class EmployeeWebService {
             NTLMTransport transport = new NTLMTransport();
             transport.setCredentials(EMPL_WEB_SERVICE_URL, "paul", "Wmo67766767", "laptop-53b1c7v6", "");
             transport.call(EMPL_WS_SOAP_ACTION, envelope);
-            String requestDump = transport.requestDump;
-            Log.i("Result: ", "" + requestDump);
         } catch (IOException e1) {
             Log.e("IO Err: ", "" + "" + e1.getMessage());
             resultBool = false;
