@@ -21,7 +21,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ashtonmansion.ashtonmansioncloverapp.dao.CustomerDAO;
-import com.ashtonmansion.ashtonmansioncloverapp.dao.EmployeeDAO;
 import com.clover.sdk.v1.BindingException;
 import com.clover.sdk.v1.ClientException;
 import com.clover.sdk.v1.ServiceException;
@@ -43,7 +42,29 @@ public class CustomersActivity extends AppCompatActivity {
     private List<Customer> customers;
     //TABLE VARIABLES
     private TableLayout customerTable;
-    private TableRow customerTableHeaderRow;
+
+    private TableRow createCustomerTableHeaderRow() {
+        //MAKE THE HEADER ROW
+        TableRow customerTableHeaderRow = new TableRow(customersActivityContext);
+        //MAKE THE TEXTVIEWS FOR THE HEADERS
+        TextView nameHeaderTV = new TextView(customersActivityContext);
+        TextView phoneNumbersHeaderTV = new TextView(customersActivityContext);
+        TextView emailAddressesHeaderTV = new TextView(customersActivityContext);
+        TextView addressesHeaderTV = new TextView(customersActivityContext);
+        //POPULATE THE HEADER TEXT
+        //TODO USE STRING RESOURCES
+        nameHeaderTV.setText("Name");
+        phoneNumbersHeaderTV.setText("Phone Numbers");
+        emailAddressesHeaderTV.setText("Email Addresses");
+        addressesHeaderTV.setText("Addresses");
+        //ADD THE HEADERS TO THE HEADER ROW
+        customerTableHeaderRow.addView(nameHeaderTV);
+        customerTableHeaderRow.addView(phoneNumbersHeaderTV);
+        customerTableHeaderRow.addView(emailAddressesHeaderTV);
+        customerTableHeaderRow.addView(addressesHeaderTV);
+        //RETURN THE ROW
+        return customerTableHeaderRow;
+    }
 
     private void getCustomerListAndPopulateTable() {
         new AsyncTask<Void, Void, Void>() {
@@ -82,7 +103,7 @@ public class CustomersActivity extends AppCompatActivity {
         //Clear the table data
         customerTable.removeAllViews();
         //Create the header row for the employee table
-        createCustomerTableHeaderRow();
+        customerTable.addView(createCustomerTableHeaderRow());
 
         if (customers != null && customers.size() != 0) {
             for (final Customer customer : customers) {
@@ -139,14 +160,10 @@ public class CustomersActivity extends AppCompatActivity {
         }
     }
 
-    private void createCustomerTableHeaderRow() {
-        //TODO THIS
-    }
-
-    private void deleteCustomer(final Customer customer) {
+    //TODO STILL DYNAMICS AND LOCAL TO DO IN DELETECUSTOMER
+    private void deleteCustomer(final String customerID) {
         new AsyncTask<Void, Void, Void>() {
             ProgressDialog progress = new ProgressDialog(customersActivityContext);
-
             @Override
             protected void onPreExecute() {
                 super.onPreExecute();
@@ -161,14 +178,16 @@ public class CustomersActivity extends AppCompatActivity {
                 boolean customerSuccessfullyDeletedLocal = false;
                 CustomerDAO customerDAO = new CustomerDAO(customersActivityContext);
                 try {
-                    customerConnector.deleteCustomer(customer.getId());
+                    connectCustomerConn();
+                    customerConnector.deleteCustomer(customerID);
                     customerSuccessfullyDeletedClover = true;
+                    disconnectCustomerConn();
                 } catch (ServiceException | BindingException | ClientException | RemoteException e) {
                     customerSuccessfullyDeletedClover = false;
                     Log.e("Clover Exception: ", e.getMessage());
                 } catch (Exception e2) {
                     customerSuccessfullyDeletedClover = false;
-                    Log.e("Generic Exception: ", e2.getMessage());
+                    Log.e("Generic Exception: ", "" + e2.getMessage());
                 }
                 /////IF DELETED SUCCESSFULLY IN CLOVER
                 if (customerSuccessfullyDeletedClover) {
@@ -315,7 +334,7 @@ public class CustomersActivity extends AppCompatActivity {
                 .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
                         String confirmationToastString = "Customer " + getCustomerFullName(customer) + " Deleted!";
-                        deleteCustomer(customer);
+                        deleteCustomer(customer.getId());
                         Toast.makeText(CustomersActivity.this, confirmationToastString, Toast.LENGTH_SHORT).show();
                     }
                 })
