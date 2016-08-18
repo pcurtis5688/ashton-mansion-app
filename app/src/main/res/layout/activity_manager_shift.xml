@@ -10,15 +10,14 @@
     android:stretchColumns="*"
     tools:context="com.ashtonmansion.ashtonmansioncloverapp.activity.shift.ManagerShiftActivity">
 
-    <TableRow>
+    <TableRow android:layout_width="match_parent">
 
         <TextView
             android:id="@+id/shift_management_header_tv"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_span="2"
-            android:text="@string/shift_management_header_str"
-            android:textAlignment="center" />
+            android:layout_width="fill_parent"
+            android:layout_gravity="center_horizontal"
+            android:text="@string/shift_management_main_page_header"
+            android:textSize="@dimen/activity_header_size" />
     </TableRow>
 
     <TableRow>

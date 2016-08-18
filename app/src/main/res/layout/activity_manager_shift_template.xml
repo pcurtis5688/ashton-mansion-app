@@ -10,15 +10,15 @@
     android:stretchColumns="*"
     tools:context="com.ashtonmansion.ashtonmansioncloverapp.activity.shift.ShiftTemplateManagementActivity">
 
-    <TableRow>
+    <TableRow android:layout_width="match_parent">
 
         <TextView
-            android:id="@+id/manager_shift_template_header_tv"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:id="@+id/shift_template_management_page_header"
+            android:layout_width="fill_parent"
             android:layout_span="3"
             android:layout_gravity="center_horizontal"
-            android:text="@string/shift_template_management_header" />
+            android:text="@string/shift_template_management_header"
+            android:textSize="@dimen/activity_header_size" />
     </TableRow>
 
     <TableRow>
@@ -27,21 +27,21 @@
             android:id="@+id/shift_template_add_code"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:hint="@string/shift_template_add_code_hint_str"/>
+            android:textAlignment="center"
+            android:hint="@string/shift_template_add_code_hint_str" />
 
         <EditText
             android:id="@+id/shift_template_add_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
+            android:textAlignment="center"
             android:hint="@string/shift_template_add_name_hint_str" />
 
         <Button
             android:id="@+id/shift_template_add_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
+            android:textAlignment="center"
             android:onClick="addShiftTemplateRecord"
             android:text="@string/shift_template_add_btn_str" />
     </TableRow>

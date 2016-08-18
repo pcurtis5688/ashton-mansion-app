@@ -10,22 +10,21 @@
     android:stretchColumns="*"
     tools:context="com.ashtonmansion.ashtonmansioncloverapp.activity.shift.ShiftExceptionManagementActivity">
 
-    <TableRow>
+    <TableRow android:layout_width="match_parent">
 
         <TextView
             android:id="@+id/shift_exception_management_header_tv"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_gravity="center_horizontal"
-            android:layout_span="3"
-            android:text="@string/shift_exception_management_header_tv_str" />
+            android:text="@string/shift_exception_management_header_tv_str"
+            android:textSize="@dimen/activity_header_size" />
     </TableRow>
 
     <TableRow>
 
         <LinearLayout
-            android:layout_span="1"
-            android:layout_width="match_parent">
+            android:layout_width="match_parent"
+            android:layout_span="1">
 
             <Spinner
                 android:id="@+id/shift_exception_employee_dropdown"

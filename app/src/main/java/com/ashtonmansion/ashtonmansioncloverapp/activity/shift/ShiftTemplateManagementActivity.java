@@ -29,7 +29,6 @@ public class ShiftTemplateManagementActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manager_shift_template);
-
         //Set up table and header row
         setUpTableAndHeader();
         //Retrieve Shift Template information and populate
@@ -104,8 +103,9 @@ public class ShiftTemplateManagementActivity extends AppCompatActivity {
         EditText newShiftName = (EditText) findViewById(R.id.shift_template_add_name);
         int newShiftCodeInt = Integer.parseInt(newShiftCode.getText().toString());
         String newShiftNameString = newShiftName.getText().toString();
-        //TODO DAOS IN ASYNC?
         shiftDAO.addShiftTemplate(newShiftCodeInt, newShiftNameString);
+        newShiftCode.setText("");
+        newShiftName.setText("");
         reloadShiftTemplatePage();
         Toast.makeText(ShiftTemplateManagementActivity.this, "Shift Template Successfully Added", Toast.LENGTH_LONG).show();
     }
