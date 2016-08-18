@@ -20,7 +20,7 @@ public class AppointmentWebServices {
     // STATIC SERVICE VARS
     ///////////////////////
     private static final String APPT_WS_NAMESPACE = "urn:microsoft-dynamics-schemas/codeunit/AppointmentWebService";
-    private static final String APPT_WS_SOAP_ACTION = "urn:microsoft-dynamics-schemas/codeunit/AppointmentWebService:returnHello";
+    private static final String APPT_WS_SOAP_ACTION = "urn:microsoft-dynamics-schemas/codeunit/AppointmentWebService:CreateAppointment";
     private static final String APPT_WEB_SERVICE_URL = "http://10.0.3.2:7047/DynamicsNAV90/WS/CRONUS%20Canada,%20Inc./Codeunit/AppointmentWebService";
     private static final String CREATE_APPT_METHOD = "CreateAppointment";
 
@@ -102,7 +102,6 @@ public class AppointmentWebServices {
             NTLMTransport transport = new NTLMTransport();
             transport.setCredentials(APPT_WEB_SERVICE_URL, "paul", "Wmo67766767", "laptop-53b1c7v6", "");
             transport.call(APPT_WS_SOAP_ACTION, envelope);
-            //TODO HERE THE WEB SERVICE SENDS BACK IF SUCCESSFUL OR NOT, AND I EVALUATE
             String requestDump = transport.requestDump;
             Log.i("Req: ", "" + requestDump);
         } catch (IOException e1) {

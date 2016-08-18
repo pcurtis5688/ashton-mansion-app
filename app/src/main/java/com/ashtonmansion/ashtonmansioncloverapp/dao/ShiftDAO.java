@@ -38,15 +38,18 @@ public class ShiftDAO extends SQLiteOpenHelper {
 
 
     //CREATE, EDIT, OR DELETE SHIFT TEMPLATE METHODS
-    public void addShiftTemplate(int shiftTemplateCode, String shiftTemplateName) {
+    public long addShiftTemplate(ShiftTemplate shiftTemplate) {
+        long newShiftTemplateID;
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put(SHIFT_TEMPLATE_CODE, shiftTemplateCode);
-        values.put(SHIFT_TEMPLATE_NAME, shiftTemplateName);
+        values.put(SHIFT_TEMPLATE_CODE, shiftTemplate.getShiftCode());
+        values.put(SHIFT_TEMPLATE_NAME, shiftTemplate.getShiftName());
 
-        db.insert(TABLE_SHIFT_TEMPLATE, null, values);
+        newShiftTemplateID = db.insert(TABLE_SHIFT_TEMPLATE, null, values);
         db.close();
+
+        return newShiftTemplateID;
     }
 
     public void deleteShiftTemplate(int shiftTemplateID) {

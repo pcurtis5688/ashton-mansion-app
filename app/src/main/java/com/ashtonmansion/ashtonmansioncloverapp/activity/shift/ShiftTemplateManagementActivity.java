@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.ashtonmansion.ashtonmansioncloverapp.R;
 import com.ashtonmansion.ashtonmansioncloverapp.dao.ShiftDAO;
 import com.ashtonmansion.ashtonmansioncloverapp.dbo.ShiftTemplate;
+import com.ashtonmansion.ashtonmansioncloverapp.webservices.shiftws.ShiftWebServices;
 
 import java.util.List;
 
@@ -103,7 +104,15 @@ public class ShiftTemplateManagementActivity extends AppCompatActivity {
         EditText newShiftName = (EditText) findViewById(R.id.shift_template_add_name);
         int newShiftCodeInt = Integer.parseInt(newShiftCode.getText().toString());
         String newShiftNameString = newShiftName.getText().toString();
-        shiftDAO.addShiftTemplate(newShiftCodeInt, newShiftNameString);
+        ShiftTemplate newShiftTemplate = new ShiftTemplate(newShiftCodeInt, newShiftNameString);
+        long newShiftTemplateID = shiftDAO.addShiftTemplate(newShiftTemplate);
+        String newShiftTemplateIDString = Long.toString(newShiftTemplateID);
+        int newShiftTemplateIDInt = Integer.parseInt(newShiftTemplateIDString);
+        newShiftTemplate.setShiftID(newShiftTemplateIDInt);
+        /////////TESTING DYNAMICS CALL
+        ShiftWebServices shiftWebServices = new ShiftWebServices();
+        shiftWebServices.createShiftTemplateViaWS(newShiftTemplate);
+        //RELOAD PAGE
         newShiftCode.setText("");
         newShiftName.setText("");
         reloadShiftTemplatePage();
