@@ -12,7 +12,7 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.ashtonmansion.ashtonmansioncloverapp.activity.MainActivity">
+        <activity android:name=".activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -20,8 +20,8 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.ashtonmansion.ashtonmansioncloverapp.activity.appointment.AppointmentsActivity"
-            android:parentActivityName="com.ashtonmansion.ashtonmansioncloverapp.activity.MainActivity">
+            android:name=".activity.appointment.AppointmentsActivity"
+            android:parentActivityName=".activity.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.ashtonmansion.ashtonmansioncloverapp.activity.MainActivity" />
@@ -31,50 +31,51 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.ashtonmansion.ashtonmansioncloverapp.activity.appointment.AddAppointmentActivity"
-            android:parentActivityName="com.ashtonmansion.ashtonmansioncloverapp.activity.appointment.AppointmentsActivity" />
-        <activity
-            android:name="com.ashtonmansion.ashtonmansioncloverapp.activity.SettingsActivity"
-            android:parentActivityName="com.ashtonmansion.ashtonmansioncloverapp.activity.MainActivity" />
-        <activity
-            android:name="com.ashtonmansion.ashtonmansioncloverapp.activity.customer.CustomersActivity"
-            android:parentActivityName="com.ashtonmansion.ashtonmansioncloverapp.activity.MainActivity" />
-        <activity
-            android:name="com.ashtonmansion.ashtonmansioncloverapp.activity.item.InventoryActivity"
-            android:parentActivityName="com.ashtonmansion.ashtonmansioncloverapp.activity.MainActivity" />
-        <activity
-            android:name="com.ashtonmansion.ashtonmansioncloverapp.activity.employee.EmployeesActivity"
-            android:parentActivityName="com.ashtonmansion.ashtonmansioncloverapp.activity.MainActivity" />
-        <activity
-            android:name="com.ashtonmansion.ashtonmansioncloverapp.activity.employee.AddEmployeeActivity"
-            android:parentActivityName="com.ashtonmansion.ashtonmansioncloverapp.activity.employee.EmployeesActivity" />
-        <activity
-            android:name="com.ashtonmansion.ashtonmansioncloverapp.activity.customer.AddCustomerActivity"
-            android:parentActivityName="com.ashtonmansion.ashtonmansioncloverapp.activity.customer.CustomersActivity" />
-        <activity
-            android:name="com.ashtonmansion.ashtonmansioncloverapp.activity.item.AddInventoryActivity"
-            android:parentActivityName="com.ashtonmansion.ashtonmansioncloverapp.activity.MainActivity" />
-        <activity
-            android:name="com.ashtonmansion.ashtonmansioncloverapp.activity.appointment.AppointmentDetailActivity"
+            android:name=".activity.appointment.AddAppointmentActivity"
             android:parentActivityName=".activity.appointment.AppointmentsActivity" />
         <activity
-            android:name="com.ashtonmansion.ashtonmansioncloverapp.activity.SandboxActivity"
+            android:name=".activity.SettingsActivity"
             android:parentActivityName=".activity.MainActivity" />
         <activity
-            android:name="com.ashtonmansion.ashtonmansioncloverapp.activity.customer.EditCustomerActivity"
-            android:parentActivityName="com.ashtonmansion.ashtonmansioncloverapp.activity.customer.CustomersActivity" />
-        <activity
-            android:name="com.ashtonmansion.ashtonmansioncloverapp.activity.management.ManagerMainActivity"
+            android:name=".activity.customer.CustomersActivity"
             android:parentActivityName=".activity.MainActivity" />
         <activity
-            android:name="com.ashtonmansion.ashtonmansioncloverapp.activity.shift.ManagerShiftActivity"
+            android:name=".activity.item.InventoryActivity"
+            android:parentActivityName=".activity.MainActivity" />
+        <activity
+            android:name=".activity.employee.EmployeesActivity"
+            android:parentActivityName=".activity.MainActivity" />
+        <activity
+            android:name=".activity.employee.AddEmployeeActivity"
+            android:parentActivityName=".activity.employee.EmployeesActivity" />
+        <activity
+            android:name=".activity.customer.AddCustomerActivity"
+            android:parentActivityName=".activity.customer.CustomersActivity" />
+        <activity
+            android:name=".activity.item.AddInventoryActivity"
+            android:parentActivityName=".activity.MainActivity" />
+        <activity
+            android:name=".activity.appointment.AppointmentDetailActivity"
+            android:parentActivityName=".activity.appointment.AppointmentsActivity" />
+        <activity
+            android:name=".activity.SandboxActivity"
+            android:parentActivityName=".activity.MainActivity" />
+        <activity
+            android:name=".activity.customer.EditCustomerActivity"
+            android:parentActivityName=".activity.customer.CustomersActivity" />
+        <activity
+            android:name=".activity.management.ManagerMainActivity"
+            android:parentActivityName=".activity.MainActivity" />
+        <activity
+            android:name=".activity.shift.ManagerShiftActivity"
             android:parentActivityName=".activity.management.ManagerMainActivity" />
         <activity
-            android:name="com.ashtonmansion.ashtonmansioncloverapp.activity.shift.ShiftTemplateManagementActivity"
+            android:name=".activity.shift.ShiftTemplateManagementActivity"
             android:parentActivityName=".activity.shift.ManagerShiftActivity" />
         <activity
-            android:name="com.ashtonmansion.ashtonmansioncloverapp.activity.shift.ShiftExceptionManagementActivity"
+            android:name=".activity.shift.ShiftExceptionManagementActivity"
             android:parentActivityName=".activity.shift.ManagerShiftActivity" />
+        <activity android:name=".activity.shift.ShiftsActivity"></activity>
     </application>
 
 </manifest>

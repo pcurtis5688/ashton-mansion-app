@@ -7,7 +7,7 @@
     <!-- PAGE HEADER STRINGS -->
     <string name="manager_main_page_header">Management</string>
     <string name="shift_management_main_page_header">Shift Management</string>
-
+    <string name="shifts_activity_header_str">Shifts</string>
     <!-- APPOINTMENT RELATED STRINGS -->
     <string name="appt_page">Appointments</string>
     <string name="appointments_heading_str">Appointments</string>
@@ -213,8 +213,9 @@
 
     <!-- MANAGEMENT STRINGS -->
     <string name="management_page_btn_str">Management</string>
-    <string name="shifts_popup_btn_str">Shifts</string>
     <string name="shift_management_header_str">Shift Management</string>
+    <string name="shifts_activity_start_btn_str">Shifts</string>
+
     <string name="shift_template_popup_btn_str">Shift Templates</string>
     <string name="shift_exception_popup_btn_str">Shift Exceptions</string>
 

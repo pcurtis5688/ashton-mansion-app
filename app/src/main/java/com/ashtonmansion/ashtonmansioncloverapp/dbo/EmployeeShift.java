@@ -1,4 +1,4 @@
-package com.ashtonmansion.ashtonmansioncloverapp.activity.shift;
+package com.ashtonmansion.ashtonmansioncloverapp.dbo;
 
 import java.util.Date;
 

@@ -23,10 +23,11 @@
     <TableRow>
 
         <Button
-            android:id="@+id/shifts_popup_btn"
+            android:id="@+id/shifts_activity_start_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/shifts_popup_btn_str"
+            android:onClick="displayShiftsActivity"
+            android:text="@string/shifts_activity_start_btn_str"
             android:textAlignment="center" />
     </TableRow>
 

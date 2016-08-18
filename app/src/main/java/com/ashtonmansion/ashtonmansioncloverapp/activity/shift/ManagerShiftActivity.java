@@ -20,6 +20,11 @@ public class ManagerShiftActivity extends AppCompatActivity {
 
     }
 
+    public void displayShiftsActivity(View view) {
+        Intent shiftsActivityIntent = new Intent(this, ShiftsActivity.class);
+        startActivity(shiftsActivityIntent);
+    }
+
     public void displayShiftTemplateActivity(View view) {
         Intent shiftTemplateActivityIntent = new Intent(this, ShiftTemplateManagementActivity.class);
         startActivity(shiftTemplateActivityIntent);
