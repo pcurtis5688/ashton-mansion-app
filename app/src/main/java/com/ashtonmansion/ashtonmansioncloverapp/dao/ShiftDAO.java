@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import com.ashtonmansion.ashtonmansioncloverapp.dbo.ShiftException;
 import com.ashtonmansion.ashtonmansioncloverapp.dbo.ShiftTemplate;
@@ -19,11 +20,10 @@ public class ShiftDAO extends SQLiteOpenHelper {
     //DATABASE STATIC VARIABLES AND UTILITY STRINGS
     private static final int DATABASE_VERSION = 1;
     private static final String DATABASE_NAME = "AshtonMansionDB";
-    private static final String TEXT_TYPE = " TEXT ";
     private static final String TEXT_TYPE_COMMA = " TEXT, ";
 
     //SHIFT EXCEPTION TABLE AND COLUMN NAMES
-    private static final String TABLE_SHIFT_EXCEPTION = "ShiftException";
+    private static final String TABLE_SHIFT_EXCEPTION = "Shift_Exception";
     private static final String SHIFT_EXCEPTION_ID = "id_shift_exception";
     private static final String SHIFT_EXCEPTION_DATE = "exception_date";
     private static final String SHIFT_EXCEPTION_TIME = "exception_time";
@@ -31,14 +31,13 @@ public class ShiftDAO extends SQLiteOpenHelper {
     private static final String SHIFT_EXCEPTION_DURATION = "exception_duration";
 
     //SHIFT TEMPLATE TABLE AND COLUMN NAMES
-    private static final String TABLE_SHIFT_TEMPLATE = "ShiftTemplate";
+    private static final String TABLE_SHIFT_TEMPLATE = "Shift_Template";
     private static final String SHIFT_TEMPLATE_ID = "id_shift_template";
     private static final String SHIFT_TEMPLATE_CODE = "shift_template_code";
     private static final String SHIFT_TEMPLATE_NAME = "shift_template_name";
 
 
-
-    //INSERT A SHIFT TEMPLATE RECORD INTO TABLE
+    //CREATE, EDIT, OR DELETE SHIFT TEMPLATE METHODS
     public void addShiftTemplate(int shiftTemplateCode, String shiftTemplateName) {
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -50,7 +49,22 @@ public class ShiftDAO extends SQLiteOpenHelper {
         db.close();
     }
 
-    //GET ALL SHIFT TEMPLATES
+    public void deleteShiftTemplate(int shiftTemplateID) {
+        String shiftTemplateIDString = "" + shiftTemplateID;
+        SQLiteDatabase db = getWritableDatabase();
+        try {
+            db.delete(TABLE_SHIFT_TEMPLATE, SHIFT_TEMPLATE_ID + "= ?", new String[]{shiftTemplateIDString});
+        } catch (Exception e) {
+            Log.e("Exception occurred ", "while deleting shift template: " + e.getMessage());
+        } finally {
+            db.close();
+        }
+    }
+
+    //CREATE, EDIT, OR DELETE SHIFT EXCEPTION METHODS
+    //TODO THESE
+
+    //SHIFT TEMPLATE OR EXCEPTION RETRIEVAL METHODS
     public List<ShiftTemplate> getAllShiftTemplates() {
 
         List<ShiftTemplate> shiftTemplateList = new ArrayList<ShiftTemplate>();
@@ -73,28 +87,6 @@ public class ShiftDAO extends SQLiteOpenHelper {
         return shiftTemplateList;
     }
 
-    public void createShiftTemplateTable() {
-        SQLiteDatabase db = this.getWritableDatabase();
-        String CREATE_SHIFT_TEMPLATE_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_SHIFT_TEMPLATE
-                + "(" + SHIFT_TEMPLATE_ID + " INTEGER PRIMARY KEY, "
-                + SHIFT_TEMPLATE_CODE + " INTEGER, "
-                + SHIFT_TEMPLATE_NAME + TEXT_TYPE + ")";
-        db.execSQL(CREATE_SHIFT_TEMPLATE_TABLE);
-        db.close();
-    }
-
-    public void createShiftExceptionTable() {
-        SQLiteDatabase db = this.getWritableDatabase();
-        String CREATE_SHIFT_EXCEPTION_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_SHIFT_EXCEPTION
-                + "(" + SHIFT_TEMPLATE_ID + " INTEGER PRIMARY KEY, "
-                + SHIFT_EXCEPTION_EMPLOYEE + TEXT_TYPE_COMMA
-                + SHIFT_EXCEPTION_DATE + TEXT_TYPE_COMMA
-                + SHIFT_EXCEPTION_DATE + " TEXT)";
-        db.execSQL(CREATE_SHIFT_EXCEPTION_TABLE);
-        db.close();
-    }
-
-    //GET ALL SHIFT EXCEPTIONS
     public List<ShiftException> getAllShiftExceptions() {
         List<ShiftException> shiftExceptions = new ArrayList<>();
         String selectAllQuery = "SELECT * FROM " + TABLE_SHIFT_EXCEPTION;
@@ -120,7 +112,42 @@ public class ShiftDAO extends SQLiteOpenHelper {
         return shiftExceptions;
     }
 
-    //////////* BELOW METHODS SHOULD BE COMPLETE *//////////////
+    //CREATE OR DROP SHIFT TABLES
+    public void createShiftTemplateTable() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String CREATE_SHIFT_TEMPLATE_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_SHIFT_TEMPLATE
+                + "(" + SHIFT_TEMPLATE_ID + " INTEGER PRIMARY KEY, "
+                + SHIFT_TEMPLATE_CODE + TEXT_TYPE_COMMA
+                + SHIFT_TEMPLATE_NAME + " TEXT)";
+        db.execSQL(CREATE_SHIFT_TEMPLATE_TABLE);
+        db.close();
+    }
+
+    public void createShiftExceptionTable() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String CREATE_SHIFT_EXCEPTION_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_SHIFT_EXCEPTION
+                + "(" + SHIFT_EXCEPTION_ID + " INTEGER PRIMARY KEY, "
+                + SHIFT_EXCEPTION_DATE + TEXT_TYPE_COMMA
+                + SHIFT_EXCEPTION_TIME + TEXT_TYPE_COMMA
+                + SHIFT_EXCEPTION_EMPLOYEE + TEXT_TYPE_COMMA
+                + SHIFT_EXCEPTION_DURATION + " TEXT)";
+        db.execSQL(CREATE_SHIFT_EXCEPTION_TABLE);
+        db.close();
+    }
+
+    public void dropShiftTemplateTable() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("DROP TABLE IF EXISTS '" + TABLE_SHIFT_TEMPLATE + "'");
+        db.close();
+    }
+
+    public void dropShiftExceptionTable() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("DROP TABLE IF EXISTS '" + TABLE_SHIFT_EXCEPTION + "'");
+        db.close();
+    }
+
+    //CONSTRUCTOR, OVERRIDDEN METHODS
     public ShiftDAO(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }

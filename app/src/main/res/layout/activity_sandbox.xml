@@ -25,11 +25,17 @@
             android:onClick="dropLocalEmployeeTableAndReCreate"
             android:text="Drop Local Emp Table And ReCreate" />
     </TableRow>
+
     <TableRow>
 
         <Button
-            android:id="@+id/test_insertEmplWS_btn"
-            android:onClick="insertAnEmployeeViaWS"
-            android:text="Test Employee Web Service Insert" />
+            android:id="@+id/drop_and_recreate_shift_template_btn"
+            android:onClick="dropShiftTemplateTableAndReCreate"
+            android:text="Recreate Shift Templates" />
+
+        <Button
+            android:id="@+id/drop_and_recreate_shift_exception_btn"
+            android:onClick="dropShiftExceptionsTableAndReCreate"
+            android:text="Recreate Shift Exceptions" />
     </TableRow>
 </TableLayout>

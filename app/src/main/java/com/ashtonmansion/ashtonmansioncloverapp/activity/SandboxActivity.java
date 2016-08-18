@@ -6,6 +6,7 @@ import android.view.View;
 
 import com.ashtonmansion.ashtonmansioncloverapp.R;
 import com.ashtonmansion.ashtonmansioncloverapp.dao.EmployeeDAO;
+import com.ashtonmansion.ashtonmansioncloverapp.dao.ShiftDAO;
 
 public class SandboxActivity extends AppCompatActivity {
 
@@ -21,7 +22,16 @@ public class SandboxActivity extends AppCompatActivity {
         employeeDAO.createEmployeeTableIfNotExists();
     }
 
-    public void insertAnEmployeeViaWS(View view){
-        //TODO MAY NEED.
+    public void dropShiftTemplateTableAndReCreate(View view) {
+        ShiftDAO shiftDAO = new ShiftDAO(this);
+        shiftDAO.dropShiftTemplateTable();
+        shiftDAO.createShiftTemplateTable();
     }
+
+    public void dropShiftExceptionsTableAndReCreate(View view) {
+        ShiftDAO shiftDAO = new ShiftDAO(this);
+        shiftDAO.dropShiftExceptionTable();
+        shiftDAO.createShiftExceptionTable();
+    }
+
 }
