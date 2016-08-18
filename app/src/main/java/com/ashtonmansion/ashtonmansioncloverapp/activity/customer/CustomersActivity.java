@@ -3,18 +3,28 @@ package com.ashtonmansion.ashtonmansioncloverapp.activity.customer;
 import com.ashtonmansion.ashtonmansioncloverapp.R;
 
 import android.accounts.Account;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.os.RemoteException;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.ashtonmansion.ashtonmansioncloverapp.dao.CustomerDAO;
+import com.ashtonmansion.ashtonmansioncloverapp.dao.EmployeeDAO;
+import com.clover.sdk.v1.BindingException;
+import com.clover.sdk.v1.ClientException;
+import com.clover.sdk.v1.ServiceException;
 import com.clover.sdk.v1.customer.Address;
 import com.clover.sdk.v1.customer.CustomerConnector;
 import com.clover.sdk.v1.customer.Customer;
@@ -133,8 +143,60 @@ public class CustomersActivity extends AppCompatActivity {
         //TODO THIS
     }
 
-    private void deleteThisCustomer(Customer customer) {
-        //TODO THIS
+    private void deleteCustomer(final Customer customer) {
+        new AsyncTask<Void, Void, Void>() {
+            ProgressDialog progress = new ProgressDialog(customersActivityContext);
+
+            @Override
+            protected void onPreExecute() {
+                super.onPreExecute();
+                progress.setMessage("Deleting...");
+                progress.show();
+            }
+
+            @Override
+            protected Void doInBackground(Void... params) {
+                boolean customerSuccessfullyDeletedClover;
+                boolean customerSuccessfullyDeletedDynamics = false;
+                boolean customerSuccessfullyDeletedLocal = false;
+                CustomerDAO customerDAO = new CustomerDAO(customersActivityContext);
+                try {
+                    customerConnector.deleteCustomer(customer.getId());
+                    customerSuccessfullyDeletedClover = true;
+                } catch (ServiceException | BindingException | ClientException | RemoteException e) {
+                    customerSuccessfullyDeletedClover = false;
+                    Log.e("Clover Exception: ", e.getMessage());
+                } catch (Exception e2) {
+                    customerSuccessfullyDeletedClover = false;
+                    Log.e("Generic Exception: ", e2.getMessage());
+                }
+                /////IF DELETED SUCCESSFULLY IN CLOVER
+                if (customerSuccessfullyDeletedClover) {
+                    /////DYNAMICS DELETION
+                    //TODO DYNAMICS DELETE METHOD
+
+                    //if (customerSuccessfullyDeletedDynamics) {
+                    //TODO LOCAL DELETION METHOD IN DAO
+                    //  customerSuccessfullyDeletedLocal = customerDAO.deleteLocalEmployeeRecord(employee);
+                    if (!customerSuccessfullyDeletedLocal) {
+                        Log.e("Local deletion err: ", "See Above...");
+                    }
+                    // } else {
+                    //    Log.e("Dynamics Delete: ", "Failed: ");
+                    //}
+                } else {
+                    Log.e("Clover Delete: ", "Failed: ");
+                }
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(Void result) {
+                super.onPostExecute(result);
+                progress.dismiss();
+                getCustomerListAndPopulateTable();
+            }
+        }.execute();
     }
 
     private String getCustomerFullName(Customer customer) {
@@ -243,6 +305,21 @@ public class CustomersActivity extends AppCompatActivity {
             customerConnector.disconnect();
             customerConnector = null;
         }
+    }
+
+    private void deleteThisCustomer(final Customer customer) {
+        new AlertDialog.Builder(this)
+                .setTitle("Delete Customer?")
+                .setMessage("Delete Customer: " + getCustomerFullName(customer) + "?")
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        String confirmationToastString = "Customer " + getCustomerFullName(customer) + " Deleted!";
+                        deleteCustomer(customer);
+                        Toast.makeText(CustomersActivity.this, confirmationToastString, Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .setNegativeButton(android.R.string.no, null).show();
     }
 
     /////////////////ACTIVITY FLOW METHODS ///////////////////

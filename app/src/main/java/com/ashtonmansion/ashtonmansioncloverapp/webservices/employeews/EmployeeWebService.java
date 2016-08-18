@@ -19,8 +19,8 @@ import java.io.IOException;
 public class EmployeeWebService {
     // STATIC SERVICE VARS ///////////////////////
     private static final String EMPL_WS_NAMESPACE = "urn:microsoft-dynamics-schemas/codeunit/EmployeeWebService";
-    private static final String CREATE_EMPL_METHOD = "EmployeeToNAV";
-    private static final String EMPL_WS_SOAP_ACTION = "urn:microsoft-dynamics-schemas/codeunit/EmployeeWebService:EmployeeToNAV";
+    private static final String CREATE_EMPL_METHOD = "CreateEmployee";
+    private static final String EMPL_WS_SOAP_ACTION = "urn:microsoft-dynamics-schemas/codeunit/EmployeeWebService:CreateEmployee";
     private static final String EMPL_WEB_SERVICE_URL = "http://10.0.3.2:7047/DynamicsNAV90/WS/CRONUS%20Canada,%20Inc./Codeunit/EmployeeWebService";
 
     public boolean createEmployeeServiceCall(Employee employee) {
@@ -29,6 +29,7 @@ public class EmployeeWebService {
             SoapObject request = new SoapObject(EMPL_WS_NAMESPACE, CREATE_EMPL_METHOD);
             SoapSerializationEnvelope envelope = WebServiceUtilities.getSoapSerializationEnvelope(request);
 
+            String roleString = employee.getRole().toString();
             ///PARAMS////
             PropertyInfo pi1 = new PropertyInfo();
             pi1.setName("ID");
@@ -50,13 +51,13 @@ public class EmployeeWebService {
 
             PropertyInfo pi4 = new PropertyInfo();
             pi4.setName("Role");
-            pi4.setValue(employee.getRole().toString());
+            pi4.setValue(roleString);
             pi4.setType(String.class);
             request.addProperty(pi4);
 
             PropertyInfo pi5 = new PropertyInfo();
             pi5.setName("PIN");
-            pi5.setValue(employee.getRole());
+            pi5.setValue(employee.getPin());
             pi5.setType(String.class);
             request.addProperty(pi5);
 

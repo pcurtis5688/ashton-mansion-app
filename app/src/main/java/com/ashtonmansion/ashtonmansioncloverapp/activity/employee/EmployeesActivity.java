@@ -124,7 +124,7 @@ public class EmployeesActivity extends AppCompatActivity {
         //Connect emp connector
         connectEmployees();
         getEmployeeListAndPopulateTable();
-        populateLocalEmplTableTesting();
+        //populateLocalEmplTableTesting();
     }
 
     public void displayAddEmployee(View view) {
@@ -214,15 +214,17 @@ public class EmployeesActivity extends AppCompatActivity {
                 empRoleTextview = new TextView(this);
 
                 //HANDLE EDIT CLICK LISTENERS
-                Button editCustomerButton = new Button(employeesActivityContext);
-                editCustomerButton.setOnClickListener(new View.OnClickListener() {
+                Button editEmployeeButton = new Button(employeesActivityContext);
+                editEmployeeButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         editThisEmployee(currentEmp);
                     }
                 });               //TODO USE STRING RESOURCE
-                editCustomerButton.setText("Edit");
+                editEmployeeButton.setText("Edit");
                 //HANDLE THE DELETE BUTTON
+
+
                 Button deleteEmployeeButton = new Button(this);
                 deleteEmployeeButton.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -230,6 +232,7 @@ public class EmployeesActivity extends AppCompatActivity {
                         deleteThisEmployee(currentEmp);
                     }
                 });
+                deleteEmployeeButton.setText("Delete");
 
                 //ADD DATA TO THE COMPONENTS
                 empIdTextview.setText(currentEmp.getId());
@@ -238,7 +241,6 @@ public class EmployeesActivity extends AppCompatActivity {
                 empEmailTextview.setText(currentEmp.getEmail());
                 empRoleTextview.setText(currentEmp.getRole().name());
                 //TODO FIX THIS ACCESS STRINGS.XML
-                deleteEmployeeButton.setText("Delete Employee");
 
                 //ADD COMPONENTS TO THE NEW ROW
                 workingEmployeeRow.addView(empIdTextview);
@@ -246,6 +248,7 @@ public class EmployeesActivity extends AppCompatActivity {
                 workingEmployeeRow.addView(empNicknameTextView);
                 workingEmployeeRow.addView(empEmailTextview);
                 workingEmployeeRow.addView(empRoleTextview);
+                workingEmployeeRow.addView(editEmployeeButton);
                 workingEmployeeRow.addView(deleteEmployeeButton);
                 //Add the new row to the table
                 employeeTable.addView(workingEmployeeRow);

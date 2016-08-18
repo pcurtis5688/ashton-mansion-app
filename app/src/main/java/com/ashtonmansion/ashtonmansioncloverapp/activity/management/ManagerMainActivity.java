@@ -18,7 +18,7 @@ import java.util.List;
 
 public class ManagerMainActivity extends AppCompatActivity {
     //Activity vars
-    private Context context;
+    private Context managerMainActivityContext;
     //STATIC LOCAL VARS
     private Account mAcct;
     private EmployeeConnector mEmplConn;
@@ -30,13 +30,15 @@ public class ManagerMainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manager_main);
 
-
     }
 
     @Override
     protected void onResume() {
         super.onResume();
 
+    }
+
+    private void getMerchantAccount() {
         //Retrieve the Clover merchant account
         if (mAcct == null) {
             mAcct = CloverAccount.getAccount(this);
@@ -47,11 +49,6 @@ public class ManagerMainActivity extends AppCompatActivity {
                 return;
             }
         }
-
-        //Get Customers
-        connectEmployeeConn();
-        getEmployeeList();
-
     }
 
     private void connectEmployeeConn() {
@@ -95,11 +92,10 @@ public class ManagerMainActivity extends AppCompatActivity {
         }.execute();
     }
 
-    public void showManagerShiftPage(View view){
+    public void showManagerShiftPage(View view) {
         Intent managerShiftIntent = new Intent(this, ManagerShiftActivity.class);
         startActivity(managerShiftIntent);
     }
-
 
     public static void editEmployeeShiftActivity() {
         //TODO COMPLETE IMPLEMENTATION

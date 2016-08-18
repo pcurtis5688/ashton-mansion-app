@@ -25,11 +25,9 @@ import com.clover.sdk.v3.customers.Address;
 import com.clover.sdk.v3.customers.Customer;
 import com.clover.sdk.v3.customers.EmailAddress;
 import com.clover.sdk.v3.customers.PhoneNumber;
-import com.clover.sdk.v3.inventory.PriceType;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 public class AddCustomerActivity extends AppCompatActivity {
     //INSTANCE VARS
@@ -37,7 +35,6 @@ public class AddCustomerActivity extends AppCompatActivity {
     //SERVICE VARS
     private Account mAcct;
     private CustomerConnector customerConnector;
-    private Customer newCustomer;
     //PRIVATE FIELD VARS
     private EditText customerFirst;
     private EditText customerLast;
@@ -57,25 +54,26 @@ public class AddCustomerActivity extends AppCompatActivity {
     private List<EmailAddress> emailAddressList;
     private List<Address> addressList;
     /////RESULT FLAGS
-    private long newlyAssignedCustomerID;
     private boolean cloverInsertSuccess;
     private boolean createCustomerWSSuccess;
 
     //Submit customer for creation
     public void submitAddCustomer(View view) {
         ///*CREATE CLOVER CUSTOMER INSTANCE AND SET DATA///
-        createNewCustomerAndSetData();
+        Customer newCustomer = createNewCustomerAndSetData();
 
         /////CLOVER, DYNAMICS, AND LOCAL INSERTION/////////
-        doBackgroundCloverDynamicsAndLocalInsertions();
+        doBackgroundCloverDynamicsAndLocalInsertions(newCustomer);
 
         ///////////* OUTCOME HANDLING *////////////////////
         ////////////TODO ANYTHING HERE?*//////////////////
     }
 
-    private void doBackgroundCloverDynamicsAndLocalInsertions() {
+    private void doBackgroundCloverDynamicsAndLocalInsertions(final Customer newCustomer) {
         new AsyncTask<Void, Void, Void>() {
             ProgressDialog progress = new ProgressDialog(addCustomerContext);
+            String newlyAssignedCloverCustomerID = "";
+            long sqliteReturnResult = 0;
 
             @Override
             protected void onPreExecute() {
@@ -98,18 +96,18 @@ public class AddCustomerActivity extends AppCompatActivity {
                     for (EmailAddress emailAddress : emailAddressList) {
                         customerConnector.addEmailAddress(newCustomer.getId(), emailAddress.getEmailAddress());
                     }
-                    customerConnector.createCustomer((newCustomer.getFirstName().toString()), (newCustomer.getLastName().toString()), (newCustomer.getMarketingAllowed()));
-                    //TODO GET CUST ID AND SET THE OTHER FIELDS
+                    com.clover.sdk.v1.customer.Customer returnCustomer = customerConnector.createCustomer((newCustomer.getFirstName().toString()), (newCustomer.getLastName().toString()), (newCustomer.getMarketingAllowed()));
+                    newlyAssignedCloverCustomerID = returnCustomer.getId();
+                    newCustomer.setId(newlyAssignedCloverCustomerID);
                     cloverInsertSuccess = true;
                 } catch (RemoteException | ServiceException | ClientException | BindingException e) {
-                    cloverInsertSuccess = true;
+                    cloverInsertSuccess = false;
                     Log.e("Clover Exception: ", e.getMessage());
                 } catch (Exception e2) {
-                    cloverInsertSuccess = true;
+                    cloverInsertSuccess = false;
                     Log.e("Generic Exception: ", e2.getMessage());
                 } finally {
                     customerConnector.disconnect();
-                    Log.i("Cust Clover Success: ", "" + cloverInsertSuccess);
                 }
 
                 //////ONLY CONTINUE IF CLOVER INSERT SUCCESSFUL//////
@@ -124,14 +122,12 @@ public class AddCustomerActivity extends AppCompatActivity {
                         ///////////* LOCAL INSERTION *////////////////////////
                         try {
                             CustomerDAO customerDAO = new CustomerDAO(addCustomerContext);
-                            newlyAssignedCustomerID = customerDAO.insertLocalCustomerRecord(newCustomer);
+                            sqliteReturnResult = customerDAO.insertLocalCustomerRecord(newCustomer);
                         } catch (Exception e) {
                             Log.e("Generic Exception: ", "Local insertion customer: " + e.getMessage());
                         }
-                        if (newlyAssignedCustomerID == -1) {
-                            Log.e("Exception in SQLite: ", "See Above");
-                        } else {
-                            Log.i("New LOCAL Customer ID: ", "" + newlyAssignedCustomerID);
+                        if (sqliteReturnResult == -1) {
+                            Log.e("Exception in SQLite: ", "See Above; result: " + sqliteReturnResult);
                         }
                     } else {
                         Log.e("Cust WS Call: ", "failed");
@@ -182,11 +178,11 @@ public class AddCustomerActivity extends AppCompatActivity {
     }
 
     /*THESE METHODS ARE COMPLETE*////////////////////
-    private void createNewCustomerAndSetData() {
+    private Customer createNewCustomerAndSetData() {
         emailAddressList = new ArrayList<>();
         phoneNumberList = new ArrayList<>();
         addressList = new ArrayList<>();
-        newCustomer = new Customer().setFirstName(customerFirst.getText().toString());
+        Customer newCustomer = new Customer().setFirstName(customerFirst.getText().toString());
         newCustomer.setLastName(customerLast.getText().toString());
         newCustomer.setMarketingAllowed(customerMarketingAllowedChkbox.isChecked());
 
@@ -211,6 +207,8 @@ public class AddCustomerActivity extends AppCompatActivity {
         addressList = new ArrayList<>();
         addressList.add(newCustomerAddress);
         newCustomer.setAddresses(addressList);
+
+        return newCustomer;
     }
 
     private void getMerchantAcct() {

@@ -54,13 +54,27 @@
         <activity
             android:name="com.ashtonmansion.ashtonmansioncloverapp.activity.item.AddInventoryActivity"
             android:parentActivityName="com.ashtonmansion.ashtonmansioncloverapp.activity.MainActivity" />
-        <activity android:name="com.ashtonmansion.ashtonmansioncloverapp.activity.appointment.AppointmentDetailActivity" />
-        <activity android:name="com.ashtonmansion.ashtonmansioncloverapp.activity.SandboxActivity" />
-        <activity android:name="com.ashtonmansion.ashtonmansioncloverapp.activity.customer.EditCustomerActivity" />
-        <activity android:name="com.ashtonmansion.ashtonmansioncloverapp.activity.management.ManagerMainActivity" />
-        <activity android:name="com.ashtonmansion.ashtonmansioncloverapp.activity.shift.ManagerShiftActivity" />
-        <activity android:name="com.ashtonmansion.ashtonmansioncloverapp.activity.shift.ShiftTemplateManagementActivity" />
-        <activity android:name="com.ashtonmansion.ashtonmansioncloverapp.activity.shift.ShiftExceptionManagementActivity" />
+        <activity
+            android:name="com.ashtonmansion.ashtonmansioncloverapp.activity.appointment.AppointmentDetailActivity"
+            android:parentActivityName=".activity.appointment.AppointmentsActivity" />
+        <activity
+            android:name="com.ashtonmansion.ashtonmansioncloverapp.activity.SandboxActivity"
+            android:parentActivityName=".activity.MainActivity" />
+        <activity
+            android:name="com.ashtonmansion.ashtonmansioncloverapp.activity.customer.EditCustomerActivity"
+            android:parentActivityName="com.ashtonmansion.ashtonmansioncloverapp.activity.customer.CustomersActivity" />
+        <activity
+            android:name="com.ashtonmansion.ashtonmansioncloverapp.activity.management.ManagerMainActivity"
+            android:parentActivityName=".activity.MainActivity" />
+        <activity
+            android:name="com.ashtonmansion.ashtonmansioncloverapp.activity.shift.ManagerShiftActivity"
+            android:parentActivityName=".activity.management.ManagerMainActivity" />
+        <activity
+            android:name="com.ashtonmansion.ashtonmansioncloverapp.activity.shift.ShiftTemplateManagementActivity"
+            android:parentActivityName=".activity.shift.ManagerShiftActivity" />
+        <activity
+            android:name="com.ashtonmansion.ashtonmansioncloverapp.activity.shift.ShiftExceptionManagementActivity"
+            android:parentActivityName=".activity.shift.ManagerShiftActivity" />
     </application>
 
 </manifest>
