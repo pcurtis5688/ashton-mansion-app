@@ -18,20 +18,19 @@ import java.io.IOException;
  */
 public class CustomerWebService {
     // STATIC SERVICE VARS
-    ///////////////////////
     private static final String CUST_WS_NAMESPACE = "urn:microsoft-dynamics-schemas/codeunit/CustomerWebService";
-    private static final String CREATE_CUST_METHOD = "CreateCustomer";
-    private static final String CUST_WS_SOAP_ACTION = "urn:microsoft-dynamics-schemas/codeunit/CustomerWebService:CreateCustomer";
     private static final String CUST_WEB_SERVICE_URL = "http://10.0.3.2:7047/DynamicsNAV90/WS/CRONUS%20Canada,%20Inc./Codeunit/CustomerWebService";
 
     public boolean createCustomerServiceCall(Customer customer) {
+        final String CREATE_CUST_METHOD = "CreateCustomer";
+        final String CREATE_CUST_SOAP_ACTION = "urn:microsoft-dynamics-schemas/codeunit/CustomerWebService:CreateCustomer";
+
         boolean createCustomerInDynamicsSuccess = false;
         SoapObject request = new SoapObject(CUST_WS_NAMESPACE, CREATE_CUST_METHOD);
         SoapSerializationEnvelope envelope = WebServiceUtilities.getSoapSerializationEnvelope(request);
         /////////////
         ///PARAMS////
 
-        ////TESTS
         //TODO HANDLE THESE TYPES OF FIELDS AND DECIDE HOW TO STORE
         String test1 = customer.getMarketingAllowed().toString();
         String test2 = customer.getPhoneNumbers().toString();
@@ -89,7 +88,7 @@ public class CustomerWebService {
         NTLMTransport transport = new NTLMTransport();
         transport.setCredentials(CUST_WEB_SERVICE_URL, "paul", "Wmo67766767", "laptop-53b1c7v6", "");
         try {
-            transport.call(CUST_WS_SOAP_ACTION, envelope);
+            transport.call(CREATE_CUST_SOAP_ACTION, envelope);
             createCustomerInDynamicsSuccess = true;
         } catch (XmlPullParserException e1) {
             Log.e("XMLPPException: ", e1.getMessage());
@@ -97,6 +96,37 @@ public class CustomerWebService {
             Log.e("IOException: ", e2.getMessage());
         }
         return createCustomerInDynamicsSuccess;
+    }
+
+    public boolean deleteCustomerServiceCall(String customerID) {
+        final String DELETE_CUST_METHOD = "DeleteCustomer";
+        final String DELETE_CUST_SOAP_ACTION = "urn:microsoft-dynamics-schemas/codeunit/CustomerWebService:DeleteCustomer";
+
+        boolean deleteCustomerInDynamicsSuccess = false;
+        SoapObject request = new SoapObject(CUST_WS_NAMESPACE, DELETE_CUST_METHOD);
+        SoapSerializationEnvelope envelope = WebServiceUtilities.getSoapSerializationEnvelope(request);
+
+        ///PARAMS////
+        PropertyInfo pi1 = new PropertyInfo();
+        pi1.setName("customer_ID");
+        pi1.setValue(customerID);
+        pi1.setType(String.class);
+        request.addProperty(pi1);
+
+        ////////////MAKE THE CALL
+        NTLMTransport transport = new NTLMTransport();
+        transport.setCredentials(CUST_WEB_SERVICE_URL, "paul", "Wmo67766767", "laptop-53b1c7v6", "");
+        try {
+            transport.call(DELETE_CUST_SOAP_ACTION, envelope);
+            deleteCustomerInDynamicsSuccess = true;
+        } catch (XmlPullParserException e1) {
+            Log.e("XMLPPException: ", e1.getMessage());
+        } catch (IOException e2) {
+            Log.e("IOException: ", e2.getMessage());
+        } catch (Exception e3) {
+            Log.e("GenericExcpt: ", e3.getMessage());
+        }
+        return deleteCustomerInDynamicsSuccess;
     }
 }
 

@@ -194,9 +194,7 @@ public class CustomersActivity extends AppCompatActivity {
                 if (customerSuccessfullyDeletedClover) {
                     /////DYNAMICS DELETION
                     CustomerWebService customerWebService = new CustomerWebService();
-                    //// TODO: 8/19/2016
-
-
+                    customerWebService.deleteCustomerServiceCall(customerID);
 
                     //if (customerSuccessfullyDeletedDynamics) {
                     //TODO LOCAL DELETION METHOD IN DAO
