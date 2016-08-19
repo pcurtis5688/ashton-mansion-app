@@ -58,8 +58,6 @@ public class ShiftWebServices {
             Log.e("XMLPPException: ", e1.getMessage());
         } catch (IOException e2) {
             Log.e("IOException: ", e2.getMessage());
-        } catch (Exception e3) {
-            Log.e("Generic Excp: ", e3.getMessage());
         }
         //TODO HERE THE WEB SERVICE SENDS BACK IF SUCCESSFUL OR NOT, AND I EVALUATE
         String requestDump = "" + transport.requestDump;

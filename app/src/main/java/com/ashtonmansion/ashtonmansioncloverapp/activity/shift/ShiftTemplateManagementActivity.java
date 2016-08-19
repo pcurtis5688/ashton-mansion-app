@@ -2,8 +2,10 @@ package com.ashtonmansion.ashtonmansioncloverapp.activity.shift;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -23,8 +25,11 @@ public class ShiftTemplateManagementActivity extends AppCompatActivity {
     //DATA VARS
     private List<ShiftTemplate> shiftTemplateList;
     private ShiftDAO shiftDAO;
+    private ShiftTemplate newShiftTemplate;
+    private boolean shiftTemplateWSSuccess;
     //UI FIELD ELEMENTS
     private TableLayout shiftTemplateTable;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,26 +105,53 @@ public class ShiftTemplateManagementActivity extends AppCompatActivity {
 
     public void addShiftTemplateRecord(View view) {
         //TODO CONFIRMATION POPUP HERE
-        EditText newShiftCode = (EditText) findViewById(R.id.shift_template_add_code);
-        EditText newShiftName = (EditText) findViewById(R.id.shift_template_add_name);
-        int newShiftCodeInt = Integer.parseInt(newShiftCode.getText().toString());
-        String newShiftNameString = newShiftName.getText().toString();
-        ShiftTemplate newShiftTemplate = new ShiftTemplate(newShiftCodeInt, newShiftNameString);
-        long newShiftTemplateID = shiftDAO.addShiftTemplate(newShiftTemplate);
-        String newShiftTemplateIDString = Long.toString(newShiftTemplateID);
-        int newShiftTemplateIDInt = Integer.parseInt(newShiftTemplateIDString);
-        newShiftTemplate.setShiftID(newShiftTemplateIDInt);
+        EditText newShiftCodeTV = (EditText) findViewById(R.id.shift_template_add_code);
+        EditText newShiftNameTV = (EditText) findViewById(R.id.shift_template_add_name);
+        String newShiftTemplateID = "";
+        String newShiftTemplateCode = newShiftCodeTV.getText().toString();
+        String newShiftTemplateName = newShiftNameTV.getText().toString();
+        newShiftTemplate = new ShiftTemplate();
+        newShiftTemplate.setShiftCode(newShiftTemplateCode);
+        newShiftTemplate.setShiftName(newShiftTemplateName);
+        long newShiftTemplateIDLong = shiftDAO.addShiftTemplate(newShiftTemplate);
+        newShiftTemplateID = Long.toString(newShiftTemplateIDLong);
+        newShiftTemplate.setShiftID(newShiftTemplateID);
         /////////TESTING DYNAMICS CALL
-        ShiftWebServices shiftWebServices = new ShiftWebServices();
-        shiftWebServices.createShiftTemplateViaWS(newShiftTemplate);
+        callShiftTemplateWSInBackground();
         //RELOAD PAGE
-        newShiftCode.setText("");
-        newShiftName.setText("");
+        newShiftCodeTV.setText("");
+        newShiftNameTV.setText("");
         reloadShiftTemplatePage();
         Toast.makeText(ShiftTemplateManagementActivity.this, "Shift Template Successfully Added", Toast.LENGTH_LONG).show();
     }
 
-    private void deleteShiftTemplate(int shiftTemplateID) {
+    private void callShiftTemplateWSInBackground() {
+        new AsyncTask<Void, Void, Void>() {
+            @Override
+            protected void onPreExecute() {
+                super.onPreExecute();
+            }
+
+            @Override
+            protected Void doInBackground(Void... params) {
+                ShiftWebServices shiftWebService = new ShiftWebServices();
+                shiftTemplateWSSuccess = shiftWebService.createShiftTemplateViaWS(newShiftTemplate);
+                Log.i("Result STWS:", "" + shiftTemplateWSSuccess);
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(Void result) {
+                super.onPostExecute(result);
+                //todo closeoutactivity?
+                //todo progress bar?
+
+                //closeOutActivity();
+            }
+        }.execute();
+    }
+
+    private void deleteShiftTemplate(String shiftTemplateID) {
         shiftDAO = new ShiftDAO(this);
         shiftDAO.deleteShiftTemplate(shiftTemplateID);
         shiftDAO.close();
@@ -140,4 +172,6 @@ public class ShiftTemplateManagementActivity extends AppCompatActivity {
                 })
                 .setNegativeButton(android.R.string.no, null).show();
     }
+
+
 }

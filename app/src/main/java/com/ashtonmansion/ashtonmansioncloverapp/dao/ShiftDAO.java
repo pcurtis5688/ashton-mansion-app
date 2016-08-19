@@ -52,11 +52,10 @@ public class ShiftDAO extends SQLiteOpenHelper {
         return newShiftTemplateID;
     }
 
-    public void deleteShiftTemplate(int shiftTemplateID) {
-        String shiftTemplateIDString = "" + shiftTemplateID;
+    public void deleteShiftTemplate(String shiftTemplateID) {
         SQLiteDatabase db = getWritableDatabase();
         try {
-            db.delete(TABLE_SHIFT_TEMPLATE, SHIFT_TEMPLATE_ID + "= ?", new String[]{shiftTemplateIDString});
+            db.delete(TABLE_SHIFT_TEMPLATE, SHIFT_TEMPLATE_ID + "= ?", new String[]{shiftTemplateID});
         } catch (Exception e) {
             Log.e("Exception occurred ", "while deleting shift template: " + e.getMessage());
         } finally {
@@ -80,8 +79,8 @@ public class ShiftDAO extends SQLiteOpenHelper {
         if (cursor.moveToFirst()) {
             do {
                 ShiftTemplate shiftTemplate = new ShiftTemplate();
-                shiftTemplate.setShiftID(cursor.getInt(0));
-                shiftTemplate.setShiftCode(cursor.getInt(1));
+                shiftTemplate.setShiftID(cursor.getString(0));
+                shiftTemplate.setShiftCode(cursor.getString(1));
                 shiftTemplate.setShiftName(cursor.getString(2));
                 //UPON CREATION, ADD TO LIST
                 shiftTemplateList.add(shiftTemplate);

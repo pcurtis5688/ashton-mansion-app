@@ -4,32 +4,27 @@ package com.ashtonmansion.ashtonmansioncloverapp.dbo;
  * Created by paul on 8/7/2016.
  */
 public class ShiftTemplate {
-    private int shiftID;
-    private int shiftCode;
+    private String shiftID;
+    private String shiftCode;
     private String shiftName;
 
-    public ShiftTemplate(){
+    public ShiftTemplate() {
         //builder
     }
 
-    public ShiftTemplate(int shiftCode, String shiftName) {
-        this.shiftCode = shiftCode;
-        this.shiftName = shiftName;
-    }
-
-    public int getShiftID() {
+    public String getShiftID() {
         return shiftID;
     }
 
-    public void setShiftID(int shiftID) {
+    public void setShiftID(String shiftID) {
         this.shiftID = shiftID;
     }
 
-    public int getShiftCode() {
+    public String getShiftCode() {
         return shiftCode;
     }
 
-    public void setShiftCode(int shiftCode) {
+    public void setShiftCode(String shiftCode) {
         this.shiftCode = shiftCode;
     }
 
