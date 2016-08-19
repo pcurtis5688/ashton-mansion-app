@@ -3,6 +3,7 @@ package com.ashtonmansion.ashtonmansioncloverapp.activity.appointment;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.format.DateUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.DatePicker;
@@ -14,6 +15,9 @@ import com.ashtonmansion.ashtonmansioncloverapp.R;
 import com.ashtonmansion.ashtonmansioncloverapp.dao.AppointmentDAO;
 import com.ashtonmansion.ashtonmansioncloverapp.dbo.Appointment;
 import com.ashtonmansion.ashtonmansioncloverapp.webservices.appointmentws.AppointmentWebServices;
+
+import java.sql.Time;
+import java.util.Date;
 
 public class AddAppointmentActivity extends AppCompatActivity {
     //todo below
@@ -36,8 +40,18 @@ public class AddAppointmentActivity extends AppCompatActivity {
     public void submitAddAppointment(View view) {
         apptDAO = new AppointmentDAO(this);
         appointment = new Appointment();
-        appointment.set_date("fixthis");
-        appointment.set_start_time("fixthis");
+        //HANDLE DATE FROM DATEPICKER
+        int dateMonth = datePicker.getMonth();
+        int dateDay = datePicker.getDayOfMonth();
+        int dateYear = datePicker.getYear();
+        Date appt_date = new Date(dateYear - 1900, dateMonth, dateDay);
+        //HANDLE TIME FROM TIMEPICKER
+        int apptHour = timePicker.getCurrentHour();
+        int apptMinute = timePicker.getCurrentMinute();
+        Time appt_time = new Time(apptHour, apptMinute, 0);
+        //CONSTRUCT THE APPOINTMENT OBJECT
+        appointment.set_date(appt_date.toString());
+        appointment.set_start_time(appt_time.toString());
         appointment.set_duration(durationText.getText().toString());
         appointment.set_customer_code(customerCodeText.getText().toString());
         appointment.set_alert_type(alertTypeSpinner.getSelectedItem().toString());
@@ -51,7 +65,6 @@ public class AddAppointmentActivity extends AppCompatActivity {
         //todo while both dao and dynamics are being inserted
         ////////////////////LOCAL DB UPDATED, NOW CALL DYNAMICS WS
         callApptWSInBackground();
-
     }
 
     private void callApptWSInBackground() {

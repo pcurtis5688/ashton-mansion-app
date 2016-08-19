@@ -9,6 +9,7 @@
       <w>codeunit</w>
       <w>createfail</w>
       <w>cust</w>
+      <w>datepicker</w>
       <w>deletecustomer</w>
       <w>empl</w>
       <w>excpt</w>
@@ -18,6 +19,7 @@
       <w>spawndao</w>
       <w>sqlite</w>
       <w>textview</w>
+      <w>timepicker</w>
     </words>
   </dictionary>
 </component>

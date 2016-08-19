@@ -18,21 +18,19 @@ import java.io.IOException;
  */
 public class AppointmentWebServices {
     // STATIC SERVICE VARS
-    ///////////////////////
     private static final String APPT_WS_NAMESPACE = "urn:microsoft-dynamics-schemas/codeunit/AppointmentWebService";
-    private static final String APPT_WS_SOAP_ACTION = "urn:microsoft-dynamics-schemas/codeunit/AppointmentWebService:CreateAppointment";
     private static final String APPT_WEB_SERVICE_URL = "http://10.0.3.2:7047/DynamicsNAV90/WS/CRONUS%20Canada,%20Inc./Codeunit/AppointmentWebService";
-    private static final String CREATE_APPT_METHOD = "CreateAppointment";
 
     public boolean addAppointmentViaWS(Appointment appt) {
-        boolean resultBool = true;
+        final String CREATE_APPT_SOAP_ACTION = "urn:microsoft-dynamics-schemas/codeunit/AppointmentWebService:CreateAppointment";
+        final String CREATE_APPT_METHOD_NAME = "CreateAppointment";
+        boolean apptSuccessfullyAddedInDynamics = false;
         try {
-            SoapObject request = new SoapObject(APPT_WS_NAMESPACE, CREATE_APPT_METHOD);
+            SoapObject request = new SoapObject(APPT_WS_NAMESPACE, CREATE_APPT_METHOD_NAME);
             SoapSerializationEnvelope envelope = WebServiceUtilities.getSoapSerializationEnvelope(request);
             /////////////
             ///PARAMS////
             //TODO THINK IN MORE DETAIL IF WE NEED TO GENERATE ID OR IF SQL DOES
-            //TODO FOR NOW I AM HARDCODING IT
             PropertyInfo pi1 = new PropertyInfo();
             pi1.setName("iD");
             pi1.setValue("89");
@@ -101,21 +99,16 @@ public class AppointmentWebServices {
             ////////////MAKE THE CALL
             NTLMTransport transport = new NTLMTransport();
             transport.setCredentials(APPT_WEB_SERVICE_URL, "paul", "Wmo67766767", "laptop-53b1c7v6", "");
-            transport.call(APPT_WS_SOAP_ACTION, envelope);
-            String requestDump = transport.requestDump;
-            Log.i("Req: ", "" + requestDump);
+            transport.call(CREATE_APPT_SOAP_ACTION, envelope);
+            apptSuccessfullyAddedInDynamics = true;
         } catch (IOException e1) {
             Log.e("IO Err: ", "" + "" + e1.getMessage());
-            resultBool = false;
         } catch (XmlPullParserException e2) {
             Log.e("XMLPull Excpt: ", "" + e2.getMessage());
-            resultBool = false;
         } catch (Exception e) {
             Log.e("Exception in: ", "" + e.getMessage());
-            resultBool = false;
         }
-
-        return resultBool;
+        return apptSuccessfullyAddedInDynamics;
     }
 }
 

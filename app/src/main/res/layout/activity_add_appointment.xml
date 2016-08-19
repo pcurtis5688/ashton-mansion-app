@@ -28,7 +28,8 @@
                     android:id="@+id/id_appt_page_header"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/add_appt_page_header" />
+                    android:text="@string/add_appt_page_header"
+                    android:textAlignment="center" />
             </TableRow>
 
             <TableRow>
@@ -49,47 +50,54 @@
 
                 <TextView
                     android:id="@+id/label_appt_item_code"
-                    android:text="@string/appt_item_code_label_str" />
+                    android:text="@string/appt_item_code_label_str"
+                    android:textAlignment="center" />
 
                 <EditText
                     android:id="@+id/appt_item_code"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:hint="@string/appt_item_code_hint" />
+                    android:hint="@string/appt_item_code_hint"
+                    android:textAlignment="center" />
             </TableRow>
 
             <TableRow>
 
                 <TextView
                     android:id="@+id/label_appt_duration"
-                    android:text="@string/appt_duration_label_str" />
+                    android:text="@string/appt_duration_label_str"
+                    android:textAlignment="center" />
 
                 <EditText
                     android:id="@+id/appt_duration"
                     android:layout_width="match_parent"
                     android:layout_gravity="center"
                     android:hint="@string/appt_duration_hint"
-                    android:maxLength="3" />
+                    android:maxLength="3"
+                    android:textAlignment="center" />
             </TableRow>
 
             <TableRow>
 
                 <TextView
                     android:id="@+id/label_appt_customer_code"
-                    android:text="@string/appt_cust_code_label_str" />
+                    android:text="@string/appt_cust_code_label_str"
+                    android:textAlignment="center" />
 
                 <EditText
                     android:id="@+id/appt_customer_code"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:hint="@string/appt_customer_code_hint" />
+                    android:hint="@string/appt_customer_code_hint"
+                    android:textAlignment="center" />
             </TableRow>
 
             <TableRow>
 
                 <TextView
                     android:id="@+id/label_alert_type"
-                    android:text="@string/appt_alert_type_label_str" />
+                    android:text="@string/appt_alert_type_label_str"
+                    android:textAlignment="center" />
 
                 <Spinner
                     android:id="@+id/appt_alert_type_spinner"
@@ -102,7 +110,8 @@
 
                 <TextView
                     android:id="@+id/label_appt_note"
-                    android:text="@string/appt_note_label_str" />
+                    android:text="@string/appt_note_label_str"
+                    android:textAlignment="center" />
 
                 <EditText
                     android:id="@+id/appt_note"
@@ -116,33 +125,38 @@
 
                 <TextView
                     android:id="@+id/label_appt_emp_1_assigned"
-                    android:text="@string/appt_emp_1_label_str" />
+                    android:text="@string/appt_emp_1_label_str"
+                    android:textAlignment="center" />
 
                 <EditText
                     android:id="@+id/appt_emp_1_assigned"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/appt_emp_1_assigned_hint" />
+                    android:hint="@string/appt_emp_1_assigned_hint"
+                    android:textAlignment="center" />
             </TableRow>
 
             <TableRow>
 
                 <TextView
                     android:id="@+id/label_appt_emp_2_assigned"
-                    android:text="@string/appt_emp_2_label_str" />
+                    android:text="@string/appt_emp_2_label_str"
+                    android:textAlignment="center" />
 
                 <EditText
                     android:id="@+id/appt_emp_2_assigned"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:hint="@string/appt_emp_2_assigned_hint" />
+                    android:hint="@string/appt_emp_2_assigned_hint"
+                    android:textAlignment="center" />
             </TableRow>
 
             <TableRow>
 
                 <TextView
                     android:id="@+id/label_appt_status_confirm"
-                    android:text="@string/appt_confirm_status_label_str" />
+                    android:text="@string/appt_confirm_status_label_str"
+                    android:textAlignment="center" />
 
                 <Spinner
                     android:id="@+id/appt_confirm_status"
@@ -161,7 +175,7 @@
                     android:id="@+id/cancel_add_appointment_btn"
                     style="?android:attr/buttonBarButtonStyle"
                     android:onClick="cancelAddAppointment"
-                    android:text="@string/add_inventory_cancel_btn_str" />
+                    android:text="@string/add_appointment_cxl_btn_str" />
 
                 <Button
                     android:id="@+id/submit_add_appointment_btn"

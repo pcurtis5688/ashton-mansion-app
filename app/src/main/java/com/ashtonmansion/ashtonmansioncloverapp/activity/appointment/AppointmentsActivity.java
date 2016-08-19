@@ -20,8 +20,6 @@ public class AppointmentsActivity extends AppCompatActivity {
     private List<Appointment> appointmentList = new ArrayList<>();
     private TableLayout appointmentsTable;
 
-    //TODO USE STRING RESOURCES
-
     private void refreshAppointmentTable() {
         //Clear the appointment table
         appointmentsTable.removeAllViews();

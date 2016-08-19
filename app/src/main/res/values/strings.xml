@@ -13,18 +13,18 @@
     <string name="appointments_heading_str">Appointments</string>
     <string name="add_appt_page_header">Add an Appointment</string>
     <string name="add_appointment_button">Add an Appointment</string>
-
+    <string name="add_appointment_cxl_btn_str">Cancel</string>
     <string name="appt_datepicker_label_str">Appointment Date: </string>
     <string name="appt_timepicker_label_str">Appointment Time: </string>
     <string name="appt_duration_label_str">Appointment Duration: </string>
     <string name="appt_duration_hint">\? Hours</string>
     <string name="appt_alert_type_label_str">Alert Type: </string>
-    <string name="appt_cust_code_label_str">Customer Code: </string>
-    <string name="appt_item_code_label_str">Item Code: </string>
-    <string name="appt_note_label_str">Appointment Notes </string>
-    <string name="appt_emp_1_label_str">Employee 1 Assigned: </string>
-    <string name="appt_emp_2_label_str">Employee 2 Assigned: </string>
-    <string name="appt_confirm_status_label_str">Initial Confirmation Status: </string>
+    <string name="appt_cust_code_label_str">Customer Code</string>
+    <string name="appt_item_code_label_str">Item Code</string>
+    <string name="appt_note_label_str">Appointment Notes</string>
+    <string name="appt_emp_1_label_str">Employee 1 Assigned</string>
+    <string name="appt_emp_2_label_str">Employee 2 Assigned</string>
+    <string name="appt_confirm_status_label_str">Initial Confirmation Status</string>
     <string name="appt_item_code_hint">[Item Code]</string>
     <string name="appt_customer_code_hint">[Customer Code]</string>
     <string name="appt_emp_1_assigned_hint">[Employee 1]</string>
