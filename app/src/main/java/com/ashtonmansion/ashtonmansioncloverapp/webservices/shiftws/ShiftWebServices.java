@@ -31,19 +31,19 @@ public class ShiftWebServices {
         ///PARAMS////
 
         PropertyInfo pi1 = new PropertyInfo();
-        pi1.setName("Shift_Template_ID");
+        pi1.setName("shift_template_ID");
         pi1.setValue(shiftTemplate.getShiftID());
         pi1.setType(String.class);
         request.addProperty(pi1);
 
         PropertyInfo pi2 = new PropertyInfo();
-        pi2.setName("Shift_Template_Code");
+        pi2.setName("shift_template_code");
         pi2.setValue(shiftTemplate.getShiftCode());
         pi2.setType(String.class);
         request.addProperty(pi2);
 
         PropertyInfo pi3 = new PropertyInfo();
-        pi3.setName("Shift_Template_Name");
+        pi3.setName("shift_template_name");
         pi3.setValue(shiftTemplate.getShiftName());
         pi3.setType(String.class);
         request.addProperty(pi3);
