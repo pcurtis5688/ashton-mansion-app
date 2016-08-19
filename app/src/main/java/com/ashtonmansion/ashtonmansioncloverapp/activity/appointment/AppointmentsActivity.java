@@ -78,27 +78,27 @@ public class AppointmentsActivity extends AppCompatActivity {
         TableRow headerRow = new TableRow(this);
         //SET THE COLUMN HEADERS
         TextView headerIDTV = new TextView(this);
-        headerIDTV.setText("ID");
         TextView headerDateTV = new TextView(this);
-        headerDateTV.setText("Appointment Date");
         TextView headerTimeTV = new TextView(this);
-        headerTimeTV.setText("Time");
         TextView headerDurationTV = new TextView(this);
-        headerDurationTV.setText("Appt Duration");
         TextView headerCustCodeTV = new TextView(this);
-        headerCustCodeTV.setText("Customer Code");
         TextView headerAlertTypeTV = new TextView(this);
-        headerAlertTypeTV.setText("Alert Type");
         TextView headerItemCodeTV = new TextView(this);
-        headerItemCodeTV.setText("Item Code");
         TextView headerNoteTV = new TextView(this);
-        headerNoteTV.setText("Note");
         TextView headerEmp1TV = new TextView(this);
-        headerEmp1TV.setText("Employee 1");
         TextView headerEmp2TV = new TextView(this);
-        headerEmp2TV.setText("Emp 2");
         TextView headerConfirmStatusTV = new TextView(this);
-        headerConfirmStatusTV.setText("Status");
+        headerIDTV.setText(R.string.header_appt_table_appt_ID);
+        headerDateTV.setText(R.string.header_appt_table_appt_date);
+        headerTimeTV.setText(R.string.header_appt_table_appt_time);
+        headerDurationTV.setText(R.string.header_appt_table_appt_duration);
+        headerCustCodeTV.setText(R.string.header_appt_table_appt_customer_code);
+        headerAlertTypeTV.setText(R.string.header_appt_table_appt_alert_type);
+        headerItemCodeTV.setText(R.string.header_appt_table_appt_item_code);
+        headerNoteTV.setText(R.string.header_appt_table_appt_note);
+        headerEmp1TV.setText(R.string.header_appt_table_appt_emp_1);
+        headerEmp2TV.setText(R.string.header_appt_table_appt_emp_2);
+        headerConfirmStatusTV.setText(R.string.header_appt_table_appt_status);
         //ADD THE COLUMN HEADERS TO THE ROW
         headerRow.addView(headerIDTV);
         headerRow.addView(headerDateTV);

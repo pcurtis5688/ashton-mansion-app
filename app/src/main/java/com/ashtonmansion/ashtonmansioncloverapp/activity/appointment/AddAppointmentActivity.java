@@ -80,10 +80,10 @@ public class AddAppointmentActivity extends AppCompatActivity {
     }
 
     private void closeOutActivity() {
-        if (webServiceSuccess == true) {
+        if (webServiceSuccess) {
             Log.i("Web Service: ", "SUCCESS");
         } else {
-            Log.i("Web Service: ", "FAILURE");
+            Log.e("Web Service: ", "FAILURE");
         }
         apptDAO.close();
         finish();

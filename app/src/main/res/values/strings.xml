@@ -43,6 +43,18 @@
         <item>Etc</item>
     </string-array>
 
+    <string name="header_appt_table_appt_ID">ID</string>
+    <string name="header_appt_table_appt_date">Date</string>
+    <string name="header_appt_table_appt_time">Time</string>
+    <string name="header_appt_table_appt_duration">Hours (planned)</string>
+    <string name="header_appt_table_appt_customer_code">Customer Code</string>
+    <string name="header_appt_table_appt_alert_type">Alert Type</string>
+    <string name="header_appt_table_appt_item_code">Item Code</string>
+    <string name="header_appt_table_appt_note">Note</string>
+    <string name="header_appt_table_appt_emp_1">Employee 1</string>
+    <string name="header_appt_table_appt_emp_2">Empl. 2</string>
+    <string name="header_appt_table_appt_status">Status</string>
+
     <string name="test_insertApptWS_btn_str">Test Insert Appt WS</string>
 
     <!--CUSTOMER ACTIVITY RELATED STRINGS-->
