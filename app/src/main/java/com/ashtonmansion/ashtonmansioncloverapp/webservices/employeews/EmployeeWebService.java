@@ -24,7 +24,7 @@ public class EmployeeWebService {
     private static final String EMPL_WEB_SERVICE_URL = "http://10.0.3.2:7047/DynamicsNAV90/WS/CRONUS%20Canada,%20Inc./Codeunit/EmployeeWebService";
 
     public boolean createEmployeeServiceCall(Employee employee) {
-        boolean shiftTemplateWSCreationSuccess = false;
+        boolean createEmployeeInDynamicsSuccess = false;
         SoapObject request = new SoapObject(EMPL_WS_NAMESPACE, CREATE_EMPL_METHOD);
         SoapSerializationEnvelope envelope = WebServiceUtilities.getSoapSerializationEnvelope(request);
         /////////////
@@ -71,15 +71,12 @@ public class EmployeeWebService {
         transport.setCredentials(EMPL_WEB_SERVICE_URL, "paul", "Wmo67766767", "laptop-53b1c7v6", "");
         try {
             transport.call(EMPL_WS_SOAP_ACTION, envelope);
-            shiftTemplateWSCreationSuccess = true;
+            createEmployeeInDynamicsSuccess = true;
         } catch (XmlPullParserException e1) {
             Log.e("XMLPPException: ", e1.getMessage());
         } catch (IOException e2) {
             Log.e("IOException: ", e2.getMessage());
         }
-        //TODO HERE THE WEB SERVICE SENDS BACK IF SUCCESSFUL OR NOT, AND I EVALUATE
-        String requestDump = "" + transport.requestDump;
-        Log.i("Req: ", "" + requestDump);
-        return shiftTemplateWSCreationSuccess;
+        return createEmployeeInDynamicsSuccess;
     }
 }
