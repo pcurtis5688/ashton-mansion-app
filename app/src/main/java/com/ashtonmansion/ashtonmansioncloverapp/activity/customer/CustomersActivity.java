@@ -161,10 +161,11 @@ public class CustomersActivity extends AppCompatActivity {
         }
     }
 
-    //TODO STILL DYNAMICS AND LOCAL TO DO IN DELETECUSTOMER
+    //TODO LOCAL TO DO IN DELETECUSTOMER
     private void deleteCustomer(final String customerID) {
         new AsyncTask<Void, Void, Void>() {
             ProgressDialog progress = new ProgressDialog(customersActivityContext);
+
             @Override
             protected void onPreExecute() {
                 super.onPreExecute();
@@ -194,19 +195,15 @@ public class CustomersActivity extends AppCompatActivity {
                 if (customerSuccessfullyDeletedClover) {
                     /////DYNAMICS DELETION
                     CustomerWebService customerWebService = new CustomerWebService();
-                    customerWebService.deleteCustomerServiceCall(customerID);
+                    customerSuccessfullyDeletedDynamics = customerWebService.deleteCustomerServiceCall(customerID);
 
-                    //if (customerSuccessfullyDeletedDynamics) {
-                    //TODO LOCAL DELETION METHOD IN DAO
-                    //  customerSuccessfullyDeletedLocal = customerDAO.deleteLocalEmployeeRecord(employee);
-                    if (!customerSuccessfullyDeletedLocal) {
-                        Log.e("Local deletion err: ", "See Above...");
+                    if (customerSuccessfullyDeletedDynamics) {
+                        //TODO LOCAL INSERTION & DELETION METHOD IN DAO
+//                        customerSuccessfullyDeletedLocal = customerDAO.deleteLocalEmployeeRecord(employee);
+//                        if (!customerSuccessfullyDeletedLocal) {
+//                            Log.e("Local deletion err: ", "See Above...");
+//                        }
                     }
-                    // } else {
-                    //    Log.e("Dynamics Delete: ", "Failed: ");
-                    //}
-                } else {
-                    Log.e("Clover Delete: ", "Failed: ");
                 }
                 return null;
             }

@@ -17,21 +17,108 @@ import java.util.List;
 
 public class AppointmentsActivity extends AppCompatActivity {
     private AppointmentDAO apptDAO;
-    private List<Appointment> appointmentList = new ArrayList<Appointment>();
+    private List<Appointment> appointmentList = new ArrayList<>();
     private TableLayout appointmentsTable;
-    private TableRow headerRow;
-    private TableRow newApptRow;
-    private TextView idTv;
-    private TextView dateTv;
-    private TextView timeTv;
-    private TextView durationTv;
-    private TextView customerCodeTv;
-    private TextView alertTypeTv;
-    private TextView itemCodeTv;
-    private TextView noteTv;
-    private TextView emp1Tv;
-    private TextView emp2Tv;
-    private TextView confirmStatusTv;
+
+    //TODO USE STRING RESOURCES
+
+    private void refreshAppointmentTable() {
+        //Clear the appointment table
+        appointmentsTable.removeAllViews();
+        //Create the table header row and add to table
+        createAppointmentTableHeaderRow();
+        //Iterate and create rows
+        for (Appointment appt : appointmentList) {
+            //todo newTableRow.setLayoutParams();
+            //CREATE NEW ROW FOR TABLE
+            TableRow newApptRow = new TableRow(this);
+            //CREATE NEW COLUMNS FOR ROW
+            TextView idTV = new TextView(this);
+            TextView dateTV = new TextView(this);
+            TextView timeTV = new TextView(this);
+            TextView durationTV = new TextView(this);
+            TextView customerCodeTV = new TextView(this);
+            TextView alertTypeTV = new TextView(this);
+            TextView itemCodeTV = new TextView(this);
+            TextView noteTV = new TextView(this);
+            TextView emp1TV = new TextView(this);
+            TextView emp2TV = new TextView(this);
+            TextView confirmStatusTV = new TextView(this);
+            //SET DATA FOR EACH COLUMN
+            idTV.setText(String.valueOf(appt.get_id()));
+            dateTV.setText(appt.get_date());
+            timeTV.setText(appt.get_start_time());
+            durationTV.setText(String.valueOf(appt.get_duration()));
+            customerCodeTV.setText(appt.get_customer_code());
+            alertTypeTV.setText(appt.get_alert_type());
+            itemCodeTV.setText(appt.get_item_code());
+            noteTV.setText(appt.get_note());
+            emp1TV.setText(String.valueOf(appt.get_employee_code_1()));
+            emp2TV.setText(String.valueOf(appt.get_employee_code_2()));
+            confirmStatusTV.setText(appt.get_confirm_status());
+            //ADD ALL TV'S TO NEW ROW
+            newApptRow.addView(idTV);
+            newApptRow.addView(dateTV);
+            newApptRow.addView(timeTV);
+            newApptRow.addView(durationTV);
+            newApptRow.addView(customerCodeTV);
+            newApptRow.addView(alertTypeTV);
+            newApptRow.addView(itemCodeTV);
+            newApptRow.addView(noteTV);
+            newApptRow.addView(emp1TV);
+            newApptRow.addView(emp2TV);
+            newApptRow.addView(confirmStatusTV);
+            //ADD NEW ROW TO TABLE
+            appointmentsTable.addView(newApptRow);
+        }
+    }
+
+    public void createAppointmentTableHeaderRow() {
+        //MAKE THE HEADER ROW
+        TableRow headerRow = new TableRow(this);
+        //SET THE COLUMN HEADERS
+        TextView headerIDTV = new TextView(this);
+        headerIDTV.setText("ID");
+        TextView headerDateTV = new TextView(this);
+        headerDateTV.setText("Appointment Date");
+        TextView headerTimeTV = new TextView(this);
+        headerTimeTV.setText("Time");
+        TextView headerDurationTV = new TextView(this);
+        headerDurationTV.setText("Appt Duration");
+        TextView headerCustCodeTV = new TextView(this);
+        headerCustCodeTV.setText("Customer Code");
+        TextView headerAlertTypeTV = new TextView(this);
+        headerAlertTypeTV.setText("Alert Type");
+        TextView headerItemCodeTV = new TextView(this);
+        headerItemCodeTV.setText("Item Code");
+        TextView headerNoteTV = new TextView(this);
+        headerNoteTV.setText("Note");
+        TextView headerEmp1TV = new TextView(this);
+        headerEmp1TV.setText("Employee 1");
+        TextView headerEmp2TV = new TextView(this);
+        headerEmp2TV.setText("Emp 2");
+        TextView headerConfirmStatusTV = new TextView(this);
+        headerConfirmStatusTV.setText("Status");
+        //ADD THE COLUMN HEADERS TO THE ROW
+        headerRow.addView(headerIDTV);
+        headerRow.addView(headerDateTV);
+        headerRow.addView(headerTimeTV);
+        headerRow.addView(headerDurationTV);
+        headerRow.addView(headerCustCodeTV);
+        headerRow.addView(headerAlertTypeTV);
+        headerRow.addView(headerItemCodeTV);
+        headerRow.addView(headerNoteTV);
+        headerRow.addView(headerEmp1TV);
+        headerRow.addView(headerEmp2TV);
+        headerRow.addView(headerConfirmStatusTV);
+        //ADD THE ROW TO THE TABLE
+        appointmentsTable.addView(headerRow);
+    }
+
+    public void displayAddAppointment(View view) {
+        Intent addActivityIntent = new Intent(this, AddAppointmentActivity.class);
+        startActivity(addActivityIntent);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,107 +137,5 @@ public class AppointmentsActivity extends AppCompatActivity {
         appointmentList = apptDAO.getAllAppointments();
 
         refreshAppointmentTable();
-    }
-
-
-    //OPEN THE ADD APPOINTMENT ACTIVITY
-    public void displayAddAppointment(View view) {
-        Intent addActivityIntent = new Intent(this, AddAppointmentActivity.class);
-        startActivity(addActivityIntent);
-    }
-
-
-    private void refreshAppointmentTable() {
-        //Clear the appointment table
-        appointmentsTable.removeAllViews();
-        //Create the table header row and add to table
-        createAppointmentTableHeaderRow();
-        //Iterate and create rows
-        for (Appointment appt : appointmentList) {
-            //todo newTableRow.setLayoutParams();
-            //Create new appointment row to be added to table
-            newApptRow = new TableRow(this);
-            //Create new data fields to be added to row
-            idTv = new TextView(this);
-            dateTv = new TextView(this);
-            timeTv = new TextView(this);
-            durationTv = new TextView(this);
-            customerCodeTv = new TextView(this);
-            alertTypeTv = new TextView(this);
-            itemCodeTv = new TextView(this);
-            noteTv = new TextView(this);
-            emp1Tv = new TextView(this);
-            emp2Tv = new TextView(this);
-            confirmStatusTv = new TextView(this);
-            //Set data for each new row
-            idTv.setText(String.valueOf(appt.get_id()));
-            dateTv.setText(appt.get_date());
-            timeTv.setText(appt.get_start_time());
-            durationTv.setText(String.valueOf(appt.get_duration()));
-            customerCodeTv.setText(appt.get_customer_code());
-            alertTypeTv.setText(appt.get_alert_type());
-            itemCodeTv.setText(appt.get_item_code());
-            noteTv.setText(appt.get_note());
-            emp1Tv.setText(String.valueOf(appt.get_employee_code_1()));
-            emp2Tv.setText(String.valueOf(appt.get_employee_code_2()));
-            confirmStatusTv.setText(appt.get_confirm_status());
-            //Add all text views to the new row
-            newApptRow.addView(idTv);
-            newApptRow.addView(dateTv);
-            newApptRow.addView(timeTv);
-            newApptRow.addView(durationTv);
-            newApptRow.addView(customerCodeTv);
-            newApptRow.addView(alertTypeTv);
-            newApptRow.addView(itemCodeTv);
-            newApptRow.addView(noteTv);
-            newApptRow.addView(emp1Tv);
-            newApptRow.addView(emp2Tv);
-            newApptRow.addView(confirmStatusTv);
-            //Add the new row to the table
-            appointmentsTable.addView(newApptRow);
-        }
-    }
-
-
-    //CREATE APPOINTMENT TABLE HEADER ROW METHOD
-    public void createAppointmentTableHeaderRow() {
-        headerRow = new TableRow(this);
-
-        idTv = new TextView(this);
-        idTv.setText("ID");
-        dateTv = new TextView(this);
-        dateTv.setText("Appointment Date");
-        timeTv = new TextView(this);
-        timeTv.setText("Time");
-        durationTv = new TextView(this);
-        durationTv.setText("Appt Duration");
-        customerCodeTv = new TextView(this);
-        customerCodeTv.setText("Customer Code");
-        alertTypeTv = new TextView(this);
-        alertTypeTv.setText("Alert Type");
-        itemCodeTv = new TextView(this);
-        itemCodeTv.setText("Item Code");
-        noteTv = new TextView(this);
-        noteTv.setText("Note");
-        emp1Tv = new TextView(this);
-        emp1Tv.setText("Employee 1");
-        emp2Tv = new TextView(this);
-        emp2Tv.setText("Emp 2");
-        confirmStatusTv = new TextView(this);
-        confirmStatusTv.setText("Status");
-
-        headerRow.addView(idTv);
-        headerRow.addView(dateTv);
-        headerRow.addView(timeTv);
-        headerRow.addView(durationTv);
-        headerRow.addView(customerCodeTv);
-        headerRow.addView(alertTypeTv);
-        headerRow.addView(itemCodeTv);
-        headerRow.addView(noteTv);
-        headerRow.addView(emp1Tv);
-        headerRow.addView(emp2Tv);
-        headerRow.addView(confirmStatusTv);
-
-        appointmentsTable.addView(headerRow);
     }
 }
