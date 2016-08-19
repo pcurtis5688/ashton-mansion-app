@@ -20,6 +20,7 @@ import android.widget.Toast;
 
 import com.ashtonmansion.ashtonmansioncloverapp.R;
 import com.ashtonmansion.ashtonmansioncloverapp.dao.EmployeeDAO;
+import com.ashtonmansion.ashtonmansioncloverapp.webservices.employeews.EmployeeWebService;
 import com.clover.sdk.util.CloverAccount;
 import com.clover.sdk.v1.BindingException;
 import com.clover.sdk.v1.ClientException;
@@ -69,22 +70,20 @@ public class EmployeesActivity extends AppCompatActivity {
                     employeeSuccessfullyDeletedClover = false;
                     Log.e("Generic Exception: ", e2.getMessage());
                 }
+
                 /////IF DELETED SUCCESSFULLY IN CLOVER
                 if (employeeSuccessfullyDeletedClover) {
                     /////DYNAMICS DELETION
                     //TODO DYNAMICS DELETE METHOD
-
-                    //if (employeeSuccessfullyDeletedDynamics) {
-                    employeeDAO = new EmployeeDAO(employeesActivityContext);
-                    employeeSuccessfullyDeletedLocal = employeeDAO.deleteLocalEmployeeRecord(employee);
-                    if (!employeeSuccessfullyDeletedLocal) {
-                        Log.e("Local deletion err: ", "See Above...");
+                    EmployeeWebService employeeWebService = new EmployeeWebService();
+                    employeeSuccessfullyDeletedDynamics = employeeWebService.deleteEmployeeServiceCall(employee.getId());
+                    if (employeeSuccessfullyDeletedDynamics) {
+                        employeeDAO = new EmployeeDAO(employeesActivityContext);
+                        employeeSuccessfullyDeletedLocal = employeeDAO.deleteLocalEmployeeRecord(employee);
+                        if (!employeeSuccessfullyDeletedLocal) {
+                            Log.e("Local deletion err: ", "See Above...");
+                        }
                     }
-                    // } else {
-                    //    Log.e("Dynamics Delete: ", "Failed: ");
-                    //}
-                } else {
-                    Log.e("Clover Delete: ", "Failed: ");
                 }
                 return null;
             }
@@ -100,7 +99,7 @@ public class EmployeesActivity extends AppCompatActivity {
         }.execute();
     }
 
-    /////*BELOW METHODS BASICALLY COMPLETE *///////////////////
+    /////*BELOW METHODS COMPLETE *///////////////////
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

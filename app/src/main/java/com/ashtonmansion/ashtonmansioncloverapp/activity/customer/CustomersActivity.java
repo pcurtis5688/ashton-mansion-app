@@ -21,6 +21,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ashtonmansion.ashtonmansioncloverapp.dao.CustomerDAO;
+import com.ashtonmansion.ashtonmansioncloverapp.webservices.customerws.CustomerWebService;
 import com.clover.sdk.v1.BindingException;
 import com.clover.sdk.v1.ClientException;
 import com.clover.sdk.v1.ServiceException;
@@ -192,7 +193,10 @@ public class CustomersActivity extends AppCompatActivity {
                 /////IF DELETED SUCCESSFULLY IN CLOVER
                 if (customerSuccessfullyDeletedClover) {
                     /////DYNAMICS DELETION
-                    //TODO DYNAMICS DELETE METHOD
+                    CustomerWebService customerWebService = new CustomerWebService();
+                    //// TODO: 8/19/2016
+
+
 
                     //if (customerSuccessfullyDeletedDynamics) {
                     //TODO LOCAL DELETION METHOD IN DAO

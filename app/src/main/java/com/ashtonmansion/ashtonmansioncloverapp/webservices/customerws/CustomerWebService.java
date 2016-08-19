@@ -32,6 +32,7 @@ public class CustomerWebService {
         ///PARAMS////
 
         ////TESTS
+        //TODO HANDLE THESE TYPES OF FIELDS AND DECIDE HOW TO STORE
         String test1 = customer.getMarketingAllowed().toString();
         String test2 = customer.getPhoneNumbers().toString();
         String test3 = customer.getEmailAddresses().toString();
