@@ -113,7 +113,7 @@ public class AddCustomerActivity extends AppCompatActivity {
                 //////ONLY CONTINUE IF CLOVER INSERT SUCCESSFUL//////
                 if (cloverInsertSuccess == true) {
                     ///////////* DYNAMICS INSERTION *////////////////////////
-                    //TODO DYNAMICS AND LOCAL ADD
+                    //TODO LOCAL ADD
                     CustomerWebService customerWebService = new CustomerWebService();
                     createCustomerWSSuccess = customerWebService.createCustomerServiceCall(newCustomer);
 
@@ -122,18 +122,11 @@ public class AddCustomerActivity extends AppCompatActivity {
                         ///////////* LOCAL INSERTION *////////////////////////
                         try {
                             CustomerDAO customerDAO = new CustomerDAO(addCustomerContext);
-                            sqliteReturnResult = customerDAO.insertLocalCustomerRecord(newCustomer);
+                            customerDAO.insertLocalCustomerRecord(newCustomer);
                         } catch (Exception e) {
                             Log.e("Generic Exception: ", "Local insertion customer: " + e.getMessage());
                         }
-                        if (sqliteReturnResult == -1) {
-                            Log.e("Exception in SQLite: ", "See Above; result: " + sqliteReturnResult);
-                        }
-                    } else {
-                        Log.e("Cust WS Call: ", "failed");
                     }
-                } else {
-                    Log.e("Break;CloverFail: ", "See Exception above");
                 }
                 return null;
             }
