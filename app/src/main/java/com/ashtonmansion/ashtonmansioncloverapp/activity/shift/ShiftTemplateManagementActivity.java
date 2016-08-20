@@ -1,7 +1,9 @@
 package com.ashtonmansion.ashtonmansioncloverapp.activity.shift;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -22,6 +24,8 @@ import com.ashtonmansion.ashtonmansioncloverapp.webservices.shiftws.ShiftWebServ
 import java.util.List;
 
 public class ShiftTemplateManagementActivity extends AppCompatActivity {
+    //ACTIVITY VARS
+    private Context shiftTemplateManagementContext;
     //DATA VARS
     private List<ShiftTemplate> shiftTemplateList;
     private ShiftDAO shiftDAO;
@@ -35,6 +39,8 @@ public class ShiftTemplateManagementActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manager_shift_template);
+        //SET ACTIVITY CONTEXT
+        shiftTemplateManagementContext = this;
         //Set up table and header row
         setUpTableAndHeader();
         //Retrieve Shift Template information and populate
@@ -72,11 +78,23 @@ public class ShiftTemplateManagementActivity extends AppCompatActivity {
             TextView newShiftTemplateCodeTV = new TextView(this);
             TextView newShiftTemplateNameTV = new TextView(this);
 
-            //TODO DO NEXT LINES CORRECTLY
-            newShiftTemplateIDTV.setText("" + shiftTemplate.getShiftID());
-            newShiftTemplateCodeTV.setText("" + shiftTemplate.getShiftCode());
-
+            //SHIFT ID AND CODE
+            String shiftID = shiftTemplate.getShiftID();
+            newShiftTemplateIDTV.setText(shiftID);
+            String shiftCode = shiftTemplate.getShiftCode();
+            newShiftTemplateCodeTV.setText(shiftCode);
+            ShiftTemplate editableShiftTemplate = shiftTemplate;
+            //CLICKABLE SHIFT NAME TO GO TO EDIT DETAIL
             newShiftTemplateNameTV.setText(shiftTemplate.getShiftName());
+            newShiftTemplateNameTV.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent editShiftTemplateIntent = new Intent(shiftTemplateManagementContext, EditShiftTemplateActivity.class);
+                    editShiftTemplateIntent.putExtra("shiftTemplateID", shiftTemplate.getShiftID());
+                    startActivity(editShiftTemplateIntent);
+                }
+            });
+
 
             Button deleteShiftTemplateButton = new Button(this);
             deleteShiftTemplateButton.setOnClickListener(new View.OnClickListener() {

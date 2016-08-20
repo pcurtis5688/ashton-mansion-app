@@ -25,19 +25,28 @@ public class ManagerMainActivity extends AppCompatActivity {
     private List<Employee> employeeList;
     private final String managerID = null;
 
+    public static void editEmployeeShiftActivity() {
+        //TODO COMPLETE IMPLEMENTATION
+    }
+
+    public void showShiftManagementPage(View view) {
+        Intent managerShiftIntent = new Intent(this, ManagerShiftActivity.class);
+        startActivity(managerShiftIntent);
+    }
+
+    //ACTIVITY FLOW METHODS
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manager_main);
-
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-
     }
 
+    //CLOVER ACCESS METHODS
     private void getMerchantAccount() {
         //Retrieve the Clover merchant account
         if (mAcct == null) {
@@ -90,14 +99,5 @@ public class ManagerMainActivity extends AppCompatActivity {
 
             }
         }.execute();
-    }
-
-    public void showManagerShiftPage(View view) {
-        Intent managerShiftIntent = new Intent(this, ManagerShiftActivity.class);
-        startActivity(managerShiftIntent);
-    }
-
-    public static void editEmployeeShiftActivity() {
-        //TODO COMPLETE IMPLEMENTATION
     }
 }

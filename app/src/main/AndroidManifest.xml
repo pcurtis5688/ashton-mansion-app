@@ -77,7 +77,8 @@
             android:parentActivityName=".activity.shift.ManagerShiftActivity" />
         <activity
             android:name=".activity.shift.ShiftsActivity"
-            android:parentActivityName=".activity.shift.ManagerShiftActivity"></activity>
+            android:parentActivityName=".activity.shift.ManagerShiftActivity" />
+        <activity android:name=".activity.shift.EditShiftTemplateActivity"></activity>
     </application>
 
 </manifest>

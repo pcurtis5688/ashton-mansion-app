@@ -111,10 +111,34 @@ public class ShiftDAO extends SQLiteOpenHelper {
                 shiftExceptions.add(shiftException);
             } while (cursor.moveToNext());
         }
+        cursor.close();
+        db.close();
         return shiftExceptions;
     }
 
+    public ShiftTemplate getShiftTemplateByID(String shiftTemplateID) {
+        ShiftTemplate retrievedShiftTemplate = new ShiftTemplate();
+
+        String selectAllQuery = "SELECT * FROM " + TABLE_SHIFT_TEMPLATE
+                + " WHERE " + SHIFT_TEMPLATE_ID + " ='" + shiftTemplateID + "'";
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(selectAllQuery, null);
+
+        //POPULATE SHIFT TEMPLATE LIST
+        if (cursor.moveToFirst()) {
+            retrievedShiftTemplate.setShiftID(shiftTemplateID);
+            retrievedShiftTemplate.setShiftCode(cursor.getString(1));
+            retrievedShiftTemplate.setShiftName(cursor.getString(2));
+        }
+
+        cursor.close();
+        db.close();
+        return retrievedShiftTemplate;
+    }
+
     //CREATE OR DROP SHIFT TABLES
+
     public void createShiftTemplateTable() {
         SQLiteDatabase db = this.getWritableDatabase();
         String CREATE_SHIFT_TEMPLATE_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_SHIFT_TEMPLATE

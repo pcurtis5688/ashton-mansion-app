@@ -255,6 +255,27 @@ public class EmployeesActivity extends AppCompatActivity {
         }
     }
 
+    public void editThisEmployee(final Employee employee) {
+        Intent editEmployeeIntent = new Intent(this, EditEmployeeActivity.class);
+        editEmployeeIntent.putExtra("employee", employee);
+        startActivity(editEmployeeIntent);
+    }
+
+    public void deleteThisEmployee(final Employee employee) {
+        new AlertDialog.Builder(this)
+                .setTitle("Delete Employee?")
+                .setMessage("Delete Employee " + employee.getName() + "?")
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        String confirmationToastString = "Employee " + employee.getName() + " Deleted!";
+                        deleteEmployee(employee);
+                        Toast.makeText(EmployeesActivity.this, confirmationToastString, Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .setNegativeButton(android.R.string.no, null).show();
+    }
+
     private void populateLocalEmplTableTesting() {
         employees = new EmployeeDAO(this).getLocalEmployeeRecords();
 
@@ -302,26 +323,5 @@ public class EmployeesActivity extends AppCompatActivity {
 
             localTable.addView(empRow);
         }
-    }
-
-    public void editThisEmployee(final Employee employee) {
-        Intent editEmployeeIntent = new Intent(this, EditEmployeeActivity.class);
-        editEmployeeIntent.putExtra("employee", employee);
-        startActivity(editEmployeeIntent);
-    }
-
-    public void deleteThisEmployee(final Employee employee) {
-        new AlertDialog.Builder(this)
-                .setTitle("Delete Employee?")
-                .setMessage("Delete Employee " + employee.getName() + "?")
-                .setIcon(android.R.drawable.ic_dialog_alert)
-                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int whichButton) {
-                        String confirmationToastString = "Employee " + employee.getName() + " Deleted!";
-                        deleteEmployee(employee);
-                        Toast.makeText(EmployeesActivity.this, confirmationToastString, Toast.LENGTH_SHORT).show();
-                    }
-                })
-                .setNegativeButton(android.R.string.no, null).show();
     }
 }

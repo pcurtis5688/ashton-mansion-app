@@ -227,7 +227,7 @@
     <string name="management_page_btn_str">Management</string>
     <string name="shift_management_header_str">Shift Management</string>
     <string name="shifts_activity_start_btn_str">Shifts</string>
-
+    <string name="edit_shift_activity_header_str">Edit Shift Activity</string>
     <string name="shift_template_popup_btn_str">Shift Templates</string>
     <string name="shift_exception_popup_btn_str">Shift Exceptions</string>
 
