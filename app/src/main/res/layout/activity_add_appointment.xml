@@ -4,6 +4,7 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:scrollbars="none"
+    android:background="@color/standardBackground"
     tools:context="com.ashtonmansion.ashtonmansioncloverapp.activity.appointment.AddAppointmentActivity">
 
     <LinearLayout
@@ -75,7 +76,7 @@
                     android:layout_width="match_parent"
                     android:layout_gravity="center"
                     android:hint="@string/appt_duration_hint"
-                    android:maxLength="3"
+                    android:textColorHint="@color/colorPrimaryDark"
                     android:textAlignment="center" />
             </TableRow>
 
@@ -105,7 +106,8 @@
                     android:id="@+id/appt_alert_type_spinner"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:entries="@array/alert_types" />
+                    android:entries="@array/alert_types"
+                    android:textAlignment="center" />
             </TableRow>
 
             <TableRow>

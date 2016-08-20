@@ -38,8 +38,6 @@ public class EditShiftTemplateActivity extends AppCompatActivity {
         shiftTemplateIDTV2 = (TextView) findViewById(R.id.edit_shift_template_ID_TV_2);
         shiftTemplateCodeTV2 = (TextView) findViewById(R.id.edit_shift_template_code_TV_2);
         shiftTemplateNameTV2 = (TextView) findViewById(R.id.edit_shift_template_name_TV_2);
-
-
         //SET HEADER FIRST ROW
         shiftTemplateIDTV1.setText(getResources().getString(R.string.edit_shift_template_ID_label_str));
         shiftTemplateCodeTV1.setText(getResources().getString(R.string.edit_shift_template_code_label_str));

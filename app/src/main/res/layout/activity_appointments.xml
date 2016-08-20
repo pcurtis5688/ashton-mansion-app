@@ -5,6 +5,7 @@
     android:layout_height="fill_parent"
     android:layout_weight="1"
     android:scrollbars="none"
+    android:background="@color/standardBackground"
     tools:context="com.ashtonmansion.ashtonmansioncloverapp.activity.appointment.AppointmentsActivity">
 
     <LinearLayout

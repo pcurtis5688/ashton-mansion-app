@@ -123,11 +123,8 @@
                     android:textAlignment="center" />
             </TableRow>
 
-            <TableRow>
-
-                <TextView
-                    android:text="test"
-                    android:textAlignment="center" />
+            <TableRow android:id="@+id/row_for_shift_template_details_table">
+                <!-- TABLE IS INSERTED HERE -->
             </TableRow>
         </TableLayout>
     </TableRow>
