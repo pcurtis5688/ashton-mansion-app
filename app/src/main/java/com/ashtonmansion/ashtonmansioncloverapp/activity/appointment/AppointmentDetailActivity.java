@@ -12,4 +12,5 @@ public class AppointmentDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_appointment_detail);
     }
+    //TODO I SHOULD PROBABLY DO THIS ACTION
 }

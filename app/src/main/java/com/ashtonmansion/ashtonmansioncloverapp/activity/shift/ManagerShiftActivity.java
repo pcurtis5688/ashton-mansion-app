@@ -6,18 +6,17 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.ashtonmansion.ashtonmansioncloverapp.R;
+import com.clover.sdk.v3.employees.Employee;
 
 public class ManagerShiftActivity extends AppCompatActivity {
-    private String managerID = "";
+    private Employee currentEmp = new Employee();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manager_shift);
 
-        managerID = "logged in manager";
         //TODO FIGURE OUT HOW TO GET LOGGED IN USER ID AND POPULATE THIS HERE
-
     }
 
     public void displayShiftsActivity(View view) {

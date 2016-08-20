@@ -5,6 +5,7 @@ import android.util.Log;
 import com.ashtonmansion.ashtonmansioncloverapp.webservices.generalws.WebServiceUtilities;
 import com.ashtonmansion.ashtonmansioncloverapp.webservices.generalws.external.NTLMTransport;
 import com.clover.sdk.v3.customers.Customer;
+import com.clover.sdk.v3.customers.PhoneNumber;
 
 import org.ksoap2.serialization.PropertyInfo;
 import org.ksoap2.serialization.SoapObject;
@@ -12,6 +13,7 @@ import org.ksoap2.serialization.SoapSerializationEnvelope;
 import org.xmlpull.v1.XmlPullParserException;
 
 import java.io.IOException;
+import java.util.List;
 
 /**
  * Created by paul on 8/11/2016.
@@ -28,20 +30,18 @@ public class CustomerWebService {
         boolean createCustomerInDynamicsSuccess = false;
         SoapObject request = new SoapObject(CUST_WS_NAMESPACE, CREATE_CUST_METHOD);
         SoapSerializationEnvelope envelope = WebServiceUtilities.getSoapSerializationEnvelope(request);
-        /////////////
-        ///PARAMS////
+        ////////HANDLE LISTS//////////////////
+        insertPhoneNumbers(customer);
 
+        ////////////////////////
         //TODO HANDLE THESE TYPES OF FIELDS AND DECIDE HOW TO STORE
-        String test1 = customer.getMarketingAllowed().toString();
-        String test2 = customer.getPhoneNumbers().toString();
         String test3 = customer.getEmailAddresses().toString();
         String test4 = customer.getAddresses().toString();
-        Log.i("MarketingToString: ", test1);
-        Log.i("Phone Number String: ", test2);
         Log.i("Email String: ", test3);
         Log.i("Address String: ", test4);
-        ////////
 
+        /////////////
+        ///PARAMS////
         PropertyInfo pi1 = new PropertyInfo();
         pi1.setName("cust_ID");
         pi1.setValue(customer.getId());
@@ -96,6 +96,53 @@ public class CustomerWebService {
             Log.e("IOException: ", e2.getMessage());
         }
         return createCustomerInDynamicsSuccess;
+    }
+
+    public boolean insertPhoneNumbers(Customer customer) {
+        //SERVICE INFO //todo maybe one call in future.
+        final String INSERT_PHONE_NUMBER_METHOD = "InsertNumber";
+        final String INSERT_PHONE_NUMBER_SOAP_ACTION = "urn:microsoft-dynamics-schemas/codeunit/CustomerWebService:InsertNumber";
+        boolean phoneNumberListSuccess = true;
+        //CUSTOMER DATA
+        String customerID = customer.getId();
+        List<PhoneNumber> phoneNumberList = customer.getPhoneNumbers();
+
+        for (PhoneNumber number : phoneNumberList) {
+            //CREATE REQ AND ENVELOPE
+            SoapObject request = new SoapObject(CUST_WS_NAMESPACE, INSERT_PHONE_NUMBER_METHOD);
+            SoapSerializationEnvelope envelope = WebServiceUtilities.getSoapSerializationEnvelope(request);
+            //PARAMS
+            PropertyInfo pi1 = new PropertyInfo();
+            pi1.setName("customer_ID");
+            pi1.setValue(customerID);
+            pi1.setType(String.class);
+            request.addProperty(pi1);
+
+            PropertyInfo pi2 = new PropertyInfo();
+            pi2.setName("phone_number");
+            pi2.setValue(number.toString());
+            pi2.setType(String.class);
+            request.addProperty(pi2);
+
+            ////////////MAKE THE CALL
+            NTLMTransport transport = new NTLMTransport();
+            transport.setCredentials(CUST_WEB_SERVICE_URL, "paul", "Wmo67766767", "laptop-53b1c7v6", "");
+            try {
+                transport.call(INSERT_PHONE_NUMBER_SOAP_ACTION, envelope);
+            } catch (XmlPullParserException e1) {
+                Log.e("XMLPPException: ", e1.getMessage());
+                phoneNumberListSuccess = false;
+
+            } catch (IOException e2) {
+                Log.e("IOException: ", e2.getMessage());
+                phoneNumberListSuccess = false;
+
+            } catch (Exception e3) {
+                Log.e("IOException: ", e3.getMessage());
+                phoneNumberListSuccess = false;
+            }
+        }
+        return phoneNumberListSuccess;
     }
 
     public boolean deleteCustomerServiceCall(String customerID) {
