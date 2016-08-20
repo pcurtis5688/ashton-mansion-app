@@ -36,6 +36,6 @@ public class EditShiftTemplateActivity extends AppCompatActivity {
         shiftTemplateCodeTV.setText(shiftTemplate.getShiftCode());
         shiftTemplateNameTV.setText(shiftTemplate.getShiftName());
 
-        
+            
     }
 }

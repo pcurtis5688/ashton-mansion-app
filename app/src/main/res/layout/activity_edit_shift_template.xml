@@ -14,6 +14,7 @@
         <TextView
             android:id="@+id/edit_shift_template_header_tv"
             android:layout_width="match_parent"
+            android:layout_span="3"
             android:text="@string/edit_shift_activity_header_str"
             android:textSize="@dimen/activity_header_size" />
     </TableRow>
@@ -26,5 +27,30 @@
 
         <EditText android:id="@+id/edit_shift_template_name_TV" />
 
+    </TableRow>
+
+    <TableRow>
+
+        <TableLayout>
+
+            <TableRow>
+
+                <TextView android:text="@string/edit_shift_template_header_week" />
+
+                <TextView android:text="@string/edit_shift_template_header_sunday" />
+
+                <TextView android:text="@string/edit_shift_template_header_monday" />
+
+                <TextView android:text="@string/edit_shift_template_header_tuesday" />
+
+                <TextView android:text="@string/edit_shift_template_header_wednesday" />
+
+                <TextView android:text="@string/edit_shift_template_header_thursday" />
+
+                <TextView android:text="@string/edit_shift_template_header_friday" />
+
+                <TextView android:text="@string/edit_shift_template_header_saturday" />
+            </TableRow>
+        </TableLayout>
     </TableRow>
 </TableLayout>
