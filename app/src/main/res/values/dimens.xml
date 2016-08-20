@@ -10,4 +10,5 @@
     <!-- Activity screen dimens -->
     <dimen name="activity_header_size">48sp</dimen>
     <dimen name="table_header_size">24sp</dimen>
+    <dimen name="shift_template_details_table_size">14sp</dimen>
 </resources>

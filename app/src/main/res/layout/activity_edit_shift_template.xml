@@ -7,6 +7,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:stretchColumns="*"
     tools:context="com.ashtonmansion.ashtonmansioncloverapp.activity.shift.EditShiftTemplateActivity">
 
     <TableRow>
@@ -16,40 +17,90 @@
             android:layout_width="match_parent"
             android:layout_span="3"
             android:text="@string/edit_shift_activity_header_str"
+            android:textAlignment="center"
             android:textSize="@dimen/activity_header_size" />
     </TableRow>
 
-    <TableRow>
+    <TableRow
+        android:layout_width="match_parent"
+        android:paddingBottom="@dimen/activity_horizontal_margin">
 
-        <TextView android:id="@+id/edit_shift_template_ID_TV" />
+        <TextView
+            android:id="@+id/edit_shift_template_ID_TV"
+            android:fontFamily="sans-serif-medium"
+            android:textSize="@dimen/shift_template_details_table_size"
+            android:textStyle="bold" />
 
-        <TextView android:id="@+id/edit_shift_template_code_TV" />
+        <TextView
+            android:id="@+id/edit_shift_template_code_TV"
+            android:fontFamily="sans-serif-medium"
+            android:textSize="@dimen/shift_template_details_table_size"
+            android:textStyle="bold" />
 
-        <EditText android:id="@+id/edit_shift_template_name_TV" />
+        <TextView
+            android:id="@+id/edit_shift_template_name_TV"
+            android:fontFamily="sans-serif-medium"
+            android:textSize="@dimen/shift_template_details_table_size"
+            android:textStyle="bold" />
 
     </TableRow>
 
-    <TableRow>
+    <TableRow android:layout_width="match_parent">
 
-        <TableLayout>
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_span="3"
+            android:stretchColumns="*">
 
             <TableRow>
 
-                <TextView android:text="@string/edit_shift_template_header_week" />
+                <TextView
+                    android:fontFamily="sans-serif-medium"
+                    android:text="@string/edit_shift_template_header_week"
+                    android:textAlignment="center" />
 
-                <TextView android:text="@string/edit_shift_template_header_sunday" />
+                <TextView
+                    android:fontFamily="sans-serif-medium"
+                    android:text="@string/edit_shift_template_header_sunday"
+                    android:textAlignment="center" />
 
-                <TextView android:text="@string/edit_shift_template_header_monday" />
+                <TextView
+                    android:fontFamily="sans-serif-medium"
+                    android:text="@string/edit_shift_template_header_monday"
+                    android:textAlignment="center" />
 
-                <TextView android:text="@string/edit_shift_template_header_tuesday" />
+                <TextView
+                    android:fontFamily="sans-serif-medium"
+                    android:text="@string/edit_shift_template_header_tuesday"
+                    android:textAlignment="center" />
 
-                <TextView android:text="@string/edit_shift_template_header_wednesday" />
+                <TextView
+                    android:fontFamily="sans-serif-medium"
+                    android:text="@string/edit_shift_template_header_wednesday"
+                    android:textAlignment="center" />
 
-                <TextView android:text="@string/edit_shift_template_header_thursday" />
+                <TextView
+                    android:fontFamily="sans-serif-medium"
+                    android:text="@string/edit_shift_template_header_thursday"
+                    android:textSize="@dimen/activity_header_size" />
 
-                <TextView android:text="@string/edit_shift_template_header_friday" />
+                <TextView
+                    android:fontFamily="sans-serif-medium"
+                    android:text="@string/edit_shift_template_header_friday"
+                    android:textAlignment="center" />
 
-                <TextView android:text="@string/edit_shift_template_header_saturday" />
+                <TextView
+                    android:fontFamily="sans-serif-medium"
+                    android:text="@string/edit_shift_template_header_saturday"
+                    android:textAlignment="center" />
+            </TableRow>
+
+            <TableRow>
+
+                <TextView
+                    android:layout_span="8"
+                    android:text="TEST"
+                    android:textAlignment="center" />
             </TableRow>
         </TableLayout>
     </TableRow>

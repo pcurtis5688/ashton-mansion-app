@@ -5,9 +5,9 @@ import android.os.Bundle;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.ashtonmansion.ashtonmansioncloverapp.R;
 import com.ashtonmansion.ashtonmansioncloverapp.dao.ShiftDAO;
 import com.ashtonmansion.ashtonmansioncloverapp.dbo.ShiftTemplate;
+import com.ashtonmansion.ashtonmansioncloverapp.R;
 
 public class EditShiftTemplateActivity extends AppCompatActivity {
     //DATA VARS
@@ -31,11 +31,13 @@ public class EditShiftTemplateActivity extends AppCompatActivity {
         //GET UI HANDLES and POPULATE
         shiftTemplateIDTV = (TextView) findViewById(R.id.edit_shift_template_ID_TV);
         shiftTemplateCodeTV = (TextView) findViewById(R.id.edit_shift_template_code_TV);
-        shiftTemplateNameTV = (EditText) findViewById(R.id.edit_shift_template_name_TV);
-        shiftTemplateIDTV.setText(shiftTemplate.getShiftID());
-        shiftTemplateCodeTV.setText(shiftTemplate.getShiftCode());
-        shiftTemplateNameTV.setText(shiftTemplate.getShiftName());
+        shiftTemplateNameTV = (TextView) findViewById(R.id.edit_shift_template_name_TV);
+        String idLabel = (getResources().getString(R.string.edit_shift_template_ID_label_str)) + shiftTemplate.getShiftID();
+        String codeLabel = (getResources().getString(R.string.edit_shift_template_code_label_str)) + shiftTemplate.getShiftCode();
+        String nameLabel = (getResources().getString(R.string.edit_shift_template_name_label_str)) + shiftTemplate.getShiftName();
 
-            
+        shiftTemplateIDTV.setText(idLabel);
+        shiftTemplateCodeTV.setText(codeLabel);
+        shiftTemplateNameTV.setText(nameLabel);
     }
 }
