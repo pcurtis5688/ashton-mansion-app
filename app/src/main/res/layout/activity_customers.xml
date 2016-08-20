@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:layout_weight="1"
     android:background="@color/standardBackground"
     android:scrollbars="none"
     tools:context="com.ashtonmansion.ashtonmansioncloverapp.activity.customer.CustomersActivity">
 
     <LinearLayout
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
@@ -23,13 +23,14 @@
             android:stretchColumns="*">
 
             <TableRow
-                android:layout_width="fill_parent"
+                android:layout_width="match_parent"
                 android:textAlignment="center">
 
                 <TextView
                     android:id="@+id/customer_page_header"
                     android:layout_width="fill_parent"
                     android:text="@string/customer_page_header_label_str"
+                    android:textAlignment="center"
                     android:textSize="@dimen/activity_header_size" />
 
             </TableRow>
@@ -40,10 +41,12 @@
                     android:id="@+id/add_customer_button"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
+                    android:background="@color/standardButtonBackground"
                     android:onClick="displayAddCustomer"
                     android:paddingBottom="@dimen/main_btn_vertical_margin"
                     android:paddingTop="@dimen/main_btn_vertical_margin"
-                    android:text="@string/add_customer_btn_string" />
+                    android:text="@string/add_customer_btn_string"
+                    android:textColor="@color/standardButtonTextColor" />
             </TableRow>
 
             <TableRow>

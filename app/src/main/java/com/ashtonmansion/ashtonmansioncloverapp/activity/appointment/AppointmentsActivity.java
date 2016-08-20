@@ -1,6 +1,7 @@
 package com.ashtonmansion.ashtonmansioncloverapp.activity.appointment;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -87,16 +88,27 @@ public class AppointmentsActivity extends AppCompatActivity {
         TextView headerEmp2TV = new TextView(this);
         TextView headerConfirmStatusTV = new TextView(this);
         headerIDTV.setText(R.string.header_appt_table_appt_ID);
+        headerIDTV.setTypeface(Typeface.DEFAULT, R.style.TableHeaderStyle);
         headerDateTV.setText(R.string.header_appt_table_appt_date);
+        headerDateTV.setTypeface(Typeface.DEFAULT, R.style.TableHeaderStyle);
         headerTimeTV.setText(R.string.header_appt_table_appt_time);
+        headerTimeTV.setTypeface(Typeface.DEFAULT, R.style.TableHeaderStyle);
         headerDurationTV.setText(R.string.header_appt_table_appt_duration);
+        headerDurationTV.setTypeface(Typeface.DEFAULT, R.style.TableHeaderStyle);
         headerCustCodeTV.setText(R.string.header_appt_table_appt_customer_code);
+        headerCustCodeTV.setTypeface(Typeface.DEFAULT, R.style.TableHeaderStyle);
         headerAlertTypeTV.setText(R.string.header_appt_table_appt_alert_type);
+        headerAlertTypeTV.setTypeface(Typeface.DEFAULT, R.style.TableHeaderStyle);
         headerItemCodeTV.setText(R.string.header_appt_table_appt_item_code);
+        headerItemCodeTV.setTypeface(Typeface.DEFAULT, R.style.TableHeaderStyle);
         headerNoteTV.setText(R.string.header_appt_table_appt_note);
+        headerNoteTV.setTypeface(Typeface.DEFAULT, R.style.TableHeaderStyle);
         headerEmp1TV.setText(R.string.header_appt_table_appt_emp_1);
+        headerEmp1TV.setTypeface(Typeface.DEFAULT, R.style.TableHeaderStyle);
         headerEmp2TV.setText(R.string.header_appt_table_appt_emp_2);
+        headerEmp2TV.setTypeface(Typeface.DEFAULT, R.style.TableHeaderStyle);
         headerConfirmStatusTV.setText(R.string.header_appt_table_appt_status);
+        headerConfirmStatusTV.setTypeface(Typeface.DEFAULT, R.style.TableHeaderStyle);
         //ADD THE COLUMN HEADERS TO THE ROW
         headerRow.addView(headerIDTV);
         headerRow.addView(headerDateTV);

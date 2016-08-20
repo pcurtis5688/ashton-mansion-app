@@ -113,6 +113,8 @@
         <item>Employee_3</item>
     </string-array>
 
+    <string name="edit_employee_header_str">Edit Employee</string>
+
     <!-- INVENTORY ACTIVITY RELATED STRINGS -->
     <string name="items_heading">Inventory Items</string>
     <string name="inventory_page_heading_str">Inventory</string>

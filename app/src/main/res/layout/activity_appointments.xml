@@ -4,8 +4,8 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:layout_weight="1"
-    android:scrollbars="none"
     android:background="@color/standardBackground"
+    android:scrollbars="none"
     tools:context="com.ashtonmansion.ashtonmansioncloverapp.activity.appointment.AppointmentsActivity">
 
     <LinearLayout
@@ -27,6 +27,8 @@
                 <TextView
                     android:id="@+id/appointments_heading"
                     android:text="@string/appointments_heading_str"
+                    android:textAlignment="center"
+                    android:textColor="@color/whiteText"
                     android:textSize="@dimen/activity_header_size" />
             </TableRow>
 
@@ -36,10 +38,12 @@
                     android:id="@+id/id_add_appointment_btn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:background="@color/standardButtonBackground"
                     android:onClick="displayAddAppointment"
-                    android:paddingBottom="@dimen/main_btn_vertical_margin"
+                    android:paddingBottom="@dimen/appt_activity_button_padding"
                     android:paddingTop="@dimen/main_btn_vertical_margin"
-                    android:text="@string/add_appointment_button" />
+                    android:text="@string/add_appointment_button"
+                    android:textColor="@color/standardButtonTextColor" />
             </TableRow>
 
             <TableRow>

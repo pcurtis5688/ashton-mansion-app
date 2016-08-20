@@ -3,8 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:scrollbars="none"
     android:background="@color/standardBackground"
+    android:scrollbars="none"
     tools:context="com.ashtonmansion.ashtonmansioncloverapp.activity.appointment.AddAppointmentActivity">
 
     <LinearLayout
@@ -31,6 +31,7 @@
                     android:layout_span="2"
                     android:text="@string/add_appt_page_header"
                     android:textAlignment="center"
+                    android:textColor="@color/whiteText"
                     android:textSize="@dimen/activity_header_size" />
             </TableRow>
 
@@ -53,14 +54,16 @@
                 <TextView
                     android:id="@+id/label_appt_item_code"
                     android:text="@string/appt_item_code_label_str"
-                    android:textAlignment="center" />
+                    android:textAlignment="center"
+                    android:textColor="@color/whiteText" />
 
                 <EditText
                     android:id="@+id/appt_item_code"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:hint="@string/appt_item_code_hint"
-                    android:textAlignment="center" />
+                    android:textAlignment="center"
+                    android:textColor="@color/whiteText" />
             </TableRow>
 
             <TableRow>
@@ -69,15 +72,17 @@
                     android:id="@+id/label_appt_duration"
                     android:layout_gravity="center"
                     android:text="@string/appt_duration_label_str"
-                    android:textAlignment="center" />
+                    android:textAlignment="center"
+                    android:textColor="@color/whiteText" />
 
                 <EditText
                     android:id="@+id/appt_duration"
                     android:layout_width="match_parent"
                     android:layout_gravity="center"
                     android:hint="@string/appt_duration_hint"
-                    android:textColorHint="@color/colorPrimaryDark"
-                    android:textAlignment="center" />
+                    android:textAlignment="center"
+                    android:textColor="@color/whiteText"
+                    android:textColorHint="@color/colorPrimaryDark" />
             </TableRow>
 
             <TableRow>
@@ -85,14 +90,16 @@
                 <TextView
                     android:id="@+id/label_appt_customer_code"
                     android:text="@string/appt_cust_code_label_str"
-                    android:textAlignment="center" />
+                    android:textAlignment="center"
+                    android:textColor="@color/whiteText" />
 
                 <EditText
                     android:id="@+id/appt_customer_code"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:hint="@string/appt_customer_code_hint"
-                    android:textAlignment="center" />
+                    android:textAlignment="center"
+                    android:textColor="@color/whiteText" />
             </TableRow>
 
             <TableRow>
@@ -100,14 +107,16 @@
                 <TextView
                     android:id="@+id/label_alert_type"
                     android:text="@string/appt_alert_type_label_str"
-                    android:textAlignment="center" />
+                    android:textAlignment="center"
+                    android:textColor="@color/whiteText" />
 
                 <Spinner
                     android:id="@+id/appt_alert_type_spinner"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:entries="@array/alert_types"
-                    android:textAlignment="center" />
+                    android:textAlignment="center"
+                    android:textColor="@color/whiteText" />
             </TableRow>
 
             <TableRow>
@@ -115,14 +124,16 @@
                 <TextView
                     android:id="@+id/label_appt_note"
                     android:text="@string/appt_note_label_str"
-                    android:textAlignment="center" />
+                    android:textAlignment="center"
+                    android:textColor="@color/whiteText" />
 
                 <EditText
                     android:id="@+id/appt_note"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:hint="@string/appt_note_label_str"
-                    android:textAlignment="center" />
+                    android:textAlignment="center"
+                    android:textColor="@color/whiteText" />
             </TableRow>
 
             <TableRow>
@@ -130,14 +141,16 @@
                 <TextView
                     android:id="@+id/label_appt_emp_1_assigned"
                     android:text="@string/appt_emp_1_label_str"
-                    android:textAlignment="center" />
+                    android:textAlignment="center"
+                    android:textColor="@color/whiteText" />
 
                 <EditText
                     android:id="@+id/appt_emp_1_assigned"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/appt_emp_1_assigned_hint"
-                    android:textAlignment="center" />
+                    android:textAlignment="center"
+                    android:textColor="@color/whiteText" />
             </TableRow>
 
             <TableRow>
@@ -145,14 +158,16 @@
                 <TextView
                     android:id="@+id/label_appt_emp_2_assigned"
                     android:text="@string/appt_emp_2_label_str"
-                    android:textAlignment="center" />
+                    android:textAlignment="center"
+                    android:textColor="@color/whiteText" />
 
                 <EditText
                     android:id="@+id/appt_emp_2_assigned"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:hint="@string/appt_emp_2_assigned_hint"
-                    android:textAlignment="center" />
+                    android:textAlignment="center"
+                    android:textColor="@color/whiteText" />
             </TableRow>
 
             <TableRow>
@@ -160,13 +175,15 @@
                 <TextView
                     android:id="@+id/label_appt_status_confirm"
                     android:text="@string/appt_confirm_status_label_str"
-                    android:textAlignment="center" />
+                    android:textAlignment="center"
+                    android:textColor="@color/whiteText" />
 
                 <Spinner
                     android:id="@+id/appt_confirm_status"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:entries="@array/appt_confirm_status_types" />
+                    android:entries="@array/appt_confirm_status_types"
+                    android:textColor="@color/whiteText" />
             </TableRow>
 
             <TableRow

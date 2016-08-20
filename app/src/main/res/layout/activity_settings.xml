@@ -32,6 +32,7 @@
                     android:layout_span="2"
                     android:text="@string/settings_screen_header_str"
                     android:textAlignment="center"
+                    android:textColor="@color/whiteText"
                     android:textSize="@dimen/activity_header_size" />
             </TableRow>
 

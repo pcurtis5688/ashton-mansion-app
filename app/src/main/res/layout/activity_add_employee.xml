@@ -14,7 +14,9 @@
 
         <TextView
             android:id="@+id/id_add_employee_header"
-            android:text="@string/add_employee_header_str" />
+            android:text="@string/add_employee_header_str"
+            android:textAlignment="center"
+            android:textColor="@color/whiteText" />
     </TableRow>
 
     <TableRow>

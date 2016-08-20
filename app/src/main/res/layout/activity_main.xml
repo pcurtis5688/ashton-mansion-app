@@ -24,19 +24,25 @@
             android:id="@+id/show_appt_page_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_margin="@dimen/text_margin"
+            android:background="@color/standardButtonBackground"
             android:onClick="showApptPage"
-            android:paddingBottom="@dimen/main_btn_vertical_margin"
-            android:paddingTop="@dimen/main_btn_vertical_margin"
-            android:text="@string/appt_page" />
+            android:paddingBottom="@dimen/nominal_padding"
+            android:paddingTop="@dimen/nominal_padding"
+            android:text="@string/appt_page"
+            android:textColor="@color/standardButtonTextColor" />
 
         <Button
             android:id="@+id/show_inventory_page_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_margin="@dimen/text_margin"
+            android:background="@color/standardButtonBackground"
             android:onClick="showInventoryPage"
-            android:paddingBottom="@dimen/main_btn_vertical_margin"
-            android:paddingTop="@dimen/main_btn_vertical_margin"
-            android:text="@string/inventory_page_btn_str" />
+            android:paddingBottom="@dimen/nominal_padding"
+            android:paddingTop="@dimen/nominal_padding"
+            android:text="@string/inventory_page_btn_str"
+            android:textColor="@color/standardButtonTextColor" />
     </TableRow>
 
     <TableRow>
@@ -45,19 +51,25 @@
             android:id="@+id/show_emp_page_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_margin="@dimen/text_margin"
+            android:background="@color/standardButtonBackground"
             android:onClick="showEmployeePage"
-            android:paddingBottom="@dimen/main_btn_vertical_margin"
-            android:paddingTop="@dimen/main_btn_vertical_margin"
-            android:text="@string/employee_page_btn_str" />
+            android:paddingBottom="@dimen/nominal_padding"
+            android:paddingTop="@dimen/nominal_padding"
+            android:text="@string/employee_page_btn_str"
+            android:textColor="@color/standardButtonTextColor" />
 
         <Button
             android:id="@+id/show_cust_page_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_margin="@dimen/text_margin"
+            android:background="@color/standardButtonBackground"
             android:onClick="showCustPage"
-            android:paddingBottom="@dimen/main_btn_vertical_margin"
-            android:paddingTop="@dimen/main_btn_vertical_margin"
-            android:text="@string/label_cust_page_btn" />
+            android:paddingBottom="@dimen/nominal_padding"
+            android:paddingTop="@dimen/nominal_padding"
+            android:text="@string/label_cust_page_btn"
+            android:textColor="@color/standardButtonTextColor" />
     </TableRow>
 
     <TableRow>
@@ -65,11 +77,14 @@
         <Button
             android:id="@+id/settings_btn"
             android:layout_height="wrap_content"
+            android:layout_margin="@dimen/text_margin"
             android:layout_span="2"
+            android:background="@color/standardButtonBackground"
             android:onClick="showSettingsPage"
-            android:paddingBottom="@dimen/main_btn_vertical_margin"
-            android:paddingTop="@dimen/main_btn_vertical_margin"
-            android:text="@string/settings_btn_str" />
+            android:paddingBottom="@dimen/nominal_padding"
+            android:paddingTop="@dimen/nominal_padding"
+            android:text="@string/settings_btn_str"
+            android:textColor="@color/standardButtonTextColor" />
     </TableRow>
 
     <TableRow>
@@ -77,10 +92,13 @@
         <Button
             android:id="@+id/management_btn"
             android:layout_height="wrap_content"
+            android:layout_margin="@dimen/text_margin"
             android:layout_span="2"
+            android:background="@color/standardButtonBackground"
             android:onClick="showManagementPage"
-            android:paddingBottom="@dimen/main_btn_vertical_margin"
-            android:paddingTop="@dimen/main_btn_vertical_margin"
-            android:text="@string/management_page_btn_str" />
+            android:paddingBottom="@dimen/nominal_padding"
+            android:paddingTop="@dimen/nominal_padding"
+            android:text="@string/management_page_btn_str"
+            android:textColor="@color/standardButtonTextColor" />
     </TableRow>
 </TableLayout>

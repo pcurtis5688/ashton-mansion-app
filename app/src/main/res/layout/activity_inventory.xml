@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="fill_parent"
+    android:layout_width="match_parent"
     android:layout_height="fill_parent"
     android:layout_weight="1"
     android:background="@color/standardBackground"
@@ -9,7 +9,7 @@
     tools:context="com.ashtonmansion.ashtonmansioncloverapp.activity.item.InventoryActivity">
 
     <LinearLayout
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
@@ -22,11 +22,12 @@
             android:paddingTop="@dimen/activity_vertical_margin"
             android:stretchColumns="*">
 
-            <TableRow android:layout_width="fill_parent">
+            <TableRow android:layout_width="match_parent">
 
                 <TextView
                     android:id="@+id/inventory_page_heading"
                     android:text="@string/inventory_page_heading_str"
+                    android:textAlignment="center"
                     android:textSize="@dimen/activity_header_size" />
 
             </TableRow>
@@ -37,10 +38,12 @@
                     android:id="@+id/add_inventory_item_btn"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
+                    android:background="@color/standardButtonBackground"
                     android:onClick="displayAddInventory"
                     android:paddingBottom="@dimen/main_btn_vertical_margin"
                     android:paddingTop="@dimen/main_btn_vertical_margin"
-                    android:text="@string/add_inventory_item_btn_str" />
+                    android:text="@string/add_inventory_item_btn_str"
+                    android:textColor="@color/standardButtonTextColor" />
 
             </TableRow>
 

@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/managerBackground"
+    android:background="@color/standardBackground"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
@@ -18,6 +18,8 @@
             android:layout_width="fill_parent"
             android:layout_gravity="center_horizontal"
             android:text="@string/shift_management_main_page_header"
+            android:textAlignment="center"
+            android:textColor="@color/whiteText"
             android:textSize="@dimen/activity_header_size" />
     </TableRow>
 
@@ -27,11 +29,13 @@
             android:id="@+id/shifts_activity_start_btn"
             android:layout_width="match_parent"
             android:layout_height="fill_parent"
+            android:background="@color/standardButtonBackground"
             android:onClick="displayShiftsActivity"
             android:paddingBottom="@dimen/shift_activity_button_padding"
             android:paddingTop="@dimen/shift_activity_button_padding"
             android:text="@string/shifts_activity_start_btn_str"
-            android:textAlignment="center" />
+            android:textAlignment="center"
+            android:textColor="@color/standardButtonTextColor" />
     </TableRow>
 
     <TableRow>
@@ -40,11 +44,13 @@
             android:id="@+id/shift_template_popup_btn"
             android:layout_width="match_parent"
             android:layout_height="fill_parent"
+            android:background="@color/standardButtonBackground"
             android:onClick="displayShiftTemplateActivity"
             android:paddingBottom="@dimen/shift_activity_button_padding"
             android:paddingTop="@dimen/shift_activity_button_padding"
             android:text="@string/shift_template_popup_btn_str"
-            android:textAlignment="center" />
+            android:textAlignment="center"
+            android:textColor="@color/standardButtonTextColor" />
     </TableRow>
 
     <TableRow>
@@ -53,10 +59,12 @@
             android:id="@+id/shift_exceptions_popup_btn"
             android:layout_width="match_parent"
             android:layout_height="fill_parent"
+            android:background="@color/standardButtonBackground"
             android:onClick="displayShiftExceptionActivity"
             android:paddingBottom="@dimen/shift_activity_button_padding"
             android:paddingTop="@dimen/shift_activity_button_padding"
             android:text="@string/shift_exception_popup_btn_str"
-            android:textAlignment="center" />
+            android:textAlignment="center"
+            android:textColor="@color/standardButtonTextColor" />
     </TableRow>
 </TableLayout>

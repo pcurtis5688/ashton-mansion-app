@@ -3,6 +3,9 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
-    <color name="standardBackground">#333333</color>
+    <color name="standardBackground">#434343</color>
+    <color name="standardButtonBackground">#000000</color>
+    <color name="standardButtonTextColor">#FFFFFFFF</color>
+    <color name="whiteText">#FFFFFFFF</color>
     <color name="managerBackground">#CCE6FF</color>
 </resources>

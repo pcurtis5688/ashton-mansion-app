@@ -29,7 +29,8 @@
                     android:layout_height="wrap_content"
                     android:layout_span="2"
                     android:text="@string/add_customer_header_str"
-                    android:textAlignment="center" />
+                    android:textAlignment="center"
+                    android:textColor="@color/whiteText" />
             </TableRow>
 
             <TableRow>
