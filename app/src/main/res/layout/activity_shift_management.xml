@@ -25,8 +25,10 @@
         <Button
             android:id="@+id/shifts_activity_start_btn"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="fill_parent"
             android:onClick="displayShiftsActivity"
+            android:paddingBottom="@dimen/shift_activity_button_padding"
+            android:paddingTop="@dimen/shift_activity_button_padding"
             android:text="@string/shifts_activity_start_btn_str"
             android:textAlignment="center" />
     </TableRow>
@@ -36,8 +38,10 @@
         <Button
             android:id="@+id/shift_template_popup_btn"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="fill_parent"
             android:onClick="displayShiftTemplateActivity"
+            android:paddingBottom="@dimen/shift_activity_button_padding"
+            android:paddingTop="@dimen/shift_activity_button_padding"
             android:text="@string/shift_template_popup_btn_str"
             android:textAlignment="center" />
     </TableRow>
@@ -47,8 +51,10 @@
         <Button
             android:id="@+id/shift_exceptions_popup_btn"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="fill_parent"
             android:onClick="displayShiftExceptionActivity"
+            android:paddingBottom="@dimen/shift_activity_button_padding"
+            android:paddingTop="@dimen/shift_activity_button_padding"
             android:text="@string/shift_exception_popup_btn_str"
             android:textAlignment="center" />
     </TableRow>

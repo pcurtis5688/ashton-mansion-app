@@ -27,7 +27,7 @@ public class ShiftExceptionManagementActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_manager_shift_exception);
+        setContentView(R.layout.activity_shift_exception_management);
     }
 
 

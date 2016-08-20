@@ -14,9 +14,12 @@ public class EditShiftTemplateActivity extends AppCompatActivity {
     private ShiftDAO shiftDAO;
     private ShiftTemplate shiftTemplate;
     // UI ACCESS FIELDS
-    private TextView shiftTemplateIDTV;
-    private TextView shiftTemplateCodeTV;
-    private TextView shiftTemplateNameTV;
+    private TextView shiftTemplateIDTV1;
+    private TextView shiftTemplateCodeTV1;
+    private TextView shiftTemplateNameTV1;
+    private TextView shiftTemplateIDTV2;
+    private TextView shiftTemplateCodeTV2;
+    private TextView shiftTemplateNameTV2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,15 +32,21 @@ public class EditShiftTemplateActivity extends AppCompatActivity {
         shiftDAO = new ShiftDAO(this);
         shiftTemplate = shiftDAO.getShiftTemplateByID(shiftTemplateID);
         //GET UI HANDLES and POPULATE
-        shiftTemplateIDTV = (TextView) findViewById(R.id.edit_shift_template_ID_TV);
-        shiftTemplateCodeTV = (TextView) findViewById(R.id.edit_shift_template_code_TV);
-        shiftTemplateNameTV = (TextView) findViewById(R.id.edit_shift_template_name_TV);
-        String idLabel = (getResources().getString(R.string.edit_shift_template_ID_label_str)) + shiftTemplate.getShiftID();
-        String codeLabel = (getResources().getString(R.string.edit_shift_template_code_label_str)) + shiftTemplate.getShiftCode();
-        String nameLabel = (getResources().getString(R.string.edit_shift_template_name_label_str)) + shiftTemplate.getShiftName();
+        shiftTemplateIDTV1 = (TextView) findViewById(R.id.edit_shift_template_ID_TV_1);
+        shiftTemplateCodeTV1 = (TextView) findViewById(R.id.edit_shift_template_code_TV_1);
+        shiftTemplateNameTV1 = (TextView) findViewById(R.id.edit_shift_template_name_TV_1);
+        shiftTemplateIDTV2 = (TextView) findViewById(R.id.edit_shift_template_ID_TV_2);
+        shiftTemplateCodeTV2 = (TextView) findViewById(R.id.edit_shift_template_code_TV_2);
+        shiftTemplateNameTV2 = (TextView) findViewById(R.id.edit_shift_template_name_TV_2);
 
-        shiftTemplateIDTV.setText(idLabel);
-        shiftTemplateCodeTV.setText(codeLabel);
-        shiftTemplateNameTV.setText(nameLabel);
+
+        //SET HEADER FIRST ROW
+        shiftTemplateIDTV1.setText(getResources().getString(R.string.edit_shift_template_ID_label_str));
+        shiftTemplateCodeTV1.setText(getResources().getString(R.string.edit_shift_template_code_label_str));
+        shiftTemplateNameTV1.setText(getResources().getString(R.string.edit_shift_template_name_label_str));
+        //SET HEADER SECOND ROW
+        shiftTemplateIDTV2.setText(shiftTemplate.getShiftID());
+        shiftTemplateCodeTV2.setText(shiftTemplate.getShiftCode());
+        shiftTemplateNameTV2.setText(shiftTemplate.getShiftName());
     }
 }

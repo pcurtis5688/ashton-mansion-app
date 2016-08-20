@@ -14,7 +14,7 @@ public class ManagerShiftActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_manager_shift);
+        setContentView(R.layout.activity_shift_management);
 
         //TODO FIGURE OUT HOW TO GET LOGGED IN USER ID AND POPULATE THIS HERE
     }

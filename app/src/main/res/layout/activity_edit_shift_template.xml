@@ -16,30 +16,59 @@
             android:id="@+id/edit_shift_template_header_tv"
             android:layout_width="match_parent"
             android:layout_span="3"
+            android:paddingBottom="@dimen/edit_shift_template_padding_bottom"
             android:text="@string/edit_shift_activity_header_str"
             android:textAlignment="center"
             android:textSize="@dimen/activity_header_size" />
     </TableRow>
 
+    <TableRow android:layout_width="match_parent">
+
+        <TextView
+            android:id="@+id/edit_shift_template_ID_TV_1"
+            android:fontFamily="sans-serif-medium"
+            android:textAlignment="center"
+            android:textSize="@dimen/shift_template_details_table_size"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/edit_shift_template_code_TV_1"
+            android:fontFamily="sans-serif-medium"
+            android:textAlignment="center"
+            android:textSize="@dimen/shift_template_details_table_size"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/edit_shift_template_name_TV_1"
+            android:fontFamily="sans-serif-medium"
+            android:textAlignment="center"
+            android:textSize="@dimen/shift_template_details_table_size"
+            android:textStyle="bold" />
+
+    </TableRow>
+
     <TableRow
         android:layout_width="match_parent"
-        android:paddingBottom="@dimen/activity_horizontal_margin">
+        android:paddingBottom="@dimen/edit_shift_template_padding_bottom">
 
         <TextView
-            android:id="@+id/edit_shift_template_ID_TV"
+            android:id="@+id/edit_shift_template_ID_TV_2"
             android:fontFamily="sans-serif-medium"
+            android:textAlignment="center"
             android:textSize="@dimen/shift_template_details_table_size"
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/edit_shift_template_code_TV"
+            android:id="@+id/edit_shift_template_code_TV_2"
             android:fontFamily="sans-serif-medium"
+            android:textAlignment="center"
             android:textSize="@dimen/shift_template_details_table_size"
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/edit_shift_template_name_TV"
+            android:id="@+id/edit_shift_template_name_TV_2"
             android:fontFamily="sans-serif-medium"
+            android:textAlignment="center"
             android:textSize="@dimen/shift_template_details_table_size"
             android:textStyle="bold" />
 
@@ -81,8 +110,7 @@
 
                 <TextView
                     android:fontFamily="sans-serif-medium"
-                    android:text="@string/edit_shift_template_header_thursday"
-                    android:textSize="@dimen/activity_header_size" />
+                    android:text="@string/edit_shift_template_header_thursday" />
 
                 <TextView
                     android:fontFamily="sans-serif-medium"
@@ -98,8 +126,7 @@
             <TableRow>
 
                 <TextView
-                    android:layout_span="8"
-                    android:text="TEST"
+                    android:text="test"
                     android:textAlignment="center" />
             </TableRow>
         </TableLayout>

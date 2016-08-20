@@ -237,9 +237,9 @@
     <string name="shift_template_add_name_hint_str">New Shift Name</string>
     <string name="shift_template_add_btn_str">Add Shift Template</string>
 
-    <string name="edit_shift_template_ID_label_str">Shift Template ID: </string>
-    <string name="edit_shift_template_code_label_str">Shift Template Code: </string>
-    <string name="edit_shift_template_name_label_str">Shift Template Name: </string>
+    <string name="edit_shift_template_ID_label_str">Shift Template ID</string>
+    <string name="edit_shift_template_code_label_str">Shift Template Code</string>
+    <string name="edit_shift_template_name_label_str">Shift Template Name</string>
 
 
     <string name="edit_shift_template_header_week">Week</string>

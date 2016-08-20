@@ -38,7 +38,7 @@ public class ShiftTemplateManagementActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_manager_shift_template);
+        setContentView(R.layout.activity_shift_template_management);
         //SET ACTIVITY CONTEXT
         shiftTemplateManagementContext = this;
         //Set up table and header row

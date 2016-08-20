@@ -6,9 +6,11 @@
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="text_margin">16dp</dimen>
     <dimen name="main_btn_vertical_margin">30dp</dimen>
+    <dimen name="shift_activity_button_padding">48dp</dimen>
 
     <!-- Activity screen dimens -->
     <dimen name="activity_header_size">48sp</dimen>
     <dimen name="table_header_size">24sp</dimen>
-    <dimen name="shift_template_details_table_size">14sp</dimen>
+    <dimen name="shift_template_details_table_size">22sp</dimen>
+    <dimen name="edit_shift_template_padding_bottom">20sp</dimen>
 </resources>
