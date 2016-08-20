@@ -29,14 +29,16 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:hint="@string/shift_template_add_code_hint_str"
-            android:textAlignment="center" />
+            android:textAlignment="center"
+            android:textStyle="bold" />
 
         <EditText
             android:id="@+id/shift_template_add_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/shift_template_add_name_hint_str"
-            android:textAlignment="center" />
+            android:textAlignment="center"
+            android:textStyle="bold" />
 
         <Button
             android:id="@+id/shift_template_add_btn"
@@ -44,7 +46,8 @@
             android:layout_height="wrap_content"
             android:onClick="addShiftTemplateRecord"
             android:text="@string/shift_template_add_btn_str"
-            android:textAlignment="center" />
+            android:textAlignment="center"
+            android:textStyle="bold" />
     </TableRow>
 
     <TableRow>
@@ -55,7 +58,8 @@
             android:layout_height="wrap_content"
             android:layout_span="3"
             android:paddingTop="@dimen/activity_vertical_margin"
-            android:stretchColumns="*">
+            android:stretchColumns="*"
+            android:textAlignment="center">
             <!--shift template table -->
         </TableLayout>
     </TableRow>
