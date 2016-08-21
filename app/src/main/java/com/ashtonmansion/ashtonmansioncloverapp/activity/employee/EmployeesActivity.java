@@ -34,130 +34,14 @@ public class EmployeesActivity extends AppCompatActivity {
     //STATIC LOCAL VARS
     private Account mAcct;
     private EmployeeConnector mEmpConn;
-    private List<Employee> employees;
     private List<Employee> employeeList;
     private EmployeeDAO employeeDAO;
     private Context employeesActivityContext;
-
-    private void createEmployeeTableHeaderRow() {
-        //Todo this
-    }
-
-    private void deleteEmployee(final Employee employee) {
-        new AsyncTask<Void, Void, Void>() {
-            ProgressDialog progress = new ProgressDialog(employeesActivityContext);
-
-            @Override
-            protected void onPreExecute() {
-                super.onPreExecute();
-                progress.setMessage("Deleting...");
-                progress.show();
-            }
-
-            @Override
-            protected Void doInBackground(Void... params) {
-                boolean employeeSuccessfullyDeletedClover;
-                boolean employeeSuccessfullyDeletedDynamics = false;
-                boolean employeeSuccessfullyDeletedLocal = false;
-
-                try {
-                    mEmpConn.deleteEmployee(employee.getId());
-                    employeeSuccessfullyDeletedClover = true;
-                } catch (ServiceException | BindingException | ClientException | RemoteException e) {
-                    employeeSuccessfullyDeletedClover = false;
-                    Log.e("Clover Exception: ", e.getMessage());
-                } catch (Exception e2) {
-                    employeeSuccessfullyDeletedClover = false;
-                    Log.e("Generic Exception: ", e2.getMessage());
-                }
-
-                /////IF DELETED SUCCESSFULLY IN CLOVER
-                if (employeeSuccessfullyDeletedClover) {
-                    /////DYNAMICS DELETION
-                    //TODO DYNAMICS DELETE METHOD
-                    EmployeeWebService employeeWebService = new EmployeeWebService();
-                    employeeSuccessfullyDeletedDynamics = employeeWebService.deleteEmployeeServiceCall(employee.getId());
-                    if (employeeSuccessfullyDeletedDynamics) {
-                        employeeDAO = new EmployeeDAO(employeesActivityContext);
-                        employeeSuccessfullyDeletedLocal = employeeDAO.deleteLocalEmployeeRecord(employee);
-                        if (!employeeSuccessfullyDeletedLocal) {
-                            Log.e("Local deletion err: ", "See Above...");
-                        }
-                    }
-                }
-                return null;
-            }
-
-            @Override
-            protected void onPostExecute(Void result) {
-                super.onPostExecute(result);
-                progress.dismiss();
-                getEmployeeListAndPopulateTable();
-                //todo below is for use with testing
-                //populateLocalEmplTableTesting();
-            }
-        }.execute();
-    }
-
-    /////*BELOW METHODS COMPLETE *///////////////////
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_employees);
-
-        employeeDAO = new EmployeeDAO(this);
-        employeesActivityContext = this;
-    }
-
-    @Override
-    protected void onPause() {
-        disconnectEmployees();
-        super.onPause();
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-        getMerchantAccount();
-        //Connect emp connector
-        connectEmployees();
-        getEmployeeListAndPopulateTable();
-        //populateLocalEmplTableTesting();
-    }
+    private TableLayout employeeTable;
 
     public void displayAddEmployee(View view) {
         Intent addEmployeeIntent = new Intent(this, AddEmployeeActivity.class);
         startActivity(addEmployeeIntent);
-    }
-
-    private void getMerchantAccount() {
-        //Retrieve the Clover merchant account
-        if (mAcct == null) {
-            mAcct = CloverAccount.getAccount(this);
-
-            //Return if the Clover Account unreachable
-            if (mAcct == null) {
-                finish();
-                return;
-            }
-        }
-    }
-
-    private void connectEmployees() {
-        disconnectEmployees();
-        if (mAcct != null) {
-
-            mEmpConn = new EmployeeConnector(this, mAcct, null);
-            mEmpConn.connect();
-        }
-    }
-
-    private void disconnectEmployees() {
-        if (mEmpConn != null) {
-            mEmpConn.disconnect();
-            mEmpConn = null;
-        }
     }
 
     private void getEmployeeListAndPopulateTable() {
@@ -187,10 +71,33 @@ public class EmployeesActivity extends AppCompatActivity {
         }.execute();
     }
 
+    private void createEmployeeTableHeaderRow() {
+        TableRow employeeTableHeaderRow = new TableRow(employeesActivityContext);
+        TextView employeeTableIDHeader = new TextView(employeesActivityContext);
+        TextView employeeTableNameHeader = new TextView(employeesActivityContext);
+        TextView employeeTableNicknameHeader = new TextView(employeesActivityContext);
+        TextView employeeTableEmailHeader = new TextView(employeesActivityContext);
+        TextView employeeTableRoleHeader = new TextView(employeesActivityContext);
+
+        employeeTableIDHeader.setText("Employee ID");
+        employeeTableNameHeader.setText("Name");
+        employeeTableNicknameHeader.setText("Nickname");
+        employeeTableEmailHeader.setText("Email");
+        employeeTableRoleHeader.setText("Role");
+
+        employeeTableHeaderRow.addView(employeeTableIDHeader);
+        employeeTableHeaderRow.addView(employeeTableNameHeader);
+        employeeTableHeaderRow.addView(employeeTableNicknameHeader);
+        employeeTableHeaderRow.addView(employeeTableEmailHeader);
+        employeeTableHeaderRow.addView(employeeTableRoleHeader);
+        employeeTable.addView(employeeTableHeaderRow);
+    }
+
     private void populateEmployeeTable() {
         //Clear the employee table if has content
-        TableLayout employeeTable = (TableLayout) findViewById(R.id.employee_table);
         employeeTable.removeAllViews();
+        //CREATE THE TABLE HEADER
+        createEmployeeTableHeaderRow();
 
         TableRow workingEmployeeRow;
         TextView empIdTextview;
@@ -198,8 +105,6 @@ public class EmployeesActivity extends AppCompatActivity {
         TextView empNicknameTextView;
         TextView empEmailTextview;
         TextView empRoleTextview;
-        //CREATE THE TABLE HEADER
-        createEmployeeTableHeaderRow();
 
         if (employeeList != null) {
             for (final Employee currentEmp : employeeList) {
@@ -276,52 +181,114 @@ public class EmployeesActivity extends AppCompatActivity {
                 .setNegativeButton(android.R.string.no, null).show();
     }
 
-    private void populateLocalEmplTableTesting() {
-        employees = new EmployeeDAO(this).getLocalEmployeeRecords();
+    private void deleteEmployee(final Employee employee) {
+        new AsyncTask<Void, Void, Void>() {
+            ProgressDialog progress = new ProgressDialog(employeesActivityContext);
 
-        TableLayout localTable = (TableLayout) findViewById(R.id.local_employee_table);
-        localTable.removeAllViews();
+            @Override
+            protected void onPreExecute() {
+                super.onPreExecute();
+                progress.setMessage("Deleting...");
+                progress.show();
+            }
 
-        TableRow headerRow = new TableRow(this);
-        TextView headerText = new TextView(this);
-        headerText.setText("TEST");
-        headerRow.addView(headerText);
-        localTable.addView(headerRow);
-        for (final Employee employee : employees) {
-            TableRow empRow = new TableRow(this);
+            @Override
+            protected Void doInBackground(Void... params) {
+                boolean employeeSuccessfullyDeletedClover;
+                boolean employeeSuccessfullyDeletedDynamics = false;
+                boolean employeeSuccessfullyDeletedLocal = false;
 
-            TextView empID = new TextView(this);
-            TextView empName = new TextView(this);
-            TextView empNickname = new TextView(this);
-            TextView empRole = new TextView(this);
-            TextView empPin = new TextView(this);
-            TextView empEmail = new TextView(this);
-
-            Button deleteEmployeeLocalTblButton = new Button(this);
-            deleteEmployeeLocalTblButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    deleteThisEmployee(employee);
+                try {
+                    mEmpConn.deleteEmployee(employee.getId());
+                    employeeSuccessfullyDeletedClover = true;
+                } catch (ServiceException | BindingException | ClientException | RemoteException e) {
+                    employeeSuccessfullyDeletedClover = false;
+                    Log.e("Clover Exception: ", e.getMessage());
+                } catch (Exception e2) {
+                    employeeSuccessfullyDeletedClover = false;
+                    Log.e("Generic Exception: ", e2.getMessage());
                 }
-            });
 
-            empID.setText(employee.getId());
-            empName.setText(employee.getName());
-            empNickname.setText(employee.getNickname());
-            empRole.setText(employee.getRole().toString());
-            empPin.setText(employee.getPin());
-            empEmail.setText(employee.getEmail());
-            deleteEmployeeLocalTblButton.setText("DELETE");
+                /////IF DELETED SUCCESSFULLY IN CLOVER
+                if (employeeSuccessfullyDeletedClover) {
+                    /////DYNAMICS DELETION
+                    //TODO DYNAMICS DELETE METHOD
+                    EmployeeWebService employeeWebService = new EmployeeWebService();
+                    employeeSuccessfullyDeletedDynamics = employeeWebService.deleteEmployeeServiceCall(employee.getId());
+                    if (employeeSuccessfullyDeletedDynamics) {
+                        employeeDAO = new EmployeeDAO(employeesActivityContext);
+                        employeeSuccessfullyDeletedLocal = employeeDAO.deleteLocalEmployeeRecord(employee);
+                        if (!employeeSuccessfullyDeletedLocal) {
+                            Log.e("Local deletion err: ", "See Above...");
+                        }
+                    }
+                }
+                return null;
+            }
 
-            empRow.addView(empID);
-            empRow.addView(empName);
-            empRow.addView(empNickname);
-            empRow.addView(empRole);
-            empRow.addView(empPin);
-            empRow.addView(empEmail);
-            empRow.addView(deleteEmployeeLocalTblButton);
+            @Override
+            protected void onPostExecute(Void result) {
+                super.onPostExecute(result);
+                progress.dismiss();
+                getEmployeeListAndPopulateTable();
+                //todo below is for use with testing
+                //populateLocalEmplTableTesting();
+            }
+        }.execute();
+    }
 
-            localTable.addView(empRow);
+    private void getMerchantAccount() {
+        //Retrieve the Clover merchant account
+        if (mAcct == null) {
+            mAcct = CloverAccount.getAccount(this);
+
+            //Return if the Clover Account unreachable
+            if (mAcct == null) {
+                finish();
+                return;
+            }
         }
+    }
+
+    private void connectEmployees() {
+        disconnectEmployees();
+        if (mAcct != null) {
+
+            mEmpConn = new EmployeeConnector(this, mAcct, null);
+            mEmpConn.connect();
+        }
+    }
+
+    private void disconnectEmployees() {
+        if (mEmpConn != null) {
+            mEmpConn.disconnect();
+            mEmpConn = null;
+        }
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_employees);
+        employeesActivityContext = this;
+        employeeDAO = new EmployeeDAO(this);
+        employeeTable = (TableLayout) findViewById(R.id.employee_table);
+    }
+
+    @Override
+    protected void onPause() {
+        disconnectEmployees();
+        super.onPause();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        getMerchantAccount();
+        //Connect emp connector
+        connectEmployees();
+        getEmployeeListAndPopulateTable();
+        //populateLocalEmplTableTesting();
     }
 }
