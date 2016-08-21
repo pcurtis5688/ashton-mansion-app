@@ -46,7 +46,7 @@
     <string name="header_appt_table_appt_ID">ID</string>
     <string name="header_appt_table_appt_date">Date</string>
     <string name="header_appt_table_appt_time">Time</string>
-    <string name="header_appt_table_appt_duration">Hours (planned)</string>
+    <string name="header_appt_table_appt_duration">Hours</string>
     <string name="header_appt_table_appt_customer_code">Customer Code</string>
     <string name="header_appt_table_appt_alert_type">Alert Type</string>
     <string name="header_appt_table_appt_item_code">Item Code</string>

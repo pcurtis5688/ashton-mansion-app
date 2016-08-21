@@ -10,7 +10,19 @@
 
     <style name="TableHeaderStyle">
         <item name="android:textStyle">bold</item>
+        <item name="android:textAlignment">center</item>
     </style>
+
+    <style name="DefaultButtonStyle">
+        <item name="android:background">@color/standardButtonBackground</item>
+        <item name="android:textColor">@color/standardButtonTextColor</item>
+    </style>
+
+    <style name="CenteredWhiteText">
+        <item name="android:textColor">@color/whiteText</item>
+        <item name="android:textAlignment">center</item>
+    </style>
+
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>

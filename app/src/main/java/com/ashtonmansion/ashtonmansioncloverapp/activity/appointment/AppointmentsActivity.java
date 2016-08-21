@@ -94,16 +94,27 @@ public class AppointmentsActivity extends AppCompatActivity {
             TableRow newApptRow = new TableRow(this);
             //CREATE NEW COLUMNS FOR ROW
             TextView idTV = new TextView(this);
+            idTV.setTypeface(Typeface.DEFAULT, R.style.CenteredWhiteText);
             TextView dateTV = new TextView(this);
+            dateTV.setTypeface(Typeface.DEFAULT, R.style.CenteredWhiteText);
             TextView timeTV = new TextView(this);
+            timeTV.setTypeface(Typeface.DEFAULT, R.style.CenteredWhiteText);
             TextView durationTV = new TextView(this);
+            durationTV.setTypeface(Typeface.DEFAULT, R.style.CenteredWhiteText);
             TextView customerCodeTV = new TextView(this);
+            customerCodeTV.setTypeface(Typeface.DEFAULT, R.style.CenteredWhiteText);
             TextView alertTypeTV = new TextView(this);
+            alertTypeTV.setTypeface(Typeface.DEFAULT, R.style.CenteredWhiteText);
             TextView itemCodeTV = new TextView(this);
+            itemCodeTV.setTypeface(Typeface.DEFAULT, R.style.CenteredWhiteText);
             TextView noteTV = new TextView(this);
+            noteTV.setTypeface(Typeface.DEFAULT, R.style.CenteredWhiteText);
             TextView emp1TV = new TextView(this);
+            emp1TV.setTypeface(Typeface.DEFAULT, R.style.CenteredWhiteText);
             TextView emp2TV = new TextView(this);
+            emp2TV.setTypeface(Typeface.DEFAULT, R.style.CenteredWhiteText);
             TextView confirmStatusTV = new TextView(this);
+            confirmStatusTV.setTypeface(Typeface.DEFAULT, R.style.CenteredWhiteText);
             //HANDLE THE DATES AND TIMES
             String appt_date = appt.get_date();
             String appt_time = appt.get_start_time();
@@ -122,6 +133,7 @@ public class AppointmentsActivity extends AppCompatActivity {
             confirmStatusTV.setText(appt.get_confirm_status());
             //DELETE BUTTON
             Button deleteApptButton = new Button(appointmentsActivityContext);
+            deleteApptButton.setTypeface(Typeface.DEFAULT, R.style.DefaultButtonStyle);
             deleteApptButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
