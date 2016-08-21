@@ -36,7 +36,7 @@ public class CustomerDAO extends SQLiteOpenHelper {
     public boolean deleteLocalCustomerRecord(String customerID) {
         boolean localCustomerDeletionSuccessful = false;
 
-
+        //TODO FINISH THIS
         return localCustomerDeletionSuccessful;
     }
 

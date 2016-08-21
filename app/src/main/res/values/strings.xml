@@ -163,6 +163,7 @@
     <string name="add_customer_cancel_btn_str">Cancel</string>
     <string name="edit_customer_cancel_btn_str">Cancel</string>
 
+    <string name="delete_string_for_buttons">Delete</string>
 
     <string-array name="yes_no_string_array">
         <item>Yes</item>

@@ -3,6 +3,7 @@ package com.ashtonmansion.ashtonmansioncloverapp.activity.appointment;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
+import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.format.DateUtils;
@@ -16,6 +17,7 @@ import android.widget.TimePicker;
 import com.ashtonmansion.ashtonmansioncloverapp.R;
 import com.ashtonmansion.ashtonmansioncloverapp.dao.AppointmentDAO;
 import com.ashtonmansion.ashtonmansioncloverapp.dbo.Appointment;
+import com.ashtonmansion.ashtonmansioncloverapp.utility.GlobalUtils;
 import com.ashtonmansion.ashtonmansioncloverapp.webservices.appointmentws.AppointmentWebServices;
 
 import java.sql.Time;
@@ -70,14 +72,14 @@ public class AddAppointmentActivity extends AppCompatActivity {
         int dateMonth = datePicker.getMonth();
         int dateDay = datePicker.getDayOfMonth();
         int dateYear = datePicker.getYear();
-        Date appt_date = new Date(dateYear - 1900, dateMonth, dateDay);
+        String formattedDate = GlobalUtils.formatDate(dateMonth, dateDay, dateYear);
         //todo handle this date...
         //HANDLE TIME FROM TIMEPICKER
         int apptHour = timePicker.getCurrentHour();
         int apptMinute = timePicker.getCurrentMinute();
         Time appt_time = new Time(apptHour, apptMinute, 0);
         //CONSTRUCT THE APPOINTMENT OBJECT
-        appointment.set_date(appt_date.toString());
+        appointment.set_date(formattedDate);
         appointment.set_start_time(appt_time.toString());
         appointment.set_duration(durationText.getText().toString());
         appointment.set_customer_code(customerCodeText.getText().toString());

@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import com.ashtonmansion.ashtonmansioncloverapp.dbo.Appointment;
 
@@ -51,28 +52,7 @@ public class AppointmentDAO extends SQLiteOpenHelper {
         //TODO LATER ON DECIDE ON DB UPGRADE FEATURES
     }
 
-
-    //INSERT AN APPOINTMENT RECORD INTO THE APPOINTMENT TABLES
-    public void addAppointment(Appointment appointment) {
-        SQLiteDatabase db = this.getWritableDatabase();
-
-        ContentValues values = new ContentValues();
-        values.put(APPOINTMENT_DATE, appointment.get_date().toString());
-        values.put(APPOINTMENT_START_TIME, appointment.get_start_time());
-        values.put(APPOINTMENT_DURATION, appointment.get_duration());
-        values.put(APPOINTMENT_CUSTOMER_CODE, appointment.get_customer_code());
-        values.put(APPOINTMENT_ALERT_TYPE, appointment.get_alert_type());
-        values.put(APPOINTMENT_ITEM_CODE, appointment.get_item_code());
-        values.put(APPOINTMENT_NOTE, appointment.get_note());
-        values.put(APPOINTMENT_EMPLOYEE_CODE_1, appointment.get_employee_code_1());
-        values.put(APPOINTMENT_EMPLOYEE_CODE_2, appointment.get_employee_code_2());
-        values.put(APPOINTMENT_CONFIRM_STATUS, appointment.get_confirm_status());
-
-        db.insert(TABLE_APPOINTMENT, null, values);
-        db.close();
-    }
-
-
+    //GET ALL APPOINTMENTS FOR MERCHANT
     public List<Appointment> getAllAppointments() {
 
         List<Appointment> appointmentList = new ArrayList<Appointment>();
@@ -104,6 +84,41 @@ public class AppointmentDAO extends SQLiteOpenHelper {
         return appointmentList;
     }
 
+    //INSERT AN APPOINTMENT RECORD INTO THE APPOINTMENT TABLES
+    public void addAppointment(Appointment appointment) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(APPOINTMENT_DATE, appointment.get_date().toString());
+        values.put(APPOINTMENT_START_TIME, appointment.get_start_time());
+        values.put(APPOINTMENT_DURATION, appointment.get_duration());
+        values.put(APPOINTMENT_CUSTOMER_CODE, appointment.get_customer_code());
+        values.put(APPOINTMENT_ALERT_TYPE, appointment.get_alert_type());
+        values.put(APPOINTMENT_ITEM_CODE, appointment.get_item_code());
+        values.put(APPOINTMENT_NOTE, appointment.get_note());
+        values.put(APPOINTMENT_EMPLOYEE_CODE_1, appointment.get_employee_code_1());
+        values.put(APPOINTMENT_EMPLOYEE_CODE_2, appointment.get_employee_code_2());
+        values.put(APPOINTMENT_CONFIRM_STATUS, appointment.get_confirm_status());
+
+        db.insert(TABLE_APPOINTMENT, null, values);
+        db.close();
+    }
+
+    //DELETE AN APPOINTMENT BY ID
+    public boolean deleteAppointmentByID(String appointmentID) {
+        int rowsDeleted = 0;
+        SQLiteDatabase db = this.getWritableDatabase();
+        try {
+            rowsDeleted = db.delete(TABLE_APPOINTMENT, APPOINTMENT_ID + "= ?", new String[]{appointmentID});
+        } catch (Exception e) {
+            Log.e("Generic Exception", " in delete local record: " + e.getMessage());
+        } finally {
+            db.close();
+        }
+        return (rowsDeleted > 0);
+    }
+
+    //CREATE APPOINTMENT TABLE LOCALLY IF NOT ALREADY
     public void createAppointmentTable() {
         SQLiteDatabase db = this.getWritableDatabase();
         String CREATE_APPOINTMENT_TABLE = "CREATE TABLE IF NOT EXISTS " + TABLE_APPOINTMENT
