@@ -11,7 +11,7 @@
     android:stretchColumns="*"
     tools:context="com.ashtonmansion.ashtonmansioncloverapp.activity.MainActivity">
 
-    <TableRow>
+    <TableRow android:layout_marginTop="@dimen/dimen_20dp">
 
         <ImageView
             android:layout_span="2"
@@ -28,8 +28,8 @@
             android:layout_margin="@dimen/text_margin"
             android:background="@color/standardButtonBackground"
             android:onClick="showApptPage"
-            android:paddingBottom="@dimen/nominal_padding"
-            android:paddingTop="@dimen/nominal_padding"
+            android:paddingBottom="@dimen/dimen_20dp"
+            android:paddingTop="@dimen/dimen_20dp"
             android:text="@string/appt_page"
             android:textColor="@color/standardButtonTextColor" />
 
@@ -40,8 +40,8 @@
             android:layout_margin="@dimen/text_margin"
             android:background="@color/standardButtonBackground"
             android:onClick="showInventoryPage"
-            android:paddingBottom="@dimen/nominal_padding"
-            android:paddingTop="@dimen/nominal_padding"
+            android:paddingBottom="@dimen/dimen_20dp"
+            android:paddingTop="@dimen/dimen_20dp"
             android:text="@string/inventory_page_btn_str"
             android:textColor="@color/standardButtonTextColor" />
     </TableRow>
@@ -55,8 +55,8 @@
             android:layout_margin="@dimen/text_margin"
             android:background="@color/standardButtonBackground"
             android:onClick="showEmployeePage"
-            android:paddingBottom="@dimen/nominal_padding"
-            android:paddingTop="@dimen/nominal_padding"
+            android:paddingBottom="@dimen/dimen_20dp"
+            android:paddingTop="@dimen/dimen_20dp"
             android:text="@string/employee_page_btn_str"
             android:textColor="@color/standardButtonTextColor" />
 
@@ -67,8 +67,8 @@
             android:layout_margin="@dimen/text_margin"
             android:background="@color/standardButtonBackground"
             android:onClick="showCustPage"
-            android:paddingBottom="@dimen/nominal_padding"
-            android:paddingTop="@dimen/nominal_padding"
+            android:paddingBottom="@dimen/dimen_20dp"
+            android:paddingTop="@dimen/dimen_20dp"
             android:text="@string/label_cust_page_btn"
             android:textColor="@color/standardButtonTextColor" />
     </TableRow>
@@ -82,8 +82,8 @@
             android:layout_span="2"
             android:background="@color/standardButtonBackground"
             android:onClick="showSettingsPage"
-            android:paddingBottom="@dimen/nominal_padding"
-            android:paddingTop="@dimen/nominal_padding"
+            android:paddingBottom="@dimen/dimen_20dp"
+            android:paddingTop="@dimen/dimen_20dp"
             android:text="@string/settings_btn_str"
             android:textColor="@color/standardButtonTextColor" />
     </TableRow>
@@ -97,8 +97,8 @@
             android:layout_span="2"
             android:background="@color/standardButtonBackground"
             android:onClick="showManagementPage"
-            android:paddingBottom="@dimen/nominal_padding"
-            android:paddingTop="@dimen/nominal_padding"
+            android:paddingBottom="@dimen/dimen_20dp"
+            android:paddingTop="@dimen/dimen_20dp"
             android:text="@string/management_page_btn_str"
             android:textColor="@color/standardButtonTextColor" />
     </TableRow>

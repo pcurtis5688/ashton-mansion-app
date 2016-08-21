@@ -16,7 +16,6 @@ import com.ashtonmansion.ashtonmansioncloverapp.utility.DBStartupUtility;
 import com.clover.sdk.util.CloverAccount;
 
 public class MainActivity extends AppCompatActivity {
-    private Account mAcct;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,8 +29,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-
-        getMerchantAccount();
     }
 
     //Method to View/Edit Appointments
@@ -65,24 +62,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //Method to enter the sandbox
-    public void showSandboxPage(View view) {
-        Intent sandboxPageIntent = new Intent(this, SandboxActivity.class);
-        startActivity(sandboxPageIntent);
-    }
-
-    //Method to enter the sandbox
     public void showManagementPage(View view) {
         Intent mainManagerIntent = new Intent(this, ManagerMainActivity.class);
         startActivity(mainManagerIntent);
     }
 
-    private void getMerchantAccount() {
-        if (mAcct == null) {
-            mAcct = CloverAccount.getAccount(this);
-
-            if (mAcct == null) {
-                return;
-            }
-        }
+    //Method to enter the sandbox
+    public void showSandboxPage(View view) {
+        Intent sandboxPageIntent = new Intent(this, SandboxActivity.class);
+        startActivity(sandboxPageIntent);
     }
+
 }

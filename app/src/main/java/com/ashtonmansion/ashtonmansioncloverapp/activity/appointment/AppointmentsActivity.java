@@ -93,8 +93,8 @@ public class AppointmentsActivity extends AppCompatActivity {
             //CREATE NEW ROW FOR TABLE
             TableRow newApptRow = new TableRow(this);
             //CREATE NEW COLUMNS FOR ROW
-            TextView idTV = new TextView(this);
-            idTV.setTypeface(Typeface.DEFAULT, R.style.CenteredWhiteText);
+            TextView idTV = new TextView(this, null, R.style.CenteredWhiteText);
+
             TextView dateTV = new TextView(this);
             dateTV.setTypeface(Typeface.DEFAULT, R.style.CenteredWhiteText);
             TextView timeTV = new TextView(this);

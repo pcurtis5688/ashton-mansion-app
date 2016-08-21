@@ -17,6 +17,7 @@
             android:id="@+id/id_settings_header"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/dimen_20dp"
             android:layout_span="2"
             android:text="@string/settings_screen_header_str"
             android:textAlignment="center"
@@ -33,7 +34,7 @@
             android:paddingTop="@dimen/activity_vertical_margin"
             android:stretchColumns="*">
 
-            <TableRow>
+            <TableRow android:layout_marginBottom="@dimen/dimen_20dp">
 
                 <TextView
                     android:id="@+id/label_alert_time_of_day"

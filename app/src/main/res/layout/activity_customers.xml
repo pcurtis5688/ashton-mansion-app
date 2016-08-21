@@ -16,10 +16,6 @@
         <TableLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingBottom="@dimen/activity_vertical_margin"
-            android:paddingLeft="@dimen/activity_horizontal_margin"
-            android:paddingRight="@dimen/activity_horizontal_margin"
-            android:paddingTop="@dimen/activity_vertical_margin"
             android:stretchColumns="*">
 
             <TableRow
@@ -29,8 +25,10 @@
                 <TextView
                     android:id="@+id/customer_page_header"
                     android:layout_width="fill_parent"
+                    android:layout_marginBottom="@dimen/dimen_20dp"
                     android:text="@string/customer_page_header_label_str"
                     android:textAlignment="center"
+                    android:textColor="@color/white"
                     android:textSize="@dimen/activity_header_size" />
 
             </TableRow>
@@ -41,6 +39,7 @@
                     android:id="@+id/add_customer_button"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/dimen_20dp"
                     android:background="@color/standardButtonBackground"
                     android:onClick="displayAddCustomer"
                     android:paddingBottom="@dimen/main_btn_vertical_margin"
@@ -54,6 +53,10 @@
                 <TableLayout
                     android:id="@+id/customer_table"
                     android:layout_width="match_parent"
+                    android:background="@color/white"
+                    android:paddingBottom="@dimen/dimen_20dp"
+                    android:paddingLeft="@dimen/dimen_10dp"
+                    android:paddingTop="@dimen/dimen_20dp"
                     android:stretchColumns="*" />
             </TableRow>
 
