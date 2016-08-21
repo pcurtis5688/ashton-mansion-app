@@ -52,17 +52,9 @@
                     android:layout_height="wrap_content"
                     android:background="@color/white"
                     android:paddingBottom="@dimen/dimen_20dp"
+                    android:paddingLeft="@dimen/dimen_20dp"
+                    android:paddingRight="@dimen/dimen_20dp"
                     android:paddingTop="@dimen/dimen_20dp"
-                    android:stretchColumns="*" />
-            </TableRow>
-
-            <TableRow>
-
-                <TableLayout
-                    android:id="@+id/local_employee_table"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/white"
                     android:stretchColumns="*" />
             </TableRow>
         </TableLayout>

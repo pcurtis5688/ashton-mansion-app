@@ -75,19 +75,16 @@ public class EmployeesActivity extends AppCompatActivity {
         TableRow employeeTableHeaderRow = new TableRow(employeesActivityContext);
         TextView employeeTableIDHeader = new TextView(employeesActivityContext);
         TextView employeeTableNameHeader = new TextView(employeesActivityContext);
-        TextView employeeTableNicknameHeader = new TextView(employeesActivityContext);
         TextView employeeTableEmailHeader = new TextView(employeesActivityContext);
         TextView employeeTableRoleHeader = new TextView(employeesActivityContext);
 
         employeeTableIDHeader.setText("Employee ID");
         employeeTableNameHeader.setText("Name");
-        employeeTableNicknameHeader.setText("Nickname");
         employeeTableEmailHeader.setText("Email");
         employeeTableRoleHeader.setText("Role");
 
         employeeTableHeaderRow.addView(employeeTableIDHeader);
         employeeTableHeaderRow.addView(employeeTableNameHeader);
-        employeeTableHeaderRow.addView(employeeTableNicknameHeader);
         employeeTableHeaderRow.addView(employeeTableEmailHeader);
         employeeTableHeaderRow.addView(employeeTableRoleHeader);
         employeeTable.addView(employeeTableHeaderRow);
@@ -102,7 +99,6 @@ public class EmployeesActivity extends AppCompatActivity {
         TableRow workingEmployeeRow;
         TextView empIdTextview;
         TextView empNameTextview;
-        TextView empNicknameTextView;
         TextView empEmailTextview;
         TextView empRoleTextview;
 
@@ -113,7 +109,6 @@ public class EmployeesActivity extends AppCompatActivity {
                 //Create new views to populate data
                 empIdTextview = new TextView(this);
                 empNameTextview = new TextView(this);
-                empNicknameTextView = new TextView(this);
                 empEmailTextview = new TextView(this);
                 empRoleTextview = new TextView(this);
 
@@ -141,7 +136,6 @@ public class EmployeesActivity extends AppCompatActivity {
                 //ADD DATA TO THE COMPONENTS
                 empIdTextview.setText(currentEmp.getId());
                 empNameTextview.setText(currentEmp.getName());
-                empNicknameTextView.setText(currentEmp.getNickname());
                 empEmailTextview.setText(currentEmp.getEmail());
                 empRoleTextview.setText(currentEmp.getRole().name());
                 //TODO FIX THIS ACCESS STRINGS.XML
@@ -149,7 +143,6 @@ public class EmployeesActivity extends AppCompatActivity {
                 //ADD COMPONENTS TO THE NEW ROW
                 workingEmployeeRow.addView(empIdTextview);
                 workingEmployeeRow.addView(empNameTextview);
-                workingEmployeeRow.addView(empNicknameTextView);
                 workingEmployeeRow.addView(empEmailTextview);
                 workingEmployeeRow.addView(empRoleTextview);
                 workingEmployeeRow.addView(editEmployeeButton);
