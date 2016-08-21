@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.ContextThemeWrapper;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TableLayout;
@@ -133,14 +134,14 @@ public class AppointmentsActivity extends AppCompatActivity {
             confirmStatusTV.setText(appt.get_confirm_status());
             //DELETE BUTTON
             Button deleteApptButton = new Button(appointmentsActivityContext);
-            deleteApptButton.setTypeface(Typeface.DEFAULT, R.style.DefaultButtonStyle);
+            deleteApptButton.setText(R.string.delete_string_for_buttons);
+            deleteApptButton.setTypeface(Typeface.DEFAULT_BOLD, R.color.white);
             deleteApptButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     deleteThisAppointment(appt);
                 }
             });
-            deleteApptButton.setText(R.string.delete_string_for_buttons);
             //ADD ALL TV'S TO NEW ROW
             newApptRow.addView(idTV);
             newApptRow.addView(dateTV);
