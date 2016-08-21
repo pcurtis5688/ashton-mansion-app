@@ -64,6 +64,9 @@
             android:name=".activity.customer.EditCustomerActivity"
             android:parentActivityName=".activity.customer.CustomersActivity" />
         <activity
+            android:name=".activity.employee.EditEmployeeActivity"
+            android:parentActivityName=".activity.employee.EmployeesActivity" />
+        <activity
             android:name=".activity.management.ManagerMainActivity"
             android:parentActivityName=".activity.MainActivity" />
         <activity
