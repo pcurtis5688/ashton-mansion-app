@@ -161,62 +161,6 @@ public class CustomersActivity extends AppCompatActivity {
         }
     }
 
-    //TODO LOCAL TO DO IN DELETECUSTOMER
-    private void deleteCustomer(final String customerID) {
-        new AsyncTask<Void, Void, Void>() {
-            ProgressDialog progress = new ProgressDialog(customersActivityContext);
-
-            @Override
-            protected void onPreExecute() {
-                super.onPreExecute();
-                progress.setMessage("Deleting...");
-                progress.show();
-            }
-
-            @Override
-            protected Void doInBackground(Void... params) {
-                boolean customerSuccessfullyDeletedClover;
-                boolean customerSuccessfullyDeletedDynamics = false;
-                boolean customerSuccessfullyDeletedLocal = false;
-                CustomerDAO customerDAO = new CustomerDAO(customersActivityContext);
-                try {
-                    connectCustomerConn();
-                    customerConnector.deleteCustomer(customerID);
-                    customerSuccessfullyDeletedClover = true;
-                    disconnectCustomerConn();
-                } catch (ServiceException | BindingException | ClientException | RemoteException e) {
-                    customerSuccessfullyDeletedClover = false;
-                    Log.e("Clover Exception: ", e.getMessage());
-                } catch (Exception e2) {
-                    customerSuccessfullyDeletedClover = false;
-                    Log.e("Generic Exception: ", "" + e2.getMessage());
-                }
-                /////IF DELETED SUCCESSFULLY IN CLOVER
-                if (customerSuccessfullyDeletedClover) {
-                    /////DYNAMICS DELETION
-                    CustomerWebService customerWebService = new CustomerWebService();
-                    customerSuccessfullyDeletedDynamics = customerWebService.deleteCustomerServiceCall(customerID);
-
-                    if (customerSuccessfullyDeletedDynamics) {
-                        //TODO LOCAL INSERTION & DELETION METHOD IN DAO
-//                        customerSuccessfullyDeletedLocal = customerDAO.deleteLocalEmployeeRecord(employee);
-//                        if (!customerSuccessfullyDeletedLocal) {
-//                            Log.e("Local deletion err: ", "See Above...");
-//                        }
-                    }
-                }
-                return null;
-            }
-
-            @Override
-            protected void onPostExecute(Void result) {
-                super.onPostExecute(result);
-                progress.dismiss();
-                getCustomerListAndPopulateTable();
-            }
-        }.execute();
-    }
-
     private String getCustomerFullName(Customer customer) {
         return customer.getFirstName() + " " + customer.getLastName();
     }
@@ -338,6 +282,62 @@ public class CustomersActivity extends AppCompatActivity {
                     }
                 })
                 .setNegativeButton(android.R.string.no, null).show();
+    }
+
+    //TODO LOCAL TO DO IN DELETECUSTOMER
+    private void deleteCustomer(final String customerID) {
+        new AsyncTask<Void, Void, Void>() {
+            ProgressDialog progress = new ProgressDialog(customersActivityContext);
+
+            @Override
+            protected void onPreExecute() {
+                super.onPreExecute();
+                progress.setMessage("Deleting...");
+                progress.show();
+            }
+
+            @Override
+            protected Void doInBackground(Void... params) {
+                boolean customerSuccessfullyDeletedClover;
+                boolean customerSuccessfullyDeletedDynamics = false;
+                boolean customerSuccessfullyDeletedLocal = false;
+                CustomerDAO customerDAO = new CustomerDAO(customersActivityContext);
+                try {
+                    connectCustomerConn();
+                    customerConnector.deleteCustomer(customerID);
+                    customerSuccessfullyDeletedClover = true;
+                    disconnectCustomerConn();
+                } catch (ServiceException | BindingException | ClientException | RemoteException e) {
+                    customerSuccessfullyDeletedClover = false;
+                    Log.e("Clover Exception: ", e.getMessage());
+                } catch (Exception e2) {
+                    customerSuccessfullyDeletedClover = false;
+                    Log.e("Generic Exception: ", "" + e2.getMessage());
+                }
+                /////IF DELETED SUCCESSFULLY IN CLOVER
+                if (customerSuccessfullyDeletedClover) {
+                    /////DYNAMICS DELETION
+                    CustomerWebService customerWebService = new CustomerWebService();
+                    customerSuccessfullyDeletedDynamics = customerWebService.deleteCustomerServiceCall(customerID);
+
+                    if (customerSuccessfullyDeletedDynamics) {
+                        //TODO LOCAL INSERTION & DELETION METHOD IN DAO
+//                        customerSuccessfullyDeletedLocal = customerDAO.deleteLocalEmployeeRecord(employee);
+//                        if (!customerSuccessfullyDeletedLocal) {
+//                            Log.e("Local deletion err: ", "See Above...");
+//                        }
+                    }
+                }
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(Void result) {
+                super.onPostExecute(result);
+                progress.dismiss();
+                getCustomerListAndPopulateTable();
+            }
+        }.execute();
     }
 
     /////////////////ACTIVITY FLOW METHODS ///////////////////

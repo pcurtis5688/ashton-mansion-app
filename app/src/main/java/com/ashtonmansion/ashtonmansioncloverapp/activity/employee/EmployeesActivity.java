@@ -46,10 +46,13 @@ public class EmployeesActivity extends AppCompatActivity {
 
     private void getEmployeeListAndPopulateTable() {
         new AsyncTask<Void, Void, Employee>() {
+            ProgressDialog progressDialog = new ProgressDialog(employeesActivityContext);
+
             @Override
             protected void onPreExecute() {
                 super.onPreExecute();
-                //can show progress bar here
+                progressDialog.setMessage("Loading Employees...");
+                progressDialog.show();
             }
 
             @Override
@@ -67,6 +70,7 @@ public class EmployeesActivity extends AppCompatActivity {
             @Override
             protected void onPostExecute(Employee employee) {
                 populateEmployeeTable();
+                progressDialog.dismiss();
             }
         }.execute();
     }
@@ -78,10 +82,10 @@ public class EmployeesActivity extends AppCompatActivity {
         TextView employeeTableEmailHeader = new TextView(employeesActivityContext);
         TextView employeeTableRoleHeader = new TextView(employeesActivityContext);
 
-        employeeTableIDHeader.setText("Employee ID");
-        employeeTableNameHeader.setText("Name");
-        employeeTableEmailHeader.setText("Email");
-        employeeTableRoleHeader.setText("Role");
+        employeeTableIDHeader.setText(getResources().getString(R.string.employee_table_ID_header));
+        employeeTableNameHeader.setText(getResources().getString(R.string.employee_table_name_header));
+        employeeTableEmailHeader.setText(getResources().getString(R.string.employee_table_email_header));
+        employeeTableRoleHeader.setText(getResources().getString(R.string.employee_table_role_header));
 
         employeeTableHeaderRow.addView(employeeTableIDHeader);
         employeeTableHeaderRow.addView(employeeTableNameHeader);

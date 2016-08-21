@@ -1,6 +1,7 @@
 package com.ashtonmansion.ashtonmansioncloverapp.activity.item;
 
 import android.accounts.Account;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -29,10 +30,13 @@ public class InventoryActivity extends AppCompatActivity {
 
     private void getInventoryList() {
         new AsyncTask<Void, Void, Item>() {
+            ProgressDialog progressDialog = new ProgressDialog(inventoryActivityContext);
+
             @Override
             protected void onPreExecute() {
                 super.onPreExecute();
-                //progress bar here
+                progressDialog.setMessage("Loading Inventory...");
+                progressDialog.show();
             }
 
             @Override
@@ -50,6 +54,7 @@ public class InventoryActivity extends AppCompatActivity {
             @Override
             protected void onPostExecute(Item item) {
                 populateItemTable();
+                progressDialog.dismiss();
             }
         }.execute();
     }

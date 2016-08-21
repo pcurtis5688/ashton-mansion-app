@@ -38,7 +38,6 @@
                     android:id="@+id/add_inventory_item_btn"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/dimen_20dp"
                     android:background="@color/standardButtonBackground"
                     android:onClick="displayAddInventory"
                     android:paddingBottom="@dimen/main_btn_vertical_margin"

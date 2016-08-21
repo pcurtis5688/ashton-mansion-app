@@ -35,7 +35,6 @@
                     android:id="@+id/add_employee_button"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/dimen_20dp"
                     android:background="@color/standardButtonBackground"
                     android:onClick="displayAddEmployee"
                     android:paddingBottom="@dimen/main_btn_vertical_margin"

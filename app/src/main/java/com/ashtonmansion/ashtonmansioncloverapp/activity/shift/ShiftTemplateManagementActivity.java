@@ -1,6 +1,7 @@
 package com.ashtonmansion.ashtonmansioncloverapp.activity.shift;
 
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -33,20 +34,7 @@ public class ShiftTemplateManagementActivity extends AppCompatActivity {
     private boolean shiftTemplateWSSuccess;
     //UI FIELD ELEMENTS
     private TableLayout shiftTemplateTable;
-
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_shift_template_management);
-        //SET ACTIVITY CONTEXT
-        shiftTemplateManagementContext = this;
-        //Set up table and header row
-        setUpTableAndHeader();
-        //Retrieve Shift Template information and populate
-        fetchShiftTemplates();
-        populateShiftTemplateTable();
-    }
+    //TODO ANY LOGIC ABOUT SUCCESS/FAIL?
 
     private void setUpTableAndHeader() {
         shiftTemplateTable = (TableLayout) findViewById(R.id.shift_template_table);
@@ -67,8 +55,12 @@ public class ShiftTemplateManagementActivity extends AppCompatActivity {
     }
 
     private void fetchShiftTemplates() {
+        ProgressDialog progressDialog = new ProgressDialog(shiftTemplateManagementContext);
+        progressDialog.setMessage("Loading Shift Templates...");
+        progressDialog.show();
         shiftDAO = new ShiftDAO(this);
         shiftTemplateList = shiftDAO.getAllShiftTemplates();
+        progressDialog.dismiss();
     }
 
     private void populateShiftTemplateTable() {
@@ -169,13 +161,6 @@ public class ShiftTemplateManagementActivity extends AppCompatActivity {
         }.execute();
     }
 
-    private void deleteShiftTemplate(String shiftTemplateID) {
-        shiftDAO = new ShiftDAO(this);
-        shiftDAO.deleteShiftTemplate(shiftTemplateID);
-        shiftDAO.close();
-        reloadShiftTemplatePage();
-    }
-
     private void confirmShiftTemplateDelete(final ShiftTemplate shiftTemplate) {
         new AlertDialog.Builder(this)
                 .setTitle("Delete Shift Template?")
@@ -191,5 +176,47 @@ public class ShiftTemplateManagementActivity extends AppCompatActivity {
                 .setNegativeButton(android.R.string.no, null).show();
     }
 
+    private void deleteShiftTemplate(final String shiftTemplateID) {
+        new AsyncTask<Void, Void, Void>() {
+            ProgressDialog deleteProgress = new ProgressDialog(shiftTemplateManagementContext);
 
+            @Override
+            protected void onPreExecute() {
+                deleteProgress.setMessage("Deleting Template...");
+                deleteProgress.show();
+            }
+
+            @Override
+            protected Void doInBackground(Void... params) {
+                //DELETE FROM DYNAMICS RECORDS
+                ShiftWebServices shiftWebServices = new ShiftWebServices();
+                shiftWebServices.deleteShiftTemplateByID(shiftTemplateID);
+                //REMOVE FROM LOCAL RECORDS
+                shiftDAO = new ShiftDAO(shiftTemplateManagementContext);
+                shiftDAO.deleteShiftTemplate(shiftTemplateID);
+                shiftDAO.close();
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(Void result) {
+                super.onPostExecute(result);
+                reloadShiftTemplatePage();
+                deleteProgress.dismiss();
+            }
+        }.execute();
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_shift_template_management);
+        //SET ACTIVITY CONTEXT
+        shiftTemplateManagementContext = this;
+        //SET HEADER ROW
+        setUpTableAndHeader();
+        //RETRIEVE SHIFT TEMPLATES AND POPULATE TABLE
+        fetchShiftTemplates();
+        populateShiftTemplateTable();
+    }
 }
