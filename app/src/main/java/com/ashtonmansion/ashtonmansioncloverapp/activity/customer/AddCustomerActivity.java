@@ -30,12 +30,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AddCustomerActivity extends AppCompatActivity {
-    //INSTANCE VARS
-    private Context addCustomerContext;
-    //SERVICE VARS
+    //CLOVER-SERVICE VARS
     private Account mAcct;
     private CustomerConnector customerConnector;
-    //PRIVATE FIELD VARS
+    //PRIVATE FIELD VARS / INSTANCE VARS
+    private Context addCustomerContext;
     private EditText customerFirst;
     private EditText customerLast;
     private CheckBox customerMarketingAllowedChkbox;
@@ -53,31 +52,28 @@ public class AddCustomerActivity extends AppCompatActivity {
     private List<PhoneNumber> phoneNumberList;
     private List<EmailAddress> emailAddressList;
     private List<Address> addressList;
-    /////RESULT FLAGS
-    private boolean cloverInsertSuccess;
-    private boolean createCustomerWSSuccess;
 
-    //Submit customer for creation
     public void submitAddCustomer(View view) {
-        ///*CREATE CLOVER CUSTOMER INSTANCE AND SET DATA///
+        ///*'BUILD' NEW CLOVER CUSTOMER INSTANCE AND SET DATA///
         Customer newCustomer = createNewCustomerAndSetData();
-
         /////CLOVER, DYNAMICS, AND LOCAL INSERTION/////////
         doBackgroundCloverDynamicsAndLocalInsertions(newCustomer);
-
-        ///////////* OUTCOME HANDLING *////////////////////
-        ////////////TODO ANYTHING HERE?*//////////////////
+        ///////////*TODO OUTCOME HANDLING ??*////////////////////
     }
 
     private void doBackgroundCloverDynamicsAndLocalInsertions(final Customer newCustomer) {
         new AsyncTask<Void, Void, Void>() {
             ProgressDialog progress = new ProgressDialog(addCustomerContext);
+            /////RESULTING FLAGS / CODES
+            private boolean cloverInsertSuccess;
+            private boolean createCustomerWSSuccess;
             String newlyAssignedCloverCustomerID = "";
             long sqliteReturnResult = 0;
 
             @Override
             protected void onPreExecute() {
                 super.onPreExecute();
+                progress.setMessage("Adding Customer...");
                 progress.show();
             }
 
@@ -111,14 +107,13 @@ public class AddCustomerActivity extends AppCompatActivity {
                 }
 
                 //////ONLY CONTINUE IF CLOVER INSERT SUCCESSFUL//////
-                if (cloverInsertSuccess == true) {
+                if (cloverInsertSuccess) {
                     ///////////* DYNAMICS INSERTION *////////////////////////
-                    //TODO LOCAL ADD
                     CustomerWebService customerWebService = new CustomerWebService();
                     createCustomerWSSuccess = customerWebService.createCustomerServiceCall(newCustomer);
 
                     ////ONLY CONTINUE IF DYNAMICS INSERT SUCCESSFUL??////
-                    if (createCustomerWSSuccess == true) {
+                    if (createCustomerWSSuccess) {
                         ///////////* LOCAL INSERTION *////////////////////////
                         try {
                             CustomerDAO customerDAO = new CustomerDAO(addCustomerContext);
@@ -140,37 +135,6 @@ public class AddCustomerActivity extends AppCompatActivity {
         }.execute();
     }
 
-    //* ACTIVITY FLOW METHODS *//////////////////////
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_customer);
-        addCustomerContext = this;
-        customerFirst = (EditText) findViewById(R.id.customer_first_name);
-        customerLast = (EditText) findViewById(R.id.customer_last_name);
-        customerMarketingAllowedChkbox = (CheckBox) findViewById(R.id.customer_marketing_allowed_chkbox);
-        customerPhone = (EditText) findViewById(R.id.customer_phone);
-        customerEmail = (EditText) findViewById(R.id.customer_email);
-        customerAddress1 = (EditText) findViewById(R.id.customer_address_1);
-        customerAddress2 = (EditText) findViewById(R.id.customer_address_2);
-        customerAddress3 = (EditText) findViewById(R.id.customer_address_3);
-        customerCity = (EditText) findViewById(R.id.customer_city);
-        customerStateSpinner = (Spinner) findViewById(R.id.customer_state_spinner);
-        customerZip = (EditText) findViewById(R.id.customer_zip);
-    }
-
-    @Override
-    protected void onPause() {
-        disconnectCustomerConn();
-        super.onPause();
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-    }
-
-    /*THESE METHODS ARE COMPLETE*////////////////////
     private Customer createNewCustomerAndSetData() {
         emailAddressList = new ArrayList<>();
         phoneNumberList = new ArrayList<>();
@@ -231,5 +195,35 @@ public class AddCustomerActivity extends AppCompatActivity {
 
     public void cancelAddCustomer(View view) {
         finish();
+    }
+
+    //* ACTIVITY FLOW METHODS *//////////////////////
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_add_customer);
+        addCustomerContext = this;
+        customerFirst = (EditText) findViewById(R.id.customer_first_name);
+        customerLast = (EditText) findViewById(R.id.customer_last_name);
+        customerMarketingAllowedChkbox = (CheckBox) findViewById(R.id.customer_marketing_allowed_chkbox);
+        customerPhone = (EditText) findViewById(R.id.customer_phone);
+        customerEmail = (EditText) findViewById(R.id.customer_email);
+        customerAddress1 = (EditText) findViewById(R.id.customer_address_1);
+        customerAddress2 = (EditText) findViewById(R.id.customer_address_2);
+        customerAddress3 = (EditText) findViewById(R.id.customer_address_3);
+        customerCity = (EditText) findViewById(R.id.customer_city);
+        customerStateSpinner = (Spinner) findViewById(R.id.customer_state_spinner);
+        customerZip = (EditText) findViewById(R.id.customer_zip);
+    }
+
+    @Override
+    protected void onPause() {
+        disconnectCustomerConn();
+        super.onPause();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
     }
 }
