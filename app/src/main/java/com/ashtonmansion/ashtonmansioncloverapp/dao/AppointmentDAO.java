@@ -85,7 +85,7 @@ public class AppointmentDAO extends SQLiteOpenHelper {
     }
 
     //INSERT AN APPOINTMENT RECORD INTO THE APPOINTMENT TABLES
-    public void addAppointment(Appointment appointment) {
+    public long addAppointment(Appointment appointment) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
@@ -100,8 +100,9 @@ public class AppointmentDAO extends SQLiteOpenHelper {
         values.put(APPOINTMENT_EMPLOYEE_CODE_2, appointment.get_employee_code_2());
         values.put(APPOINTMENT_CONFIRM_STATUS, appointment.get_confirm_status());
 
-        db.insert(TABLE_APPOINTMENT, null, values);
+        long returnedID = db.insert(TABLE_APPOINTMENT, null, values);
         db.close();
+        return returnedID;
     }
 
     //DELETE AN APPOINTMENT BY ID

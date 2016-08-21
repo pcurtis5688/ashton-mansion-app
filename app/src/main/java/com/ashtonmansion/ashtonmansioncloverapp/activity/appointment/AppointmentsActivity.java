@@ -1,10 +1,12 @@
 package com.ashtonmansion.ashtonmansioncloverapp.activity.appointment;
 
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.ContextThemeWrapper;
@@ -18,6 +20,7 @@ import android.widget.Toast;
 import com.ashtonmansion.ashtonmansioncloverapp.R;
 import com.ashtonmansion.ashtonmansioncloverapp.dao.AppointmentDAO;
 import com.ashtonmansion.ashtonmansioncloverapp.dbo.Appointment;
+import com.ashtonmansion.ashtonmansioncloverapp.webservices.appointmentws.AppointmentWebServices;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -180,11 +183,35 @@ public class AppointmentsActivity extends AppCompatActivity {
                 .setNegativeButton(android.R.string.no, null).show();
     }
 
-    private void deleteAppointment(String apptToDeleteID) {
-        //APPOINTMENT DAO
-        AppointmentDAO apptDAO = new AppointmentDAO(appointmentsActivityContext);
-        apptDAO.deleteAppointmentByID(apptToDeleteID);
-        refreshAppointmentTable();
+    private void deleteAppointment(final String appointmentID) {
+        new AsyncTask<Void, Void, Void>() {
+            ProgressDialog progressDialog = new ProgressDialog(appointmentsActivityContext);
+
+            @Override
+            protected void onPreExecute() {
+                super.onPreExecute();
+                progressDialog.setMessage("Deleting Appointment...");
+                progressDialog.show();
+            }
+
+            @Override
+            protected Void doInBackground(Void... params) {
+                //DELETE THE APPOINTMENT LOCALLY
+                AppointmentDAO apptDAO = new AppointmentDAO(appointmentsActivityContext);
+                apptDAO.deleteAppointmentByID(appointmentID);
+                //MAKE THE WEB SERVICE CALL TO DELETE THE APPOINTMENT
+                AppointmentWebServices appointmentWebServices = new AppointmentWebServices();
+                appointmentWebServices.deleteAppointmentByIDWS(appointmentID);
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(Void result) {
+                super.onPostExecute(result);
+                refreshAppointmentTable();
+                progressDialog.dismiss();
+            }
+        }.execute();
     }
 
     @Override

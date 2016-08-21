@@ -117,11 +117,11 @@
             </TableRow>
 
             <TableRow>
-
                 <Button
                     android:id="@+id/save_settings_btn"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
+                    android:gravity="bottom"
                     android:layout_marginTop="@dimen/dimen_30dp"
                     android:layout_span="3"
                     android:background="@color/standardButtonBackground"

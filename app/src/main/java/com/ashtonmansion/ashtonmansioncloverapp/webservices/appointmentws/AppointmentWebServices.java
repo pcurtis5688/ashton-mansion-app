@@ -33,7 +33,7 @@ public class AppointmentWebServices {
             //TODO THINK IN MORE DETAIL IF WE NEED TO GENERATE ID OR IF SQL DOES
             PropertyInfo pi1 = new PropertyInfo();
             pi1.setName("iD");
-            pi1.setValue("89");
+            pi1.setValue(appt.get_id());
             pi1.setType(String.class);
             request.addProperty(pi1);
 
@@ -109,6 +109,35 @@ public class AppointmentWebServices {
             Log.e("Exception in: ", "" + e.getMessage());
         }
         return apptSuccessfullyAddedInDynamics;
+    }
+
+    public boolean deleteAppointmentByIDWS(String appointmentID) {
+        final String DELETE_APPT_SOAP_ACTION = "urn:microsoft-dynamics-schemas/codeunit/AppointmentWebService:DeleteAppointment";
+        final String DELETE_APPT_METHOD_NAME = "DeleteAppointment";
+        boolean apptSuccessfullyDeleted = false;
+        try {
+            SoapObject request = new SoapObject(APPT_WS_NAMESPACE, DELETE_APPT_METHOD_NAME);
+            SoapSerializationEnvelope envelope = WebServiceUtilities.getSoapSerializationEnvelope(request);
+            /////////////
+            ///PARAMS////
+            PropertyInfo pi1 = new PropertyInfo();
+            pi1.setName("appointment_ID");
+            pi1.setValue(appointmentID);
+            pi1.setType(String.class);
+            request.addProperty(pi1);
+            ////////////MAKE THE CALL
+            NTLMTransport transport = new NTLMTransport();
+            transport.setCredentials(APPT_WEB_SERVICE_URL, "paul", "Wmo67766767", "laptop-53b1c7v6", "");
+            transport.call(DELETE_APPT_SOAP_ACTION, envelope);
+            apptSuccessfullyDeleted = true;
+        } catch (XmlPullParserException e1) {
+            Log.e("XML Excpt: ", e1.getMessage());
+        } catch (IOException e2) {
+            Log.e("IO Excpt: ", e2.getMessage());
+        } catch (Exception e3) {
+            Log.e("Generic Excpt: ", e3.getMessage());
+        }
+        return apptSuccessfullyDeleted;
     }
 }
 

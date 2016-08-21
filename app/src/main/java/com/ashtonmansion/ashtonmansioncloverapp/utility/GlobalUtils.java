@@ -20,5 +20,16 @@ public class GlobalUtils {
         return formattedDate;
     }
 
+    public static String formatTime(int hour, int minute) {
+        String amOrPm;
+        if (hour >= 12) {
+            amOrPm = "PM";
+        } else {
+            amOrPm = "AM";
+        }
+        String formattedTime = "" + (hour - 12) + ":" + minute + " " + amOrPm;
+        return formattedTime;
+    }
+
 
 }

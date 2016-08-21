@@ -75,12 +75,11 @@ public class AddAppointmentActivity extends AppCompatActivity {
         String formattedDate = GlobalUtils.formatDate(dateMonth, dateDay, dateYear);
         //todo handle this date...
         //HANDLE TIME FROM TIMEPICKER
-        int apptHour = timePicker.getCurrentHour();
-        int apptMinute = timePicker.getCurrentMinute();
-        Time appt_time = new Time(apptHour, apptMinute, 0);
+        String formattedTime = GlobalUtils.formatTime(timePicker.getCurrentHour(), timePicker.getCurrentMinute());
+
         //CONSTRUCT THE APPOINTMENT OBJECT
         appointment.set_date(formattedDate);
-        appointment.set_start_time(appt_time.toString());
+        appointment.set_start_time(formattedTime);
         appointment.set_duration(durationText.getText().toString());
         appointment.set_customer_code(customerCodeText.getText().toString());
         appointment.set_alert_type(alertTypeSpinner.getSelectedItem().toString());
@@ -89,12 +88,13 @@ public class AddAppointmentActivity extends AppCompatActivity {
         appointment.set_employee_code_1(emp1Text.getText().toString());
         appointment.set_employee_code_2(emp2Text.getText().toString());
         appointment.set_confirm_status(apptConfirmStatusSpinner.getSelectedItem().toString());
-        apptDAO.addAppointment(appointment);
+        long returnedID = apptDAO.addAppointment(appointment);
+        appointment.set_id(Long.toString(returnedID));
         ////////////////////LOCAL DB UPDATED, NOW CALL DYNAMICS WS
-        callApptWSInBackground();
+        callApptWSInBackground(appointment);
     }
 
-    private void callApptWSInBackground() {
+    private void callApptWSInBackground(final Appointment finalAppointment) {
         new AsyncTask<Void, Void, Void>() {
             ProgressDialog progress = new ProgressDialog(addApptContext);
 
@@ -108,7 +108,7 @@ public class AddAppointmentActivity extends AppCompatActivity {
             @Override
             protected Void doInBackground(Void... params) {
                 AppointmentWebServices apptWebService = new AppointmentWebServices();
-                addApptWebServiceSuccess = apptWebService.addAppointmentViaWS(appointment);
+                addApptWebServiceSuccess = apptWebService.addAppointmentViaWS(finalAppointment);
                 return null;
             }
 
