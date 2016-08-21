@@ -19,7 +19,7 @@
             android:layout_gravity="center_horizontal"
             android:text="@string/shift_exception_management_header_tv_str"
             android:textAlignment="center"
-            android:textColor="@color/whiteText"
+            android:textColor="@color/white"
             android:textSize="@dimen/activity_header_size" />
     </TableRow>
 

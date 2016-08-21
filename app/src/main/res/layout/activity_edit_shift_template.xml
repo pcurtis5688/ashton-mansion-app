@@ -20,7 +20,7 @@
             android:paddingBottom="@dimen/edit_shift_template_padding_bottom"
             android:text="@string/edit_shift_activity_header_str"
             android:textAlignment="center"
-            android:textColor="@color/whiteText"
+            android:textColor="@color/white"
             android:textSize="@dimen/activity_header_size" />
     </TableRow>
 
@@ -30,7 +30,7 @@
             android:id="@+id/edit_shift_template_ID_TV_1"
             android:fontFamily="sans-serif-medium"
             android:textAlignment="center"
-            android:textColor="@color/whiteText"
+            android:textColor="@color/white"
             android:textSize="@dimen/shift_template_details_table_size"
             android:textStyle="bold" />
 
@@ -38,7 +38,7 @@
             android:id="@+id/edit_shift_template_code_TV_1"
             android:fontFamily="sans-serif-medium"
             android:textAlignment="center"
-            android:textColor="@color/whiteText"
+            android:textColor="@color/white"
             android:textSize="@dimen/shift_template_details_table_size"
             android:textStyle="bold" />
 
@@ -46,7 +46,7 @@
             android:id="@+id/edit_shift_template_name_TV_1"
             android:fontFamily="sans-serif-medium"
             android:textAlignment="center"
-            android:textColor="@color/whiteText"
+            android:textColor="@color/white"
             android:textSize="@dimen/shift_template_details_table_size"
             android:textStyle="bold" />
 
@@ -60,7 +60,7 @@
             android:id="@+id/edit_shift_template_ID_TV_2"
             android:fontFamily="sans-serif-medium"
             android:textAlignment="center"
-            android:textColor="@color/whiteText"
+            android:textColor="@color/white"
             android:textSize="@dimen/shift_template_details_table_size"
             android:textStyle="bold" />
 
@@ -68,7 +68,7 @@
             android:id="@+id/edit_shift_template_code_TV_2"
             android:fontFamily="sans-serif-medium"
             android:textAlignment="center"
-            android:textColor="@color/whiteText"
+            android:textColor="@color/white"
             android:textSize="@dimen/shift_template_details_table_size"
             android:textStyle="bold" />
 
@@ -76,7 +76,7 @@
             android:id="@+id/edit_shift_template_name_TV_2"
             android:fontFamily="sans-serif-medium"
             android:textAlignment="center"
-            android:textColor="@color/whiteText"
+            android:textColor="@color/white"
             android:textSize="@dimen/shift_template_details_table_size"
             android:textStyle="bold" />
 
@@ -95,49 +95,49 @@
                     android:fontFamily="sans-serif-medium"
                     android:text="@string/edit_shift_template_header_week"
                     android:textAlignment="center"
-                    android:textColor="@color/whiteText" />
+                    android:textColor="@color/white" />
 
                 <TextView
                     android:fontFamily="sans-serif-medium"
                     android:text="@string/edit_shift_template_header_sunday"
                     android:textAlignment="center"
-                    android:textColor="@color/whiteText" />
+                    android:textColor="@color/white" />
 
                 <TextView
                     android:fontFamily="sans-serif-medium"
                     android:text="@string/edit_shift_template_header_monday"
                     android:textAlignment="center"
-                    android:textColor="@color/whiteText" />
+                    android:textColor="@color/white" />
 
                 <TextView
                     android:fontFamily="sans-serif-medium"
                     android:text="@string/edit_shift_template_header_tuesday"
                     android:textAlignment="center"
-                    android:textColor="@color/whiteText" />
+                    android:textColor="@color/white" />
 
                 <TextView
                     android:fontFamily="sans-serif-medium"
                     android:text="@string/edit_shift_template_header_wednesday"
                     android:textAlignment="center"
-                    android:textColor="@color/whiteText" />
+                    android:textColor="@color/white" />
 
                 <TextView
                     android:fontFamily="sans-serif-medium"
                     android:text="@string/edit_shift_template_header_thursday"
                     android:textAlignment="center"
-                    android:textColor="@color/whiteText" />
+                    android:textColor="@color/white" />
 
                 <TextView
                     android:fontFamily="sans-serif-medium"
                     android:text="@string/edit_shift_template_header_friday"
                     android:textAlignment="center"
-                    android:textColor="@color/whiteText" />
+                    android:textColor="@color/white" />
 
                 <TextView
                     android:fontFamily="sans-serif-medium"
                     android:text="@string/edit_shift_template_header_saturday"
                     android:textAlignment="center"
-                    android:textColor="@color/whiteText" />
+                    android:textColor="@color/white" />
             </TableRow>
 
             <TableRow android:id="@+id/row_for_shift_template_details_table">

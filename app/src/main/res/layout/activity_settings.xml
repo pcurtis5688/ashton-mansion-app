@@ -21,7 +21,7 @@
             android:layout_span="2"
             android:text="@string/settings_screen_header_str"
             android:textAlignment="center"
-            android:textColor="@color/whiteText"
+            android:textColor="@color/white"
             android:textSize="@dimen/activity_header_size" />
 
         <TableLayout
@@ -40,12 +40,12 @@
                     android:id="@+id/label_alert_time_of_day"
                     android:layout_gravity="center"
                     android:text="@string/settings_alert_time_of_day_label_str"
-                    android:textColor="@color/whiteText" />
+                    android:textColor="@color/white" />
 
                 <TimePicker
                     android:id="@+id/alert_time_of_day_setting_timepicker"
                     android:layout_gravity="center"
-                    android:numbersTextColor="@color/whiteText" />
+                    android:numbersTextColor="@color/white" />
 
                 <TableLayout>
 
@@ -54,7 +54,7 @@
                         <TextView
                             android:id="@+id/label_weekday_alerts"
                             android:text="@string/settings_weekday_alerts_only_label_str"
-                            android:textColor="@color/whiteText" />
+                            android:textColor="@color/white" />
 
                         <Spinner
                             android:id="@+id/alert_weekday_only_spinner"
@@ -67,7 +67,7 @@
                         <TextView
                             android:id="@+id/label_avoid_holiday_alerts"
                             android:text="@string/settings_holiday_alerts_label_str"
-                            android:textColor="@color/whiteText" />
+                            android:textColor="@color/white" />
 
                         <Spinner
                             android:id="@+id/avoid_holiday_alerts_setting_spinner"
@@ -80,7 +80,7 @@
                         <TextView
                             android:id="@+id/label_advance_alert_days"
                             android:text="@string/settings_advance_alert_days_label_str"
-                            android:textColor="@color/whiteText" />
+                            android:textColor="@color/white" />
 
                         <Spinner
                             android:id="@+id/advance_alert_days_setting_spinner"
@@ -95,7 +95,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="@string/settings_max_appt_hours_label_str"
-                            android:textColor="@color/whiteText" />
+                            android:textColor="@color/white" />
 
                         <Spinner
                             android:id="@+id/max_appt_hours_setting_spinner"
@@ -108,7 +108,7 @@
                         <TextView
                             android:id="@+id/label_default_appt_duration"
                             android:text="@string/settings_default_appt_duration_label_str"
-                            android:textColor="@color/whiteText" />
+                            android:textColor="@color/white" />
 
                         <Spinner
                             android:id="@+id/default_appt_duration_spinner"

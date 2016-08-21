@@ -30,7 +30,7 @@
                     android:layout_span="2"
                     android:text="@string/add_customer_header_str"
                     android:textAlignment="center"
-                    android:textColor="@color/whiteText" />
+                    android:textColor="@color/white" />
             </TableRow>
 
             <TableRow>

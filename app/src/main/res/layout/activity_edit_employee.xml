@@ -17,6 +17,6 @@
             android:layout_height="wrap_content"
             android:text="@string/edit_employee_header_str"
             android:textAlignment="center"
-            android:textColor="@color/whiteText" />
+            android:textColor="@color/white" />
     </LinearLayout>
 </ScrollView>

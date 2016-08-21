@@ -29,7 +29,7 @@
                 android:layout_gravity="center_horizontal"
                 android:text="@string/add_inventory_header_str"
                 android:textAlignment="center"
-                android:textColor="@color/whiteText" />
+                android:textColor="@color/white" />
         </LinearLayout>
 
         <LinearLayout

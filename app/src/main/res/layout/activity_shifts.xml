@@ -16,9 +16,10 @@
         <TextView
             android:id="@+id/shifts_activity_header_tv"
             android:layout_width="match_parent"
+            android:layout_marginBottom="@dimen/dimen_20dp"
             android:text="@string/shifts_activity_header_str"
             android:textAlignment="center"
-            android:textColor="@color/whiteText"
+            android:textColor="@color/white"
             android:textSize="@dimen/activity_header_size" />
     </TableRow>
 </TableLayout>
