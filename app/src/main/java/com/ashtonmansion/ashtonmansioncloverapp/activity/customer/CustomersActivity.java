@@ -21,16 +21,17 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ashtonmansion.ashtonmansioncloverapp.dao.CustomerDAO;
+import com.ashtonmansion.ashtonmansioncloverapp.utility.GlobalUtils;
 import com.ashtonmansion.ashtonmansioncloverapp.webservices.customerws.CustomerWebService;
 import com.clover.sdk.v1.BindingException;
 import com.clover.sdk.v1.ClientException;
 import com.clover.sdk.v1.ServiceException;
-import com.clover.sdk.v1.customer.Address;
+import com.clover.sdk.v3.customers.Address;
 import com.clover.sdk.v1.customer.CustomerConnector;
-import com.clover.sdk.v1.customer.Customer;
+import com.clover.sdk.v3.customers.Customer;
 import com.clover.sdk.util.CloverAccount;
-import com.clover.sdk.v1.customer.EmailAddress;
-import com.clover.sdk.v1.customer.PhoneNumber;
+import com.clover.sdk.v3.customers.EmailAddress;
+import com.clover.sdk.v3.customers.PhoneNumber;
 
 import java.util.List;
 
@@ -41,6 +42,7 @@ public class CustomersActivity extends AppCompatActivity {
     private Account mAcct;
     private CustomerConnector customerConnector;
     private List<Customer> customers;
+    private List<com.clover.sdk.v1.customer.Customer> v1CustomerList;
     //TABLE VARIABLES
     private TableLayout customerTable;
 
@@ -54,10 +56,10 @@ public class CustomersActivity extends AppCompatActivity {
         TextView addressesHeaderTV = new TextView(customersActivityContext);
         //POPULATE THE HEADER TEXT
         //TODO USE STRING RESOURCES
-        nameHeaderTV.setText("Name");
-        phoneNumbersHeaderTV.setText("Phone Numbers");
-        emailAddressesHeaderTV.setText("Email Addresses");
-        addressesHeaderTV.setText("Addresses");
+        nameHeaderTV.setText(getResources().getString(R.string.customers_activity_name_header));
+        phoneNumbersHeaderTV.setText(getResources().getString(R.string.customers_activity_phone_numbers_header));
+        emailAddressesHeaderTV.setText(getResources().getString(R.string.customers_activity_email_addresses_header));
+        addressesHeaderTV.setText(getResources().getString(R.string.customers_activity_addresses_header));
         //ADD THE HEADERS TO THE HEADER ROW
         customerTableHeaderRow.addView(nameHeaderTV);
         customerTableHeaderRow.addView(phoneNumbersHeaderTV);
@@ -83,7 +85,8 @@ public class CustomersActivity extends AppCompatActivity {
                 try {
                     getMerchantAccount();
                     connectCustomerConn();
-                    customers = customerConnector.getCustomers();
+                    v1CustomerList = customerConnector.getCustomers();
+                    customers = GlobalUtils.getV3CustomerListViaV1List(v1CustomerList);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -135,7 +138,7 @@ public class CustomersActivity extends AppCompatActivity {
                         editThisCustomer(customer);
                     }
                 });               //TODO USE STRING RESOURCE
-                editCustomerButton.setText("Edit");
+                editCustomerButton.setText(getResources().getString(R.string.edit_string_for_buttons));
                 //HANDLE THE DELETE BUTTON
                 Button deleteCustomerButton = new Button(customersActivityContext);
                 deleteCustomerButton.setOnClickListener(new View.OnClickListener() {
@@ -144,7 +147,7 @@ public class CustomersActivity extends AppCompatActivity {
                         deleteThisCustomer(customer);
                     }
                 });                //TODO USE STRING RESOURCE
-                deleteCustomerButton.setText("Delete");
+                deleteCustomerButton.setText(getResources().getString(R.string.delete_string_for_buttons));
 
                 //ADD COMPONENTS TO THE NEW ROW
                 newCustomerRow.addView(custNameTextView);
@@ -226,7 +229,7 @@ public class CustomersActivity extends AppCompatActivity {
         TableRow noCustomerDataRow = new TableRow(customersActivityContext);
         TextView noCustomerDataTV = new TextView(customersActivityContext);
         //todo string resource for below
-        noCustomerDataTV.setText("No Customer Data! Please Add");
+        noCustomerDataTV.setText(getResources().getString(R.string.no_customer_data_warning_str));
         noCustomerDataRow.addView(noCustomerDataTV);
         return noCustomerDataRow;
     }
@@ -240,33 +243,6 @@ public class CustomersActivity extends AppCompatActivity {
         Intent editCustomerIntent = new Intent(this, EditCustomerActivity.class);
         editCustomerIntent.putExtra("customer", customer);
         startActivity(editCustomerIntent);
-    }
-
-    private void getMerchantAccount() {
-        if (mAcct == null) {
-            mAcct = CloverAccount.getAccount(this);
-
-            //Break if Clover Account unreachable
-            if (mAcct == null) {
-                finish();
-                return;
-            }
-        }
-    }
-
-    private void connectCustomerConn() {
-        disconnectCustomerConn();
-        if (mAcct != null) {
-            customerConnector = new CustomerConnector(this, mAcct, null);
-            customerConnector.connect();
-        }
-    }
-
-    private void disconnectCustomerConn() {
-        if (customerConnector != null) {
-            customerConnector.disconnect();
-            customerConnector = null;
-        }
     }
 
     private void deleteThisCustomer(final Customer customer) {
@@ -338,6 +314,33 @@ public class CustomersActivity extends AppCompatActivity {
                 getCustomerListAndPopulateTable();
             }
         }.execute();
+    }
+
+    ///////////////CLOVER CONNECTION METHODS /////////////////
+    private void getMerchantAccount() {
+        if (mAcct == null) {
+            mAcct = CloverAccount.getAccount(this);
+
+            //Break if Clover Account unreachable
+            if (mAcct == null) {
+                finish();
+            }
+        }
+    }
+
+    private void connectCustomerConn() {
+        disconnectCustomerConn();
+        if (mAcct != null) {
+            customerConnector = new CustomerConnector(this, mAcct, null);
+            customerConnector.connect();
+        }
+    }
+
+    private void disconnectCustomerConn() {
+        if (customerConnector != null) {
+            customerConnector.disconnect();
+            customerConnector = null;
+        }
     }
 
     /////////////////ACTIVITY FLOW METHODS ///////////////////

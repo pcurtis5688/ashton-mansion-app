@@ -61,6 +61,12 @@
     <string name="label_cust_page_btn">Customers</string>
     <string name="customer_page_header_label_str">Customers</string>
     <string name="add_customer_btn_string">Add Customer</string>
+    <string name="customers_activity_name_header">Name</string>
+    <string name="customers_activity_phone_numbers_header">Phone Numbers</string>
+    <string name="customers_activity_email_addresses_header">Phone Numbers</string>
+    <string name="customers_activity_addresses_header">Phone Numbers</string>
+
+    <string name="no_customer_data_warning_str">No Customer Data! Please Add</string>
     <!-- CUSTOMER ADD RELATED STRINGS -->
     <string name="add_customer_header_str">Add Customer</string>
     <string name="customer_first_name_prompt_str">First Name</string>
@@ -181,6 +187,7 @@
     <string name="add_customer_cancel_btn_str">Cancel</string>
     <string name="edit_customer_cancel_btn_str">Cancel</string>
 
+    <string name="edit_string_for_buttons">Edit</string>
     <string name="delete_string_for_buttons">Delete</string>
 
     <string-array name="yes_no_string_array">

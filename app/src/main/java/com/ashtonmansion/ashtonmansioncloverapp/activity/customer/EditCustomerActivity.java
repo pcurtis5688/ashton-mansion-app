@@ -35,6 +35,7 @@ public class EditCustomerActivity extends AppCompatActivity {
     private Account mAcct;
     private CustomerConnector customerConnector;
     private Customer editCustomer;
+    private String customerID;
     private List<PhoneNumber> phoneNumberList;
     private List<Address> addressList;
     private List<EmailAddress> emailAddressList;
@@ -73,7 +74,14 @@ public class EditCustomerActivity extends AppCompatActivity {
 
             @Override
             protected Void doInBackground(Void... params) {
-                //TODO I'm here
+                getMerchantAccount();
+                connectCustomerConn();
+                try {
+                    customerConnector.setName(customerID, editedCustomerToModify.getFirstName(), editedCustomerToModify.getLastName());
+                    customerConnector.setMarketingAllowed(customerID, editedCustomerToModify.getMarketingAllowed());
+                } catch (RemoteException | ServiceException | ClientException | BindingException e1) {
+                    Log.e("Clover Exceptn: ", e1.getMessage());
+                }
                 return null;
             }
 
@@ -241,6 +249,7 @@ public class EditCustomerActivity extends AppCompatActivity {
         //GET THE CUSTOMER object FROM THE MAIN CUSTOMER ACTIVITY
         Bundle extras = getIntent().getExtras();
         editCustomer = (Customer) extras.get("customer");
+        customerID = editCustomer.getId();
         //GET CUSTOMER FIELDS ON PAGE
         customerFirstEdit = (EditText) findViewById(R.id.customer_first_name_edit);
         customerLastEdit = (EditText) findViewById(R.id.customer_last_name_edit);
