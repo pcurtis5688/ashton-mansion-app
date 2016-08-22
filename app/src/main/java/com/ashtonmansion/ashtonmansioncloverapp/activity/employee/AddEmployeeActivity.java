@@ -34,11 +34,8 @@ public class AddEmployeeActivity extends AppCompatActivity {
 
     //SUBMIT EMPLOYEE TO CLOVER, DYNAMICS, AND LOCAL
     public void finalizeEmployeeCreation(View view) {
-        addEmployeeContext = this;
-
         ///* CREATE V3 INSTANCE OF A CLOVER EMPLOYEE & SET VARS *///
         Employee newEmployee = createNewEmployeeAndSetData();
-
         ///////////* CLOVER INSERTION *//////////////////////////
         doBackgroundCloverDynamicsAndLocalInsertionTask(newEmployee);
     }
@@ -136,7 +133,7 @@ public class AddEmployeeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_employee);
-
+        addEmployeeContext = this;
         employeeName = (EditText) findViewById(R.id.add_employee_name);
         employeeNickname = (EditText) findViewById(R.id.add_employee_nickname);
         employeeRoleSpinner = (Spinner) findViewById(R.id.add_employee_role_spinner);
