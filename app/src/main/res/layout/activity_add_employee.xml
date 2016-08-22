@@ -22,7 +22,7 @@
     <TableRow>
 
         <TextView
-            android:id="@+id/employee_name_promprt"
+            android:id="@+id/employee_name_prompt"
             android:text="@string/add_employee_name_label_str" />
 
         <EditText

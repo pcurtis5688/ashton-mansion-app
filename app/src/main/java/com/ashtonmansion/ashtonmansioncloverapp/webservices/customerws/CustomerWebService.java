@@ -176,5 +176,72 @@ public class CustomerWebService {
         }
         return deleteCustomerInDynamicsSuccess;
     }
+
+    public boolean modifyCustomerServiceCall(Customer modifiedCustomer) {
+        final String MODIFY_CUST_METHOD = "ModifyCustomer";
+        final String MODIFY_CUST_SOAP_ACTION = "urn:microsoft-dynamics-schemas/codeunit/CustomerWebService:ModifyCustomer";
+        boolean modifyCustomerInDynamicsSuccess = false;
+
+        SoapObject request = new SoapObject(CUST_WS_NAMESPACE, MODIFY_CUST_METHOD);
+        SoapSerializationEnvelope envelope = WebServiceUtilities.getSoapSerializationEnvelope(request);
+
+        ///PARAMS////
+        PropertyInfo pi1 = new PropertyInfo();
+        pi1.setName("cust_ID_m");
+        pi1.setValue(modifiedCustomer.getId());
+        pi1.setType(String.class);
+        request.addProperty(pi1);
+
+        PropertyInfo pi2 = new PropertyInfo();
+        pi2.setName("cust_first_name_m");
+        pi2.setValue(modifiedCustomer.getFirstName());
+        pi2.setType(String.class);
+        request.addProperty(pi2);
+
+        PropertyInfo pi3 = new PropertyInfo();
+        pi3.setName("cust_last_name_m");
+        pi3.setValue(modifiedCustomer.getLastName());
+        pi3.setType(String.class);
+        request.addProperty(pi3);
+
+        PropertyInfo pi4 = new PropertyInfo();
+        pi4.setName("cust_marketing_allowed_m");
+        pi4.setValue(modifiedCustomer.getMarketingAllowed());
+        pi4.setType(String.class);
+        request.addProperty(pi4);
+
+        PropertyInfo pi5 = new PropertyInfo();
+        pi5.setName("cust_phone_numbers_m");
+        pi5.setValue(modifiedCustomer.getPhoneNumbers().toString());
+        pi5.setType(String.class);
+        request.addProperty(pi5);
+
+        PropertyInfo pi6 = new PropertyInfo();
+        pi6.setName("cust_email_addresses_m");
+        pi6.setValue(modifiedCustomer.getEmailAddresses().toString());
+        pi6.setType(String.class);
+        request.addProperty(pi6);
+
+        PropertyInfo pi7 = new PropertyInfo();
+        pi7.setName("cust_addresses_m");
+        pi7.setValue(modifiedCustomer.getAddresses().toString());
+        pi7.setType(String.class);
+        request.addProperty(pi7);
+
+        ////////////MAKE THE CALL
+        NTLMTransport transport = new NTLMTransport();
+        transport.setCredentials(CUST_WEB_SERVICE_URL, "paul", "Wmo67766767", "laptop-53b1c7v6", "");
+        try {
+            transport.call(MODIFY_CUST_SOAP_ACTION, envelope);
+            modifyCustomerInDynamicsSuccess = true;
+        } catch (XmlPullParserException e1) {
+            Log.e("XMLPPException: ", e1.getMessage());
+        } catch (IOException e2) {
+            Log.e("IOException: ", e2.getMessage());
+        } catch (Exception e3) {
+            Log.e("GenericExcpt: ", e3.getMessage());
+        }
+        return modifyCustomerInDynamicsSuccess;
+    }
 }
 

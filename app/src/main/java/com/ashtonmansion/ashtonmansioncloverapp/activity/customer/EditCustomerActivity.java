@@ -9,13 +9,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
 
 import com.ashtonmansion.ashtonmansioncloverapp.R;
 import com.ashtonmansion.ashtonmansioncloverapp.utility.GlobalUtils;
+import com.ashtonmansion.ashtonmansioncloverapp.webservices.customerws.CustomerWebService;
 import com.clover.sdk.util.CloverAccount;
 import com.clover.sdk.v1.BindingException;
 import com.clover.sdk.v1.ClientException;
@@ -51,7 +51,6 @@ public class EditCustomerActivity extends AppCompatActivity {
     private EditText customerAddress3Edit;
     private EditText customerCityEdit;
     private Spinner customerStateSpinnerEdit;
-    private ArrayAdapter<String> customerStateEditSpinnerAdapter;
     private EditText customerZipEdit;
 
     public void saveCustomerEdits(View view) {
@@ -62,6 +61,7 @@ public class EditCustomerActivity extends AppCompatActivity {
         //TODO  OUTCOME HANDLING?
     }
 
+    //TODO THIS METHOD ONLY
     private void doBackgroundCloverDynamicsAndLocalModifications(final Customer editedCustomerToModify) {
         new AsyncTask<Void, Void, Void>() {
             ProgressDialog progressDialog = new ProgressDialog(editCustomerActivityContext);
@@ -80,6 +80,11 @@ public class EditCustomerActivity extends AppCompatActivity {
                 try {
                     customerConnector.setName(customerID, editedCustomerToModify.getFirstName(), editedCustomerToModify.getLastName());
                     customerConnector.setMarketingAllowed(customerID, editedCustomerToModify.getMarketingAllowed());
+
+                    CustomerWebService customerWebService = new CustomerWebService();
+                    customerWebService.modifyCustomerServiceCall(editedCustomerToModify);
+
+                    //TODO LOCAL EDITING
                 } catch (RemoteException | ServiceException | ClientException | BindingException e1) {
                     Log.e("Clover Exceptn: ", e1.getMessage());
                 }
@@ -97,6 +102,7 @@ public class EditCustomerActivity extends AppCompatActivity {
 
     private Customer createNewCustomerInstanceAndSetData() {
         com.clover.sdk.v3.customers.Customer editedCustomerInstance = new com.clover.sdk.v3.customers.Customer();
+        editedCustomerInstance.setId(customerID);
         editedCustomerInstance.setFirstName(customerFirstEdit.getText().toString());
         editedCustomerInstance.setLastName(customerLastEdit.getText().toString());
         editedCustomerInstance.setMarketingAllowed(customerMarketingAllowedChkboxEdit.isChecked());
@@ -130,7 +136,6 @@ public class EditCustomerActivity extends AppCompatActivity {
         return editedCustomerInstance;
     }
 
-    ///WORKING ABOVE
     private void getAdditionalCustomerData(final String customerID) {
         Log.i("Customer ID: ", "" + customerID);
         new AsyncTask<Void, Void, Void>() {
@@ -216,7 +221,6 @@ public class EditCustomerActivity extends AppCompatActivity {
             //Break if Clover Account unreachable
             if (mAcct == null) {
                 finish();
-                return;
             }
         }
     }
@@ -261,8 +265,6 @@ public class EditCustomerActivity extends AppCompatActivity {
         customerAddress3Edit = (EditText) findViewById(R.id.customer_address_3_edit);
         customerCityEdit = (EditText) findViewById(R.id.customer_city_edit);
         customerStateSpinnerEdit = (Spinner) findViewById(R.id.customer_state_spinner_edit);
-        customerStateEditSpinnerAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item);
-        customerStateSpinnerEdit.setAdapter(customerStateEditSpinnerAdapter);
         customerZipEdit = (EditText) findViewById(R.id.customer_zip_edit);
         //SET THE FIELDS THAT ARE AVAILABLE IN CUSTOMER OBJECT
         //FIRST NAME HANDLING
