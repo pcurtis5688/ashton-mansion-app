@@ -95,6 +95,7 @@ public class EditCustomerActivity extends AppCompatActivity {
             protected void onPostExecute(Void result) {
                 super.onPostExecute(result);
                 progressDialog.dismiss();
+                finish();
             }
         }.execute();
 

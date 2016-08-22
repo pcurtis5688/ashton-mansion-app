@@ -112,4 +112,63 @@ public class EmployeeWebService {
         }
         return deleteEmployeeInDynamicsSuccess;
     }
+
+    public boolean modifyEmployeeServiceCall(Employee modifiedEmployee) {
+        final String MODIFY_EMPL_METHOD = "ModifyEmployee";
+        final String MODIFY_EMPL_SOAP_ACTION = "urn:microsoft-dynamics-schemas/codeunit/EmployeeWebService:ModifyEmployee";
+        boolean modifyEmployeeInDynamicsSuccess = false;
+
+        SoapObject request = new SoapObject(EMPL_WS_NAMESPACE, MODIFY_EMPL_METHOD);
+        SoapSerializationEnvelope envelope = WebServiceUtilities.getSoapSerializationEnvelope(request);
+
+        ///PARAMS////
+        PropertyInfo pi1 = new PropertyInfo();
+        pi1.setName("employee_ID_m");
+        pi1.setValue(modifiedEmployee.getId());
+        pi1.setType(String.class);
+        request.addProperty(pi1);
+
+        PropertyInfo pi2 = new PropertyInfo();
+        pi2.setName("employee_name_m");
+        pi2.setValue(modifiedEmployee.getName());
+        pi2.setType(String.class);
+        request.addProperty(pi2);
+
+        PropertyInfo pi3 = new PropertyInfo();
+        pi3.setName("employee_nickname_m");
+        pi3.setValue(modifiedEmployee.getNickname());
+        pi3.setType(String.class);
+        request.addProperty(pi3);
+
+        PropertyInfo pi4 = new PropertyInfo();
+        pi4.setName("employee_role_m");
+        pi4.setValue(modifiedEmployee.getRole().toString());
+        pi4.setType(String.class);
+        request.addProperty(pi4);
+
+        PropertyInfo pi5 = new PropertyInfo();
+        pi5.setName("employee_pin_m");
+        pi5.setValue(modifiedEmployee.getPin());
+        pi5.setType(String.class);
+        request.addProperty(pi5);
+
+        PropertyInfo pi6 = new PropertyInfo();
+        pi6.setName("employee_email_m");
+        pi6.setValue(modifiedEmployee.getEmail());
+        pi6.setType(String.class);
+        request.addProperty(pi6);
+
+        ////////////MAKE THE CALL
+        NTLMTransport transport = new NTLMTransport();
+        transport.setCredentials(EMPL_WEB_SERVICE_URL, "paul", "Wmo67766767", "laptop-53b1c7v6", "");
+        try {
+            transport.call(MODIFY_EMPL_SOAP_ACTION, envelope);
+            modifyEmployeeInDynamicsSuccess = true;
+        } catch (XmlPullParserException e1) {
+            Log.e("XMLPPException: ", e1.getMessage());
+        } catch (IOException e2) {
+            Log.e("IOException: ", e2.getMessage());
+        }
+        return modifyEmployeeInDynamicsSuccess;
+    }
 }
