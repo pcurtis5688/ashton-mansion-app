@@ -53,8 +53,37 @@ public class EditCustomerActivity extends AppCompatActivity {
     private EditText customerZipEdit;
 
     public void saveCustomerEdits(View view) {
+        //BUILD NEW INSTANCE OF THE CLOVER CUSTOMER BASED OFF NEW FIELDS
         Customer editedCustomer = createNewCustomerInstanceAndSetData();
-        //TODO I'm here.
+        //CLOVER, DYNAMICS, AND LOCAL MODIFICATIONS TO CUSTOMER
+        doBackgroundCloverDynamicsAndLocalModifications(editedCustomer);
+        //TODO  OUTCOME HANDLING?
+    }
+
+    private void doBackgroundCloverDynamicsAndLocalModifications(final Customer editedCustomerToModify) {
+        new AsyncTask<Void, Void, Void>() {
+            ProgressDialog progressDialog = new ProgressDialog(editCustomerActivityContext);
+
+            @Override
+            protected void onPreExecute() {
+                super.onPreExecute();
+                progressDialog.setMessage("Saving Changes...");
+                progressDialog.show();
+            }
+
+            @Override
+            protected Void doInBackground(Void... params) {
+                //TODO I'm here
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(Void result) {
+                super.onPostExecute(result);
+                progressDialog.dismiss();
+            }
+        }.execute();
+
     }
 
     private Customer createNewCustomerInstanceAndSetData() {
@@ -107,19 +136,19 @@ public class EditCustomerActivity extends AppCompatActivity {
 
             @Override
             protected Void doInBackground(Void... params) {
-                try {
-                    getMerchantAccount();
-                    connectCustomerConn();
-                    //todo
-
-                    //     phoneNumberList = customerConnector.getCustomer(customerID).getPhoneNumbers();
-                    //        emailAddressList = customerConnector.getCustomer(customerID).getEmailAddresses();
-                    //        addressList = customerConnector.getCustomer(customerID).getAddresses();
-                } catch (RemoteException | ServiceException | ClientException | BindingException e1) {
-                    Log.e("Clover Excpt: ", e1.getMessage());
-                } catch (Exception e2) {
-                    Log.e("Generic Excpt: ", e2.getMessage());
-                }
+//                try {
+//                    getMerchantAccount();
+//                    connectCustomerConn();
+//                    //todo
+//
+//                    phoneNumberList = customerConnector.getCustomer(customerID).getPhoneNumbers();
+//                    emailAddressList = customerConnector.getCustomer(customerID).getEmailAddresses();
+//                    addressList = customerConnector.getCustomer(customerID).getAddresses();
+//                } catch (RemoteException | ServiceException | ClientException | BindingException e1) {
+//                    Log.e("Clover Excpt: ", e1.getMessage());
+//                } catch (Exception e2) {
+//                    Log.e("Generic Excpt: ", e2.getMessage());
+//                }
                 return null;
             }
 
