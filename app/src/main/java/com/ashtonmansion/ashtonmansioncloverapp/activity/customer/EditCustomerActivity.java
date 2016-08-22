@@ -19,12 +19,13 @@ import com.clover.sdk.util.CloverAccount;
 import com.clover.sdk.v1.BindingException;
 import com.clover.sdk.v1.ClientException;
 import com.clover.sdk.v1.ServiceException;
-import com.clover.sdk.v1.customer.Address;
-import com.clover.sdk.v1.customer.Customer;
 import com.clover.sdk.v1.customer.CustomerConnector;
-import com.clover.sdk.v1.customer.EmailAddress;
-import com.clover.sdk.v1.customer.PhoneNumber;
+import com.clover.sdk.v3.customers.Customer;
+import com.clover.sdk.v3.customers.Address;
+import com.clover.sdk.v3.customers.EmailAddress;
+import com.clover.sdk.v3.customers.PhoneNumber;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class EditCustomerActivity extends AppCompatActivity {
@@ -38,8 +39,10 @@ public class EditCustomerActivity extends AppCompatActivity {
     private List<Address> addressList;
     private List<EmailAddress> emailAddressList;
     //PRIVATE FIELD VARS
+    private EditText customerFirstEdit;
+    private EditText customerLastEdit;
+    private CheckBox customerMarketingAllowedChkboxEdit;
     private EditText customerPhoneEdit;
-    private List<PhoneNumber> phoneNumbers;
     private EditText customerEmailEdit;
     private EditText customerAddress1Edit;
     private EditText customerAddress2Edit;
@@ -50,27 +53,56 @@ public class EditCustomerActivity extends AppCompatActivity {
     private EditText customerZipEdit;
 
     public void saveCustomerEdits(View view) {
-        //TODO THIS AS WELL AS OTHER ADJUSTMENTS TO THE EDIT ACTIVITIES
+        Customer editedCustomer = createNewCustomerInstanceAndSetData();
+        //TODO I'm here.
     }
 
-    private void handlePhoneList() {
-        //TODO THINK ABOUT THIS
-    }
+    private Customer createNewCustomerInstanceAndSetData() {
+        com.clover.sdk.v3.customers.Customer editedCustomerInstance = new com.clover.sdk.v3.customers.Customer();
+        editedCustomerInstance.setFirstName(customerFirstEdit.getText().toString());
+        editedCustomerInstance.setLastName(customerLastEdit.getText().toString());
+        editedCustomerInstance.setMarketingAllowed(customerMarketingAllowedChkboxEdit.isChecked());
 
-    private void handleAddressList() {
-        //TODO THINK ABOUT THIS
-    }
+        //NEW CUSTOMER PHONE NUMBER
+        PhoneNumber newCustomerPhoneNumber = new PhoneNumber();
+        newCustomerPhoneNumber.setPhoneNumber(customerPhoneEdit.getText().toString());
+        List<PhoneNumber> newCustomerPhoneNumberList = new ArrayList<>();
+        newCustomerPhoneNumberList.add(newCustomerPhoneNumber);
+        editedCustomerInstance.setPhoneNumbers(newCustomerPhoneNumberList);
 
-    private void handleEmailList() {
-        //TODO THINK ABOUT THIS
+        //NEW CUSTOMER EMAIL
+        EmailAddress newCustomerEmailAddress = new EmailAddress();
+        newCustomerEmailAddress.setEmailAddress(customerEmailEdit.getText().toString());
+        List<EmailAddress> newCustomerEmailAddressList = new ArrayList<>();
+        newCustomerEmailAddressList.add(newCustomerEmailAddress);
+        editedCustomerInstance.setEmailAddresses(newCustomerEmailAddressList);
+
+        //NEW CUSTOMER ADDRESS
+        Address newCustomerAddress = new Address();
+        newCustomerAddress.setAddress1(customerAddress1Edit.getText().toString());
+        newCustomerAddress.setAddress2(customerAddress2Edit.getText().toString());
+        newCustomerAddress.setAddress3(customerAddress3Edit.getText().toString());
+        newCustomerAddress.setCity(customerCityEdit.getText().toString());
+        newCustomerAddress.setState(customerStateSpinnerEdit.getSelectedItem().toString());
+        newCustomerAddress.setZip(customerZipEdit.getText().toString());
+        List<Address> newCustomerAddressList = new ArrayList<>();
+        newCustomerAddressList.add(newCustomerAddress);
+        editedCustomerInstance.setAddresses(newCustomerAddressList);
+
+        return editedCustomerInstance;
     }
 
     ///WORKING ABOVE
     private void getAdditionalCustomerData(final String customerID) {
+        Log.i("Customer ID: ", "" + customerID);
         new AsyncTask<Void, Void, Void>() {
+            ProgressDialog additionalCustomerDataProgress = new ProgressDialog(editCustomerActivityContext);
+
             @Override
             protected void onPreExecute() {
                 super.onPreExecute();
+                additionalCustomerDataProgress.setMessage("Loading Additional Data...");
+                additionalCustomerDataProgress.show();
             }
 
             @Override
@@ -78,16 +110,15 @@ public class EditCustomerActivity extends AppCompatActivity {
                 try {
                     getMerchantAccount();
                     connectCustomerConn();
-                    Customer tempCustomer = customerConnector.getCustomer(customerID);
-                    phoneNumberList = tempCustomer.getPhoneNumbers();
-                    emailAddressList = tempCustomer.getEmailAddresses();
-                    addressList = tempCustomer.getAddresses();
+                    //todo
+
+                    //     phoneNumberList = customerConnector.getCustomer(customerID).getPhoneNumbers();
+                    //        emailAddressList = customerConnector.getCustomer(customerID).getEmailAddresses();
+                    //        addressList = customerConnector.getCustomer(customerID).getAddresses();
                 } catch (RemoteException | ServiceException | ClientException | BindingException e1) {
                     Log.e("Clover Excpt: ", e1.getMessage());
                 } catch (Exception e2) {
                     Log.e("Generic Excpt: ", e2.getMessage());
-                } finally {
-                    disconnectCustomerConn();
                 }
                 return null;
             }
@@ -95,7 +126,9 @@ public class EditCustomerActivity extends AppCompatActivity {
             @Override
             protected void onPostExecute(Void result) {
                 super.onPostExecute(result);
+                disconnectCustomerConn();
                 handleAdditionalCustomerData();
+                additionalCustomerDataProgress.dismiss();
             }
         }.execute();
     }
@@ -109,7 +142,36 @@ public class EditCustomerActivity extends AppCompatActivity {
         handleAddressList();
     }
 
-    //TODO THIS IS THE HANDLE PLACEHOLDER
+    private void handlePhoneList() {
+        if (phoneNumberList.size() > 0) {
+            PhoneNumber number = phoneNumberList.get(0);
+            customerPhoneEdit.setText(number.getPhoneNumber());
+        } else {
+            customerPhoneEdit.setHint(getResources().getString(R.string.edit_customer_no_phoneNumbers_str));
+        }
+    }
+
+    private void handleEmailList() {
+        if (emailAddressList.size() > 0) {
+            EmailAddress email = emailAddressList.get(0);
+            customerEmailEdit.setText(email.getEmailAddress());
+        } else {
+            customerEmailEdit.setHint(getResources().getString(R.string.edit_customer_no_emailAddresses_str));
+        }
+    }
+
+    private void handleAddressList() {
+        if (addressList.size() > 0) {
+            Address address = addressList.get(0);
+            customerAddress1Edit.setText(address.getAddress1());
+            customerAddress2Edit.setText(address.getAddress2());
+            customerAddress3Edit.setText(address.getAddress3());
+        } else {
+            customerAddress1Edit.setHint(getResources().getString(R.string.edit_customer_no_addresses_str));
+            customerAddress2Edit.setHint(getResources().getString(R.string.customer_address_2_prompt_str));
+            customerAddress3Edit.setHint(getResources().getString(R.string.customer_address_3_prompt_str));
+        }
+    }
 
     private void getMerchantAccount() {
         if (mAcct == null) {
@@ -146,14 +208,14 @@ public class EditCustomerActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_customer);
-
+        editCustomerActivityContext = this;
         //GET THE CUSTOMER object FROM THE MAIN CUSTOMER ACTIVITY
         Bundle extras = getIntent().getExtras();
         editCustomer = (Customer) extras.get("customer");
         //GET CUSTOMER FIELDS ON PAGE
-        EditText customerFirstEdit = (EditText) findViewById(R.id.customer_first_name_edit);
-        EditText customerLastEdit = (EditText) findViewById(R.id.customer_last_name_edit);
-        CheckBox customerMarketingAllowedChkboxEdit = (CheckBox) findViewById(R.id.customer_marketing_allowed_chkbox_edit);
+        customerFirstEdit = (EditText) findViewById(R.id.customer_first_name_edit);
+        customerLastEdit = (EditText) findViewById(R.id.customer_last_name_edit);
+        customerMarketingAllowedChkboxEdit = (CheckBox) findViewById(R.id.customer_marketing_allowed_chkbox_edit);
         customerPhoneEdit = (EditText) findViewById(R.id.customer_phone_edit);
         customerEmailEdit = (EditText) findViewById(R.id.customer_email_edit);
         customerAddress1Edit = (EditText) findViewById(R.id.customer_address_1_edit);
@@ -179,7 +241,7 @@ public class EditCustomerActivity extends AppCompatActivity {
         } else {
             customerLastEdit.setText(getResources().getString(R.string.edit_customer_no_last_name_str));
         }
-        //CHECKBOX....
+        //CHECKBOX HANDLING
         customerMarketingAllowedChkboxEdit.setChecked(editCustomer.getMarketingAllowed());
         //USE THE CUSTOMER ID TO GET ADDITIONAL DATA
         getAdditionalCustomerData(editCustomer.getId());
@@ -188,7 +250,6 @@ public class EditCustomerActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-
     }
 
     @Override

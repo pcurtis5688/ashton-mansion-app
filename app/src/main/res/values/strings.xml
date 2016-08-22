@@ -83,6 +83,11 @@
     <string name="edit_customer_no_first_name_str">[No First Name Provided]</string>
     <string name="edit_customer_no_last_name_str">[No Last Name Provided]</string>
 
+    <string name="edit_customer_no_phoneNumbers_str">[No Phone Numbers on File]</string>
+    <string name="edit_customer_no_emailAddresses_str">[No Email Addresses on File]</string>
+    <string name="edit_customer_no_addresses_str">[No Addresses on File]</string>
+
+
     <!-- EMPLOYEE ACTIVITY RELATED STRINGS -->
     <string name="employees_heading_str">Employees</string>
     <string name="employee_page_btn_str">Employees</string>
