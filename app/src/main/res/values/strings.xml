@@ -100,22 +100,29 @@
     <string name="add_employee_btn_str">Add Employee</string>
     <string name="add_employee_header_str">Add Employee</string>
     <string name="add_employee_name_label_str">Name</string>
-    <string name="add_employee_name_hint_str">Name</string>
+    <string name="edit_employee_name_label_str">Edit Name</string>
+    <string name="add_employee_name_hint_str">[Name]</string>
     <string name="add_employee_nickname_label_str">Nickname</string>
-    <string name="add_employee_nickname_hint_str">Nickname</string>
+    <string name="edit_employee_nickname_label_str">Edit Nickname</string>
+    <string name="add_employee_nickname_hint_str">[Nickname]</string>
     <string name="add_employee_role_label_str">Role</string>
+    <string name="edit_employee_role_label_str">Edit Role</string>
     <string name="add_employee_pin_label_str">Login PIN</string>
-    <string name="add_employee_pin_hint_str">PIN</string>
+    <string name="edit_employee_pin_label_str">Edit Login PIN</string>
+    <string name="add_employee_pin_hint_str">[PIN]</string>
+    <string name="edit_employee_pin_hint_str">[PIN]</string>
     <string name="add_employee_email_label_str">Email</string>
-    <string name="add_employee_email_hint_str">Email</string>
+    <string name="edit_employee_email_label_str">Edit Email</string>
+    <string name="add_employee_email_hint_str">[Email]</string>
+    <string name="edit_employee_email_hint_str">[Email]</string>
     <string name="employee_insert_btn_str">Add Employee</string>
+    <string name="employee_modify_btn_str">Save Employee Edits</string>
     <string name="employee_delete_btn_str">Delete Employee</string>
 
     <string name="employee_table_ID_header">Employee ID</string>
     <string name="employee_table_name_header">Employee ID</string>
     <string name="employee_table_email_header">Employee ID</string>
     <string name="employee_table_role_header">Employee ID</string>
-
 
     <string-array name="employee_roles_array">
         <item>admin</item>
@@ -166,7 +173,7 @@
     <string name="add_item_editCategories_btn_str">Edit Categories:</string>
     <string name="add_item_editLabels_btn_str">Edit Labels:</string>
     <string name="add_item_price_hint">$0.00</string>
-    <string name="inventory_item_name_hint">Item Name</string>
+    <string name="inventory_item_name_hint">[Item Name]</string>
 
     <!--SETTINGS STRINGS -->
     <string name="settings_screen_header_str">Edit Settings"</string>

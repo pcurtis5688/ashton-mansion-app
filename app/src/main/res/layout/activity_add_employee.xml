@@ -68,7 +68,7 @@
 
         <EditText
             android:id="@+id/add_employee_pin"
-            android:hint=""
+            android:hint="@string/add_employee_pin_hint_str"
             android:inputType="numberPassword"
             android:maxLength="4"
             android:textAlignment="center" />
