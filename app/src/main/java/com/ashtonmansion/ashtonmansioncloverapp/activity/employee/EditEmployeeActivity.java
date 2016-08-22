@@ -19,7 +19,6 @@ import com.clover.sdk.util.CloverAccount;
 import com.clover.sdk.v1.BindingException;
 import com.clover.sdk.v1.ClientException;
 import com.clover.sdk.v1.ServiceException;
-import com.clover.sdk.v1.customer.CustomerConnector;
 import com.clover.sdk.v3.employees.AccountRole;
 import com.clover.sdk.v3.employees.Employee;
 import com.clover.sdk.v3.employees.EmployeeConnector;
@@ -39,7 +38,6 @@ public class EditEmployeeActivity extends AppCompatActivity {
     private EditText employeeNameEditField;
     private EditText employeeNicknameEditField;
     private Spinner employeeRoleEditSpinner;
-    private ArrayAdapter<String> employeeRoleAdapter;
     private EditText employeePINEditField;
     private EditText employeeEmailEditField;
 
@@ -84,6 +82,8 @@ public class EditEmployeeActivity extends AppCompatActivity {
                     employeeConnector.getEmployee(employeeID).setRole(modifiedEmployee.getRole());
                     employeeConnector.getEmployee(employeeID).setPin(modifiedEmployee.getPin());
                     employeeConnector.getEmployee(employeeID).setEmail(modifiedEmployee.getEmail());
+                    employeeConnector.deleteEmployee(employeeID);
+                    employeeConnector.createEmployee(modifiedEmployee);
                     //WEB SERVICE MODIFICATION CALL
                     EmployeeWebService employeeWebService = new EmployeeWebService();
                     employeeWebService.modifyEmployeeServiceCall(modifiedEmployee);
@@ -111,7 +111,6 @@ public class EditEmployeeActivity extends AppCompatActivity {
         finish();
     }
 
-    /////////ACTIVITY FLOW METHODS ////////////////////////
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -130,7 +129,7 @@ public class EditEmployeeActivity extends AppCompatActivity {
         employeeNicknameEditField.setText(editEmployee.getNickname());
         //ROLE HANDLING
         String[] roleList = getResources().getStringArray(R.array.employee_roles_array);
-        employeeRoleAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, roleList);
+        ArrayAdapter<String> employeeRoleAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, roleList);
         employeeRoleAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         employeeRoleEditSpinner.setAdapter(employeeRoleAdapter);
         int correctSpinnerPosition = employeeRoleAdapter.getPosition(editEmployee.getRole().name());
