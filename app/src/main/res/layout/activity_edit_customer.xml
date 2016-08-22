@@ -45,6 +45,7 @@
                     android:id="@+id/customer_first_name_edit"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:hint="@string/customer_first_name_prompt_str"
                     android:maxLength="30" />
             </TableRow>
 
@@ -60,6 +61,7 @@
                     android:id="@+id/customer_last_name_edit"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
+                    android:hint="@string/customer_last_name_prompt_str"
                     android:maxLength="30" />
             </TableRow>
 
@@ -74,7 +76,8 @@
                 <CheckBox
                     android:id="@+id/customer_marketing_allowed_chkbox_edit"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:hint="@string/customer_marketing_allowed_prompt_str" />
             </TableRow>
 
             <TableRow>
@@ -89,6 +92,7 @@
                     android:id="@+id/customer_phone_edit"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:hint="@string/customer_phone_prompt_str"
                     android:inputType="phone"
                     android:maxLength="10" />
             </TableRow>
@@ -105,6 +109,7 @@
                     android:id="@+id/customer_email_edit"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:hint="@string/customer_email_prompt_str"
                     android:inputType="textWebEmailAddress" />
             </TableRow>
 
@@ -119,7 +124,8 @@
                 <EditText
                     android:id="@+id/customer_address_1_edit"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:hint="@string/customer_address_1_prompt_str" />
             </TableRow>
 
             <TableRow
@@ -129,7 +135,8 @@
                 <EditText
                     android:id="@+id/customer_address_2_edit"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:hint="@string/customer_address_2_prompt_str" />
             </TableRow>
 
             <TableRow android:gravity="end">
@@ -137,7 +144,8 @@
                 <EditText
                     android:id="@+id/customer_address_3_edit"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:hint="@string/customer_address_3_prompt_str" />
             </TableRow>
 
             <TableRow>
@@ -151,7 +159,8 @@
                 <EditText
                     android:id="@+id/customer_city_edit"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:hint="@string/customer_city_prompt_str" />
             </TableRow>
 
             <TableRow
@@ -183,6 +192,7 @@
                     android:id="@+id/customer_zip_edit"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:hint="@string/customer_zip_prompt_str"
                     android:maxLength="5" />
             </TableRow>
 
@@ -190,6 +200,7 @@
 
                 <Button
                     android:id="@+id/cancel_add_customer_btn"
+                    style="?android:attr/buttonBarButtonStyle"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:onClick="cancelEditCustomer"
@@ -197,6 +208,7 @@
 
                 <Button
                     android:id="@+id/save_edit_customer_btn"
+                    style="?android:attr/buttonBarButtonStyle"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:onClick="saveCustomerEdits"

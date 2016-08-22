@@ -91,6 +91,7 @@
 
         <Button
             android:id="@+id/cancel_add_employee_btn"
+            style="?android:attr/buttonBarButtonStyle"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:onClick="cancelAddEmployee"
@@ -101,6 +102,7 @@
 
         <Button
             android:id="@+id/submit_add_email_btn"
+            style="?android:attr/buttonBarButtonStyle"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:onClick="finalizeEmployeeCreation"

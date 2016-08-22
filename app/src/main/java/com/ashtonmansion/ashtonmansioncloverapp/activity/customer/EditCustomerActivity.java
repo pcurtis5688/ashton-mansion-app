@@ -15,6 +15,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 
 import com.ashtonmansion.ashtonmansioncloverapp.R;
+import com.ashtonmansion.ashtonmansioncloverapp.utility.GlobalUtils;
 import com.clover.sdk.util.CloverAccount;
 import com.clover.sdk.v1.BindingException;
 import com.clover.sdk.v1.ClientException;
@@ -144,19 +145,18 @@ public class EditCustomerActivity extends AppCompatActivity {
 
             @Override
             protected Void doInBackground(Void... params) {
-//                try {
-//                    getMerchantAccount();
-//                    connectCustomerConn();
-//                    //todo
-//
-//                    phoneNumberList = customerConnector.getCustomer(customerID).getPhoneNumbers();
-//                    emailAddressList = customerConnector.getCustomer(customerID).getEmailAddresses();
-//                    addressList = customerConnector.getCustomer(customerID).getAddresses();
-//                } catch (RemoteException | ServiceException | ClientException | BindingException e1) {
-//                    Log.e("Clover Excpt: ", e1.getMessage());
-//                } catch (Exception e2) {
-//                    Log.e("Generic Excpt: ", e2.getMessage());
-//                }
+                try {
+                    getMerchantAccount();
+                    connectCustomerConn();
+                    //todo
+                    phoneNumberList = GlobalUtils.convertPhoneNumbers(customerConnector.getCustomer(customerID).getPhoneNumbers());
+                    emailAddressList = GlobalUtils.convertEmailAddresses(customerConnector.getCustomer(customerID).getEmailAddresses());
+                    addressList = GlobalUtils.convertAddresses(customerConnector.getCustomer(customerID).getAddresses());
+                } catch (RemoteException | ServiceException | ClientException | BindingException e1) {
+                    Log.e("Clover Excpt: ", e1.getMessage());
+                } catch (Exception e2) {
+                    Log.e("Generic Excpt: ", e2.getMessage());
+                }
                 return null;
             }
 

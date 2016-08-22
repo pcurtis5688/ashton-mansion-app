@@ -68,7 +68,6 @@ public class AddCustomerActivity extends AppCompatActivity {
             private boolean cloverInsertSuccess;
             private boolean createCustomerWSSuccess;
             String newlyAssignedCloverCustomerID = "";
-            long sqliteReturnResult = 0;
 
             @Override
             protected void onPreExecute() {
@@ -92,7 +91,7 @@ public class AddCustomerActivity extends AppCompatActivity {
                     for (EmailAddress emailAddress : emailAddressList) {
                         customerConnector.addEmailAddress(newCustomer.getId(), emailAddress.getEmailAddress());
                     }
-                    com.clover.sdk.v1.customer.Customer returnCustomer = customerConnector.createCustomer((newCustomer.getFirstName().toString()), (newCustomer.getLastName().toString()), (newCustomer.getMarketingAllowed()));
+                    com.clover.sdk.v1.customer.Customer returnCustomer = customerConnector.createCustomer((newCustomer.getFirstName()), (newCustomer.getLastName()), (newCustomer.getMarketingAllowed()));
                     newlyAssignedCloverCustomerID = returnCustomer.getId();
                     newCustomer.setId(newlyAssignedCloverCustomerID);
                     cloverInsertSuccess = true;

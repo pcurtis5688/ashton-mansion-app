@@ -63,7 +63,7 @@ public class GlobalUtils {
         return v3Customers;
     }
 
-    private static List<PhoneNumber> convertPhoneNumbers(List<com.clover.sdk.v1.customer.PhoneNumber> v1PhoneNumbers) {
+    public static List<PhoneNumber> convertPhoneNumbers(List<com.clover.sdk.v1.customer.PhoneNumber> v1PhoneNumbers) {
         List<PhoneNumber> v3numbers = new ArrayList<>();
         for (com.clover.sdk.v1.customer.PhoneNumber v1Number : v1PhoneNumbers) {
             PhoneNumber v3Number = new PhoneNumber();
@@ -74,7 +74,7 @@ public class GlobalUtils {
         return v3numbers;
     }
 
-    private static List<EmailAddress> convertEmailAddresses(List<com.clover.sdk.v1.customer.EmailAddress> v1EmailAddresses) {
+    public static List<EmailAddress> convertEmailAddresses(List<com.clover.sdk.v1.customer.EmailAddress> v1EmailAddresses) {
         List<EmailAddress> v3EmailAddresses = new ArrayList<>();
         for (com.clover.sdk.v1.customer.EmailAddress v1EmailAddress : v1EmailAddresses) {
             EmailAddress v3EmailAddress = new EmailAddress();
@@ -85,7 +85,7 @@ public class GlobalUtils {
         return v3EmailAddresses;
     }
 
-    private static List<Address> convertAddresses(List<com.clover.sdk.v1.customer.Address> v1AddressList) {
+    public static List<Address> convertAddresses(List<com.clover.sdk.v1.customer.Address> v1AddressList) {
         List<Address> v3Addresses = new ArrayList<>();
         for (com.clover.sdk.v1.customer.Address v1Address : v1AddressList) {
             Address v3Address = new Address();

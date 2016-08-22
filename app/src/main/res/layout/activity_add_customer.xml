@@ -200,6 +200,7 @@
 
                 <Button
                     android:id="@+id/cancel_add_customer_btn"
+                    style="?android:attr/buttonBarButtonStyle"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:onClick="cancelAddCustomer"
@@ -207,6 +208,7 @@
 
                 <Button
                     android:id="@+id/customer_insert_btn"
+                    style="?android:attr/buttonBarButtonStyle"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:onClick="submitAddCustomer"
