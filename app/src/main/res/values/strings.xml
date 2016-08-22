@@ -80,6 +80,8 @@
     <string name="edit_customer_header_str">Edit Customer</string>
     <string name="save_edit_customer_btn_str">Save Edits</string>
 
+    <string name="edit_customer_no_first_name_str">[No First Name Provided]</string>
+    <string name="edit_customer_no_last_name_str">[No Last Name Provided]</string>
 
     <!-- EMPLOYEE ACTIVITY RELATED STRINGS -->
     <string name="employees_heading_str">Employees</string>
