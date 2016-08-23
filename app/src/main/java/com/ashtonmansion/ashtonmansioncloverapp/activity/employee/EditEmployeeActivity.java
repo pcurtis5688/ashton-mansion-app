@@ -83,11 +83,14 @@ public class EditEmployeeActivity extends AppCompatActivity {
                 getMerchantAccount();
                 connectEmployeeConn();
                 try {
-                    Employee testEmployee = modifiedEmployee;
-                    Employee testEmployee2 = modifiedEmployee;
+                    Employee testEmp = employeeConnector.getEmployee(employeeID);
+                    testEmp.setName(modifiedEmployee.getName());
+                    testEmp.setNickname(modifiedEmployee.getNickname());
+                    testEmp.setRole(modifiedEmployee.getRole());
+                    testEmp.setPin(modifiedEmployee.getPin());
+                    testEmp.setEmail(modifiedEmployee.getEmail());
                     //CLOVER EMPLOYEE CHANGES
-                    employeeConnector.deleteEmployee(employeeID);
-                    employeeConnector.createEmployee(modifiedEmployee);
+                    employeeConnector.updateEmployee(testEmp);
                     //WEB SERVICE MODIFICATION CALL
                     EmployeeWebService employeeWebService = new EmployeeWebService();
                     employeeWebService.modifyEmployeeServiceCall(modifiedEmployee);
