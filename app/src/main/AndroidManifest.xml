@@ -84,7 +84,9 @@
         <activity
             android:name=".activity.shift.EditShiftTemplateActivity"
             android:parentActivityName=".activity.shift.ShiftTemplateManagementActivity" />
-        <activity android:name=".activity.item.EditItemActivity"></activity>
+        <activity
+            android:name=".activity.item.EditItemActivity"
+            android:parentActivityName=".activity.item.InventoryActivity" />
     </application>
 
 </manifest>

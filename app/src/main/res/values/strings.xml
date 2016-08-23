@@ -162,7 +162,9 @@
     <string name="add_item_price_radio_variable_str">Variable</string>
     <string name="add_item_price_radio_perUnit_str">Per Unit</string>
     <string name="add_item_prodCode_label_str">Product Code:</string>
+    <string name="add_item_prodCode_hint_str">[Product Code]</string>
     <string name="add_item_sku_label_str">SKU:</string>
+    <string name="add_item_sku_hint_str">[SKU]</string>
     <string name="add_item_taxes_label_str">Taxes:</string>
 
     <string name="add_item_modifiers_label_str">Modifiers:</string>

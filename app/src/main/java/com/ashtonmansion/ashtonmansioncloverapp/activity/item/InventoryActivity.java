@@ -93,29 +93,31 @@ public class InventoryActivity extends AppCompatActivity {
                 itemSkuTextview.setText(item.getSku());
                 itemPriceTextview.setText(item.getPrice().toString());
                 //HANDLE EDIT CLICK LISTENERS
-                Button editCustomerButton = new Button(inventoryActivityContext);
-                editCustomerButton.setOnClickListener(new View.OnClickListener() {
+                Button editItemButton = new Button(inventoryActivityContext);
+                editItemButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         editItem(item);
                     }
                 });
-                editCustomerButton.setText(getResources().getString(R.string.edit_string_for_buttons));
+                editItemButton.setText(getResources().getString(R.string.edit_string_for_buttons));
                 //HANDLE THE DELETE BUTTON
-                Button deleteCustomerButton = new Button(inventoryActivityContext);
-                deleteCustomerButton.setOnClickListener(new View.OnClickListener() {
+                Button deleteItemButton = new Button(inventoryActivityContext);
+                deleteItemButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         deleteThisItem(item.getId(), item.getName());
                     }
                 });
-                deleteCustomerButton.setText(getResources().getString(R.string.delete_string_for_buttons));
+                deleteItemButton.setText(getResources().getString(R.string.delete_string_for_buttons));
                 //ADD DATA TO THE NEW ROW
                 newItemRow.addView(itemNameTextview);
                 newItemRow.addView(itemModifierTextview);
                 newItemRow.addView(itemProductCodeTextview);
                 newItemRow.addView(itemSkuTextview);
                 newItemRow.addView(itemPriceTextview);
+                newItemRow.addView(editItemButton);
+                newItemRow.addView(deleteItemButton);
                 //ADD THE NEW ROW TO THE TABLE
                 itemTable.addView(newItemRow);
             }
