@@ -1,14 +1,17 @@
 package com.ashtonmansion.ashtonmansioncloverapp.activity.appointment;
 
+import android.accounts.Account;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
+import android.os.RemoteException;
 import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.format.DateUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -16,14 +19,24 @@ import android.widget.TimePicker;
 
 import com.ashtonmansion.ashtonmansioncloverapp.R;
 import com.ashtonmansion.ashtonmansioncloverapp.dao.AppointmentDAO;
+import com.ashtonmansion.ashtonmansioncloverapp.dao.EmployeeDAO;
 import com.ashtonmansion.ashtonmansioncloverapp.dbo.Appointment;
 import com.ashtonmansion.ashtonmansioncloverapp.utility.GlobalUtils;
 import com.ashtonmansion.ashtonmansioncloverapp.webservices.appointmentws.AppointmentWebServices;
+import com.clover.sdk.util.CloverAccount;
+import com.clover.sdk.v1.BindingException;
+import com.clover.sdk.v1.ClientException;
+import com.clover.sdk.v1.ServiceException;
+import com.clover.sdk.v3.employees.Employee;
+import com.clover.sdk.v3.employees.EmployeeConnector;
 
 import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 public class AddAppointmentActivity extends AppCompatActivity {
     //ACTIVITY VARS
@@ -40,7 +53,7 @@ public class AddAppointmentActivity extends AppCompatActivity {
     private Spinner alertTypeSpinner;
     private EditText itemCodeText;
     private EditText apptNoteText;
-    private EditText emp1Text;
+    private Spinner emp1Spinner;
     private EditText emp2Text;
     private Spinner apptConfirmStatusSpinner;
 
@@ -58,10 +71,24 @@ public class AddAppointmentActivity extends AppCompatActivity {
         alertTypeSpinner = (Spinner) findViewById(R.id.appt_alert_type_spinner);
         itemCodeText = (EditText) findViewById(R.id.appt_item_code);
         apptNoteText = (EditText) findViewById(R.id.appt_note);
-        emp1Text = (EditText) findViewById(R.id.appt_emp_1_assigned);
+        emp1Spinner = (Spinner) findViewById(R.id.appt_emp_1_assigned_spinner);
         emp2Text = (EditText) findViewById(R.id.appt_emp_2_assigned);
         apptConfirmStatusSpinner = (Spinner) findViewById(R.id.appt_confirm_status);
         emp2Text = (EditText) findViewById(R.id.appt_emp_2_assigned);
+
+        populateEmployeeSpinnerDropdowns();
+    }
+
+    private void populateEmployeeSpinnerDropdowns() {
+        List<Employee> employeeList = getCloverEmployeeList();
+        List<String> employeeNames = new ArrayList<>();
+    //        for (Employee employee : employeeList) {
+    //            employeeNames.add(employee.getName());
+    //        }
+    //        ArrayAdapter<String> employeeNameAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, employeeNames);
+         //     employeeNameAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+         //     emp1Spinner.setAdapter(employeeNameAdapter);
+        //        emp1Spinner.setSelection(0);
     }
 
     public void submitAddAppointment(View view) {
@@ -85,8 +112,8 @@ public class AddAppointmentActivity extends AppCompatActivity {
         appointment.set_alert_type(alertTypeSpinner.getSelectedItem().toString());
         appointment.set_item_code(itemCodeText.getText().toString());
         appointment.set_note(apptNoteText.getText().toString());
-        appointment.set_employee_code_1(emp1Text.getText().toString());
-        appointment.set_employee_code_2(emp2Text.getText().toString());
+        appointment.set_employee_code_1(emp1Spinner.getSelectedItem().toString());
+        appointment.set_employee_code_2(emp1Spinner.getSelectedItem().toString());
         appointment.set_confirm_status(apptConfirmStatusSpinner.getSelectedItem().toString());
         long returnedID = apptDAO.addAppointment(appointment);
         appointment.set_id(Long.toString(returnedID));
@@ -133,5 +160,43 @@ public class AddAppointmentActivity extends AppCompatActivity {
 
     public void cancelAddAppointment(View view) {
         finish();
+    }
+
+    public List<Employee> getCloverEmployeeList() {
+        List<Employee> employeeList = null;
+        try {
+            employeeList = new AsyncTask<Void, Void, List<Employee>>() {
+                @Override
+                protected List<Employee> doInBackground(Void... params) {
+                    List<Employee> employees = new ArrayList<>();
+                    try {
+                        EmployeeConnector employeeConnector = getAnEmployeeConnection();
+                        employees = employeeConnector.getEmployees();
+                    } catch (RemoteException | ClientException | ServiceException | BindingException e1) {
+                        Log.e("Clover excptn: ", e1.getMessage());
+                    }
+                    return employees;
+                }
+
+                @Override
+                protected void onPostExecute(List<Employee> result) {
+                    super.onPostExecute(result);
+                }
+            }.get();
+        } catch (InterruptedException | ExecutionException e1) {
+            Log.e("Excptn: ", "" + e1.getClass().getName() + ":" + e1.getMessage());
+        }
+        return employeeList;
+    }
+
+
+    private EmployeeConnector getAnEmployeeConnection() {
+        //Retrieve the Clover merchant account
+        Account mAcct = CloverAccount.getAccount(addApptContext);
+        EmployeeConnector employeeConnector = null;
+        if (mAcct != null) {
+            employeeConnector = new EmployeeConnector(addApptContext, mAcct, null);
+        }
+        return employeeConnector;
     }
 }

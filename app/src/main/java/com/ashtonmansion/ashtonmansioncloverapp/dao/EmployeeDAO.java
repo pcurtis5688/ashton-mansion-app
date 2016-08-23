@@ -21,6 +21,7 @@ import com.clover.sdk.v3.employees.EmployeeConnector;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 /**
  * Created by paul on 7/28/2016.
@@ -128,5 +129,44 @@ public class EmployeeDAO extends SQLiteOpenHelper {
             db.close();
         }
         return (rowsDeleted > 0);
+    }
+
+
+    public List<Employee> getCloverEmployeeList(final Context accessingContext) {
+        List<Employee> cloverEmployees = null;
+        AsyncTask asyncTask = new AsyncTask<Void, Void, List<Employee>>() {
+            @Override
+            protected List<Employee> doInBackground(Void... params) {
+                List<Employee> employees = new ArrayList<>();
+                try {
+                    EmployeeConnector employeeConnector = getAnEmployeeConnection(accessingContext);
+                    employees = employeeConnector.getEmployees();
+                } catch (RemoteException | ClientException | ServiceException | BindingException e1) {
+                    Log.e("Clover excptn: ", e1.getMessage());
+                }
+                return employees;
+            }
+
+            @Override
+            protected void onPostExecute(List<Employee> result) {
+                super.onPostExecute(result);
+            }
+        }.execute();
+        try {
+            cloverEmployees = (List<Employee>) asyncTask.get();
+        } catch (InterruptedException | ExecutionException e1) {
+            e1.getMessage();
+        }
+        return cloverEmployees;
+    }
+
+    private EmployeeConnector getAnEmployeeConnection(Context accessingContext) {
+        //Retrieve the Clover merchant account
+        Account mAcct = CloverAccount.getAccount(accessingContext);
+        EmployeeConnector employeeConnector = null;
+        if (mAcct != null) {
+            employeeConnector = new EmployeeConnector(accessingContext, mAcct, null);
+        }
+        return employeeConnector;
     }
 }

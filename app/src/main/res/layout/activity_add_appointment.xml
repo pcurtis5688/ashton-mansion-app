@@ -144,11 +144,10 @@
                     android:textAlignment="center"
                     android:textColor="@color/white" />
 
-                <EditText
-                    android:id="@+id/appt_emp_1_assigned"
+                <Spinner
+                    android:id="@+id/appt_emp_1_assigned_spinner"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/appt_emp_1_assigned_hint"
                     android:textAlignment="center"
                     android:textColor="@color/white" />
             </TableRow>

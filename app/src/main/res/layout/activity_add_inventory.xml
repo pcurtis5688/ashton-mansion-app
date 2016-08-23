@@ -290,7 +290,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:onClick="insertItemIntoClover"
+                android:onClick="submitItemForInsertion"
                 android:paddingBottom="@dimen/main_btn_vertical_margin"
                 android:paddingTop="@dimen/main_btn_vertical_margin"
                 android:text="@string/add_inventory_save_btn_str" />

@@ -1,35 +1,45 @@
 package com.ashtonmansion.ashtonmansioncloverapp.activity.item;
 
 import android.accounts.Account;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.os.RemoteException;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.ashtonmansion.ashtonmansioncloverapp.R;
 import com.clover.sdk.util.CloverAccount;
+import com.clover.sdk.v1.BindingException;
+import com.clover.sdk.v1.ClientException;
+import com.clover.sdk.v1.ServiceException;
 import com.clover.sdk.v3.inventory.InventoryConnector;
 import com.clover.sdk.v3.inventory.Item;
 
 import java.util.List;
 
 public class InventoryActivity extends AppCompatActivity {
+    // ACTIVITY INSTANCE VARS
+    private Context inventoryActivityContext;
     // PRIVATE ACTIVITY VARS
     private Account mAcct;
-    private InventoryConnector mInvConn;
+    private InventoryConnector inventoryConnector;
     private List<Item> itemList;
-    private Context inventoryActivityContext;
     //ITEM TABLE OBJECT
     private TableLayout itemTable;
 
-    private void getInventoryList() {
-        new AsyncTask<Void, Void, Item>() {
+    private void getInventoryListAndPopulate() {
+        new AsyncTask<Void, Void, Void>() {
             ProgressDialog progressDialog = new ProgressDialog(inventoryActivityContext);
 
             @Override
@@ -40,11 +50,9 @@ public class InventoryActivity extends AppCompatActivity {
             }
 
             @Override
-            protected Item doInBackground(Void... params) {
+            protected Void doInBackground(Void... params) {
                 try {
-                    List<Item> items = mInvConn.getItems();
-                    itemList = items;
-                    return items.get(0);
+                    itemList = inventoryConnector.getItems();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -52,9 +60,11 @@ public class InventoryActivity extends AppCompatActivity {
             }
 
             @Override
-            protected void onPostExecute(Item item) {
+            protected void onPostExecute(Void result) {
+                super.onPostExecute(result);
                 populateItemTable();
                 progressDialog.dismiss();
+                disconnectInventory();
             }
         }.execute();
     }
@@ -67,7 +77,7 @@ public class InventoryActivity extends AppCompatActivity {
         TableRow newItemRow = new TableRow(this);
         //Create new row to add to the table
         if (itemList != null && itemList.size() > 0) {
-            for (Item item : itemList) {
+            for (final Item item : itemList) {
                 //CREATE NEW INVENTORY ROW
                 newItemRow = new TableRow(this);
                 //CREATE NEW INVENTORY COLUMN VIEWS
@@ -82,6 +92,24 @@ public class InventoryActivity extends AppCompatActivity {
                 itemProductCodeTextview.setText(item.getCode());
                 itemSkuTextview.setText(item.getSku());
                 itemPriceTextview.setText(item.getPrice().toString());
+                //HANDLE EDIT CLICK LISTENERS
+                Button editCustomerButton = new Button(inventoryActivityContext);
+                editCustomerButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        editItem(item);
+                    }
+                });
+                editCustomerButton.setText(getResources().getString(R.string.edit_string_for_buttons));
+                //HANDLE THE DELETE BUTTON
+                Button deleteCustomerButton = new Button(inventoryActivityContext);
+                deleteCustomerButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        deleteThisItem(item.getId(), item.getName());
+                    }
+                });
+                deleteCustomerButton.setText(getResources().getString(R.string.delete_string_for_buttons));
                 //ADD DATA TO THE NEW ROW
                 newItemRow.addView(itemNameTextview);
                 newItemRow.addView(itemModifierTextview);
@@ -93,9 +121,63 @@ public class InventoryActivity extends AppCompatActivity {
             }
         } else {
             TextView noInvTV = new TextView(this);
-            noInvTV.setText("No inventory... Please Add.");
+            noInvTV.setText(getResources().getString(R.string.no_inventory_available_message));
             newItemRow.addView(noInvTV);
         }
+    }
+
+    private void editItem(final Item item) {
+        Intent editItemIntent = new Intent(this, EditItemActivity.class);
+        editItemIntent.putExtra("item", item);
+        startActivity(editItemIntent);
+    }
+
+    private void deleteThisItem(final String itemID, final String itemName) {
+        new AlertDialog.Builder(this)
+                .setTitle("Delete " + itemName + "?")
+                .setMessage("Delete Item: " + itemName + " from inventory?")
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        String confirmationToastString = itemName + " Deleted!";
+                        deleteItem(itemID);
+                        Toast.makeText(InventoryActivity.this, confirmationToastString, Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .setNegativeButton(android.R.string.no, null).show();
+    }
+
+    private void deleteItem(final String itemID) {
+        new AsyncTask<Void, Void, Void>() {
+            ProgressDialog progressDialog = new ProgressDialog(inventoryActivityContext);
+
+            @Override
+            protected void onPreExecute() {
+                super.onPreExecute();
+                progressDialog.setMessage("Deleting Item...");
+                progressDialog.show();
+            }
+
+            @Override
+            protected Void doInBackground(Void... params) {
+                try {
+                    getMerchantAccount();
+                    connectInventory();
+                    inventoryConnector.deleteItem(itemID);
+                } catch (RemoteException | ServiceException | ClientException | BindingException e1) {
+                    Log.e("Clover excptn: ", e1.getClass().getName() + "," + e1.getMessage());
+                }
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(Void result) {
+                super.onPostExecute(result);
+                disconnectInventory();
+                progressDialog.dismiss();
+                getInventoryListAndPopulate();
+            }
+        }.execute();
     }
 
     private void createItemTableHeaderRow() {
@@ -123,21 +205,6 @@ public class InventoryActivity extends AppCompatActivity {
         itemTable.addView(inventoryTableHeaderRow);
     }
 
-    private void connectInventory() {
-        disconnectInventory();
-        if (mAcct != null) {
-            mInvConn = new InventoryConnector(this, mAcct, null);
-            mInvConn.connect();
-        }
-    }
-
-    private void disconnectInventory() {
-        if (mInvConn != null) {
-            mInvConn.disconnect();
-            mInvConn = null;
-        }
-    }
-
     public void displayAddInventory(View view) {
         Intent addInventoryItemIntent = new Intent(this, AddInventoryActivity.class);
         startActivity(addInventoryItemIntent);
@@ -160,19 +227,37 @@ public class InventoryActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        //Connect to Clover Inventory and Populate Table
+        getMerchantAccount();
+        connectInventory();
+        getInventoryListAndPopulate();
+    }
 
+    //MERCHANT/CLOVER CONNECTIONS
+    private void getMerchantAccount() {
         //Retrieve Clover Account
         if (mAcct == null) {
             mAcct = CloverAccount.getAccount(this);
 
             if (mAcct == null) {
                 finish();
-                return;
             }
         }
-
-        //Connect the Merchant Inventory Connector
-        connectInventory();
-        getInventoryList();
     }
+
+    private void connectInventory() {
+        disconnectInventory();
+        if (mAcct != null) {
+            inventoryConnector = new InventoryConnector(this, mAcct, null);
+            inventoryConnector.connect();
+        }
+    }
+
+    private void disconnectInventory() {
+        if (inventoryConnector != null) {
+            inventoryConnector.disconnect();
+            inventoryConnector = null;
+        }
+    }
+
 }

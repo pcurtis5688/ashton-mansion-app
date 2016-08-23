@@ -1,6 +1,8 @@
 package com.ashtonmansion.ashtonmansioncloverapp.activity.item;
 
 import android.accounts.Account;
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.os.AsyncTask;
 import android.os.RemoteException;
 import android.support.v7.app.AppCompatActivity;
@@ -22,6 +24,8 @@ import com.clover.sdk.v3.inventory.Item;
 import com.clover.sdk.v3.inventory.PriceType;
 
 public class AddInventoryActivity extends AppCompatActivity {
+    //ACTIVITY INSTANCE VARS
+    private Context addInventoryActivityContext;
     //SERVICE VARS
     private Account mAcct;
     private InventoryConnector inventoryConnector;
@@ -35,6 +39,14 @@ public class AddInventoryActivity extends AppCompatActivity {
     private EditText itemPriceField;
     private EditText productCode;
     private EditText itemSKU;
+
+    //////////////////////////////////
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_add_inventory);
+        addInventoryActivityContext = this;
+    }
 
     //TODO IMPLEMENT THE EDIT BUTTONS HERE... AND HAVE TO REINSERT
     public void submitItemForInsertion(View view) {
@@ -59,9 +71,18 @@ public class AddInventoryActivity extends AppCompatActivity {
             newItem.setPriceType(PriceType.PER_UNIT);
         }
         //todo below is temp workaround; drops the cents. fix.
-        String tempString = itemPriceField.getText().toString();
-        long testLong = (long) Double.parseDouble(tempString);
-        newItem.setPrice(testLong);
+        long testLong = 0;
+        String tempPriceString = itemPriceField.getText().toString().replaceAll("\\s", "");
+        if (!tempPriceString.equalsIgnoreCase("")) {
+            testLong = Long.parseLong(tempPriceString);
+        }
+
+        if (testLong != 0 && !tempPriceString.equalsIgnoreCase("") && tempPriceString != null) {
+            newItem.setPrice(testLong);
+        } else {
+            testLong = 0;
+            newItem.setPrice(testLong);
+        }
 
         if (showInRegisterChkBox.isChecked()) {
             newItem.setHidden(false);
@@ -82,10 +103,13 @@ public class AddInventoryActivity extends AppCompatActivity {
 
     private void insertItemIntoClover() {
         new AsyncTask<Void, Void, Void>() {
+            ProgressDialog progressDialog = new ProgressDialog(addInventoryActivityContext);
+
             @Override
             protected void onPreExecute() {
                 super.onPreExecute();
-                //TODO PROGRESS PBAR
+                progressDialog.setMessage("Adding Item...");
+                progressDialog.show();
             }
 
             @Override
@@ -103,10 +127,15 @@ public class AddInventoryActivity extends AppCompatActivity {
             @Override
             protected void onPostExecute(Void result) {
                 super.onPostExecute(result);
-                //TODO PROGRESS PBAR
+                disconnectInventoryConn();
                 finish();
+                progressDialog.dismiss();
             }
         }.execute();
+    }
+
+    public void cancelAddInventory(View view) {
+        finish();
     }
 
     private void getMerchantAcct() {
@@ -132,17 +161,5 @@ public class AddInventoryActivity extends AppCompatActivity {
             inventoryConnector.disconnect();
             inventoryConnector = null;
         }
-    }
-
-    //////////////////////////////////////////////////
-    public void cancelAddInventory(View view) {
-        finish();
-    }
-
-    //////////////////////////////////
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_inventory);
     }
 }

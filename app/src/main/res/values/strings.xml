@@ -175,6 +175,8 @@
     <string name="add_item_price_hint">$0.00</string>
     <string name="inventory_item_name_hint">[Item Name]</string>
 
+    <string name="no_inventory_available_message">No inventory ; Please Add!</string>
+
     <!--SETTINGS STRINGS -->
     <string name="settings_screen_header_str">Edit Settings"</string>
     <string name="action_settings">Settings</string>

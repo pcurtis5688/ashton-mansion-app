@@ -53,7 +53,7 @@
             android:parentActivityName=".activity.customer.CustomersActivity" />
         <activity
             android:name=".activity.item.AddInventoryActivity"
-            android:parentActivityName=".activity.MainActivity" />
+            android:parentActivityName=".activity.item.InventoryActivity" />
         <activity
             android:name=".activity.appointment.AppointmentDetailActivity"
             android:parentActivityName=".activity.appointment.AppointmentsActivity" />
@@ -84,6 +84,7 @@
         <activity
             android:name=".activity.shift.EditShiftTemplateActivity"
             android:parentActivityName=".activity.shift.ShiftTemplateManagementActivity" />
+        <activity android:name=".activity.item.EditItemActivity"></activity>
     </application>
 
 </manifest>
