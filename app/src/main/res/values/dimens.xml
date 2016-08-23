@@ -14,6 +14,7 @@
     <dimen name="dimen_15dp">15dp</dimen>
     <dimen name="dimen_20dp">20dp</dimen>
     <dimen name="dimen_30dp">30dp</dimen>
+    <dimen name="dimen_50dp">50dp</dimen>
     <dimen name="dimen_75dp">75dp</dimen>
     <dimen name="nominal_margin">10dp</dimen>
 

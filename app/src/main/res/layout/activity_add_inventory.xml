@@ -15,7 +15,8 @@
             android:layout_gravity="center_horizontal"
             android:text="@string/add_inventory_header_str"
             android:textAlignment="center"
-            android:textColor="@color/white" />
+            android:textColor="@color/white"
+            android:textSize="@dimen/activity_header_size" />
     </TableRow>
 
     <TableRow>
@@ -83,46 +84,46 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
+                    <RadioGroup
+                        android:id="@+id/price_radio_group"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:padding="15dp">
+
+                        <RadioButton
+                            android:id="@+id/price_radio_fixed"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingEnd="@dimen/activity_horizontal_margin"
+                            android:paddingStart="@dimen/activity_horizontal_margin"
+                            android:text="@string/add_item_price_radio_fixed_str" />
+
+                        <RadioButton
+                            android:id="@+id/price_radio_variable"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingEnd="@dimen/activity_horizontal_margin"
+                            android:paddingStart="@dimen/activity_horizontal_margin"
+                            android:text="@string/add_item_price_radio_variable_str" />
+
+                        <RadioButton
+                            android:id="@+id/price_radio_perUnit"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingEnd="@dimen/activity_horizontal_margin"
+                            android:paddingStart="@dimen/activity_horizontal_margin"
+                            android:text="@string/add_item_price_radio_perUnit_str" />
+                    </RadioGroup>
+                </LinearLayout>
+
+                <LinearLayout>
+
                     <TextView
                         android:id="@+id/add_item_price_label"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/add_item_price_label_str" />
-                </LinearLayout>
-
-                <RadioGroup
-                    android:id="@+id/price_radio_group"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:padding="15dp">
-
-                    <RadioButton
-                        android:id="@+id/price_radio_fixed"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingEnd="@dimen/activity_horizontal_margin"
-                        android:paddingStart="@dimen/activity_horizontal_margin"
-                        android:text="@string/add_item_price_radio_fixed_str" />
-
-                    <RadioButton
-                        android:id="@+id/price_radio_variable"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingEnd="@dimen/activity_horizontal_margin"
-                        android:paddingStart="@dimen/activity_horizontal_margin"
-                        android:text="@string/add_item_price_radio_variable_str" />
-
-                    <RadioButton
-                        android:id="@+id/price_radio_perUnit"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingEnd="@dimen/activity_horizontal_margin"
-                        android:paddingStart="@dimen/activity_horizontal_margin"
-                        android:text="@string/add_item_price_radio_perUnit_str" />
-                </RadioGroup>
-
-                <LinearLayout>
 
                     <EditText
                         android:id="@+id/add_item_price_field"
@@ -138,10 +139,9 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_span="6">
+                    android:layout_gravity="center">
 
                     <TextView
-
                         android:id="@+id/add_item_prodCode_label"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"

@@ -40,7 +40,6 @@ public class CustomersActivity extends AppCompatActivity {
     private Context customersActivityContext;
     //STATIC LOCAL VARS
     private Account mAcct;
-    private CustomerConnector customerConnector;
     private List<Customer> customers;
     private List<com.clover.sdk.v1.customer.Customer> v1CustomerList;
     //TABLE VARIABLES
@@ -83,10 +82,11 @@ public class CustomersActivity extends AppCompatActivity {
             @Override
             protected Void doInBackground(Void... params) {
                 try {
-                    getMerchantAccount();
-                    connectCustomerConn();
-                    v1CustomerList = customerConnector.getCustomers();
+                    Account asyncAcct = getMerchantAccount();
+                    CustomerConnector asyncCustomerConnector = getCustomerConnection(asyncAcct);
+                    v1CustomerList = asyncCustomerConnector.getCustomers();
                     customers = GlobalUtils.getV3CustomerListViaV1List(v1CustomerList);
+                    asyncCustomerConnector.disconnect();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -96,7 +96,6 @@ public class CustomersActivity extends AppCompatActivity {
             @Override
             protected void onPostExecute(Void result) {
                 populateCustomerTable();
-                disconnectCustomerConn();
                 super.onPostExecute(result);
                 progressDialog.dismiss();
             }
@@ -119,7 +118,7 @@ public class CustomersActivity extends AppCompatActivity {
                 TextView custAddressTextView = new TextView(this);
 
                 //HANDLE ANY FORMATTING
-                String fullName = getCustomerFullName(customer);
+                String fullName = CustomerActivityUtils.getCustomerFullName(customer);
                 String formattedPhoneNumbers = getPhoneNumbersString(customer);
                 String formattedEmailAddresses = getEmailAddressString(customer);
                 String formattedAddresses = getAddressString(customer);
@@ -162,10 +161,6 @@ public class CustomersActivity extends AppCompatActivity {
         } else {
             customerTable.addView(getNoCustomerTableRow());
         }
-    }
-
-    private String getCustomerFullName(Customer customer) {
-        return customer.getFirstName() + " " + customer.getLastName();
     }
 
     private String getPhoneNumbersString(Customer customer) {
@@ -248,11 +243,11 @@ public class CustomersActivity extends AppCompatActivity {
     private void deleteThisCustomer(final Customer customer) {
         new AlertDialog.Builder(this)
                 .setTitle("Delete Customer?")
-                .setMessage("Delete Customer: " + getCustomerFullName(customer) + "?")
+                .setMessage("Delete Customer: " + CustomerActivityUtils.getCustomerFullName(customer) + "?")
                 .setIcon(android.R.drawable.ic_dialog_alert)
                 .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
-                        String confirmationToastString = "Customer " + getCustomerFullName(customer) + " Deleted!";
+                        String confirmationToastString = "Customer " + CustomerActivityUtils.getCustomerFullName(customer) + " Deleted!";
                         deleteCustomer(customer.getId());
                         Toast.makeText(CustomersActivity.this, confirmationToastString, Toast.LENGTH_SHORT).show();
                     }
@@ -279,10 +274,12 @@ public class CustomersActivity extends AppCompatActivity {
                 boolean customerSuccessfullyDeletedLocal = false;
                 CustomerDAO customerDAO = new CustomerDAO(customersActivityContext);
                 try {
-                    connectCustomerConn();
-                    customerConnector.deleteCustomer(customerID);
+                    Account asyncMAcct = getMerchantAccount();
+                    CustomerConnector connectorDeleteConnector = getCustomerConnection(asyncMAcct);
+                    connectorDeleteConnector.connect();
+                    connectorDeleteConnector.deleteCustomer(customerID);
+                    connectorDeleteConnector.disconnect();
                     customerSuccessfullyDeletedClover = true;
-                    disconnectCustomerConn();
                 } catch (ServiceException | BindingException | ClientException | RemoteException e) {
                     customerSuccessfullyDeletedClover = false;
                     Log.e("Clover Exception: ", e.getMessage());
@@ -310,38 +307,12 @@ public class CustomersActivity extends AppCompatActivity {
             @Override
             protected void onPostExecute(Void result) {
                 super.onPostExecute(result);
-                progress.dismiss();
                 getCustomerListAndPopulateTable();
+                progress.dismiss();
             }
         }.execute();
     }
 
-    ///////////////CLOVER CONNECTION METHODS /////////////////
-    private void getMerchantAccount() {
-        if (mAcct == null) {
-            mAcct = CloverAccount.getAccount(this);
-
-            //Break if Clover Account unreachable
-            if (mAcct == null) {
-                finish();
-            }
-        }
-    }
-
-    private void connectCustomerConn() {
-        disconnectCustomerConn();
-        if (mAcct != null) {
-            customerConnector = new CustomerConnector(this, mAcct, null);
-            customerConnector.connect();
-        }
-    }
-
-    private void disconnectCustomerConn() {
-        if (customerConnector != null) {
-            customerConnector.disconnect();
-            customerConnector = null;
-        }
-    }
 
     /////////////////ACTIVITY FLOW METHODS ///////////////////
     @Override
@@ -350,18 +321,38 @@ public class CustomersActivity extends AppCompatActivity {
         setContentView(R.layout.activity_customers);
         customersActivityContext = this;
         customerTable = (TableLayout) findViewById(R.id.customer_table);
-    }
-
-    @Override
-    protected void onPause() {
-        disconnectCustomerConn();
-        super.onPause();
+        getCustomerListAndPopulateTable();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-
         getCustomerListAndPopulateTable();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+    }
+
+    ///////////////CLOVER CONNECTION METHODS /////////////////
+    private Account getMerchantAccount() {
+        if (mAcct == null) {
+            mAcct = CloverAccount.getAccount(this);
+
+            //Break if Clover Account unreachable
+            if (mAcct == null) {
+                finish();
+            }
+        }
+        return mAcct;
+    }
+
+    private CustomerConnector getCustomerConnection(Account mAcct) {
+        CustomerConnector customerConnector = null;
+        if (mAcct != null) {
+            customerConnector = new CustomerConnector(this, mAcct, null);
+        }
+        return customerConnector;
     }
 }

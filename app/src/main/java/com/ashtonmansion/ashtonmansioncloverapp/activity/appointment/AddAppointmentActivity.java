@@ -18,6 +18,7 @@ import android.widget.Spinner;
 import android.widget.TimePicker;
 
 import com.ashtonmansion.ashtonmansioncloverapp.R;
+import com.ashtonmansion.ashtonmansioncloverapp.activity.employee.EmployeeUtilities;
 import com.ashtonmansion.ashtonmansioncloverapp.dao.AppointmentDAO;
 import com.ashtonmansion.ashtonmansioncloverapp.dao.EmployeeDAO;
 import com.ashtonmansion.ashtonmansioncloverapp.dbo.Appointment;
@@ -29,7 +30,9 @@ import com.clover.sdk.v1.ClientException;
 import com.clover.sdk.v1.ServiceException;
 import com.clover.sdk.v3.employees.Employee;
 import com.clover.sdk.v3.employees.EmployeeConnector;
+import com.clover.sdk.v3.employees.EmployeeUtils;
 
+import java.security.Provider;
 import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -54,8 +57,14 @@ public class AddAppointmentActivity extends AppCompatActivity {
     private EditText itemCodeText;
     private EditText apptNoteText;
     private Spinner emp1Spinner;
-    private EditText emp2Text;
+    private Spinner emp2Spinner;
     private Spinner apptConfirmStatusSpinner;
+    //EMPLOYEE ACCESS VARS
+    private Account merchantAccount;
+    private EmployeeConnector employeeConnector;
+    private List<Employee> employeeList;
+    private List<String> employeeNameList;
+    private boolean success = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,23 +81,50 @@ public class AddAppointmentActivity extends AppCompatActivity {
         itemCodeText = (EditText) findViewById(R.id.appt_item_code);
         apptNoteText = (EditText) findViewById(R.id.appt_note);
         emp1Spinner = (Spinner) findViewById(R.id.appt_emp_1_assigned_spinner);
-        emp2Text = (EditText) findViewById(R.id.appt_emp_2_assigned);
+        emp2Spinner = (Spinner) findViewById(R.id.appt_emp_2_assigned_spinner);
         apptConfirmStatusSpinner = (Spinner) findViewById(R.id.appt_confirm_status);
-        emp2Text = (EditText) findViewById(R.id.appt_emp_2_assigned);
 
-        populateEmployeeSpinnerDropdowns();
+        fetchAndPopulateEmployeeDataForDropdowns();
     }
 
-    private void populateEmployeeSpinnerDropdowns() {
-        List<Employee> employeeList = getCloverEmployeeList();
-        List<String> employeeNames = new ArrayList<>();
-    //        for (Employee employee : employeeList) {
-    //            employeeNames.add(employee.getName());
-    //        }
-    //        ArrayAdapter<String> employeeNameAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, employeeNames);
-         //     employeeNameAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-         //     emp1Spinner.setAdapter(employeeNameAdapter);
-        //        emp1Spinner.setSelection(0);
+    private void fetchAndPopulateEmployeeDataForDropdowns() {
+        new AsyncTask<Void, Void, Void>() {
+            @Override
+            protected Void doInBackground(Void... params) {
+                getMerchantAccount();
+                connectToEmployees();
+                try {
+                    employeeList = employeeConnector.getEmployees();
+                    success = true;
+                } catch (Exception e) {
+                    Log.e("Exception: ", e.getClass().getName() + " : " + e.getMessage());
+                }
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(Void result) {
+                super.onPostExecute(result);
+                populateEmployeeDropdowns();
+            }
+        }.execute();
+    }
+
+    private void populateEmployeeDropdowns() {
+        employeeNameList = new ArrayList<>();
+        for (Employee employee : employeeList) {
+            employeeNameList.add(employee.getName());
+        }
+        //Employee 1 Dropdown
+        ArrayAdapter<String> employee1NameAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, employeeNameList);
+        employee1NameAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        emp1Spinner.setAdapter(employee1NameAdapter);
+        // int correctSpinnerPosition = employeeRoleAdapter.getPosition(passedEmployeeInstance.getRole().name());
+        emp1Spinner.setSelection(0);
+        //Employee 2 Dropdown
+        ArrayAdapter<String> employee2NameAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, employeeNameList);
+        emp2Spinner.setAdapter(employee2NameAdapter);
+        emp2Spinner.setSelection(0);
     }
 
     public void submitAddAppointment(View view) {
@@ -162,41 +198,22 @@ public class AddAppointmentActivity extends AppCompatActivity {
         finish();
     }
 
-    public List<Employee> getCloverEmployeeList() {
-        List<Employee> employeeList = null;
-        try {
-            employeeList = new AsyncTask<Void, Void, List<Employee>>() {
-                @Override
-                protected List<Employee> doInBackground(Void... params) {
-                    List<Employee> employees = new ArrayList<>();
-                    try {
-                        EmployeeConnector employeeConnector = getAnEmployeeConnection();
-                        employees = employeeConnector.getEmployees();
-                    } catch (RemoteException | ClientException | ServiceException | BindingException e1) {
-                        Log.e("Clover excptn: ", e1.getMessage());
-                    }
-                    return employees;
-                }
-
-                @Override
-                protected void onPostExecute(List<Employee> result) {
-                    super.onPostExecute(result);
-                }
-            }.get();
-        } catch (InterruptedException | ExecutionException e1) {
-            Log.e("Excptn: ", "" + e1.getClass().getName() + ":" + e1.getMessage());
+    private void getMerchantAccount() {
+        if (merchantAccount == null) {
+            merchantAccount = CloverAccount.getAccount(this);
         }
-        return employeeList;
     }
 
-
-    private EmployeeConnector getAnEmployeeConnection() {
-        //Retrieve the Clover merchant account
-        Account mAcct = CloverAccount.getAccount(addApptContext);
-        EmployeeConnector employeeConnector = null;
-        if (mAcct != null) {
-            employeeConnector = new EmployeeConnector(addApptContext, mAcct, null);
+    private void connectToEmployees() {
+        disconnectFromEmployees();
+        if (merchantAccount != null) {
+            employeeConnector = new EmployeeConnector(this, merchantAccount, null);
         }
-        return employeeConnector;
+    }
+
+    private void disconnectFromEmployees() {
+        if (employeeConnector != null) {
+            employeeConnector.disconnect();
+        }
     }
 }

@@ -4,6 +4,7 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:layout_weight="1"
+    android:background="@color/standardBackground"
     android:scrollbars="none"
     tools:context="com.ashtonmansion.ashtonmansioncloverapp.activity.customer.AddCustomerActivity">
 
@@ -12,26 +13,24 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
+        <TextView
+            android:id="@+id/id_add_customer_header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/add_customer_header_str"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="@dimen/activity_header_size" />
+
         <TableLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="@color/white"
             android:paddingBottom="@dimen/activity_vertical_margin"
             android:paddingLeft="@dimen/activity_horizontal_margin"
             android:paddingRight="@dimen/activity_horizontal_margin"
             android:paddingTop="@dimen/activity_vertical_margin"
             android:stretchColumns="*">
-
-            <TableRow android:layout_width="fill_parent">
-
-                <TextView
-                    android:id="@+id/id_add_customer_header"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_span="2"
-                    android:text="@string/add_customer_header_str"
-                    android:textAlignment="center"
-                    android:textColor="@color/white" />
-            </TableRow>
 
             <TableRow android:layout_width="fill_parent">
 

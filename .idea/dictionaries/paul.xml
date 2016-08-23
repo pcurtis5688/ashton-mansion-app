@@ -11,6 +11,7 @@
       <w>cust</w>
       <w>datepicker</w>
       <w>deletecustomer</w>
+      <w>dropdowns</w>
       <w>empl</w>
       <w>exceptn</w>
       <w>excpt</w>
@@ -20,6 +21,7 @@
       <w>spawndao</w>
       <w>sqlite</w>
       <w>textview</w>
+      <w>textviews</w>
       <w>timepicker</w>
     </words>
   </dictionary>

@@ -156,12 +156,13 @@
 
                 <TextView
                     android:id="@+id/label_appt_emp_2_assigned"
+                    android:hint="@string/appt_emp_2_assigned_hint"
                     android:text="@string/appt_emp_2_label_str"
                     android:textAlignment="center"
                     android:textColor="@color/white" />
 
-                <EditText
-                    android:id="@+id/appt_emp_2_assigned"
+                <Spinner
+                    android:id="@+id/appt_emp_2_assigned_spinner"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:hint="@string/appt_emp_2_assigned_hint"
