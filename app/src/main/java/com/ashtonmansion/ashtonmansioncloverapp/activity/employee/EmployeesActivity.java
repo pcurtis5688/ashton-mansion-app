@@ -45,7 +45,7 @@ public class EmployeesActivity extends AppCompatActivity {
     }
 
     private void getEmployeeListAndPopulateTable() {
-        new AsyncTask<Void, Void, Employee>() {
+        new AsyncTask<Void, Void, Void>() {
             ProgressDialog progressDialog = new ProgressDialog(employeesActivityContext);
 
             @Override
@@ -56,11 +56,10 @@ public class EmployeesActivity extends AppCompatActivity {
             }
 
             @Override
-            protected Employee doInBackground(Void... params) {
+            protected Void doInBackground(Void... params) {
                 try {
                     List<Employee> employees = mEmpConn.getEmployees();
                     employeeList = employees;
-                    return employees.get(0);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -68,7 +67,7 @@ public class EmployeesActivity extends AppCompatActivity {
             }
 
             @Override
-            protected void onPostExecute(Employee employee) {
+            protected void onPostExecute(Void result) {
                 populateEmployeeTable();
                 progressDialog.dismiss();
             }
@@ -281,11 +280,9 @@ public class EmployeesActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-
+        //GET MERCHANT'S EMPLOYEES AND POPULATE TABLE UPON RESUMING ACTIVITY
         getMerchantAccount();
-        //Connect emp connector
         connectEmployees();
         getEmployeeListAndPopulateTable();
-        //populateLocalEmplTableTesting();
     }
 }

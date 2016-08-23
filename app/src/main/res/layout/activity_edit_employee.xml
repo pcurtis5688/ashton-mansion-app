@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_weight="1"
-    android:scrollbars="none">
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:stretchColumns="*"
+    tools:context="com.ashtonmansion.ashtonmansioncloverapp.activity.employee.EditEmployeeActivity">
 
-    <LinearLayout
+    <TableRow
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
@@ -17,102 +22,97 @@
             android:text="@string/edit_employee_header_str"
             android:textAlignment="center"
             android:textColor="@color/white" />
+    </TableRow>
 
-        <TableLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+    <TableRow>
 
-            <TableRow>
+        <TextView
+            android:id="@+id/edit_employee_name_prompt"
+            android:text="@string/edit_employee_name_label_str" />
 
-                <TextView
-                    android:id="@+id/edit_employee_name_prompt"
-                    android:text="@string/edit_employee_name_label_str" />
+        <EditText
+            android:id="@+id/edit_employee_name_field"
+            android:hint="@string/add_employee_name_hint_str"
+            android:maxLength="48"
+            android:textAlignment="center" />
 
-                <EditText
-                    android:id="@+id/edit_employee_name_field"
-                    android:hint="@string/add_employee_name_hint_str"
-                    android:maxLength="48"
-                    android:textAlignment="center" />
+    </TableRow>
 
-            </TableRow>
+    <TableRow>
 
-            <TableRow>
+        <TextView
+            android:id="@+id/edit_employee_nickname_prompt"
+            android:text="@string/edit_employee_nickname_label_str" />
 
-                <TextView
-                    android:id="@+id/edit_employee_nickname_prompt"
-                    android:text="@string/edit_employee_nickname_label_str" />
+        <EditText
+            android:id="@+id/edit_employee_nickname_field"
+            android:hint="@string/add_employee_nickname_hint_str"
+            android:maxLength="26"
+            android:textAlignment="center" />
+    </TableRow>
 
-                <EditText
-                    android:id="@+id/edit_employee_nickname_field"
-                    android:hint="@string/add_employee_nickname_hint_str"
-                    android:maxLength="26"
-                    android:textAlignment="center" />
-            </TableRow>
+    <TableRow
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingTop="@dimen/activity_vertical_margin">
 
-            <TableRow
-                android:paddingBottom="@dimen/activity_vertical_margin"
-                android:paddingTop="@dimen/activity_vertical_margin">
+        <TextView
+            android:id="@+id/edit_employee_role_prompt"
+            android:text="@string/edit_employee_role_label_str" />
 
-                <TextView
-                    android:id="@+id/edit_employee_role_prompt"
-                    android:text="@string/edit_employee_role_label_str" />
+        <Spinner
+            android:id="@+id/edit_employee_role_spinner"
+            android:entries="@array/employee_roles_array"
+            android:textAlignment="center" />
+    </TableRow>
 
-                <Spinner
-                    android:id="@+id/edit_employee_role_spinner"
-                    android:entries="@array/employee_roles_array"
-                    android:textAlignment="center" />
-            </TableRow>
+    <TableRow>
 
-            <TableRow>
+        <TextView
+            android:id="@+id/edit_employee_pin_prompt"
+            android:text="@string/edit_employee_pin_label_str" />
 
-                <TextView
-                    android:id="@+id/edit_employee_pin_prompt"
-                    android:text="@string/edit_employee_pin_label_str" />
+        <EditText
+            android:id="@+id/edit_employee_pin_field"
+            android:hint="@string/edit_employee_pin_hint_str"
+            android:inputType="numberPassword"
+            android:maxLength="4"
+            android:textAlignment="center" />
+    </TableRow>
 
-                <EditText
-                    android:id="@+id/edit_employee_pin_field"
-                    android:hint="@string/edit_employee_pin_hint_str"
-                    android:inputType="numberPassword"
-                    android:maxLength="4"
-                    android:textAlignment="center" />
-            </TableRow>
+    <TableRow>
 
-            <TableRow>
+        <TextView
+            android:id="@+id/edit_employee_email_prompt"
+            android:text="@string/edit_employee_email_label_str" />
 
-                <TextView
-                    android:id="@+id/edit_employee_email_prompt"
-                    android:text="@string/edit_employee_email_label_str" />
+        <EditText
+            android:id="@+id/edit_employee_email_field"
+            android:hint="@string/edit_employee_email_hint_str"
+            android:inputType="textWebEmailAddress"
+            android:textAlignment="center" />
+    </TableRow>
 
-                <EditText
-                    android:id="@+id/edit_employee_email_field"
-                    android:hint="@string/edit_employee_email_hint_str"
-                    android:inputType="textWebEmailAddress"
-                    android:textAlignment="center" />
-            </TableRow>
+    <TableRow>
 
-            <TableRow>
+        <Button
+            android:id="@+id/cancel_edit_employee_btn"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:onClick="cancelEditEmployee"
+            android:paddingBottom="@dimen/main_btn_vertical_margin"
+            android:paddingTop="@dimen/main_btn_vertical_margin"
+            android:text="@string/add_employee_cancel_btn_str"
+            android:textAllCaps="false" />
 
-                <Button
-                    android:id="@+id/cancel_edit_employee_btn"
-                    style="?android:attr/buttonBarButtonStyle"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:onClick="cancelEditEmployee"
-                    android:paddingBottom="@dimen/main_btn_vertical_margin"
-                    android:paddingTop="@dimen/main_btn_vertical_margin"
-                    android:text="@string/add_employee_cancel_btn_str"
-                    android:textAllCaps="false" />
-
-                <Button
-                    android:id="@+id/submit_employee_edits_btn"
-                    style="?android:attr/buttonBarButtonStyle"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:onClick="finalizeEmployeeModification"
-                    android:paddingBottom="@dimen/main_btn_vertical_margin"
-                    android:paddingTop="@dimen/main_btn_vertical_margin"
-                    android:text="@string/employee_insert_btn_str" />
-            </TableRow>
-        </TableLayout>
-    </LinearLayout>
-</ScrollView>
+        <Button
+            android:id="@+id/submit_employee_edits_btn"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:onClick="beginEmployeeModification"
+            android:paddingBottom="@dimen/main_btn_vertical_margin"
+            android:paddingTop="@dimen/main_btn_vertical_margin"
+            android:text="@string/employee_modify_btn_str" />
+    </TableRow>
+</TableLayout>

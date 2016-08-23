@@ -29,7 +29,8 @@ import com.clover.sdk.v3.employees.EmployeeConnector;
 public class EditEmployeeActivity extends AppCompatActivity {
     //ACTIVITY INSTANCE VARS
     private Context editEmployeeActivityContext;
-    private Employee editEmployee;
+    private Employee passedEmployeeInstance;
+    private Employee modifiedEmployeeInstance;
     private String employeeID;
     //CLOVER SERVICE VARS
     private Account mAcct;
@@ -41,24 +42,30 @@ public class EditEmployeeActivity extends AppCompatActivity {
     private EditText employeePINEditField;
     private EditText employeeEmailEditField;
 
-    public void finalizeEmployeeModification(View view) {
+    public void beginEmployeeModification(View view) {
         //SET THE EMPLOYEE OBJECT WITH THE NEW DATA FROM FIELDS
-        editEmployee.setName(employeeNameEditField.getText().toString());
-        editEmployee.setNickname(employeeNicknameEditField.getText().toString());
+        setModifiedEmployeeDataFromFields();
+        //MODIFY THE 3 EMPLOYEE LOCATIONS
+        modifyEmployeeInCloverDynamicsAndLocal(modifiedEmployeeInstance);
+    }
+
+    private void setModifiedEmployeeDataFromFields() {
+        modifiedEmployeeInstance = new Employee();
+        modifiedEmployeeInstance.setName(employeeNameEditField.getText().toString());
+        modifiedEmployeeInstance.setNickname(employeeNicknameEditField.getText().toString());
         String selectedRole = employeeRoleEditSpinner.getSelectedItem().toString();
         if (selectedRole.equalsIgnoreCase("employee")) {
-            editEmployee.setRole(AccountRole.EMPLOYEE);
+            modifiedEmployeeInstance.setRole(AccountRole.EMPLOYEE);
         } else if (selectedRole.equalsIgnoreCase("manager")) {
-            editEmployee.setRole(AccountRole.MANAGER);
+            modifiedEmployeeInstance.setRole(AccountRole.MANAGER);
         } else if (selectedRole.equalsIgnoreCase("admin")) {
-            editEmployee.setRole(AccountRole.ADMIN);
-        } else {
-            editEmployee.setRole(AccountRole.EMPLOYEE);
+            modifiedEmployeeInstance.setRole(AccountRole.ADMIN);
         }
-        editEmployee.setPin(employeePINEditField.getText().toString());
-        editEmployee.setEmail(employeeEmailEditField.getText().toString());
-        modifyEmployeeInCloverDynamicsAndLocal(editEmployee);
+        modifiedEmployeeInstance.setPin(employeePINEditField.getText().toString());
+        modifiedEmployeeInstance.setEmail(employeeEmailEditField.getText().toString());
+
     }
+
 
     private void modifyEmployeeInCloverDynamicsAndLocal(final Employee modifiedEmployee) {
         new AsyncTask<Void, Void, Void>() {
@@ -76,12 +83,9 @@ public class EditEmployeeActivity extends AppCompatActivity {
                 getMerchantAccount();
                 connectEmployeeConn();
                 try {
+                    Employee testEmployee = modifiedEmployee;
+                    Employee testEmployee2 = modifiedEmployee;
                     //CLOVER EMPLOYEE CHANGES
-                    employeeConnector.getEmployee(employeeID).setName(modifiedEmployee.getName());
-                    employeeConnector.getEmployee(employeeID).setNickname(modifiedEmployee.getNickname());
-                    employeeConnector.getEmployee(employeeID).setRole(modifiedEmployee.getRole());
-                    employeeConnector.getEmployee(employeeID).setPin(modifiedEmployee.getPin());
-                    employeeConnector.getEmployee(employeeID).setEmail(modifiedEmployee.getEmail());
                     employeeConnector.deleteEmployee(employeeID);
                     employeeConnector.createEmployee(modifiedEmployee);
                     //WEB SERVICE MODIFICATION CALL
@@ -92,8 +96,6 @@ public class EditEmployeeActivity extends AppCompatActivity {
                     Log.e("Clover Excpt: ", e1.getMessage());
                 } catch (Exception e2) {
                     Log.e("Generic Excpt: ", e2.getMessage());
-                } finally {
-                    disconnectEmployeeConn();
                 }
                 return null;
             }
@@ -101,6 +103,7 @@ public class EditEmployeeActivity extends AppCompatActivity {
             @Override
             protected void onPostExecute(Void result) {
                 super.onPostExecute(result);
+                disconnectEmployeeConn();
                 progressDialog.dismiss();
                 finish();
             }
@@ -123,20 +126,20 @@ public class EditEmployeeActivity extends AppCompatActivity {
         employeeEmailEditField = (EditText) findViewById(R.id.edit_employee_email_field);
         //SET THE EMPLOYEE'S CURRENT DATA INTO THE FIELDS
         Bundle extras = getIntent().getExtras();
-        editEmployee = (Employee) extras.get("employee");
-        employeeID = editEmployee.getId();
-        employeeNameEditField.setText(editEmployee.getName());
-        employeeNicknameEditField.setText(editEmployee.getNickname());
+        passedEmployeeInstance = (Employee) extras.get("employee");
+        employeeID = passedEmployeeInstance.getId();
+        employeeNameEditField.setText(passedEmployeeInstance.getName());
+        employeeNicknameEditField.setText(passedEmployeeInstance.getNickname());
         //ROLE HANDLING
         String[] roleList = getResources().getStringArray(R.array.employee_roles_array);
         ArrayAdapter<String> employeeRoleAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, roleList);
         employeeRoleAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         employeeRoleEditSpinner.setAdapter(employeeRoleAdapter);
-        int correctSpinnerPosition = employeeRoleAdapter.getPosition(editEmployee.getRole().name());
+        int correctSpinnerPosition = employeeRoleAdapter.getPosition(passedEmployeeInstance.getRole().name());
         employeeRoleEditSpinner.setSelection(correctSpinnerPosition);
         //
-        employeePINEditField.setText(editEmployee.getPin());
-        employeeEmailEditField.setText(editEmployee.getEmail());
+        employeePINEditField.setText(passedEmployeeInstance.getPin());
+        employeeEmailEditField.setText(passedEmployeeInstance.getEmail());
     }
 
     @Override

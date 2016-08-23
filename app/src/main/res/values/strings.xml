@@ -120,9 +120,9 @@
     <string name="employee_delete_btn_str">Delete Employee</string>
 
     <string name="employee_table_ID_header">Employee ID</string>
-    <string name="employee_table_name_header">Employee ID</string>
-    <string name="employee_table_email_header">Employee ID</string>
-    <string name="employee_table_role_header">Employee ID</string>
+    <string name="employee_table_name_header">Employee Name</string>
+    <string name="employee_table_email_header">Employee Email</string>
+    <string name="employee_table_role_header">Employee Role</string>
 
     <string-array name="employee_roles_array">
         <item>admin</item>
