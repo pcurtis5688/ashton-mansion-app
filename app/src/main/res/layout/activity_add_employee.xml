@@ -26,7 +26,7 @@
 
         <TableLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:background="@color/lightGray"
             android:paddingBottom="@dimen/dimen_15dp"
             android:paddingEnd="@dimen/dimen_10dp"
@@ -34,13 +34,12 @@
             android:paddingTop="@dimen/dimen_15dp"
             android:stretchColumns="*">
 
-            <TableRow
-                android:paddingEnd="@dimen/dimen_50dp"
-                android:paddingStart="@dimen/dimen_50dp">
+            <TableRow android:paddingBottom="@dimen/dimen_15dp">
 
                 <TextView
                     android:id="@+id/employee_name_prompt"
                     android:text="@string/add_employee_name_label_str"
+                    android:textAlignment="center"
                     android:textColor="@color/white" />
 
                 <EditText
@@ -52,14 +51,12 @@
 
             </TableRow>
 
-            <TableRow
-                android:background="@color/lightGray"
-                android:paddingEnd="@dimen/dimen_50dp"
-                android:paddingStart="@dimen/dimen_50dp">
+            <TableRow android:paddingBottom="@dimen/dimen_15dp">
 
                 <TextView
                     android:id="@+id/employee_nickname_prompt"
                     android:text="@string/add_employee_nickname_label_str"
+                    android:textAlignment="center"
                     android:textColor="@color/white" />
 
                 <EditText
@@ -70,16 +67,12 @@
                     android:textColor="@color/white" />
             </TableRow>
 
-            <TableRow
-                android:background="@color/lightGray"
-                android:paddingBottom="@dimen/activity_vertical_margin"
-                android:paddingEnd="@dimen/dimen_50dp"
-                android:paddingStart="@dimen/dimen_50dp"
-                android:paddingTop="@dimen/activity_vertical_margin">
+            <TableRow android:paddingBottom="@dimen/dimen_15dp">
 
                 <TextView
                     android:id="@+id/employee_role_prompt"
                     android:text="@string/add_employee_role_label_str"
+                    android:textAlignment="center"
                     android:textColor="@color/white" />
 
                 <Spinner
@@ -88,13 +81,12 @@
                     android:textAlignment="center" />
             </TableRow>
 
-            <TableRow
-                android:paddingEnd="@dimen/dimen_50dp"
-                android:paddingStart="@dimen/dimen_50dp">
+            <TableRow android:paddingBottom="@dimen/dimen_15dp">
 
                 <TextView
                     android:id="@+id/employee_pin_prompt"
                     android:text="@string/add_employee_pin_label_str"
+                    android:textAlignment="center"
                     android:textColor="@color/white" />
 
                 <EditText
@@ -106,11 +98,12 @@
                     android:textColor="@color/white" />
             </TableRow>
 
-            <TableRow>
+            <TableRow android:paddingBottom="@dimen/dimen_15dp">
 
                 <TextView
                     android:id="@+id/employee_email_prompt"
                     android:text="@string/add_employee_email_label_str"
+                    android:textAlignment="center"
                     android:textColor="@color/white" />
 
                 <EditText
@@ -121,10 +114,7 @@
                     android:textColor="@color/white" />
             </TableRow>
 
-            <TableRow
-                android:gravity="center"
-                android:paddingEnd="@dimen/dimen_20dp"
-                android:paddingStart="@dimen/dimen_20dp">
+            <TableRow android:paddingBottom="@dimen/dimen_10dp">
 
                 <Button
                     android:id="@+id/cancel_add_employee_btn"

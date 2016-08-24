@@ -139,6 +139,8 @@ public class AddEmployeeActivity extends AppCompatActivity {
         employeeRoleSpinner = (Spinner) findViewById(R.id.add_employee_role_spinner);
         employeePIN = (EditText) findViewById(R.id.add_employee_pin);
         employeeEmail = (EditText) findViewById(R.id.add_employee_email);
+
+        employeeRoleSpinner.setSelection(1);
     }
 
     @Override

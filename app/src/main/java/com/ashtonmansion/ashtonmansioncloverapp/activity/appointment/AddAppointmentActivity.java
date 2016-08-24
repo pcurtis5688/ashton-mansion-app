@@ -4,11 +4,8 @@ import android.accounts.Account;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
-import android.os.RemoteException;
-import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.format.DateUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -18,28 +15,17 @@ import android.widget.Spinner;
 import android.widget.TimePicker;
 
 import com.ashtonmansion.ashtonmansioncloverapp.R;
-import com.ashtonmansion.ashtonmansioncloverapp.activity.employee.EmployeeUtilities;
 import com.ashtonmansion.ashtonmansioncloverapp.dao.AppointmentDAO;
-import com.ashtonmansion.ashtonmansioncloverapp.dao.EmployeeDAO;
 import com.ashtonmansion.ashtonmansioncloverapp.dbo.Appointment;
 import com.ashtonmansion.ashtonmansioncloverapp.utility.GlobalUtils;
 import com.ashtonmansion.ashtonmansioncloverapp.webservices.appointmentws.AppointmentWebServices;
+
 import com.clover.sdk.util.CloverAccount;
-import com.clover.sdk.v1.BindingException;
-import com.clover.sdk.v1.ClientException;
-import com.clover.sdk.v1.ServiceException;
 import com.clover.sdk.v3.employees.Employee;
 import com.clover.sdk.v3.employees.EmployeeConnector;
-import com.clover.sdk.v3.employees.EmployeeUtils;
 
-import java.security.Provider;
-import java.sql.Time;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 public class AddAppointmentActivity extends AppCompatActivity {
     //ACTIVITY VARS

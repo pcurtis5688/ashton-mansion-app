@@ -17,6 +17,7 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.Toolbar;
 
 import com.ashtonmansion.ashtonmansioncloverapp.R;
 import com.clover.sdk.util.CloverAccount;
@@ -63,8 +64,8 @@ public class InventoryActivity extends AppCompatActivity {
             protected void onPostExecute(Void result) {
                 super.onPostExecute(result);
                 populateItemTable();
-                progressDialog.dismiss();
                 disconnectInventory();
+                progressDialog.dismiss();
             }
         }.execute();
     }
@@ -124,7 +125,13 @@ public class InventoryActivity extends AppCompatActivity {
         } else {
             TextView noInvTV = new TextView(this);
             noInvTV.setText(getResources().getString(R.string.no_inventory_available_message));
-            newItemRow.addView(noInvTV);
+            noInvTV.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+            TableRow.LayoutParams params = (TableRow.LayoutParams) noInvTV.getLayoutParams();
+            params.span = '4';
+            noInvTV.setLayoutParams(params); // causes layout update
+            newItemRow.addView(noInvTV, -1, params);
+            itemTable.addView(newItemRow);
+
         }
     }
 
@@ -176,8 +183,8 @@ public class InventoryActivity extends AppCompatActivity {
             protected void onPostExecute(Void result) {
                 super.onPostExecute(result);
                 disconnectInventory();
-                progressDialog.dismiss();
                 getInventoryListAndPopulate();
+                progressDialog.dismiss();
             }
         }.execute();
     }
